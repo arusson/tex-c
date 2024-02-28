@@ -1,0 +1,22 @@
+[book]
+authors = ["A. Russon"]
+language = "en"
+multilingual = false
+src = "src"
+title = "TeX in C"
+
+[output.html]
+no-section-label = true
+curly-quotes = true
+default-theme = "Ayu"
+preferred-dark-theme = "Ayu"
+
+[output.html.print]
+enable = false
+
+[preprocessor.katex]
+after = ["links"]
+macros = "texmacros.txt"
+
+[preprocessor.weaving]
+command = "python3 preprocessor.py"

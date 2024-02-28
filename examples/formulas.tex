@@ -1,0 +1,295 @@
+\parindent0pt
+\parskip1ex
+
+\def\separator{%
+\bigskip
+\hrule
+\bigskip}
+
+\def\exercise #1:{\bigskip\noindent{\bf EXERCISE #1}\par\nobreak\medskip}
+
+% ----------------------------------------------------------------
+
+Fractions:
+
+$$
+x + y^2 \over k + 1
+$$
+
+$$
+{x^2 + y^2 \over k } + 1
+$$
+
+$$
+x + {y^2 \over k} + 1
+$$
+
+$$
+x + {y^2 \over k + 1}
+$$
+
+$$
+x + y^{2 \over k + 1}
+$$
+
+$$
+a_0 + {1 \over a_1 + {1 \over a_2 + {1 \over a_3 + {1 \over a_4}}}}
+$$
+
+$$
+a_0 + {1 \over \displaystyle a_1 + {\strut 1 \over \displaystyle a_2 + {\strut1 \over \displaystyle a_3 + {\strut 1 \over a_4}}}}
+$$
+
+Choose:
+
+$$
+{p \choose 2}x^2y^{p-2} - {1 \over 1 - x} {1 \over 1 - x^2}.
+$$
+
+Square roots:
+
+$$
+\sqrt{1+\sqrt{1+\sqrt{1+
+    \sqrt{1+\sqrt{1+\sqrt{1+\sqrt{1+x}}}}}}}
+$$
+
+Sum and stacks:
+
+$$
+\sum_{{\scriptstyle 1 \le i \le p \atop \scriptstyle 1 \le j \le q} \atop \scriptstyle 1 \le k \le r} a_{ij}b_{jk}c_{ki}
+$$
+
+Braces:
+
+$$
+\overbrace{x + \cdots + x}^{k\rm\;times}
+$$
+
+$$
+\underbrace{x + y + z}_{>\,0}.
+$$
+
+Matrices:
+
+$$
+A=\left(\matrix{x-\lambda & 1         & 0 \cr
+                0         & x-\lambda & 1\cr
+                0         & 0         & x-\lambda\cr}\right).
+$$
+
+$$M=\bordermatrix{&C&I&C'\cr
+                C&1&0&0\cr  I&b&1-b&0\cr  C'&0&a&1-a\cr}$$
+
+\separator
+
+\exercise 16.7:
+
+$$
+10^{10}\quad 2^{n+1} \quad (n + 1)^2 \quad \sqrt{1 - x^2} \quad \overline{w + \overline z} \quad p_1^{e_1} \quad a_{b_{c_{d_e}}} \quad \root 3 \of {h_n''(\alpha x)}
+$$
+
+\exercise 17.13:
+
+$$
+\pi(n) = \sum_{k=2}^n \left\lfloor \phi(k) \over k - 1 \right\rfloor.
+$$
+
+\exercise 17.14:
+
+$$
+\pi(n) = \sum_{m=2}^n \left\lfloor \biggl( 
+\sum_{k=1}^{m-1} \left\lfloor (m / k) \big/ \lceil m/k\rceil \right\rfloor
+\biggr)^{-1} \right\rfloor.
+$$
+
+\exercise 18.23:
+
+$$
+f(x) = \cases{1/3 & if $0 \le x \le 1$;\cr
+              2/3 & if $3 \le x \le 4$;\cr
+              0   & elsewhere.\cr}
+$$
+
+\exercise 18.24:
+
+$$
+\left\lgroup\matrix{
+a & b & c \cr
+d & e & f \cr}\right\rgroup
+\left\lgroup\matrix{
+u & x \cr
+v & y \cr
+w & z \cr}\right\rgroup
+$$
+
+\exercise 18.27:
+
+First challenge: $n^{\rm th}$.
+
+\exercise 18.28:
+
+The second challenge: ${\bf S}^{-1}{\bf TS} = {\bf dg}(w_1,\ldots,w_n) = {\bf\Lambda}$.
+
+\exercise 18.29:
+
+The third challenge: $\Pr(\, m = n \mid m + n = 3\,)$.
+
+\exercise 18.30:
+
+The fourth challenge: $\sin 18^\circ = {1 \over 4}(\sqrt 5 - 1)$.
+
+\exercise 18.31:
+
+The fifth challenge: $k = 1.38065 \times 10^{-16}\, {\rm erg\,K}^{-1}$.
+
+\exercise 18.32:
+
+The sixth challenge: $\bar\Phi \subset NL_1^*/N = \bar L_1^* \subseteq\cdots\subseteq
+NL_n^*/N = \bar L_n^*$.
+
+\exercise 18.33:
+
+Seventh challenge: $I(\lambda) = \int\!\!\int_D g(x,y)e^{i\lambda h(x,y)}\,dx\,dy$.
+
+\exercise 18.34:
+
+Eighth challenge: $\int_0^1\cdots\int_0^1 f(x_1,\ldots,x_n)\,dx_1\ldots dx_n$.
+
+\exercise 18.35:
+
+Ninth challenge:
+$$
+x_{2m} \equiv \cases{
+Q(X_m^2 - P_2W_m^2) - 2S^2 & ($m$ odd) \cr
+P_2^2(X_m^2 - P_2W_m^2) - 2S^2 & ($m$ even) \cr
+}
+\pmod N.
+$$
+
+\exercise 18.36:
+
+Number 10:
+$$
+(1 + x_1z + x_1^2z^2 + \cdots) \ldots (1 + x_1z + x_1^2z^2 + \cdots) =
+{1 \over (1 - x_1z) \ldots (1 - x_1z)}.
+$$
+
+\exercise 18.37:
+
+Number 11:
+$$
+\prod_{j \ge 0}\biggl(\sum_{k\ge 0} a_{jk}z^k\biggr) =
+\sum_{n\ge 0} z^n \Biggl(\sum_{k_0,k_1,\ldots \ge 0 \atop k_0 + k_1 + \cdots = n}
+a_{0k_0} a_{1k_1} \ldots  \Biggr).
+$$
+
+\exercise 18.38:
+
+Number 12:
+$$
+{(n_1 + n_2 + \cdots + n_m)! \over n_1!\,n_2!\,\ldots n_m!} =
+{n_1 + n_2 \choose n_2} {n_1 + n_2 + n_3 \choose n_3}\ldots
+{n_1 + n_2 + \cdots + n_m \choose n_m}
+$$
+
+\exercise 18.39:
+
+Number 13:
+$$
+\Pi_R\left[\matrix{a_1,a_2,\ldots,a_M \cr
+b_1,b_2,\ldots,b_N \cr}\right] =
+\prod_{n=0}^R
+{(1 - q^{a_1+n})(1 - q^{a_2+n})\ldots(1 - q^{a_M+n}) \over 
+(1 - q^{b_1+n})(1 - q^{b_2+n})\ldots(1 - q^{b_N+n})}.
+$$
+
+\exercise 18.40:
+
+Number 14:
+$$
+\sum_{p {\rm prime}} f(p) = \int_{t>1} f(t)\,d\pi(t).
+$$
+
+\exercise 18.41:
+
+Number 15:
+$$
+\{\underbrace{
+\overbrace{\vphantom{ly}a,\ldots,a}^{k\ a{\rm 's}}, \overbrace{b,\ldots,b}^{l\ b{\rm 's}}}_{k+l\ {\rm elements}}\}.
+$$
+
+\exercise 18.42:
+
+Number 16:
+$$
+\pmatrix{
+\pmatrix{a&b\cr c&d} & \pmatrix{e&f\cr g&h} \cr \noalign{\smallskip}
+0 & \pmatrix{i&j\cr k&l}
+}.
+$$
+
+\exercise 18.43:
+
+Number 17:
+$$
+\det\left\vert \matrix{
+c_0\hfill & c_1 \hfill& c_2\hfill &\cdots \hfill& c_n\hfill \cr
+c_1 \hfill& c_2 \hfill& c_3 \hfill&\cdots \hfill& c_{n+1}\hfill \cr
+c_2 \hfill& c_3 \hfill& c_4 \hfill&\cdots \hfill& c_{n+2}\hfill \cr
+\vdots \hfill& \vdots \hfill& \vdots\hfill & & \vdots\hfill \cr
+c_n \hfill& c_{n+1} \hfill& c_{n+2}\hfill &\cdots & c_{2n}\hfill
+}\right\vert > 0
+$$
+
+\exercise 18.44:
+
+Number 18:
+$$
+\mathop{{\sum}'}_{x\in A} f(x) \mathop=^{\rm def} \sum_{\scriptstyle x\in A \atop \scriptstyle x\neq 0} f(x).
+$$
+
+\exercise 18.45:
+
+Number 19:
+
+$$
+2\uparrow\uparrow k \mathop=^{\rm def} 2^{2^{2^{\cdot^{\cdot^{\cdot^2}}}}}k.
+$$
+
+\exercise 18.46:
+
+Number 20:
+
+$$\def\normalbaselines{\baselineskip20pt
+  \lineskip3pt \lineskiplimit3pt }
+\def\mapright#1{\smash{
+    \mathop{\longrightarrow}\limits^{#1}}}
+\def\mapdown#1{\Big\downarrow
+  \rlap{$\vcenter{\hbox{$\scriptstyle#1$}}$}}
+\matrix{&&&&&&0\cr
+  &&&&&&\mapdown{}\cr
+  0&\mapright{}&{\cal O}_C&\mapright\iota&
+    \cal E&\mapright\rho&\cal L&\mapright{}&0\cr
+  &&\Big\Vert&&\mapdown\phi&&\mapdown\psi\cr
+  0&\mapright{}&{\cal O}_C&\mapright\pi&
+    \pi_*{\cal O}_D&\mapright\delta&
+    R^1f_*{\cal O}_V(-D)&\mapright{}&0\cr
+  &&&&&&\mapdown{\theta_i\otimes\gamma^{-1}}\cr
+  &&&&&&\hidewidth R^1f_*\bigl({\cal O}
+    _V(-iM)\bigr)\otimes\gamma^{-1}\hidewidth\cr
+  &&&&&&\mapdown{}\cr
+  &&&&&&0\cr}$$
+
+\exercise 19.13:
+
+$$
+\eqalignno{\biggl(\int_{-\infty}^\infty e^{-x^2}\,dx\biggr)^2
+           & = \int_{-\infty}^\infty\int_{-\infty}^\infty
+               e^{-(x^2+y^2)}\,dx\,dy\cr
+           & = \int_0^{2\pi}\int_0^\infty e^{-r^2}r\,dr\,d\theta\cr
+           & = \int_0^{2\pi}\biggl(-{e^{-r^2}\over2}
+               \bigg|_{r=0}^{r=\infty}\,\biggr)\,d\theta\cr
+           & = \pi. & (11)\cr}
+$$
+
+\bye

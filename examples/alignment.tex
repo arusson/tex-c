@@ -1,0 +1,77 @@
+\parindent0pt
+
+\def\\{{\it c\/}}
+\def\exercise #1:{\bigskip\noindent{\bf EXERCISE #1}\par\nobreak\medskip}
+
+\def\separator{%
+\bigskip
+\hrule
+\bigskip}
+
+% --------------------------------------
+
+\exercise 22.1:
+
+\def\half{\leavevmode\kern.1em\raise.5ex\hbox{\the\scriptfont0 1}\kern-.1em/\kern-.15em\lower.25ex\hbox{\the\scriptfont0 2}}
+
+$$\vbox{\settabs\+\indent&10\half{} lbs.\qquad&\it Servings\qquad&\cr
+\+&\it \negthinspace Weight & \it Servings & {\it Approximate Cooking Time\/}*\cr
+\smallskip
+\+&8 lbs.    & 6            & 1 hour and 50 to 55 minutes \cr
+\+& 9 lbs.    & 7 to 8       & About 2 hours \cr
+\+ & 9\half\ lbs. & 8 to 9     & 2 hours and 10 to 15 minutes \cr
+\+ & 10\half\ lbs. & 9 to 10   & 2 hours and 15 to 20 minutes \cr
+\smallskip
+\+ & * For a stuffed goose, add 20 to 40 minutes to the times given.\cr}$$
+
+\exercise 22.6:
+
+\tabskip0pt
+\halign to \hsize {\sl#\hfil\tabskip.5em plus .5em&
+#\hfil\tabskip0em plus .5em&
+\hfil#\tabskip1em plus 2em&
+\sl#\hfil\tabskip.5em plus .5em&
+#\hfil\tabskip0em plus .5em&
+#\hfil\tabskip0pt\cr
+England & P. Philips & 1560--1628   & Netherlands & J. P. Sweelinck & 1562--1621\cr
+        & K. Bull    & \\1563--1628 &             & P. Cornet       & \\1570--1633\cr
+Germany & H. L. Hassler & 1562--1612 & Italy & G. Frescobaldi & 1583--1643\cr
+        & H. L. Pr\ae storius & 1571--1621 & Spain & F. Correa de Arauzo & \\1576--1654\cr
+France  & J. Titelouze & 1563--1633 & Portugal & M. R. Coelho & \\1555--\\1635\cr
+}
+
+\vskip1cm
+
+\exercise 22.7:
+
+\def\bfeq#1={{\bf #1} =}
+
+\tabskip0pt
+\halign to \hsize{\bfeq #\hfil \tabskip1em plus 1fil& \bfeq #\hfil & \bfeq #\hfil \tabskip0pt\cr
+rydw i = I am      & ydw i = am I      & roeddwn i = I was      \cr
+rwyt ti = thou art & wyt ti = art thou & roeddet ti = thou want \cr
+mae e = he is      & ydy e = is he     & roedd e = he was       \cr
+}
+
+\exercise 22.11:
+
+$$
+\pmatrix{
+    a_{11} & a_{12} & \ldots & a_{1n} \cr
+    a_{21} & a_{22} & \ldots & a_{2n} \cr
+    \multispan4 \dotfill \cr
+    a_{m1} & a_{m2} & \ldots & a_{mn} \cr}
+$$
+
+\separator
+
+$$\vbox{
+\+\bf if $n < r$ \cleartabs & \bf then $n:=n+1$\cr
+\+&\bf else &{\bf begin} ${\it print\_totals}$; $n:=0$;\cr
+\+&&{\bf end};\cr
+\+\bf while $p > 0$ do\cr
+\+\quad\cleartabs& {\bf begin} $q:= {\it link}(p)$; ${\it free\_node}(p)$; $p := q$;\cr
+\+     & {\bf end};\cr
+}$$
+
+\bye

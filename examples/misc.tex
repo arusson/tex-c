@@ -1,0 +1,100 @@
+\def\exercise #1:{\bigskip\noindent{\bf EXERCISE #1}\par\nobreak\medskip}
+
+% ------------------------------------------------------------
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Vivamus enim sapien, ornare tempor posuere sed, pharetra quis ante.
+Sed rutrum nunc non aliquam dapibus.
+Nulla facilisi.
+Donec vestibulum volutpat lectus vel convallis.
+Donec aliquet libero ut elementum fermentum.
+Nam dapibus mattis ex, vel elementum risus elementum vitae.
+Donec tincidunt, dolor nec efficitur dapibus, nulla augue suscipit elit, et porttitor sapien lectus at metus.
+Curabitur erat turpis, rhoncus in leo in, tempus sodales nibh.
+Proin tristique a ex quis venenatis.
+Sed porttitor dolor a leo interdum, sit amet dapibus risus elementum.
+
+{\it\narrower\narrower\smallskip\noindent
+This paragraph will have narrower lines than
+the surrounding paragraphs do, because it uses the ``narrower'' feature of plain \TeX.
+The former margins will be restored after the group ends.\smallskip}
+Nam vel tortor odio.
+Nam tempor ipsum eu urna viverra, sit amet tincidunt eros ornare.
+Maecenas ligula magna, maximus at eros non, mattis commodo erat.
+Donec fringilla nisi tellus, id blandit est suscipit et.
+Sed hendrerit imperdiet sapien et commodo.
+Aliquam placerat ac velit quis feugiat.
+Vivamus dapibus nunc vel mi euismod maximus.
+Etiam in arcu non mi gravida dignissim sit amet eu sem.
+Suspendisse ornare turpis eu dui maximus, sed euismod nibh pulvinar.
+Phasellus lorem quam, interdum varius pretium et, ornare sit amet mauris.
+
+\parindent0pt
+
+Example of list:
+\item{1.} This is the first of several cases that are being
+enumerated, with hanging indentation applied to entire paragraphs.
+\itemitem{a)} This is the first subcase.
+\itemitem{b)} And this is the second subcase. Notice
+that subcases have twice as much hanging indentation.
+\item{2.} The second case is similar.
+
+
+Leaders:
+\def\leaderfill{\leaders\hbox to 1em{\hss.\hss}\hfill}
+
+\line{Alpha\leaderfill Omega}
+\line{TheBeginning\leaderfill The Ending}
+
+Font sizes:
+
+\font\ninerm=cmr9
+\font\eightrm=cmr8
+\font\sixrm=cmr6
+
+For example: \tenrm smaller \ninerm and smaller \eightrm and smaller \sevenrm and smaller \sixrm and smaller \fiverm and smaller \tenrm, and now back to normal.
+
+\font\magnifiedfiverm=cmr5 at 10pt
+Ten-point type is different from {\magnifiedfiverm magnified five-point type}.
+
+\font\onebigtenrm=cmr10 scaled\magstep1
+\font\twobigtenrm=cmr10 scaled\magstep2
+\font\onebigtentt=cmtt10 scaled\magstep1
+\font\twobigtentt=cmtt10 scaled\magstep2
+
+This is {\tentt cmr10} at normalsize.
+
+\onebigtenrm This is {\onebigtentt cmr10} scaled once by 1.2.
+
+\twobigtenrm This is {\twobigtentt cmr10} scaled twice once by 1.2.
+
+\tenrm
+
+% ------------------------------------------------------------------------
+
+
+\bigskip
+\hrule
+\bigskip
+
+\exercise 17.17:
+
+\def\euler{\atopwithdelims\langle\rangle}
+
+$$
+a = {n \euler k}
+$$
+
+\exercise 21.3:
+
+\def\boxit#1{\vbox{\hrule\hbox{\vrule\kern3pt
+   \vbox{\kern3pt#1\kern3pt}\kern3pt\vrule}\hrule}}
+
+\setbox4=\vbox{\hsize 23pc \strut For example, the sentence you are now reading...\strut}
+
+$$
+\boxit{\boxit{\box4}}
+$$
+
+
+\bye
