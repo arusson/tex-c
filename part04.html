@@ -1,0 +1,534 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 38–53 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html" class="active">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-38-string-handling"><a class="header" href="#section-38-string-handling">Section 38: String handling</a></h1>
+<p>Control sequence names and diagnostic messages are variable-length strings of eight-bit characters.
+Since Pascal does not have a well-developed string mechanism, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> does all of its string processing by homegrown methods.</p>
+<p>Elaborate facilities for dynamic strings are not needed, so all of the necessary operations can be handled with a simple data structure.
+The array <em>str_pool</em> contains all of the (eight-bit) ASCII codes in all of the strings, and the array <em>str_start</em> contains indices of the starting points of each string.
+Strings are referred to by integer numbers, so that string number <em>s</em> comprises the characters <em>str_pool[j]</em> for <em>str_start[s]</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>j</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>str_start[s + 1]</em>.
+Additional integer variables <em>pool_ptr</em> and <em>str_ptr</em> indicate the number of entries used so far in <em>str_pool</em> and <em>str_start</em>, respectively;
+locations <em>str_pool[pool_ptr]</em> and <em>str_start[str_ptr]</em> are ready for the next string to be allocated.</p>
+<p>String numbers 0 to 255 are reserved for strings that correspond to single ASCII characters.
+This is in accordance with the conventions of <code>WEB</code>, which converts single-character strings into the ASCII code number of the single character involved, while it converts other strings into integers and builds a string pool file.
+Thus, when the string constant <code>"."</code> appears in the program below, <code>WEB</code> converts it into the integer 46, which is the ASCII code for a period, while <code>WEB</code> will convert a string like <code>"hello"</code> into some integer greater than 255.
+String number 46 will presumably be the single character ‘<code>.</code>’;
+but some ASCII codes have no standard visible representation, and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> sometimes needs to be able to print an arbitrary ASCII character, so the first 256 strings are used to specify exactly what should be printed for each of the 256 possibilities.</p>
+<p>Elements of the <em>str_pool</em> array must be ASCII codes that can actually be printed; i.e., they must have an <em>xchr</em> equivalent in the local character set.
+(This restriction applies only to preloaded strings, not to those generated dynamically by the user.)</p>
+<p>Some Pascal compilers won’t pack integers into a single byte unless the integers lie in the range <em>−128 .. 127</em>.
+To accommodate such systems we access the string pool only via macros that can easily be redefined.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Strings in the source code are mostly handled as <code>char *</code> and not how <code>WEB</code> used to do (using an external file to copy during preprocessing, and then loaded them in the string pool).</p>
+<p>The <em>si</em> and <em>so</em> macros are not needed, and <em>packed_ASCII_code</em> is not introduced.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Types in the outer block <a href="./part02.html#section-18">18</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">typedef int pool_pointer; // for variables that point into |str_pool|
+typedef int str_number;   // for variables that point into |str_start|
+</code></pre>
+</div>
+<h1 id="section-39"><a class="header" href="#section-39">Section 39</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">ASCII_code   str_pool[POOL_SIZE + 1];    // the characters
+pool_pointer str_start[MAX_STRINGS + 1]; // the starting pointers
+pool_pointer pool_ptr;                   // first unused position in |str_pool|
+str_number   str_ptr;                    // number of the current string being created
+pool_pointer init_pool_ptr;              // the starting value of |pool_ptr|
+str_number   init_str_ptr;               // the starting value of |str_ptr|
+</code></pre>
+</div>
+<h1 id="section-40"><a class="header" href="#section-40">Section 40</a></h1>
+<p>Several of the elementary string operations are performed using <code>WEB</code> macros instead of Pascal procedures, because many of the operations are done quite frequently and we want to avoid the overhead of procedure calls.
+For example, here is a simple macro that computes the length of a string.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |strings.h|, 1381 &gt;&gt;
+
+#define length(X) (str_start[(X) + 1] - str_start[(X)]) // the number of characters in string number X
+</code></pre>
+</div>
+<h1 id="section-41"><a class="header" href="#section-41">Section 41</a></h1>
+<p>The length of the current string is called <em>cur_length</em>:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.h</div>
+<pre><code class="language-c">#define cur_length (pool_ptr - str_start[str_ptr])
+</code></pre>
+</div>
+<h1 id="section-42"><a class="header" href="#section-42">Section 42</a></h1>
+<p>Strings are created by appending character codes to <em>str_pool</em>.
+The <em>append_char</em> macro, defined here, does not check to see if the value of <em>pool_ptr</em> has gotten too high; this test is supposed to be made before <em>append_char</em> is used.
+There is also a <em>flush_char</em> macro, which erases the last character appended.</p>
+<p>To test if there is room to append <em>l</em> more characters to <em>str_pool</em>, we shall write <em>str_room(l)</em>, which aborts <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> and gives an apologetic error message if there isn’t enough room.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.h</div>
+<pre><code class="language-c">// put |ASCII_code| X at the end of |str_pool|
+#define append_char(X) str_pool[pool_ptr] = (X); incr(pool_ptr)
+
+// forget the last character in the pool
+#define flush_char decr(pool_ptr)
+
+// make sure that the pool hasn't overflowed
+#define str_room(X)                                           \
+    do {                                                      \
+        if (pool_ptr + (X) &gt; POOL_SIZE) {                     \
+            overflow("pool size", POOL_SIZE - init_pool_ptr); \
+        }                                                     \
+    } while (0)
+</code></pre>
+</div>
+<h1 id="section-43"><a class="header" href="#section-43">Section 43</a></h1>
+<p>Once a sequence of characters has been appended to <em>str_pool</em>, it officially becomes a string when the function <em>make_string</em> is called.
+This function returns the identification number of the new string as its value.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.c</div>
+<pre><code class="language-c">// current string enters the pool
+str_number make_string() {
+    if (str_ptr == MAX_STRINGS) {
+        overflow("number of strings", MAX_STRINGS - init_str_ptr);
+    }
+    incr(str_ptr);
+    str_start[str_ptr] = pool_ptr;
+    return str_ptr - 1;
+}
+</code></pre>
+</div>
+<h1 id="section-44"><a class="header" href="#section-44">Section 44</a></h1>
+<p>To destroy the most recently made string, we say <em>flush_string</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.h</div>
+<pre><code class="language-c">#define flush_string decr(str_ptr); pool_ptr = str_start[str_ptr]
+</code></pre>
+</div>
+<h1 id="section-45"><a class="header" href="#section-45">Section 45</a></h1>
+<p>The following subroutine compares string <em>s</em> with another string of the same length that appears in <em>buffer</em> starting at position <em>k</em>;
+the result is <em>true</em> if and only if the strings are equal.
+Empirical tests indicate that <em>str_eq_buf</em> is used in such a way that it tends to return <em>true</em> about 80 percent of the time.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.c</div>
+<pre><code class="language-c">// test equality of strings
+int str_eq_buf(str_number s, int k) {
+    pool_pointer j;     // running index
+    bool result = true; // result of comparison;
+    j = str_start[s];
+    while (j &lt; str_start[s + 1]) {
+        if (str_pool[j] != buffer[k]) {
+            result = false;
+            break; // Goto not_found
+        }
+        incr(j);
+        incr(k);
+    }
+    // not_found:
+    return result;
+}
+</code></pre>
+</div>
+<h1 id="section-46"><a class="header" href="#section-46">Section 46</a></h1>
+<p>Here is a similar routine, but it compares two strings in the string pool, and it does not assume that they have the same length.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.c</div>
+<pre><code class="language-c">// test equality of strings
+int str_eq_str(str_number s, str_number t) {
+    pool_pointer j, k;   // running indices
+    bool result = false; // result of comparison
+    if (length(s) != length(t)) {
+        goto not_found;
+    }
+    j = str_start[s];
+    k = str_start[t];
+    while (j &lt; str_start[s + 1]) {
+        if (str_pool[j] != str_pool[k]) {
+            goto not_found;
+        }
+        incr(j);
+        incr(k);
+    }
+    result = true;
+not_found:
+    return result;
+}
+</code></pre>
+</div>
+<h1 id="section-47"><a class="header" href="#section-47">Section 47</a></h1>
+<p>The initial values of <em>str_pool</em>, <em>str_start</em>, <em>pool_ptr</em>, and <em>str_ptr</em> are computed by the <code>INITEX</code> program, based in part on the information that <code>WEB</code> has output while processing <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Most of the internal strings in the source code are treated as <code>char *</code> instead of using the <code>TEX.POOL</code> file that <code>WEB</code> creates while tangling.
+Though, some of them are still needed in <em>str_pool</em> which is taken care of in ⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.c</div>
+<pre><code class="language-c">#ifdef INIT
+// initializes the string pool
+void get_strings_started() {
+    int k, l; // small indices or counters
+    pool_ptr = 0;
+    str_ptr = 0;
+    str_start[0] = 0;
+    // &lt;&lt; Make the first 256 strings, 48 &gt;&gt;
+    // &lt;&lt; Read the other strings, 51 &gt;&gt;
+}
+#endif
+</code></pre>
+</div>
+<h1 id="section-48"><a class="header" href="#section-48">Section 48</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.h</div>
+<pre><code class="language-c">#define app_lc_hex(X)                  \
+    do {                               \
+        l = (X);                       \
+        if (l &lt; 10) {                  \
+            append_char(l + '0');      \
+        }                              \
+        else {                         \
+            append_char(l - 10 + 'a'); \
+        }                              \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make the first 256 strings <a href="./part04.html#section-48">48</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">for (k = 0; k &lt; 256; k++) {
+    if (k &lt; ' ' || k &gt; '~') {
+        append_char('^');
+        append_char('^');
+        if (k &lt; 64) {
+            append_char(k + 64);
+        }
+        else if (k &lt; 128) {
+            append_char(k - 64);
+        }
+        else {
+            app_lc_hex(k / 16);
+            app_lc_hex(k % 16);
+        }
+    }
+    else {
+        append_char(k);
+    }
+    make_string();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part04.html#section-47">47</a>.</p>
+</div></div>
+<h1 id="section-49"><a class="header" href="#section-49">Section 49</a></h1>
+<p>The first 128 strings will contain 95 standard ASCII characters, and the other 33 characters will be printed in three-symbol form like ‘<code>^^A</code>’ unless a system-dependent change is made here. Installations that have an extended character set, where for example <em>XCHR[26]</em> = ‘<code>≠</code>’, would like string 26 to be the single character 26 instead of the three characters 94, 94, 90 (<code>^^Z</code>).
+On the other hand, even people with an extended character set will want to represent string 13 by <code>^^M</code>, since 13 is <em>CARRIAGE_RETURN</em>;
+the idea is to produce visible strings instead of tabs or line-feeds or carriage-returns or bell-rings or characters that are treated anomalously in text files.</p>
+<p>Unprintable characters of codes 128–255 are, similarly, rendered <code>^^80</code>–<code>^^ff</code>.</p>
+<p>The boolean expression defined here should be <em>true</em> unless <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> internal code number <em>k</em> corresponds to a non-troublesome visible symbol in the local character set.
+An appropriate formula for the extended character set recommended in <em>The TeXbook</em> would, for example, be <em>k</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">∈</span></span></span></span> <em>[0, 8 .. 10, 12, 13, 27, 127 .. 255]</em>.
+If character <em>k</em> cannot be printed, and <em>k</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>128</em>, then character <em>k</em> + 64 or <em>k − 64</em> must be printable;
+moreover, ASCII codes <em>[33 .. 38, 48 .. 57, 94, 97 .. 102, 112 .. 121]</em> must be printable.
+Thus, at least 80 printable characters are needed.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The condition ⟨ Character |k| cannot be printed, 49 ⟩ is already included in section <a href="./part04.html#section-48">48</a>.</p>
+</blockquote>
+</div>
+<h1 id="section-50"><a class="header" href="#section-50">Section 50</a></h1>
+<p>When the <code>WEB</code> system program called <code>TANGLE</code> processes the <code>TEX.WEB</code> description that you are now reading, it outputs the Pascal program <code>TEX.PAS</code> and also a string pool file called <code>TEX.POOL</code>.
+The <code>INITEX</code> program reads the latter file, where each string appears as a two-digit decimal length followed by the string itself, and the information is recorded in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s string memory.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The pool file is not used.</p>
+</blockquote>
+</div>
+<h1 id="section-51"><a class="header" href="#section-51">Section 51</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>We don’t read from a pool file, but some strings are still needed to be added in the string pool.</p>
+<p>This is a procedure that adds a <code>char *</code> string in the pool, with an example to add the empty string.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.c</div>
+<pre><code class="language-c">str_number put_string(char *s) {
+    int n = strlen(s);
+    str_room(n);
+    memcpy(&amp;str_pool[pool_ptr], s, n);
+    pool_ptr += n;
+    return make_string();
+}
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">put_string(""); // Empty string, its number should be 256
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part18.html#section-258">258</a>, <a href="./part29.html#section-514">514</a>, <a href="./part29.html#section-520">520</a>, <a href="./part29.html#section-530">530</a>, <a href="./part29.html#section-532">532</a>, <a href="./part29.html#section-534">534</a>, <a href="./part30.html#section-552">552</a>, <a href="./part30.html#section-563">563</a>, <a href="./part37.html#section-780">780</a>, <a href="./part49.html#section-1216">1216</a>, <a href="./part49.html#section-1257">1257</a>, <a href="./part50.html#section-1301">1301</a>, and <a href="./part53.html#section-1369">1369</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part04.html#section-47">47</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">// &lt;&lt; Internal strings numbers in the pool, 51 &gt;&gt;
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#define EMPTY_STRING 256 // ""
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part18.html#section-258">258</a>, <a href="./part29.html#section-514">514</a>, <a href="./part29.html#section-520">520</a>, <a href="./part29.html#section-530">530</a>, <a href="./part29.html#section-532">532</a>, <a href="./part29.html#section-534">534</a>, <a href="./part30.html#section-552">552</a>, <a href="./part30.html#section-563">563</a>, <a href="./part37.html#section-780">780</a>, <a href="./part49.html#section-1216">1216</a>, <a href="./part49.html#section-1257">1257</a>, <a href="./part50.html#section-1301">1301</a>, and <a href="./part53.html#section-1369">1369</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part04.html#section-51">51</a>.</p>
+</div></div>
+<h1 id="section-52"><a class="header" href="#section-52">Section 52</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The pool file is not used.</p>
+</blockquote>
+</div>
+<h1 id="section-53"><a class="header" href="#section-53">Section 53</a></h1>
+<p>The <code>WEB</code> operation <code>@$</code> denotes the value that should be at the end of this <code>TEX.POOL</code> file; any other value means that the wrong pool file has been loaded.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The pool file is not used.</p>
+</blockquote>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part03.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part05.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part03.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part05.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

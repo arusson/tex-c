@@ -1,0 +1,707 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 919–941 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html" class="active">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-919-hyphenation"><a class="header" href="#section-919-hyphenation">Section 919: Hyphenation</a></h1>
+<p>When a word <em>hc[1 .. hn]</em> has been set up to contain a candidate for hyphenation, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> first looks to see if it is in the user’s exception dictionary.
+If not, hyphens are inserted based on patterns that appear within the given word, using an algorithm due to Frank M. Liang.</p>
+<p>Let’s consider Liang’s method first, since it is much more interesting than the exception-lookup routine.
+The algorithm begins by setting <em>hyf[j]</em> to zero for all <em>j</em>, and invalid characters are inserted into <em>hc[0]</em> and <em>hc[hn + 1]</em> to serve as delimiters.
+Then a reasonably fast method is used to see which of a given set of patterns occurs in the word <em>hc[0  .. (hn + 1)]</em>.
+Each pattern <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> of length <em>k</em> has an associated sequence of <em>k + 1</em> numbers <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>; and if the pattern occurs in <em>hc[(j + 1) .. (j + k)]</em>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will set <em>hyf[j + i] = max(hyf[j + i], <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)</em> for 0 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>i</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>k</em>.
+After this has been done for each pattern that occurs, a discretionary hyphen will be inserted between <em>hc[j]</em> and <em>hc[j + 1]</em> when <em>hyf[j]</em> is odd, as we have already seen.</p>
+<p>The set of patterns <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and associated numbers <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> depends, of course, on the language whose words are being hyphenated, and on the degree of hyphenation that is desired.
+A method for finding appropriate <em>p</em>’s and <em>n</em>’s, from a given dictionary of words and acceptable hyphenations, is discussed in Liang’s Ph.D. thesis (Stanford University, 1983); <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> simply starts with the patterns and works from there.</p>
+<h1 id="section-920"><a class="header" href="#section-920">Section 920</a></h1>
+<p>The patterns are stored in a compact table that is also efficient for retrieval, using a variant of “trie memory” [cf. <em>The Art of Computer Programming</em> <strong>3</strong> (1973), 481–505].
+We can find each pattern <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> by letting <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> be one greater than the relevant language index and then, for 1 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>i</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>k</em>, setting <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> ← <em>trie_link</em>(<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span>) + <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>;
+the pattern will be identified by the number <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.
+Since all the pattern information is packed together into a single <em>trie_link</em> array, it is necessary to prevent confusion between the data from inequivalent patterns, so another table is provided such that <em>trie_char(</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><em>)</em> = <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> for all <em>i</em>.
+There is also a table <em>trie_op</em>(<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>) to identify the numbers <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> associated with <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</p>
+<p>Comparatively few different number sequences <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> actually occur, since most of the <em>n</em>’s are generally zero.
+Therefore the number sequences are encoded in such a way that <em>trie_op</em>(<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>) is only one byte long.
+If <em>trie_op</em>(<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>) <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>MIN_QUARTERWORD</em>, when <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> has matched the letters in <em>hc[(l − k + 1) ..  l]</em> of language <em>t</em>, we perform all of the required operations for this pattern by carrying out the following little program:
+Set <em>v</em> ← <em>trie_op(<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)</em>.
+Then set <em>v</em> ← <em>v</em> + <em>op_start[t]</em>, <em>hyf[l − hyf_distance[v]]</em> ← <em>max(hyf[l − hyf_distance[v]], hyf_num[v])</em>, and <em>v</em> ← <em>hyf_next[v]</em>;
+repeat, if necessary, until <em>v = MIN_QUARTERWORD</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Types in the outer block <a href="./part02.html#section-18">18</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">typedef int trie_pointer;
+</code></pre>
+</div>
+<h1 id="section-921"><a class="header" href="#section-921">Section 921</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define trie_link(X) hh_rh(trie[(X)]) // "downward" link in a trie
+#define trie_char(X) hh_b1(trie[(X)]) // character matched at this trie location
+#define trie_op(X)   hh_b0(trie[(X)]) // program for hyphenation at this trie location
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">// |trie_link|, |trie_char|, |trie_op|
+memory_word trie[TRIE_SIZE + 1];
+
+// position |k - j| of $n_j$
+small_number hyf_distance0[TRIE_OP_SIZE];
+small_number *hyf_distance = hyf_distance0 - 1; 
+
+// value of $n_j$
+small_number hyf_num0[TRIE_OP_SIZE];
+small_number *hyf_num = hyf_num0 - 1;
+
+// continuation code
+quarterword hyf_next0[TRIE_OP_SIZE];
+quarterword *hyf_next = hyf_next0 - 1;
+
+// offset for current language
+int op_start[256];
+</code></pre>
+</div>
+<h1 id="section-922"><a class="header" href="#section-922">Section 922</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Local variables for hyphenation <a href="./part41.html#section-901">901</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int z; // an index into |trie|
+int v; // an index into |hyf_distance|, etc.
+</code></pre>
+</div>
+<h1 id="section-923"><a class="header" href="#section-923">Section 923</a></h1>
+<p>Assuming that these auxiliary tables have been set up properly, the hyphenation algorithm is quite short.
+In the following code we set <em>hc[hn + 2]</em> to the impossible value 256, in order to guarantee that <em>hc[hn + 3]</em> will never be fetched.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Find hyphen locations for the word in <em>hc</em>, or <em>return</em> <a href="./part42.html#section-923">923</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">for(j = 0; j &lt;= hn; j++) {
+    hyf[j] = 0;
+}
+// &lt;&lt; Look for the word |hc[1..hn]| in the exception table, and |goto found| (with |hyf| containing the hyphens) if an entry is found, 930 &gt;&gt;
+if (trie_char(cur_lang + 1) != cur_lang) {
+    return; // no patterns for |cur_lang|
+}
+hc[0] = 0;
+hc[hn + 1] = 0;
+hc[hn + 2] = 256; // insert delimiters
+for(j = 0; j &lt;= hn - r_hyf + 1; j++) {
+    z = trie_link(cur_lang + 1) + hc[j];
+    l = j;
+    while (hc[l] == trie_char(z)) {
+        if (trie_op(z) != MIN_QUARTERWORD) {
+            // &lt;&lt; Store maximum values in the |hyf| table, 924 &gt;&gt;
+        }
+        incr(l);
+        z = trie_link(z) + hc[l];
+    }
+}
+found:
+for(j = 0; j &lt;= l_hyf - 1; j++) {
+    hyf[j] = 0;
+}
+for(j = 0; j &lt;= r_hyf - 1; j++) {
+    hyf[hn - j] = 0;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part40.html#section-895">895</a>.</p>
+</div></div>
+<h1 id="section-924"><a class="header" href="#section-924">Section 924</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Store maximum values in the <em>hyf</em> table <a href="./part42.html#section-924">924</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">v = trie_op(z);
+do {
+    v += op_start[cur_lang];
+    i = l - hyf_distance[v];
+    if (hyf_num[v] &gt; hyf[i]) {
+        hyf[i] = hyf_num[v];
+    }
+    v = hyf_next[v];
+} while (v != MIN_QUARTERWORD);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-923">923</a>.</p>
+</div></div>
+<h1 id="section-925"><a class="header" href="#section-925">Section 925</a></h1>
+<p>The exception table that is built by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s <code>\hyphenation</code> primitive is organized as an ordered hash table [cf. Amble and Knuth, <em>The Computer Journal</em> <strong>17</strong> (1974), 135–142] using linear probing.
+If <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span> are words, we will say that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span> if <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mord">∣</span></span></span></span> or if <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mord">∣</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span> is lexicographically smaller than <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span>.
+(The notation <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord">∣</span></span></span></span> stands for the length of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>.)
+The idea of ordered hashing is to arrange the table so that a given word <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span> can be sought by computing a hash address <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span></span></span></span> and then looking in table positions <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">h</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span>, until encountering the first word  <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>.
+If this word is different from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>, we can conclude that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span> is not in the table.</p>
+<p>The words in the table point to lists in <em>mem</em> that specify hyphen positions in their <em>info</em> fields.
+The list for <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> contains the number <em>k</em> if the word <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> has a discretionary hyphen between <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span>.</p>
+<h1 id="section-926"><a class="header" href="#section-926">Section 926</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">str_number hyph_word[HYPH_SIZE + 1]; // exception words
+pointer hyph_list[HYPH_SIZE + 1];    // lists of hyphen positions
+int hyph_count;                      // the number of words in the exception dictionary
+</code></pre>
+</div>
+<h1 id="section-927"><a class="header" href="#section-927">Section 927</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Local variables for initialization <a href="./part02.html#section-19">19</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int z; // runs through the exception dictionary
+</code></pre>
+</div>
+<h1 id="section-928"><a class="header" href="#section-928">Section 928</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">for(z = 0; z &lt;= HYPH_SIZE; z++) {
+    hyph_word[z] = 0;
+    hyph_list[z] = null;
+}
+hyph_count = 0;
+</code></pre>
+</div>
+<h1 id="section-929"><a class="header" href="#section-929">Section 929</a></h1>
+<p>The algorithm for exception lookup is quite simple, as soon as we have a few more local variables to work with.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Local variables for hyphenation <a href="./part41.html#section-901">901</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int h;          // an index into |hyph_word| and |hyph_list|
+str_number k;   // an index into |str_start|
+pool_pointer u; // an index into |str_pool|
+</code></pre>
+</div>
+<h1 id="section-930"><a class="header" href="#section-930">Section 930</a></h1>
+<p>First we compute the hash code <em>h</em>, then we search until we either find the word or we don’t.
+Words from different languages are kept separate by appending the language code to the string.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Look for the word <em>hc[1..hn]</em> in the exception table, and <em>goto found</em> (with <em>hyf</em> containing the hyphens) if an entry is found <a href="./part42.html#section-930">930</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">h = hc[1];
+incr(hn);
+hc[hn] = cur_lang;
+for(j = 2; j &lt;= hn; j++) {
+    h = (h + h + hc[j]) % HYPH_SIZE;
+}
+while(true) {
+    // &lt;&lt; If the string |hyph_word[h]| is less than |hc[1..hn]|, |goto not_found|; but if the two strings are equal, set |hyf| to the hyphen positions and |goto found|, 931 &gt;&gt;
+    if (h &gt; 0) {
+        decr(h);
+    }
+    else {
+        h = HYPH_SIZE;
+    }
+}
+not_found:
+decr(hn);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-923">923</a>.</p>
+</div></div>
+<h1 id="section-931"><a class="header" href="#section-931">Section 931</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If the string <em>hyph_word[h]</em> is less than <em>hc[1..hn]</em>, <em>goto not_found</em>; but if the two strings are equal, set <em>hyf</em> to the hyphen positions and <em>goto found</em> <a href="./part42.html#section-931">931</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">k = hyph_word[h];
+if (k == 0 || length(k) &lt; hn) {
+    goto not_found;
+}
+if (length(k) == hn) {
+    j = 1;
+    u = str_start[k];
+    do {
+        if (str_pool[u] &lt; hc[j]) {
+            goto not_found;
+        }
+        if (str_pool[u] &gt; hc[j]) {
+            goto done;
+        }
+        incr(j);
+        incr(u);
+    } while (j &lt;= hn);
+    // &lt;&lt; Insert hyphens as specified in |hyph_list[h]|, 932 &gt;&gt;
+    decr(hn);
+    goto found;
+}
+done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-930">930</a>.</p>
+</div></div>
+<h1 id="section-932"><a class="header" href="#section-932">Section 932</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert hyphens as specified in <em>hyph_list[h]</em> <a href="./part42.html#section-932">932</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">s = hyph_list[h];
+while (s != null) {
+    hyf[info(s)] = 1;
+    s = link(s);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-931">931</a>.</p>
+</div></div>
+<h1 id="section-933"><a class="header" href="#section-933">Section 933</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Search <em>hyph_list</em> for pointers to <em>p</em> <a href="./part42.html#section-933">933</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">for(q = 0; q &lt;= HYPH_SIZE; q++) {
+    if (hyph_list[q] == p) {
+        print_nl("HYPH(");
+        print_int(q);
+        print_char(')');
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part11.html#section-172">172</a>.</p>
+</div></div>
+<h1 id="section-934"><a class="header" href="#section-934">Section 934</a></h1>
+<p>We have now completed the hyphenation routine, so the <em>line_break</em> procedure is finished at last.
+Since the hyphenation exception table is fresh in our minds, it’s a good time to deal with the routine that adds new entries to it.</p>
+<p>When <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> has scanned ‘<code>\hyphenation</code>’, it calls on a procedure named <em>new_hyph_exceptions</em> to do the right thing.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define set_cur_lang               \
+    do {                           \
+        if (language &lt;= 0) {       \
+            cur_lang = 0;          \
+        }                          \
+        else if (language &gt; 255) { \
+            cur_lang = 0;          \
+        }                          \
+        else {                     \
+            cur_lang = language;   \
+        }                          \
+    } while(0)
+
+void new_hyph_exceptions();
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">hyph_scan.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |hyph_scan.c|, 1382 &gt;&gt;
+
+// enters new exceptions
+void new_hyph_exceptions() {
+    int n;             // length of current word; not always a |small_number|
+    int j;             // an index into |hc|
+    int h;             // an index into |hyph_word| and |hyph_list|
+    str_number k;      // an index into |str_start|
+    pointer p;         // head of a list of hyphen positions
+    pointer q;         // used when creating a new node for list |p|
+    str_number s, t;   // strings being compared or stored
+    pool_pointer u, v; // indices into |str_pool|
+    
+    scan_left_brace(); // a left brace must follow \\hyphenation}
+    set_cur_lang;
+    // &lt;&lt; Enter as many hyphenation exceptions as are listed, until coming to a right brace; then |return|, 935 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-935"><a class="header" href="#section-935">Section 935</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Enter as many hyphenation exceptions as are listed, until coming to a right brace; then <em>return</em> <a href="./part42.html#section-935">935</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">n = 0;
+p = null;
+while(true) {
+    get_x_token();
+reswitch:
+    switch (cur_cmd) {
+    case LETTER:
+    case OTHER_CHAR:
+    case CHAR_GIVEN:
+        // &lt;&lt; Append a new letter or hyphen, 937 &gt;&gt;
+        break;
+    
+    case CHAR_NUM:
+        scan_char_num();
+        cur_chr = cur_val;
+        cur_cmd = CHAR_GIVEN;
+        goto reswitch;
+    
+    case SPACER:
+    case RIGHT_BRACE:
+        if (n &gt; 1) {
+            // &lt;&lt; Enter a hyphenation exception, 939 &gt;&gt;
+        }
+        if (cur_cmd == RIGHT_BRACE) {
+            return;
+        }
+        n = 0;
+        p = null;
+        break;
+    
+    default:
+        // &lt;&lt; Give improper \hyphenation error, 936 &gt;&gt;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-934">934</a>.</p>
+</div></div>
+<h1 id="section-936"><a class="header" href="#section-936">Section 936</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Give improper \hyphenation error <a href="./part42.html#section-936">936</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Improper ");
+print_esc("hyphenation");
+print(" will be flushed");
+help2("Hyphenation exceptions must contain only letters")
+    ("and hyphens. But continue; I'll forgive and forget.");
+error();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-935">935</a>.</p>
+</div></div>
+<h1 id="section-937"><a class="header" href="#section-937">Section 937</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append a new letter or hyphen <a href="./part42.html#section-937">937</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_chr == '-') {
+    // &lt;&lt; Append the value |n| to list |p|, 938 &gt;&gt;
+}
+else {
+    if (lc_code(cur_chr) == 0) {
+        print_err("Not a letter");
+        help2("Letters in \\hyphenation words must have \\lccode&gt;0.")
+            ("Proceed; I'll ignore the character I just read.");
+        error();
+    }
+    else if (n &lt; 63) {
+        incr(n);
+        hc[n] = lc_code(cur_chr);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-935">935</a>.</p>
+</div></div>
+<h1 id="section-938"><a class="header" href="#section-938">Section 938</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append the value <em>n</em> to list <em>p</em> <a href="./part42.html#section-938">938</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (n &lt; 63) {
+    q = get_avail();
+    link(q) = p;
+    info(q) = n;
+    p = q;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-937">937</a>.</p>
+</div></div>
+<h1 id="section-939"><a class="header" href="#section-939">Section 939</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Enter a hyphenation exception <a href="./part42.html#section-939">939</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">incr(n);
+hc[n] = cur_lang;
+str_room(n);
+h = 0;
+for(j = 1; j &lt;= n; j++) {
+    h = (h + h + hc[j]) % HYPH_SIZE;
+    append_char(hc[j]);
+}
+s = make_string();
+// &lt;&lt; Insert the pair |(s,p)| into the exception table, 940 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-935">935</a>.</p>
+</div></div>
+<h1 id="section-940"><a class="header" href="#section-940">Section 940</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert the pair <em>(s,p)</em> into the exception table <a href="./part42.html#section-940">940</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (hyph_count == HYPH_SIZE) {
+    overflow("exception dictionary", HYPH_SIZE);
+}
+incr(hyph_count);
+while (hyph_word[h] != 0) {
+    // &lt;&lt; If the string |hyph_word[h]| is less than or equal to |s|, interchange |(hyph_word[h],hyph_list[h])| with |(s,p)|, 941 &gt;&gt;
+    if (h &gt; 0) {
+        decr(h);
+    }
+    else {
+        h = HYPH_SIZE;
+    }
+}
+hyph_word[h] = s;
+hyph_list[h] = p;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-939">939</a>.</p>
+</div></div>
+<h1 id="section-941"><a class="header" href="#section-941">Section 941</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If the string <em>hyph_word[h]</em> is less than or equal to <em>s</em>, interchange <em>(hyph_word[h],hyph_list[h])</em> with <em>(s,p)</em> <a href="./part42.html#section-941">941</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">k = hyph_word[h];
+if (length(k) &lt; length(s)) {
+    goto found;
+}
+if (length(k) &gt; length(s)) {
+    goto not_found;
+}
+u = str_start[k];
+v = str_start[s];
+do {
+    if (str_pool[u] &lt; str_pool[v]) {
+        goto found;
+    }
+    if (str_pool[u] &gt; str_pool[v]) {
+        goto not_found;
+    }
+    incr(u);
+    incr(v);
+} while (u != str_start[k + 1]);
+found:
+q = hyph_list[h];
+hyph_list[h] = p;
+p = q;
+t = hyph_word[h];
+hyph_word[h] = s;
+s = t;
+not_found:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-940">940</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part41.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part43.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part41.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part43.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

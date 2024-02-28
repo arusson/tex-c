@@ -1,0 +1,1827 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 402–463 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html" class="active">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-402-basic-scanning-subroutines"><a class="header" href="#section-402-basic-scanning-subroutines">Section 402: Basic scanning subroutines</a></h1>
+<p>Let’s turn now to some procedures that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> calls upon frequently to digest certain kinds of patterns in the input.
+Most of these are quite simple; some are quite elaborate.
+Almost all of the routines call <em>get_x_token</em>, which can cause them to be invoked recursively.</p>
+<h1 id="section-403"><a class="header" href="#section-403">Section 403</a></h1>
+<p>The <em>scan_left_brace</em> routine is called when a left brace is supposed to be the next non-blank token.
+(The term “left brace” means, more precisely, a character whose catcode is <em>LEFT_BRACE</em>.)
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> allows <code>\relax</code> to appear before the <em>LEFT_BRACE</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">subroutines.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |subroutines.c|, 1382 &gt;&gt;
+
+// reads a mandatory |LEFT_BRACE|
+void scan_left_brace() {
+    // &lt;&lt; Get the next non-blank non-relax non-call token, 404 &gt;&gt;
+    if (cur_cmd != LEFT_BRACE) {
+        print_err("Missing { inserted");
+        help4("A left brace was mandatory here, so I've put one in.")
+            ("You might want to delete and/or insert some corrections")
+            ("so that I will find a matching right brace soon.")
+            ("(If you're confused by all this, try typing `I}' now.)");
+        back_error();
+        cur_tok = LEFT_BRACE_TOKEN + '{';
+        cur_cmd = LEFT_BRACE;
+        cur_chr = '{';
+        incr(align_state);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-404"><a class="header" href="#section-404">Section 404</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Get the next non-blank non-relax non-call token <a href="./part26.html#section-404">404</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">do {
+    get_x_token();
+} while (cur_cmd == SPACER || cur_cmd == RELAX);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part26.html#section-403">403</a>, <a href="./part47.html#section-1078">1078</a>, <a href="./part47.html#section-1084">1084</a>, <a href="./part48.html#section-1151">1151</a>, <a href="./part48.html#section-1160">1160</a>, <a href="./part49.html#section-1211">1211</a>, <a href="./part49.html#section-1226">1226</a>, and <a href="./part49.html#section-1270">1270</a>.</p>
+</div></div>
+<h1 id="section-405"><a class="header" href="#section-405">Section 405</a></h1>
+<p>The <em>scan_optional_equals</em> routine looks for an optional ‘<code>=</code>’ sign preceded by optional spaces; ‘<code>\relax</code>’ is not ignored here.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">subroutines.c</div>
+<pre><code class="language-c">void scan_optional_equals() {
+    // &lt;&lt; Get the next non-blank non-call token, 406 &gt;&gt;
+    if (cur_tok != OTHER_TOKEN + '=') {
+        back_input();
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-406"><a class="header" href="#section-406">Section 406</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Get the next non-blank non-call token <a href="./part26.html#section-406">406</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">do {
+    get_x_token();
+} while (cur_cmd == SPACER);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part26.html#section-405">405</a>, <a href="./part26.html#section-441">441</a>, <a href="./part26.html#section-455">455</a>, <a href="./part28.html#section-503">503</a>, <a href="./part29.html#section-526">526</a>, <a href="./part30.html#section-577">577</a>, <a href="./part37.html#section-785">785</a>, <a href="./part37.html#section-791">791</a>, and <a href="./part46.html#section-1045">1045</a>.</p>
+</div></div>
+<h1 id="section-407"><a class="header" href="#section-407">Section 407</a></h1>
+<p>In case you are getting bored, here is a slightly less trivial routine:
+Given a string of lowercase letters, like ‘<code>pt</code>’ or ‘<code>plus</code>’ or ‘<code>width</code>’, the <em>scan_keyword</em> routine checks to see whether the next tokens of input match this string.
+The match must be exact, except that uppercase letters will match their lowercase counterparts; uppercase equivalents are determined by subtracting <code>'a'</code> − <code>'A'</code>, rather than using the <em>uc_code</em> table, since <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> uses this routine only for its own limited set of keywords.</p>
+<p>If a match is found, the characters are effectively removed from the input and <em>true</em> is returned.
+Otherwise <em>false</em> is returned, and the input is left essentially unchanged (except for the fact that some macros may have been expanded, etc.).</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">subroutines.c</div>
+<pre><code class="language-c">// look for a given string
+bool scan_keyword(char *s) {
+    pointer p; // tail of the backup list
+    pointer q; // new node being added to the token list via |store_new_token|
+    int k; // index into the string |s|
+    int len = strlen(s);
+    p = BACKUP_HEAD;
+    link(p) = null;
+    k = 0;
+    while (k &lt; len) {
+        get_x_token(); // recursion is possible here
+        if (cur_cs == 0
+            &amp;&amp; (cur_chr == s[k] || cur_chr == s[k] - 'a' + 'A'))
+        {
+            store_new_token(cur_tok);
+            incr(k);
+        }
+        else if (cur_cmd != SPACER || p != BACKUP_HEAD) {
+            back_input();
+            if (p != BACKUP_HEAD) {
+                back_list(link(BACKUP_HEAD));
+            }
+            return false;
+        }
+    }
+    flush_list(link(BACKUP_HEAD));
+    return true;
+}
+</code></pre>
+</div>
+<h1 id="section-408"><a class="header" href="#section-408">Section 408</a></h1>
+<p>Here is a procedure that sounds an alarm when mu and non-mu units are being switched.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">void mu_error() {
+    print_err("Incompatible glue units");
+    help1("I'm going to assume that 1mu=1pt when they're mixed.");
+    error();
+}
+</code></pre>
+</div>
+<h1 id="section-409"><a class="header" href="#section-409">Section 409</a></h1>
+<p>The next routine <em>‘scan_something_internal’</em> is used to fetch internal numeric quantities like ‘<code>\hsize</code>’, and also to handle the ‘<code>\the</code>’ when expanding constructions like ‘<code>\the\toks0</code>’ and
+‘<code>\the\baselineskip</code>’.
+Soon we will be considering the <em>scan_int</em> procedure, which calls <em>scan_something_internal</em>; on the other hand, <em>scan_something_internal</em> also calls <em>scan_int</em>, for constructions like ‘<code>\catcode`\$</code>’ or ‘<code>\fontdimen 3 \ff</code>’.
+So we have to declare <em>scan_int</em> as a <em>forward</em> procedure.
+A few other procedures are also declared at this point.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">subroutines.c</div>
+<pre><code class="language-c">// &lt;&lt; Declare procedures that scan restricted classes of integers, 433 &gt;&gt;
+
+// &lt;&lt; Declare procedures that scan font-related stuff, 577 &gt;&gt;
+</code></pre>
+</div>
+<h1 id="section-410"><a class="header" href="#section-410">Section 410</a></h1>
+<p>TeX doesn’t know exactly what to expect when <em>scan_something_internal</em> begins.
+For example, an integer or dimension or glue value could occur immediately after ‘<code>\hskip</code>’; and one can even say <code>\the</code> with respect to token lists in constructions like
+‘<code>\xdef\o{\the\output}</code>’.
+On the other hand, only integers are allowed after a construction like ‘<code>\count</code>’.
+To handle the various possibilities, <em>scan_something_internal</em> has a <em>level</em> parameter, which tells the “highest” kind of quantity that <em>scan_something_internal</em> is allowed to produce.
+Six levels are distinguished, namely <em>INT_VAL</em>, <em>DIMEN_VAL</em>, <em>GLUE_VAL</em>, <em>MU_VAL</em>, <em>IDENT_VAL</em>, and <em>TOK_VAL</em>.</p>
+<p>The output of <em>scan_something_internal</em> (and of the other routines <em>scan_int</em>, <em>scan_dimen</em>, and <em>scan_glue</em> below) is put into the global variable <em>cur_val</em>, and its level is put into <em>cur_val_level</em>.
+The highest values of <em>cur_val_level</em> are special: <em>MU_VAL</em> is used only when <em>cur_val</em> points to something in a “muskip” register, or to one of the three parameters <code>\thinmuskip</code>, <code>\medmuskip</code>, <code>\thickmuskip</code>;
+<em>IDENT_VAL</em> is used only when <em>cur_val</em> points to a font identifier;
+<em>TOK_VAL</em> is used only when <em>cur_val</em> points to <em>null</em> or to the reference count of a token list.
+The last two cases are allowed only when <em>scan_something_internal</em> is called with <em>level = TOK_VAL</em>.</p>
+<p>If the output is glue, <em>cur_val</em> will point to a glue specification, and the reference count of that glue will have been updated to reflect this reference; if the output is a nonempty token list, <em>cur_val</em> will point to its reference count, but in this case the count will not have been updated.
+Otherwise <em>cur_val</em> will contain the integer or scaled value in question.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define INT_VAL   0 // integer values
+#define DIMEN_VAL 1 // dimension values
+#define GLUE_VAL  2 // glue specifications
+#define MU_VAL    3 // math glue specifications
+#define IDENT_VAL 4 // font identifier
+#define TOK_VAL   5 // token lists
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int cur_val;       // value returned by numeric scanners
+int cur_val_level; // the "level" of this value
+</code></pre>
+</div>
+<h1 id="section-411"><a class="header" href="#section-411">Section 411</a></h1>
+<p>The hash table is initialized with ‘<code>\count</code>’, ‘<code>\dimen</code>’, ‘<code>\skip</code>’, and ‘<code>\muskip</code>’ all having <em>REGISTER</em> as their command code; they are distinguished by the <em>chr_code</em>, which is either <em>INT_VAL</em>, <em>DIMEN_VAL</em>, <em>GLUE_VAL</em>, or <em>MU_VAL</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("count", REGISTER, INT_VAL);
+primitive("dimen", REGISTER, DIMEN_VAL);
+primitive("skip", REGISTER, GLUE_VAL);
+primitive("muskip", REGISTER, MU_VAL);
+</code></pre>
+</div>
+<h1 id="section-412"><a class="header" href="#section-412">Section 412</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case REGISTER:
+    if (chr_code == INT_VAL) {
+        print_esc("count");
+    }
+    else if (chr_code == DIMEN_VAL) {
+        print_esc("dimen");
+    }
+    else if (chr_code == GLUE_VAL) {
+        print_esc("skip");
+    }
+    else {
+        print_esc("muskip");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-413"><a class="header" href="#section-413">Section 413</a></h1>
+<p>OK, we’re ready for <em>scan_something_internal</em> itself.
+A second parameter, <em>negative</em>, is set <em>true</em> if the value that is found should be negated.
+It is assumed that <em>cur_cmd</em> and <em>cur_chr</em> represent the first token of the internal quantity to be scanned; an error will be signalled if <em>cur_cmd</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>MIN_INTERNAL</em> or <em>cur_cmd</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>MAX_INTERNAL</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define scanned_result(X, Y) \
+    cur_val = (X);           \
+    cur_val_level = (Y)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">subroutines.c</div>
+<pre><code class="language-c">// fetch an internal parameter
+void scan_something_internal(small_number level, bool negative) {
+    halfword m; // |chr_code| part of the operand token
+    int p;      // index into |nest|
+    m = cur_chr;
+    switch (cur_cmd) {
+    case DEF_CODE:
+        // &lt;&lt; Fetch a character code from some table, 414 &gt;&gt;
+        break;
+    
+    case TOKS_REGISTER:
+    case ASSIGN_TOKS:
+    case DEF_FAMILY:
+    case SET_FONT:
+    case DEF_FONT:
+        // &lt;&lt; Fetch a token list or font identifier, provided that |level = TOK_VAL|, 415 &gt;&gt;
+        break;
+    
+    case ASSIGN_INT:
+        scanned_result(eqtb[m].integer, INT_VAL);
+        break;
+    
+    case ASSIGN_DIMEN:
+        scanned_result(eqtb[m].sc, DIMEN_VAL);
+        break;
+    
+    case ASSIGN_GLUE:
+        scanned_result(equiv(m), GLUE_VAL);
+        break;
+    
+    case ASSIGN_MU_GLUE:
+        scanned_result(equiv(m), MU_VAL);
+        break;
+    
+    case SET_AUX:
+        // &lt;&lt; Fetch the |space_factor| or the |prev_depth|, 418 &gt;&gt;
+        break;
+    
+    case SET_PREV_GRAF:
+        // &lt;&lt; Fetch the |prev_graf|, 422 &gt;&gt;
+        break;
+    
+    case SET_PAGE_INT:
+        // &lt;&lt; Fetch the |dead_cycles| or the |insert_penalties|, 419 &gt;&gt;
+        break;
+    
+    case SET_PAGE_DIMEN:
+        // &lt;&lt; Fetch something on the |page_so_far|, 421 &gt;&gt;
+        break;
+    
+    case SET_SHAPE:
+        // &lt;&lt; Fetch the |par_shape| size, 423 &gt;&gt;
+        break;
+    
+    case SET_BOX_DIMEN:
+        // &lt;&lt; Fetch a box dimension, 420 &gt;&gt;
+        break;
+    
+    case CHAR_GIVEN:
+    case MATH_GIVEN:
+        scanned_result(cur_chr, INT_VAL);
+        break;
+    
+    case ASSIGN_FONT_DIMEN:
+        // &lt;&lt; Fetch a font dimension, 425 &gt;&gt;
+        break;
+    
+    case ASSIGN_FONT_INT:
+        // &lt;&lt; Fetch a font integer, 426 &gt;&gt;
+        break;
+    
+    case REGISTER:
+        // &lt;&lt; Fetch a register, 427 &gt;&gt;
+        break;
+    
+    case LAST_ITEM:
+        // &lt;&lt; Fetch an item in the current node, if appropriate, 424 &gt;&gt;
+        break;
+    
+    default:
+        // &lt;&lt; Complain that \the can't do this; give zero result, 428 &gt;&gt;
+    }
+    while (cur_val_level &gt; level) {
+        // &lt;&lt; Convert |cur_val| to a lower level, 429 &gt;&gt;
+    }
+    // &lt;&lt; Fix the reference count, if any, and negate |cur_val| if |negative|, 430 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-414"><a class="header" href="#section-414">Section 414</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch a character code from some table <a href="./part26.html#section-414">414</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_char_num();
+if (m == MATH_CODE_BASE) {
+    scanned_result(ho(math_code(cur_val)), INT_VAL);
+}
+else if (m &lt; MATH_CODE_BASE) {
+    scanned_result(equiv(m + cur_val), INT_VAL);
+}
+else {
+    scanned_result(eqtb[m + cur_val].integer, INT_VAL);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-415"><a class="header" href="#section-415">Section 415</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch a token list or font identifier, provided that <em>level = TOK_VAL</em> <a href="./part26.html#section-415">415</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (level != TOK_VAL) {
+    print_err("Missing number, treated as zero");
+    help3("A number should have been here; I inserted `0'.")
+        ("(If you can't figure out why I needed to see a number,")
+        ("look up `weird error' in the index to The TeXbook.)");
+    back_error();
+    scanned_result(0, DIMEN_VAL);
+}
+else if (cur_cmd &lt;= ASSIGN_TOKS) {
+    if (cur_cmd &lt; ASSIGN_TOKS) {
+        // |cur_cmd == TOKS_REGISTER|
+        scan_eight_bit_int();
+        m = TOKS_BASE + cur_val;
+    }
+    scanned_result(equiv(m), TOK_VAL);
+}
+else {
+    back_input();
+    scan_font_ident();
+    scanned_result(FONT_ID_BASE + cur_val, IDENT_VAL);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-416"><a class="header" href="#section-416">Section 416</a></h1>
+<p>Users refer to ‘<code>\the\spacefactor</code>’ only in horizontal mode, and to ‘<code>\the\prevdepth</code>’ only in vertical mode; so we put the associated mode in the modifier part of the <em>SET_AUX</em> command.
+The <em>SET_PAGE_INT</em> command has modifier 0 or 1, for ‘<code>\deadcycles</code>’ and ‘<code>\insertpenalties</code>’, respectively.
+The <em>SET_BOX_DIMEN</em> command is modified by either <em>WIDTH_OFFSET</em>, <em>HEIGHT_OFFSET</em>, or <em>DEPTH_OFFSET</em>.
+And the <em>LAST_ITEM</em> command is modified by either <em>INT_VAL</em>, <em>DIMEN_VAL</em>,
+<em>GLUE_VAL</em>, <em>INPUT_LINE_NO_CODE</em>, or <em>BADNESS_CODE</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define INPUT_LINE_NO_CODE (GLUE_VAL + 1) // code for \inputlineno
+#define BADNESS_CODE       (GLUE_VAL + 2) // code for \badness
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("spacefactor", SET_AUX, HMODE);
+primitive("prevdepth", SET_AUX, VMODE);
+primitive("deadcycles", SET_PAGE_INT, 0);
+primitive("insertpenalties", SET_PAGE_INT, 1);
+primitive("wd", SET_BOX_DIMEN, WIDTH_OFFSET);
+primitive("ht", SET_BOX_DIMEN, HEIGHT_OFFSET);
+primitive("dp", SET_BOX_DIMEN, DEPTH_OFFSET);
+primitive("lastpenalty", LAST_ITEM, INT_VAL);
+primitive("lastkern", LAST_ITEM, DIMEN_VAL);
+primitive("lastskip", LAST_ITEM, GLUE_VAL);
+primitive("inputlineno", LAST_ITEM, INPUT_LINE_NO_CODE);
+primitive("badness", LAST_ITEM, BADNESS_CODE);
+</code></pre>
+</div>
+<h1 id="section-417"><a class="header" href="#section-417">Section 417</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case SET_AUX:
+    if (chr_code == VMODE) {
+        print_esc("prevdepth");
+    }
+    else {
+        print_esc("spacefactor");
+    }
+    break;
+
+case SET_PAGE_INT:
+    if (chr_code == 0) {
+        print_esc("deadcycles");
+    }
+    else {
+        print_esc("insertpenalties");
+    }
+    break;
+
+case SET_BOX_DIMEN:
+    if (chr_code == WIDTH_OFFSET) {
+        print_esc("wd");
+    }
+    else if (chr_code == HEIGHT_OFFSET) {
+        print_esc("ht");
+    }
+    else {
+        print_esc("dp");
+    }
+    break;
+
+case LAST_ITEM:
+    switch (chr_code) {
+    case INT_VAL:
+        print_esc("lastpenalty");
+        break;
+    
+    case DIMEN_VAL:
+        print_esc("lastkern");
+        break;
+    
+    case GLUE_VAL:
+        print_esc("lastskip");
+        break;
+    
+    case INPUT_LINE_NO_CODE:
+        print_esc("inputlineno");
+        break;
+    
+    default:
+        print_esc("badness");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-418"><a class="header" href="#section-418">Section 418</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch the <em>space_factor</em> or the <em>prev_depth</em> <a href="./part26.html#section-418">418</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (abs(mode) != m) {
+    print_err("Improper ");
+    print_cmd_chr(SET_AUX, m);
+    help4("You can refer to \\spacefactor only in horizontal mode;")
+        ("you can refer to \\prevdepth only in vertical mode; and")
+        ("neither of these is meaningful inside \\write. So")
+        ("I'm forgetting what you said and using zero instead.");
+    error();
+    if (level != TOK_VAL) {
+        scanned_result(0, DIMEN_VAL);
+    }
+    else {
+        scanned_result(0, INT_VAL);
+    }
+}
+else if (m == VMODE) {
+    scanned_result(prev_depth, DIMEN_VAL);
+}
+else {
+    scanned_result(space_factor, INT_VAL);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-419"><a class="header" href="#section-419">Section 419</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch the <em>dead_cycles</em> or the <em>insert_penalties</em> <a href="./part26.html#section-419">419</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (m == 0) {
+    cur_val = dead_cycles;
+}
+else {
+    cur_val = insert_penalties;
+}
+cur_val_level = INT_VAL;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-420"><a class="header" href="#section-420">Section 420</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch a box dimension <a href="./part26.html#section-420">420</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_eight_bit_int();
+if (box(cur_val) == null) {
+    cur_val = 0;
+}
+else {
+    cur_val = mem[box(cur_val) + m].sc;
+}
+cur_val_level = DIMEN_VAL;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-421"><a class="header" href="#section-421">Section 421</a></h1>
+<p>Inside an <code>\output</code> routine, a user may wish to look at the page totals that were present at the moment when output was triggered.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define MAX_DIMEN 0x3fffffff // 2^{30} - 1
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch something on the <em>page_so_far</em> <a href="./part26.html#section-421">421</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (page_contents == EMPTY &amp;&amp; !output_active) {
+    if (m == 0) {
+        cur_val = MAX_DIMEN;
+    }
+    else {
+        cur_val = 0;
+    }
+}
+else {
+    cur_val = page_so_far[m];
+}
+cur_val_level = DIMEN_VAL;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-422"><a class="header" href="#section-422">Section 422</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch the <em>prev_graf</em> <a href="./part26.html#section-422">422</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (mode == 0) {
+    scanned_result(0, INT_VAL); // |prev_graf == 0| within \write
+}
+else {
+    nest[nest_ptr] = cur_list;
+    p = nest_ptr;
+    while (abs(nest[p].mode_field) != VMODE) {
+        decr(p);
+    }
+    scanned_result(nest[p].pg_field, INT_VAL);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-423"><a class="header" href="#section-423">Section 423</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch the <em>par_shape</em> size <a href="./part26.html#section-423">423</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (par_shape_ptr == null) {
+    cur_val = 0;
+}
+else {
+    cur_val = info(par_shape_ptr);
+}
+cur_val_level = INT_VAL;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-424"><a class="header" href="#section-424">Section 424</a></h1>
+<p>Here is where <code>\lastpenalty</code>, <code>\lastkern</code>, and <code>\lastskip</code> are implemented.
+The reference count for <code>\lastskip</code> will be updated later.</p>
+<p>We also handle <code>\inputlineno</code> and <code>\badness</code> here, because they are legal in similar contexts.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch an item in the current node, if appropriate <a href="./part26.html#section-424">424</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_chr &gt; GLUE_VAL) {
+    if (cur_chr == INPUT_LINE_NO_CODE) {
+        cur_val = line;
+    }
+    else {
+        cur_val = last_badness; // |cur_chr = BADNESS_CODE|
+    }
+    cur_val_level = INT_VAL;
+}
+else {
+    if (cur_chr == GLUE_VAL) {
+        cur_val = ZERO_GLUE;
+    }
+    else {
+        cur_val = 0;
+    }
+    cur_val_level = cur_chr;
+    if (!is_char_node(tail) &amp;&amp; mode != 0) {
+        switch (cur_chr) {
+        case INT_VAL:
+            if (type(tail) == PENALTY_NODE) {
+                cur_val = penalty(tail);
+            }
+            break;
+        
+        case DIMEN_VAL:
+            if (type(tail) == KERN_NODE) {
+                cur_val = width(tail);
+            }
+            break;
+        
+        case GLUE_VAL:
+            if (type(tail) == GLUE_NODE) {
+                cur_val = glue_ptr(tail);
+                if (subtype(tail) == MU_GLUE) {
+                    cur_val_level = MU_VAL;
+                }
+            }
+        } // there are no other cases
+    }
+    else if (mode == VMODE &amp;&amp; tail == head) {
+        switch (cur_chr) {
+        case INT_VAL:
+            cur_val = last_penalty;
+            break;
+        
+        case DIMEN_VAL:
+            cur_val = last_kern;
+            break;
+
+        case GLUE_VAL:
+            if (last_glue != MAX_HALFWORD) {
+                cur_val = last_glue;
+            }
+        } // there are no other cases
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-425"><a class="header" href="#section-425">Section 425</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch a font dimension <a href="./part26.html#section-425">425</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">find_font_dimen(false);
+font_info[fmem_ptr].sc = 0;
+scanned_result(font_info[cur_val].sc, DIMEN_VAL);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-426"><a class="header" href="#section-426">Section 426</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch a font integer <a href="./part26.html#section-426">426</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_font_ident();
+if (m == 0) {
+    scanned_result(hyphen_char[cur_val], INT_VAL);
+}
+else {
+    scanned_result(skew_char[cur_val], INT_VAL);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-427"><a class="header" href="#section-427">Section 427</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch a register <a href="./part26.html#section-427">427</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_eight_bit_int();
+switch (m) {
+case INT_VAL:
+    cur_val = count(cur_val);
+    break;
+
+case DIMEN_VAL:
+    cur_val = dimen(cur_val);
+    break;
+
+case GLUE_VAL:
+    cur_val = skip(cur_val);
+    break;
+
+case MU_VAL:
+    cur_val = mu_skip(cur_val);
+} // there are no other cases
+cur_val_level = m;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-428"><a class="header" href="#section-428">Section 428</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Complain that \the can’t do this; give zero result <a href="./part26.html#section-428">428</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("You can't use `");
+print_cmd_chr(cur_cmd, cur_chr);
+print("' after ");
+print_esc("the");
+help1("I'm forgetting what you said and using zero instead.");
+error();
+if (level != TOK_VAL) {
+    scanned_result(0, DIMEN_VAL);
+}
+else {
+    scanned_result(0, INT_VAL);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-429"><a class="header" href="#section-429">Section 429</a></h1>
+<p>When a <em>GLUE_VAL</em> changes to a <em>DIMEN_VAL</em>, we use the width component of the glue; there is no need to decrease the reference count, since it has not yet been increased.
+When a <em>DIMEN_VAL</em> changes to an <em>INT_VAL</em>, we use scaled points so that the value doesn’t actually change.
+And when a <em>MU_VAL</em> changes to a <em>GLUE_VAL</em>, the value doesn’t change either.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Convert <em>cur_val</em> to a lower level <a href="./part26.html#section-429">429</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_val_level == GLUE_VAL) {
+    cur_val = width(cur_val);
+}
+else if (cur_val_level == MU_VAL) {
+    mu_error();
+}
+decr(cur_val_level);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-430"><a class="header" href="#section-430">Section 430</a></h1>
+<p>If <em>cur_val</em> points to a glue specification at this point, the reference count for the glue does not yet include the reference by <em>cur_val</em>.
+If <em>negative</em> is <em>true</em>, <em>cur_val_level</em> is known to be <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>MU_VAL</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fix the reference count, if any, and negate <em>cur_val</em> if <em>negative</em> <a href="./part26.html#section-430">430</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (negative) {
+    if (cur_val_level &gt;= GLUE_VAL) {
+        cur_val = new_spec(cur_val);
+        // &lt;&lt; Negate all three glue components of |cur_val|, 431 &gt;&gt;
+    }
+    else {
+        negate(cur_val);
+    }
+}
+else if (cur_val_level &gt;= GLUE_VAL &amp;&amp; cur_val_level &lt;= MU_VAL) {
+    add_glue_ref(cur_val);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-413">413</a>.</p>
+</div></div>
+<h1 id="section-431"><a class="header" href="#section-431">Section 431</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Negate all three glue components of <em>cur_val</em> <a href="./part26.html#section-431">431</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">negate(width(cur_val));
+negate(stretch(cur_val));
+negate(shrink(cur_val));
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-430">430</a>.</p>
+</div></div>
+<h1 id="section-432"><a class="header" href="#section-432">Section 432</a></h1>
+<p>Our next goal is to write the <em>scan_int</em> procedure, which scans anything that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> treats as an integer.
+But first we might as well look at some simple applications of <em>scan_int</em> that have already been made inside of <em>scan_something_internal</em>.</p>
+<h1 id="section-433"><a class="header" href="#section-433">Section 433</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures that scan restricted classes of integers <a href="./part26.html#section-433">433</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">void scan_eight_bit_int() {
+    scan_int();
+    if (cur_val &lt; 0 || cur_val &gt; 255) {
+        print_err("Bad register code");        
+        help2("A register number must be between 0 and 255.")
+            ("I changed this one to zero.");
+        int_error(cur_val);
+        cur_val = 0;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part26.html#section-434">434</a>, <a href="./part26.html#section-435">435</a>, <a href="./part26.html#section-436">436</a>, and <a href="./part26.html#section-437">437</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-409">409</a>.</p>
+</div></div>
+<h1 id="section-434"><a class="header" href="#section-434">Section 434</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures that scan restricted classes of integers <a href="./part26.html#section-433">433</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void scan_char_num() {
+    scan_int();
+    if (cur_val &lt; 0 || cur_val &gt; 255) {
+        print_err("Bad character code");
+        help2("A character number must be between 0 and 255.")
+            ("I changed this one to zero.");
+        int_error(cur_val);
+        cur_val = 0;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-435"><a class="header" href="#section-435">Section 435</a></h1>
+<p>While we’re at it, we might as well deal with similar routines that will be needed later.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures that scan restricted classes of integers <a href="./part26.html#section-433">433</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void scan_four_bit_int() {
+    scan_int();
+    if (cur_val &lt; 0 || cur_val &gt; 15) {
+        print_err("Bad number");
+        help2("Since I expected to read a number between 0 and 15,")
+            ("I changed this one to zero.");
+        int_error(cur_val);
+        cur_val = 0;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-436"><a class="header" href="#section-436">Section 436</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures that scan restricted classes of integers <a href="./part26.html#section-433">433</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void scan_fifteen_bit_int() {
+    scan_int();
+    if (cur_val &lt; 0 ||  cur_val &gt; 0x7fff) {
+        print_err("Bad mathchar");
+        help2("A mathchar number must be between 0 and 32767.")
+            ("I changed this one to zero.");
+        int_error(cur_val);
+        cur_val = 0;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-437"><a class="header" href="#section-437">Section 437</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures that scan restricted classes of integers <a href="./part26.html#section-433">433</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void scan_twenty_seven_bit_int() {
+    scan_int();
+    if (cur_val &lt; 0 || cur_val &gt; 0x7ffffff) {
+        print_err("Bad delimiter code");
+        help2("A numeric delimiter code must be between 0 and 2^{27} - 1.")
+            ("I changed this one to zero.");
+        int_error(cur_val);
+        cur_val = 0;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-438"><a class="header" href="#section-438">Section 438</a></h1>
+<p>An integer number can be preceded by any number of spaces and ‘<code>+</code>’ or ‘<code>-</code>’ signs.
+Then comes either a decimal constant (i.e., radix 10), an octal constant (i.e., radix 8, preceded by <code>'</code>), a hexadecimal constant (radix 16, preceded by <code>"</code>), an alphabetic constant (preceded by <code>`</code>), or an internal variable.
+After scanning is complete, <em>cur_val</em> will contain the answer, which must be at most <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">31</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">147</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">483</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">647</span></span></span></span> in absolute value.
+The value of <em>radix</em> is set to 10, 8, or 16 in the cases of decimal, octal, or hexadecimal constants, otherwise <em>radix</em> is set to zero.
+An optional space follows a constant.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define OCTAL_TOKEN             (OTHER_TOKEN + '\'') // apostrophe, indicates an octal constant
+#define HEX_TOKEN               (OTHER_TOKEN + '"')  // double quote, indicates a hex constant
+#define ALPHA_TOKEN             (OTHER_TOKEN + '`')  // reverse apostrophe, precedes alpha constants
+#define POINT_TOKEN             (OTHER_TOKEN + '.')  // decimal point
+#define CONTINENTAL_POINT_TOKEN (OTHER_TOKEN + ',')  // decimal point, Eurostyle
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">small_number radix; // |scan_int| sets this to 8, 10, 16, or zero
+</code></pre>
+</div>
+<h1 id="section-439"><a class="header" href="#section-439">Section 439</a></h1>
+<p>We initialize the following global variables just in case <em>expand</em> comes into action before any of the basic scanning routines has assigned them a value.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">cur_val = 0;
+cur_val_level = INT_VAL;
+radix = 0;
+cur_order = NORMAL;
+</code></pre>
+</div>
+<h1 id="section-440"><a class="header" href="#section-440">Section 440</a></h1>
+<p>The <em>scan_int</em> routine is used also to scan the integer part of a fraction;
+for example, the ‘<code>3</code>’ in ‘<code>3.14159</code>’ will be found by <em>scan_int</em>.
+The <em>scan_dimen</em> routine assumes that <em>cur_tok = POINT_TOKEN</em> after the integer part of such a fraction has been scanned by <em>scan_int</em>, and that the decimal point has been backed up to be scanned again.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">subroutines.c</div>
+<pre><code class="language-c">// sets |cur_val| to an integer
+void scan_int() {
+    bool negative;  // should the answer be negated?
+    int m;          // |2^{31} / radix|, the threshold of danger
+    small_number d; // the digit just scanned
+    bool vacuous;   // have no digits appeared?
+    bool ok_so_far; // has an error message been issued?
+
+    radix = 0;
+    ok_so_far = true;
+    // &lt;&lt; Get the next non-blank non-sign token; set |negative| appropriately, 441 &gt;&gt;
+    if (cur_tok == ALPHA_TOKEN) {
+        // &lt;&lt; Scan an alphabetic character code into |cur_val|, 442 &gt;&gt;
+    }
+    else if (cur_cmd &gt;= MIN_INTERNAL &amp;&amp; cur_cmd &lt;= MAX_INTERNAL) {
+        scan_something_internal(INT_VAL, false);
+    }
+    else {
+        // &lt;&lt; Scan a numeric constant, 444 &gt;&gt;
+    }
+    if (negative) {
+        negate(cur_val);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-441"><a class="header" href="#section-441">Section 441</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Get the next non-blank non-sign token; set <em>negative</em> appropriately <a href="./part26.html#section-441">441</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">negative = false;
+do {
+    // &lt;&lt; Get the next non-blank non-call token, 406 &gt;&gt;
+    if (cur_tok == OTHER_TOKEN + '-') {
+        negative = !negative;
+        cur_tok = OTHER_TOKEN + '+';
+    }
+} while (cur_tok == OTHER_TOKEN + '+');
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part26.html#section-440">440</a>, <a href="./part26.html#section-448">448</a>, and <a href="./part26.html#section-461">461</a>.</p>
+</div></div>
+<h1 id="section-442"><a class="header" href="#section-442">Section 442</a></h1>
+<p>A space is ignored after an alphabetic character constant, so that such constants behave like numeric ones.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan an alphabetic character code into <em>cur_val</em> <a href="./part26.html#section-442">442</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">get_token(); // suppress macro expansion
+if (cur_tok &lt; CS_TOKEN_FLAG) {
+    cur_val = cur_chr;
+    if (cur_cmd &lt;= RIGHT_BRACE) {
+        if (cur_cmd == RIGHT_BRACE) {
+            incr(align_state);
+        }
+        else {
+            decr(align_state);
+        }
+    }
+}
+else if (cur_tok &lt; CS_TOKEN_FLAG + SINGLE_BASE) {
+    cur_val = cur_tok - CS_TOKEN_FLAG - ACTIVE_BASE;
+}
+else {
+    cur_val = cur_tok - CS_TOKEN_FLAG - SINGLE_BASE;
+}
+if (cur_val &gt; 255) {
+    print_err("Improper alphabetic constant");
+    help2("A one-character control sequence belongs after a ` mark.")
+        ("So I'm essentially inserting \\0 here.");
+    cur_val = '0';
+    back_error();
+}
+else {
+    // &lt;&lt; Scan an optional space, 443 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-440">440</a>.</p>
+</div></div>
+<h1 id="section-443"><a class="header" href="#section-443">Section 443</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan an optional space <a href="./part26.html#section-443">443</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">get_x_token();
+if (cur_cmd != SPACER) {
+    back_input();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part26.html#section-442">442</a>, <a href="./part26.html#section-448">448</a>, <a href="./part26.html#section-455">455</a>, and <a href="./part48.html#section-1200">1200</a>.</p>
+</div></div>
+<h1 id="section-444"><a class="header" href="#section-444">Section 444</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan a numeric constant <a href="./part26.html#section-444">444</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">radix = 10;
+m = 214748364;
+if (cur_tok == OCTAL_TOKEN) {
+    radix = 8;
+    m = 0x10000000;
+    get_x_token();
+}
+else if (cur_tok == HEX_TOKEN) {
+    radix = 16;
+    m = 0x8000000;
+    get_x_token();
+}
+vacuous = true;
+cur_val = 0;
+// &lt;&lt; Accumulate the constant until |cur_tok| is not a suitable digit, 445 &gt;&gt;
+if (vacuous) {
+    // &lt;&lt; Express astonishment that no number was here, 446 &gt;&gt;
+}
+else if (cur_cmd != SPACER) {
+    back_input();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-440">440</a>.</p>
+</div></div>
+<h1 id="section-445"><a class="header" href="#section-445">Section 445</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>INFINITY</em> is already defined in library header <em>math.h</em>, so it is called <em>INFINITY_</em> here.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define INFINITY_     0x7fffffff           // the largest positive value that TeX knows
+#define ZERO_TOKEN    (OTHER_TOKEN + '0')  // zero, the smallest digit
+#define A_TOKEN       (LETTER_TOKEN + 'A') // the smallest special hex digit
+#define OTHER_A_TOKEN (OTHER_TOKEN + 'A')  // special hex digit of type |OTHER_CHAR|
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Accumulate the constant until <em>cur_tok</em> is not a suitable digit <a href="./part26.html#section-445">445</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while(true) {
+    if (cur_tok &lt; ZERO_TOKEN + radix
+        &amp;&amp; cur_tok &gt;= ZERO_TOKEN
+        &amp;&amp; cur_tok &lt;= ZERO_TOKEN + 9)
+    {
+        d = cur_tok - ZERO_TOKEN;
+    }
+    else if (radix == 16) {
+        if (cur_tok &lt;= A_TOKEN + 5 &amp;&amp; cur_tok &gt;= A_TOKEN) {
+            d = cur_tok - A_TOKEN + 10;
+        }
+        else if (cur_tok &lt;= OTHER_A_TOKEN + 5 &amp;&amp; cur_tok &gt;= OTHER_A_TOKEN) {
+            d = cur_tok - OTHER_A_TOKEN + 10;
+        }
+        else {
+            break; // Goto done
+        }
+    }
+    else {
+        break; // Goto done
+    }
+    vacuous = false;
+    if (cur_val &gt;= m
+        &amp;&amp; (cur_val &gt; m || d &gt; 7 || radix != 10))
+    {
+        if (ok_so_far) {
+            print_err("Number too big");
+            help2("I can only go up to 2147483647='17777777777=\"7FFFFFFF,")
+                ("so I'm using that number instead of yours.");
+            error();
+            cur_val = INFINITY_;
+            ok_so_far = false;
+        }
+    }
+    else {
+        cur_val = cur_val * radix + d;
+    }
+    get_x_token();
+}
+// done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-444">444</a>.</p>
+</div></div>
+<h1 id="section-446"><a class="header" href="#section-446">Section 446</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Express astonishment that no number was here <a href="./part26.html#section-446">446</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Missing number, treated as zero");
+help3("A number should have been here; I inserted `0'.")
+    ("(If you can't figure out why I needed to see a number,")
+    ("look up `weird error' in the index to The TeXbook.)");
+back_error();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-444">444</a>.</p>
+</div></div>
+<h1 id="section-447"><a class="header" href="#section-447">Section 447</a></h1>
+<p>The <em>scan_dimen</em> routine is similar to <em>scan_int</em>, but it sets <em>cur_val</em> to a <em>scaled</em> value, i.e., an integral number of sp. One of its main tasks is therefore to interpret the abbreviations for various kinds of units and to convert measurements to scaled points.</p>
+<p>There are three parameters: <em>mu</em> is <em>true</em> if the finite units must be ‘<code>mu</code>’, while <em>mu</em> is <em>false</em> if ‘<code>mu</code>’ units are disallowed;
+<em>inf</em> is <em>true</em> if the infinite units ‘<code>fil</code>’, ‘<code>fill</code>’, ‘<code>filll</code>’ are permitted;
+and <em>shortcut</em> is <em>true</em> if <em>cur_val</em> already contains an integer and only the units need to be considered.</p>
+<p>The order of infinity that was found in the case of infinite glue is returned in the global variable <em>cur_order</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int cur_order; // order of infinity found by |scan_dimen|
+</code></pre>
+</div>
+<h1 id="section-448"><a class="header" href="#section-448">Section 448</a></h1>
+<p>Constructions like ‘<code>-'77 pt</code>’ are legal dimensions, so <em>scan_dimen</em> may begin with <em>scan_int</em>.
+This explains why it is convenient to use <em>scan_int</em> also for the integer part of a decimal fraction.</p>
+<p>Several branches of <em>scan_dimen</em> work with <em>cur_val</em> as an integer and with an auxiliary fraction <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span></span></span></span>, so that the actual quantity of interest is <em>cur_val</em> + <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord">/</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">16</span></span></span></span></span></span></span></span></span></span></span></span>.
+At the end of the routine, this “unpacked” representation is put into the single word <em>cur_val</em>, which suddenly switches significance from <em>int</em> to <em>scaled</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define scan_normal_dimen scan_dimen(false, false, false)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">subroutines.c</div>
+<pre><code class="language-c">// sets |cur_val| to a dimension
+void scan_dimen(bool mu, bool inf, bool shortcut) {
+    bool negative; // should the answer be negated?
+    int f;         // numerator of a fraction whose denominator is $2^{16}$
+    // &lt;&lt; Local variables for dimension calculations, 450 &gt;&gt;
+    
+    f = 0;
+    arith_error = false;
+    cur_order = NORMAL;
+    negative = false;
+    if (!shortcut) {
+        // &lt;&lt; Get the next non-blank non-sign token; set |negative| appropriately, 441 &gt;&gt;
+        if (cur_cmd &gt;= MIN_INTERNAL &amp;&amp; cur_cmd &lt;= MAX_INTERNAL) {
+            // &lt;&lt; Fetch an internal dimension and |goto attach_sign|, or fetch an internal integer, 449 &gt;&gt;
+        }
+        else { 
+            back_input();
+            if (cur_tok == CONTINENTAL_POINT_TOKEN) {
+                cur_tok = POINT_TOKEN;
+            }
+            if (cur_tok != POINT_TOKEN) {
+                scan_int();
+            }
+            else {
+                radix = 10;
+                cur_val = 0;
+            }
+            if (cur_tok == CONTINENTAL_POINT_TOKEN) {
+                cur_tok = POINT_TOKEN;
+            }
+            if (radix == 10 &amp;&amp; cur_tok == POINT_TOKEN) {
+                // &lt;&lt; Scan decimal fraction, 452 &gt;&gt;
+            }
+        }
+    }
+    if (cur_val &lt; 0) {
+        // in this case |f = 0|
+        negative = !negative;
+        negate(cur_val);
+    }
+    
+    // &lt;&lt; Scan units and set |cur_val| to x * (|cur_val| + f/2^{16}), where there are |x| sp per unit; |goto attach_sign| if the units are internal, 453 &gt;&gt;
+    
+    // &lt;&lt; Scan an optional space, 443 &gt;&gt;
+
+attach_sign:
+    if (arith_error || abs(cur_val) &gt;= 0x40000000) {
+        // &lt;&lt; Report that this dimension is out of range, 460 &gt;&gt;
+    }
+    if (negative) {
+        negate(cur_val);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-449"><a class="header" href="#section-449">Section 449</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fetch an internal dimension and <em>goto attach_sign</em>, or fetch an internal integer <a href="./part26.html#section-449">449</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (mu) {
+    scan_something_internal(MU_VAL, false);
+    // &lt;&lt; Coerce glue to a dimension, 451 &gt;&gt;
+    if (cur_val_level == MU_VAL) {
+        goto attach_sign;
+    }
+    if (cur_val_level != INT_VAL) {
+        mu_error();
+    }
+}
+else {
+    scan_something_internal(DIMEN_VAL, false);
+    if (cur_val_level == DIMEN_VAL) {
+        goto attach_sign;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-448">448</a>.</p>
+</div></div>
+<h1 id="section-450"><a class="header" href="#section-450">Section 450</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Local variables for dimension calculations <a href="./part26.html#section-450">450</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">int num, denom;   // conversion ratio for the scanned units
+int k, kk;        // number of digits in a decimal fraction
+pointer p, q;     // top of decimal digit stack
+scaled v;         // an internal dimension
+int save_cur_val; // temporary storage of |cur_val|
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-448">448</a>.</p>
+</div></div>
+<h1 id="section-451"><a class="header" href="#section-451">Section 451</a></h1>
+<p>The following code is executed when <em>scan_something_internal</em> was called asking for <em>MU_VAL</em>, when we really wanted a “mudimen” instead of “muglue”.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Coerce glue to a dimension <a href="./part26.html#section-451">451</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_val_level &gt;= GLUE_VAL) {
+    v = width(cur_val);
+    delete_glue_ref(cur_val);
+    cur_val = v;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part26.html#section-449">449</a>, and <a href="./part26.html#section-455">455</a>.</p>
+</div></div>
+<h1 id="section-452"><a class="header" href="#section-452">Section 452</a></h1>
+<p>When the following code is executed, we have <em>cur_tok = POINT_TOKEN</em>, but this token has been backed up using <em>back_input</em>; we must first discard it.</p>
+<p>It turns out that a decimal point all by itself is equivalent to ‘<code>0.0</code>’.
+Let’s hope people don’t use that fact.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan decimal fraction <a href="./part26.html#section-452">452</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">k = 0;
+p = null;
+get_token(); // |POINT_TOKEN| is being re-scanned
+while(true) {
+    get_x_token();
+    if (cur_tok &gt; ZERO_TOKEN + 9 || cur_tok &lt; ZERO_TOKEN) {
+        break; // Goto done1
+    }
+    if (k &lt; 17) {
+        // digits for |k &gt;= 17| cannot affect the result
+        q = get_avail();
+        link(q) = p;
+        info(q) = cur_tok - ZERO_TOKEN;
+        p = q;
+        incr(k);
+    }
+}
+// done1:
+for(kk = k; kk &gt;= 1; kk--) {
+    dig[kk - 1] = info(p);
+    q = p;
+    p = link(p);
+    free_avail(q);
+}
+f = round_decimals(k);
+if (cur_cmd != SPACER) {
+    back_input();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-448">448</a>.</p>
+</div></div>
+<h1 id="section-453"><a class="header" href="#section-453">Section 453</a></h1>
+<p>Now comes the harder part:
+At this point in the program, <em>cur_val</em> is a nonnegative integer and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord">/</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">16</span></span></span></span></span></span></span></span></span></span></span></span> is a nonnegative fraction less than 1;
+we want to multiply the sum of these two quantities by the appropriate factor, based on the specified units, in order to produce a <em>scaled</em> result, and we want to do the calculation with fixed point arithmetic that does not overflow.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan units and set <em>cur_val</em> to x * (<em>cur_val</em> + f/2^{16}), where there are <em>x</em> sp per unit; <em>goto attach_sign</em> if the units are internal <a href="./part26.html#section-453">453</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (inf) {
+    // &lt;&lt; Scan for |fil| units; |goto attach_fraction| if found, 454 &gt;&gt;
+}
+
+// &lt;&lt; Scan for units that are internal dimensions; |goto attach_sign| with |cur_val| set if found, 455 &gt;&gt;
+
+if (mu) {
+    // &lt;&lt; Scan for mu units and |goto attach_fraction|, 456 &gt;&gt;
+}
+if (scan_keyword("true")) {
+    // &lt;&lt; Adjust for the magnification ratio, 457 &gt;&gt;
+}
+if (scan_keyword("pt")) {
+    goto attach_fraction; // the easy case
+}
+
+// &lt;&lt; Scan for all other units and adjust |cur_val| and |f| accordingly; |goto done| in the case of scaled points, 458 &gt;&gt;
+
+attach_fraction:
+if (cur_val &gt;= 0x4000) {
+    arith_error = true;
+}
+else {
+    cur_val = cur_val * UNITY + f;
+}
+done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-448">448</a>.</p>
+</div></div>
+<h1 id="section-454"><a class="header" href="#section-454">Section 454</a></h1>
+<p>A specification like ‘<code>filllll</code>’ or ‘<code>fill L L L</code>’ will lead to two error messages (one for each additional keyword <code>"l"</code>).</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan for <em>fil</em> units; <em>goto attach_fraction</em> if found <a href="./part26.html#section-454">454</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (scan_keyword("fil")) {
+    cur_order = FIL;
+    while (scan_keyword("l")) {
+        if (cur_order == FILLL) {
+            print_err("Illegal unit of measure (");
+            print("replaced by filll)");
+            help1("I dddon't go any higher than filll.");
+            error();
+        }
+        else {
+            incr(cur_order);
+        }
+    }
+    goto attach_fraction;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-453">453</a>.</p>
+</div></div>
+<h1 id="section-455"><a class="header" href="#section-455">Section 455</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan for units that are internal dimensions; <em>goto attach_sign</em> with <em>cur_val</em> set if found <a href="./part26.html#section-455">455</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">save_cur_val = cur_val;
+// &lt;&lt; Get the next non-blank non-call token, 406 &gt;&gt;
+if (cur_cmd &lt; MIN_INTERNAL || cur_cmd &gt; MAX_INTERNAL) {
+    back_input();
+}
+else {
+    if (mu) {
+        scan_something_internal(MU_VAL, false);
+        // &lt;&lt; Coerce glue to a dimension, 451 &gt;&gt;
+        if (cur_val_level != MU_VAL) {
+            mu_error();
+        }
+    }
+    else {
+        scan_something_internal(DIMEN_VAL, false);
+    }
+    v = cur_val;
+    goto found;
+}
+if (mu) {
+    goto not_found;
+}
+if (scan_keyword("em")) {
+    // &lt;&lt; The em width for |cur_font|, 558 &gt;&gt;
+}
+else if (scan_keyword("ex")) {
+    // &lt;&lt; The x-height for |cur_font|, 559 &gt;&gt;
+}
+else {
+    goto not_found;
+}
+// &lt;&lt; Scan an optional space, 443 &gt;&gt;
+
+found:
+cur_val = nx_plus_y(save_cur_val, v, xn_over_d(v, f, 0x10000));
+goto attach_sign;
+not_found:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-453">453</a>.</p>
+</div></div>
+<h1 id="section-456"><a class="header" href="#section-456">Section 456</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan for mu units and <em>goto attach_fraction</em> <a href="./part26.html#section-456">456</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (scan_keyword("mu")) {
+    goto attach_fraction;
+}
+else {
+    print_err("Illegal unit of measure (");
+    print("mu inserted)");
+    help4("The unit of measurement in math glue must be mu.")
+        ("To recover gracefully from this error, it's best to")
+        ("delete the erroneous units; e.g., type `2' to delete")
+        ("two letters. (See Chapter 27 of The TeXbook.)");
+    error();
+    goto attach_fraction;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-453">453</a>.</p>
+</div></div>
+<h1 id="section-457"><a class="header" href="#section-457">Section 457</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Adjust for the magnification ratio <a href="./part26.html#section-457">457</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">prepare_mag();
+if (mag != 1000) {
+    cur_val = xn_over_d(cur_val, 1000, mag);
+    f = (1000*f + 0x10000 * remainder_) / mag;
+    cur_val += f / 0x10000;
+    f %= 0x10000;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-453">453</a>.</p>
+</div></div>
+<h1 id="section-458"><a class="header" href="#section-458">Section 458</a></h1>
+<p>The necessary conversion factors can all be specified exactly as fractions whose numerator and denominator sum to 32768 or less.
+According to the definitions here, 2660 dd <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4831em;"></span><span class="mrel">≈</span></span></span></span> 1000.33297 mm;
+this agrees well with the value 1000.333 mm cited by Bosshard in <em>Technische Grundlagen zur Satzherstellung</em> (Bern, 1980).</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define set_conversion(X, Y) num = (X); denom = (Y)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan for all other units and adjust <em>cur_val</em> and <em>f</em> accordingly; <em>goto done</em> in the case of scaled points <a href="./part26.html#section-458">458</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (scan_keyword("in")) {
+    set_conversion(7227, 100);
+}
+else if (scan_keyword("pc")) {
+    set_conversion(12, 1);
+}
+else if (scan_keyword("cm")) {
+    set_conversion(7227, 254);
+}
+else if (scan_keyword("mm")) {
+    set_conversion(7227, 2540);
+}
+else if (scan_keyword("bp")) {
+    set_conversion(7227, 7200);
+}
+else if (scan_keyword("dd")) {
+    set_conversion(1238, 1157);
+}
+else if (scan_keyword("cc")) {
+    set_conversion(14856, 1157);
+}
+else if (scan_keyword("sp")) {
+    goto done;
+}
+else {
+    // &lt;&lt; Complain about unknown unit and |goto done2|, 459 &gt;&gt;
+}
+cur_val = xn_over_d(cur_val, num, denom);
+f = (num * f + 0x10000 * remainder_) / denom;
+cur_val += f / 0x10000;
+f %= 0x10000;
+done2:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-453">453</a>.</p>
+</div></div>
+<h1 id="section-459"><a class="header" href="#section-459">Section 459</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Complain about unknown unit and <em>goto done2</em> <a href="./part26.html#section-459">459</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Illegal unit of measure (");
+print("pt inserted)");
+help6("Dimensions can be in units of em, ex, in, pt, pc,")
+    ("cm, mm, dd, cc, bp, or sp; but yours is a new one!")
+    ("I'll assume that you meant to say pt, for printer's points.")
+    ("To recover gracefully from this error, it's best to")
+    ("delete the erroneous units; e.g., type `2' to delete")
+    ("two letters. (See Chapter 27 of The TeXbook.)");
+error();
+goto done2;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-458">458</a>.</p>
+</div></div>
+<h1 id="section-460"><a class="header" href="#section-460">Section 460</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report that this dimension is out of range <a href="./part26.html#section-460">460</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Dimension too large");
+help2("I can't work with sizes bigger than about 19 feet.")
+    ("Continue and I'll use the largest value I can.");
+error();
+cur_val = MAX_DIMEN;
+arith_error = false;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-448">448</a>.</p>
+</div></div>
+<h1 id="section-461"><a class="header" href="#section-461">Section 461</a></h1>
+<p>The final member of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s value-scanning trio is <em>scan_glue</em>, which makes <em>cur_val</em> point to a glue specification.
+The reference count of that glue spec will take account of the fact that <em>cur_val</em> is pointing to it.</p>
+<p>The <em>level</em> parameter should be either <em>GLUE_VAL</em> or <em>MU_VAL</em>.</p>
+<p>Since <em>scan_dimen</em> was so much more complex than <em>scan_int</em>, we might expect <em>scan_glue</em> to be even worse.
+But fortunately, it is very simple, since most of the work has already been done.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">subroutines.c</div>
+<pre><code class="language-c">// sets |cur_val| to a glue spec pointer
+void scan_glue(small_number level) {
+    bool negative; // should the answer be negated?
+    pointer q;     // new glue specification
+    bool mu;       // does |level = MU_VAL|?
+
+    mu = (level == MU_VAL);
+    // &lt;&lt; Get the next non-blank non-sign token; set |negative| appropriately, 441 &gt;&gt;
+    if (cur_cmd &gt;= MIN_INTERNAL &amp;&amp; cur_cmd &lt;= MAX_INTERNAL) {
+        scan_something_internal(level, negative);
+        if (cur_val_level &gt;= GLUE_VAL) {
+            if (cur_val_level != level) {
+                mu_error();
+            }
+            return;
+        }
+        if (cur_val_level == INT_VAL) {
+            scan_dimen(mu, false, true);
+        }
+        else if (level == MU_VAL) {
+            mu_error();
+        }
+    }
+    else {
+        back_input();
+        scan_dimen(mu, false, false);
+        if (negative) {
+            negate(cur_val);
+        }
+    }
+    // &lt;&lt; Create a new glue specification whose width is |cur_val|; scan for its stretch and shrink components, 462 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-462"><a class="header" href="#section-462">Section 462</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Create a new glue specification whose width is <em>cur_val</em>; scan for its stretch and shrink components <a href="./part26.html#section-462">462</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = new_spec(ZERO_GLUE);
+width(q) = cur_val;
+if (scan_keyword("plus")) {
+    scan_dimen(mu, true, false);
+    stretch(q) = cur_val;
+    stretch_order(q) = cur_order;
+}
+if (scan_keyword("minus")) {
+    scan_dimen(mu, true, false);
+    shrink(q) = cur_val;
+    shrink_order(q) = cur_order;
+}
+cur_val = q;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-461">461</a>.</p>
+</div></div>
+<h1 id="section-463"><a class="header" href="#section-463">Section 463</a></h1>
+<p>Here’s a similar procedure that returns a pointer to a rule node.
+This routine is called just after <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> has seen <code>\hrule</code> or <code>\vrule</code>;
+therefore <em>cur_cmd</em> will be either <em>hrule</em> or <em>vrule</em>.
+The idea is to store the default rule dimensions in the node, then to override them if
+‘<code>height</code>’ or ‘<code>width</code>’ or ‘<code>depth</code>’ specifications are found (in any order).</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define DEFAULT_RULE 26214 // 0.4 pt
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">subroutines.c</div>
+<pre><code class="language-c">pointer scan_rule_spec() {
+    pointer q; // the rule node being created
+    q = new_rule(); // |width|, |depth|, and |height| all equal |NULL_FLAG| now
+    if (cur_cmd == VRULE) {
+        width(q) = DEFAULT_RULE;
+    }
+    else {
+        height(q) = DEFAULT_RULE;
+        depth(q) = 0;
+    }
+reswitch:
+    if (scan_keyword("width")) {
+        scan_normal_dimen;
+        width(q) = cur_val;
+        goto reswitch;
+    }
+    if (scan_keyword("height")) {
+        scan_normal_dimen;
+        height(q) = cur_val;
+        goto reswitch;
+    }
+    if (scan_keyword("depth")) {
+        scan_normal_dimen;
+        depth(q) = cur_val;
+        goto reswitch;
+    }
+    return q;
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part25.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part27.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part25.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part27.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

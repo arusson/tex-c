@@ -1,0 +1,660 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 115–132 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html" class="active">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-115-dynamic-memory-allocation"><a class="header" href="#section-115-dynamic-memory-allocation">Section 115: Dynamic memory allocation</a></h1>
+<p>The <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> system does nearly all of its own memory allocation, so that it can readily be transported into environments that do not have automatic facilities for strings, garbage collection, etc., and so that it can be in control of what error messages the user receives.
+The dynamic storage requirements of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> are handled by providing a large array <em>mem</em> in which consecutive blocks of words are used as nodes by the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> routines.</p>
+<p>Pointer variables are indices into this array, or into another array called <em>eqtb</em> that will be explained later.
+A pointer variable might also be a special flag that lies outside the bounds of <em>mem</em>, so we
+allow pointers to assume any <em>halfword</em> value.
+The minimum halfword value represents a null pointer. <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> does not assume that <em>mem[null]</em> exists.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>All constants are written in uppercase in this implementation, however, the <code>NULL</code> keyword is a reserved word in C, so an exception is made for the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> null pointer.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define null MIN_HALFWORD // the null pointer
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Types in the outer block <a href="./part02.html#section-18">18</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">typedef halfword pointer; // a flag or a location in |mem| or |eqtb|
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer temp_ptr; // a pointer variable for occasional emergency use
+</code></pre>
+</div>
+<h1 id="section-116"><a class="header" href="#section-116">Section 116</a></h1>
+<p>The <em>mem</em> array is divided into two regions that are allocated separately, but the dividing line between these two regions is not fixed; they grow together until finding their “natural” size in a particular job.
+Locations less than or equal to <em>lo_mem_max</em> are used for storing variable-length records consisting of two or more words each.
+This region is maintained using an algorithm similar to the one described in exercise 2.5–19 of <em>The Art of Computer Programming</em>.
+However, no size field appears in the allocated nodes; the program is responsible for knowing the relevant size when a node is freed.
+Locations greater than or equal to <em>hi_mem_min</em> are used for storing one-word records; a conventional <code>AVAIL</code> stack is used for allocation in this region.</p>
+<p>Locations of <em>mem</em> between <em>MEM_BOT</em> and <em>MEM_TOP</em> may be dumped as part of preloaded format files, by the <code>INITEX</code> preprocessor.
+Production versions of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> may extend the memory at both ends in order to provide more space; locations between <em>MEM_MIN</em> and <em>MEM_BOT</em> are always used for variable-size nodes, and locations between <em>MEM_TOP</em> and <em>MEM_MAX</em> are always used for single-word nodes.</p>
+<p>The key pointers that govern <em>mem</em> allocation have a prescribed order:
+<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">null</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">MEM_MIN</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">MEM_BOT</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">lo_mem_max</span></span></span></span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mspace" style="margin-right:8.5358em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">hi_mem_min</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">MEM_TOP</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">mem_end</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">MEM_MAX</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span></span></span></span></span></p>
+<p>Empirical tests show that the present implementation of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> tends to spend about 9% of its running time allocating nodes, and about 6% deallocating them after their use.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>MEM_MIN</em> is 0, so it is not used in the declaration of <code>mem</code>.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">memory_word mem[MEM_MAX + 1]; // the big dynamic storage area
+pointer lo_mem_max;           // the largest location of variable-size memory in use
+pointer hi_mem_min;           // the smallest location of one-word memory in use
+</code></pre>
+</div>
+<h1 id="section-117"><a class="header" href="#section-117">Section 117</a></h1>
+<p>In order to study the memory requirements of particular applications, it is possible to prepare a version of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> that keeps track of current and maximum memory usage.
+When code between the delimiters <strong>stat .. tats</strong>. is not “commented out”, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will run a bit slower but it will report these statistics when <em>tracing_stats</em> is sufficiently large.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int var_used, dyn_used; // how much memory is in use
+</code></pre>
+</div>
+<h1 id="section-118"><a class="header" href="#section-118">Section 118</a></h1>
+<p>Let’s consider the one-word memory region first, since it’s the simplest.
+The pointer variable <em>mem_end</em> holds the highest-numbered location of <em>mem</em> that has ever been used.
+The free locations of <em>mem</em> that occur between <em>hi_mem_min</em> and <em>mem_end</em>, inclusive, are of type
+<em>two_halves</em>, and we write <em>info(p)</em> and <em>link(p)</em> for the <em>lh</em> and <em>rh</em> fields of <em>mem[p]</em> when it is of this type.
+The single-word free locations form a linked list</p>
+<div align="center">
+<p><em>avail</em>, <em>link(avail)</em>, <em>link(link(avail))</em>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span></p>
+</div>
+<p>terminated by <em>null</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define link(X) hh_rh(mem[(X)]) // the |link| field of a memory word
+#define info(X) hh_lh(mem[(X)]) // the |info| field of a memory word
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer avail;   // head of the list of available one-word nodes
+pointer mem_end; // the last one-word node used in |mem|
+</code></pre>
+</div>
+<h1 id="section-119"><a class="header" href="#section-119">Section 119</a></h1>
+<p>If memory is exhausted, it might mean that the user has forgotten a right brace.
+We will define some procedures later that try to help pinpoint the trouble.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Those are <em>show_token_list</em> and <em>runaway</em>, but have been defined directly in a file.</p>
+</blockquote>
+</div>
+<h1 id="section-120"><a class="header" href="#section-120">Section 120</a></h1>
+<p>The function <em>get_avail</em> returns a pointer to a new one-word node whose <em>link</em> field is null.
+However, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will halt if there is no more room left.</p>
+<p>If the available-space list is empty, i.e., if <em>avail = null</em>, we try first to increase <em>mem_end</em>.
+If that cannot be done, i.e., if <em>mem_end = MEM_MAX</em>, we try to decrease <em>hi_mem_min</em>.
+If that cannot be done, i.e., if <em>hi_mem_min = lo_mem_max + 1</em>, we have to quit.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">memory.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |memory.c|, 1382 &gt;&gt;
+
+// single-word node allocation
+pointer get_avail() {
+    pointer p; // the new node being got
+    p = avail; // get top location in the |avail| stack
+    if (p != null) {
+        // and pop-it off
+        avail = link(avail);
+    }
+    else if (mem_end &lt; MEM_MAX) {
+        // or go into virgin directory
+        incr(mem_end);
+        p = mem_end;
+    }
+    else {
+        decr(hi_mem_min);
+        p = hi_mem_min;
+        if (hi_mem_min &lt;= lo_mem_max) {
+            // if memory is exhausted, display possible runaway text
+            runaway();
+            // quit; all one-word nodes are busy
+            overflow("main memory size", MEM_MAX + 1 - MEM_MIN);
+        }
+    }
+    link(p) = null; // provide an oft-desired initialization of the new node
+    incr_dyn_used; // maintain statistics
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-121"><a class="header" href="#section-121">Section 121</a></h1>
+<p>Conversely, a one-word node is recycled by calling <em>free_avail</em>.
+This routine is part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s “inner loop”, so we want it to be fast.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">// single-word node liberation
+#ifdef STAT
+#define decr_dyn_used decr(dyn_used)
+#define incr_dyn_used incr(dyn_used)
+#else
+#define decr_dyn_used
+#define incr_dyn_used
+#endif
+
+#define free_avail(X) link((X)) = avail; avail = (X); decr_dyn_used
+</code></pre>
+</div>
+<h1 id="section-122"><a class="header" href="#section-122">Section 122</a></h1>
+<p>There’s also a <em>fast_get_avail</em> routine, which saves the procedure-call overhead at the expense of extra programming.
+This routine is used in the places that would otherwise account for the most calls of <em>get_avail</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define fast_get_avail(X)                                 \
+    do {                                                  \
+        /* avoid |get avail| if possible, to save time */ \
+        (X) = avail;                                      \
+        if ((X) == null) {                                \
+            (X) = get_avail();                            \
+        }                                                 \
+        else {                                            \
+            avail = link((X));                            \
+            link((X)) = null;                             \
+            incr_dyn_used;                                \
+        }                                                 \
+    } while(0)
+</code></pre>
+</div>
+<h1 id="section-123"><a class="header" href="#section-123">Section 123</a></h1>
+<p>The procedure <em>flush_list(p)</em> frees an entire linked list of one-word nodes that starts at position <em>p</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">memory.c</div>
+<pre><code class="language-c">// makes list of single-word nodes
+void flush_list(pointer p) {
+    pointer q, r; // list traversers
+    if (p != null) {
+        r = p;
+        do {
+            q = r;
+            r = link(r);
+            decr_dyn_used;
+        } while (r != null);
+        // now |q| is the last node on the list
+        link(q) = avail;
+        avail = p;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-124"><a class="header" href="#section-124">Section 124</a></h1>
+<p>The available-space list that keeps track of the variable-size portion of <em>mem</em> is a nonempty, doubly-linked circular list of empty nodes, pointed to by the roving pointer <em>rover</em>.</p>
+<p>Each empty node has size 2 or more; the first word contains the special value <em>MAX_HALFWORD</em> in its <em>link</em> field and the size in its <em>info</em> field;
+the second word contains the two pointers for double linking.</p>
+<p>Each nonempty node also has size 2 or more.
+Its first word is of type <em>two_halves</em>, and its <em>link</em> field is never equal to <em>MAX_HALFWORD</em>.
+Otherwise there is complete flexibility with respect to the contents of its other fields and its other words.</p>
+<p>(We require <em>MEM_MAX</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>MAX_HALFWORD</em> because terrible things can happen when <em>MAX_HALFWORD</em> appears in the <em>link</em> field of a nonempty node.)</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define EMPTY_FLAG MAX_HALFWORD // the |link| of an empty variable-size node
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define is_empty(X) (link((X)) == EMPTY_FLAG) // tests for empty node
+#define node_size   info          // the size field in empty variable-size nodes
+#define llink(X)    info((X) + 1) // left link in doubly-linked list of empty nodes
+#define rlink(X)    link((X) + 1) // right link in doubly-linked list of empty nodes
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer rover; // points to some node in the list of empties
+</code></pre>
+</div>
+<h1 id="section-125"><a class="header" href="#section-125">Section 125</a></h1>
+<p>A call to <em>get_node</em> with argument <em>s</em> returns a pointer to a new node of size <em>s</em>, which must be 2 or more.
+The <em>link</em> field of the first word of this new node is set to null.
+An overflow stop occurs if no suitable space exists.</p>
+<p>If <em>get_node</em> is called with <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">30</span></span></span></span></span></span></span></span></span></span></span></span>, it simply merges adjacent free areas and returns the value <em>MAX_HALFWORD</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">memory.c</div>
+<pre><code class="language-c">// variable-size node allocation
+pointer get_node(int s) {
+    pointer p; // the node currently under inspection
+    pointer q; // the node physically after node |p|
+    int r;     // the newly allocated node, or a candidate for this honor
+    int t;     // temporary register
+
+restart:
+    p = rover; // start at some free node in the ring
+    do {
+        // &lt;&lt; Try to allocate within node |p| and its physical successors, and |goto found| if allocation was possible, 127 &gt;&gt;
+        p = rlink(p); // move to the next node in the ring
+    } while (p != rover); // repeat until the whole list has been traversed
+    
+    if (s == 0x40000000) {
+        return MAX_HALFWORD;
+    }
+    if (lo_mem_max + 2 &lt; hi_mem_min
+        &amp;&amp; lo_mem_max + 2 &lt;= MEM_BOT + MAX_HALFWORD)
+    {
+        // &lt;&lt; Grow more variable-size memory and |goto restart|, 126 &gt;&gt;
+    }
+    // sorry, nothing satisfactory is left
+    overflow("main memory size", MEM_MAX + 1 - MEM_MIN);
+
+found:
+    link(r) = null; // this node is now nonempty
+#ifdef STAT
+    var_used += s; // maintain usage statistics
+#endif
+    return r;
+}
+</code></pre>
+</div>
+<h1 id="section-126"><a class="header" href="#section-126">Section 126</a></h1>
+<p>The lower part of <em>mem</em> grows by 1000 words at a time, unless we are very close to going under.
+When it grows, we simply link a new node into the available-space list.
+This method of controlled growth helps to keep the <em>mem</em> usage consecutive when <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is implemented on “virtual memory” systems.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Grow more variable-size memory and <em>goto restart</em> <a href="./part09.html#section-126">126</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (hi_mem_min - lo_mem_max &gt;= 1998) {
+    t = lo_mem_max + 1000;
+}
+else {
+    // |lo_mem_max + 2 &lt;= t &lt; hi_mem_min|
+    t = lo_mem_max + 1 + (hi_mem_min - lo_mem_max) / 2;
+}
+p = llink(rover);
+q = lo_mem_max;
+rlink(p) = q;
+llink(rover) = q;
+
+if (t &gt; MEM_BOT + MAX_HALFWORD) {
+    t = MEM_BOT + MAX_HALFWORD;
+}
+rlink(q) = rover;
+llink(q) = p;
+link(q) = EMPTY_FLAG;
+node_size(q) = t - lo_mem_max;
+lo_mem_max = t;
+link(lo_mem_max) = null;
+info(lo_mem_max) = null;
+rover = q;
+goto restart;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part09.html#section-125">125</a>.</p>
+</div></div>
+<h1 id="section-127"><a class="header" href="#section-127">Section 127</a></h1>
+<p>Empirical tests show that the routine in this section performs a node-merging operation about 0.75 times per allocation, on the average, after which it finds that <em>r</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>p + 1</em> about 95% of the time.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Try to allocate within node <em>p</em> and its physical successors, and <em>goto found</em> if allocation was possible <a href="./part09.html#section-127">127</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = p + node_size(p); // find the physical successor
+while(is_empty(q)) {
+    // merge node |p| with node |q|
+    t = rlink(q);
+    if (q == rover) {
+        rover = t;
+    }
+    llink(t) = llink(q);
+    rlink(llink(q)) = t;
+    q += node_size(q);
+}
+r = q - s;
+if (r &gt; p + 1) {
+    // &lt;&lt; Allocate from the top of node |p| and |goto found|, 128 &gt;&gt;
+}
+if (r == p &amp;&amp; rlink(p) != p) {
+    // &lt;&lt; Allocate entire node |p| and |goto found|, 129 &gt;&gt;
+}
+node_size(p) = q - p; // reset the size in case it grew
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part09.html#section-125">125</a>.</p>
+</div></div>
+<h1 id="section-128"><a class="header" href="#section-128">Section 128</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Allocate from the top of node <em>p</em> and <em>goto found</em> <a href="./part09.html#section-128">128</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">node_size(p) = r - p; // store the remaining size
+rover = p; // start searching here next time
+goto found;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part09.html#section-127">127</a>.</p>
+</div></div>
+<h1 id="section-129"><a class="header" href="#section-129">Section 129</a></h1>
+<p>Here we delete node <em>p</em> from the ring, and let <em>rover</em> rove around.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Allocate entire node <em>p</em> and <em>goto found</em> <a href="./part09.html#section-129">129</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">rover = rlink(p);
+t = llink(p);
+llink(rover) = t;
+rlink(t) = rover;
+goto found;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part09.html#section-127">127</a>.</p>
+</div></div>
+<h1 id="section-130"><a class="header" href="#section-130">Section 130</a></h1>
+<p>Conversely, when some variable-size node <em>p</em> of size <em>s</em> is no longer needed, the operation <em>free_node(p, s)</em> will make its words available, by inserting <em>p</em> as a new empty node just before where <em>rover</em> now points.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">memory.c</div>
+<pre><code class="language-c">// variable-size node liberation
+void free_node(pointer p, halfword s) {
+    pointer q; // |llink(rover)|
+    // set both links
+    node_size(p) = s;
+    link(p) = EMPTY_FLAG;
+    q = llink(rover);
+    llink(p) = q;
+    rlink(p) = rover;
+    // insert |p| into the ring
+    llink(rover) = p;
+    rlink(q) = p;
+#ifdef STAT
+    var_used -= s; // maintain statistics
+#endif
+}
+</code></pre>
+</div>
+<h1 id="section-131"><a class="header" href="#section-131">Section 131</a></h1>
+<p>Just before <code>INITEX</code> writes out the memory, it sorts the doubly linked available space list.
+The list is probably very short at such times, so a simple insertion sort is used.
+The smallest available location will be pointed to by <em>rover</em>, the next-smallest by <em>rlink(rover)</em>, etc.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">memory.c</div>
+<pre><code class="language-c">#ifdef INIT
+// sorts the available variable-size nodes by location
+void sort_avail() {
+    pointer p, q, r;   // indices into |mem|
+    pointer old_rover; // initial |rover| setting
+    p = get_node(0x40000000); // merge adjacent free areas
+    p = rlink(rover);
+    rlink(rover) = MAX_HALFWORD;
+    old_rover = rover;
+    while (p != old_rover) {
+        // &lt;&lt; Sort |p| into the list starting at |rover| and advance |p| to |rlink(p)|, 132 &gt;&gt;
+    }
+    p = rover;
+    while (rlink(p) != MAX_HALFWORD) {
+        llink(rlink(p)) = p;
+        p = rlink(p);
+    }
+    rlink(p) = rover;
+    llink(rover) = p;
+}
+#endif
+</code></pre>
+</div>
+<h1 id="section-132"><a class="header" href="#section-132">Section 132</a></h1>
+<p>The following <code>while</code> loop is guaranteed to terminate, since the list that starts at <em>rover</em> ends with <em>MAX_HALFWORD</em> during the sorting procedure.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Sort <em>p</em> into the list starting at <em>rover</em> and advance <em>p</em> to <em>rlink(p)</em> <a href="./part09.html#section-132">132</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (p &lt; rover) {
+    q = p;
+    p = rlink(q);
+    rlink(q) = rover;
+    rover = q;
+}
+else {
+    q = rover;
+    while (rlink(q) &lt; p) {
+        q = rlink(q);
+    }
+    r = rlink(p);
+    rlink(p) = rlink(q);
+    rlink(q) = p;
+    p = r;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part09.html#section-131">131</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part08.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part10.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part08.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part10.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

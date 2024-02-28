@@ -1,0 +1,744 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 54–71 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html" class="active">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-54-on-line-and-off-line-printing"><a class="header" href="#section-54-on-line-and-off-line-printing">Section 54: On-line and off-line printing</a></h1>
+<p>Messages that are sent to a user’s terminal and to the transcript-log file are produced by several <em>‘print’</em> procedures. These procedures will direct their output to a variety of places, based on the setting of the global variable <em>selector</em>, which has the following possible values:</p>
+<ul>
+<li><em>TERM_AND_LOG</em>, the normal setting, prints on the terminal and on the transcript file.</li>
+<li><em>LOG_ONLY</em>, prints only on the transcript file.</li>
+<li><em>TERM_ONLY</em>, prints only on the terminal.</li>
+<li><em>NO_PRINT</em>, doesn’t print at all. This is used only in rare cases before the transcript file is open.</li>
+<li><em>PSEUDO</em>, puts output into a cyclic buffer that is used by the <em>show_context</em> routine; when we get to that routine we shall discuss the reasoning behind this curious mode.</li>
+<li><em>NEW_STRING</em>, appends the output to the current string in the string pool.</li>
+<li>0 to 15, prints on one of the sixteen files for <code>\write</code> output.</li>
+</ul>
+<p>The symbolic names <em>‘TERM_AND_LOG’</em>, etc., have been assigned numeric codes that satisfy the convenient relations <em>NO_PRINT + 1 = TERM_ONLY</em>, <em>NO_PRINT + 2 = LOG_ONLY</em>, <em>TERM_ONLY + 2 = LOG_ONLY + 1 = TERM_AND_LOG</em>.</p>
+<p>Three additional global variables, <em>tally</em> and <em>term_offset</em> and <em>file_offset</em>, record the number of characters that have been printed since they were most recently cleared to zero.
+We use <em>tally</em> to record the length of (possibly very long) stretches of printing; <em>term_offset</em> and <em>file_offset</em>, on the other hand, keep track of how many characters have appeared so far on the current line that has been output to the terminal or to the transcript file, respectively.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define NO_PRINT     16 // |selector| setting that makes data disappear
+#define TERM_ONLY    17 // printing is destined for the terminal only
+#define LOG_ONLY     18 // printing is destined for the transcript file only
+#define TERM_AND_LOG 19 // normal |selector| setting
+#define PSEUDO       20 // special |selector| setting for |show_context|
+#define NEW_STRING   21 // printing is deflected to the string pool
+#define MAX_SELECTOR 21 // highest selector setting
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">alpha_file log_file;                  // transcript of TeX session
+int selector;                         // where to print a message
+unsigned char dig[23];                // digits in a number being output
+int tally;                            // the number of characters recently printed
+int term_offset;                      // the number of characters on the current terminal line
+int file_offset;                      // the number of characters on the current file line
+ASCII_code trick_buf[ERROR_LINE + 1]; // circular buffer for pseudoprinting
+int trick_count;                      // threshold for pseudoprinting, explained later
+int first_count;                      // another variable for pseudoprinting
+</code></pre>
+</div>
+<h1 id="section-55"><a class="header" href="#section-55">Section 55</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the output routines <a href="./part05.html#section-55">55</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">selector = TERM_ONLY;
+tally = 0;
+term_offset = 0;
+file_offset = 0;
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part05.html#section-61">61</a>, <a href="./part29.html#section-528">528</a>, and <a href="./part29.html#section-533">533</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part51.html#section-1332">1332</a>.</p>
+</div></div>
+<h1 id="section-56"><a class="header" href="#section-56">Section 56</a></h1>
+<p>Macro abbreviations for output to the terminal and to the log file are defined here for convenience.
+Some systems need special conventions for terminal output, and it is possible to adhere to those conventions by changing <em>wterm</em>, <em>wterm_ln</em>, and <em>wterm_cr</em> in this section.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">#define wterm(X, ...)       printf(X, ##__VA_ARGS__)
+#define wterm_char(X)       printf("%c", (X))
+#define wterm_ln(X, ...)    printf(X"\n", ##__VA_ARGS__)
+#define wterm_cr            printf("\n")
+#define wlog(X, ...)        fprintf(log_file, X, ##__VA_ARGS__)
+#define wlog_char(X)        fprintf(log_file, "%c", (X))
+#define wlog_ln(X, ...)     fprintf(log_file, X"\n", ##__VA_ARGS__)
+#define wlog_cr             fprintf(log_file, "\n")
+
+#define write_ln(F, X, ...) fprintf((F), X"\n", ##__VA_ARGS__)
+#define write_char(F, X)    fprintf((F), "%c", (X))
+#define write_byte(F, X)    fputc((X), (F))
+</code></pre>
+</div>
+<h1 id="section-57"><a class="header" href="#section-57">Section 57</a></h1>
+<p>To end a line of text output, we call <em>print_ln</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |basic_printing.c|, 1382 &gt;&gt;
+
+// prints an end-of-line
+void print_ln() {
+    switch(selector) {
+    case TERM_AND_LOG:
+        wterm_cr;
+        wlog_cr;
+        term_offset = 0;
+        file_offset = 0;
+        break;
+    
+    case LOG_ONLY:
+        wlog_cr;
+        file_offset = 0;
+        break;
+
+    case TERM_ONLY:
+        wterm_cr;
+        term_offset = 0;
+        break;
+    
+    case NO_PRINT:
+    case PSEUDO:
+    case NEW_STRING:
+        do_nothing;
+        break;
+    
+    default:
+        write_ln(write_file[selector], "");
+    }
+    // |tally| is not affected
+}
+</code></pre>
+</div>
+<h1 id="section-58"><a class="header" href="#section-58">Section 58</a></h1>
+<p>The <em>print_char</em> procedure sends one character to the desired destination, using the <em>XCHR</em> array to map it into an external character compatible with <em>input_ln</em>.
+All printing comes through <em>print_ln</em> or <em>print_char</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">// prints a single character
+void print_char(ASCII_code s) {
+    // Section 244 (first condition)
+    if (s == new_line_char &amp;&amp; selector &lt; PSEUDO) {
+        print_ln();
+        return;
+    }
+    switch(selector) {
+    case TERM_AND_LOG:
+        wterm_char(XCHR[s]);
+        incr(term_offset);
+        if (term_offset == MAX_PRINT_LINE) {
+            wterm_cr;
+            term_offset = 0;
+        }
+        wlog_char(XCHR[s]);
+        incr(file_offset);
+        if (file_offset == MAX_PRINT_LINE) {
+            wlog_cr;
+            file_offset = 0;
+        }
+        break;
+
+    case LOG_ONLY:
+        wlog_char(XCHR[s]);
+        incr(file_offset);
+        if (file_offset == MAX_PRINT_LINE) {
+            print_ln();
+        }
+        break;
+
+    case TERM_ONLY:
+        wterm_char(XCHR[s]);
+        incr(term_offset);
+        if (term_offset == MAX_PRINT_LINE) {
+            print_ln();
+        }
+        break;
+        
+    case NO_PRINT:
+        do_nothing;
+        break;
+
+    case PSEUDO:
+        if (tally &lt; trick_count) {
+            trick_buf[tally % ERROR_LINE] = s;
+        }
+        break;
+
+    case NEW_STRING:
+        // we drop characters if the string space is full
+        if (pool_ptr &lt; POOL_SIZE) {
+            append_char(s);
+        }
+        break;
+
+    default:
+        write_char(write_file[selector], XCHR[s]);
+    }
+    incr(tally);
+}
+</code></pre>
+</div>
+<h1 id="section-59"><a class="header" href="#section-59">Section 59</a></h1>
+<p>An entire string is output by calling <em>print</em>.
+Note that if we are outputting the single standard ASCII character <code>c</code>, we could call <em>print(‘c’)</em>, since <code>'c'</code> = 99 is the number of a single-character string, as explained above.
+But <em>print_char(‘c’)</em> is quicker, so <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> goes directly to the <em>print_char</em> routine when it knows that this is safe.
+(The present implementation assumes that it is always safe to print a visible ASCII character.)</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The original <em>print</em> procedure has been renamed <em>print_strnumber</em>.
+The <em>print</em> function is used to print to terminal or files (depending of the <code>selector</code>) only strings that are hardcoded in the source.
+Those have the null terminator, so it is safe to use.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">void print(char *s) {
+    int l = strlen(s);
+    int i;
+    for (i = 0; i &lt; l; i++) {
+        print_char(s[i]);
+    }
+}
+
+// prints string s
+void print_strnumber(int s) {
+    pool_pointer j; // current character code position
+    int nl;         // new-line character to restore
+
+    if (s &gt;= str_ptr) {
+        print("???"); // This can't happen.
+    }
+    else if (s &lt; 256) {
+        if (selector &gt; PSEUDO) {
+            print_char(s);
+            return;
+            // internal strings are not expanded
+        }
+        // Section 244 (first condition)
+        if (s == new_line_char &amp;&amp; selector &lt; PSEUDO) {
+            print_ln();
+            return;
+        }
+        nl = new_line_char;
+        new_line_char = -1; // temporary disable new-line character
+        j = str_start[s];
+        while (j &lt; str_start[s + 1]) {
+            print_char(str_pool[j]);
+            incr(j);
+        }
+        new_line_char = nl;
+        return;
+    }
+    j = str_start[s];
+    while (j &lt; str_start[s +1]) {
+        print_char(str_pool[j]);
+        incr(j);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-60"><a class="header" href="#section-60">Section 60</a></h1>
+<p>Control sequence names, file names, and strings constructed with <code>\string</code> might contain <em>ASCII_code</em> values that can’t be printed using <em>print_char</em>.
+Therefore we use <em>slow_print</em> for them:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">// prints string s
+void slow_print(int s) {
+    pool_pointer j; // current character code position
+    if (s &gt;= str_ptr || s &lt; 256) {
+        print_strnumber(s);
+    }
+    else {
+        j = str_start[s];
+        while (j &lt; str_start[s + 1]) {
+            print_strnumber(str_pool[j]);
+            incr(j);
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-61"><a class="header" href="#section-61">Section 61</a></h1>
+<p>Here is the very first thing that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> prints: a headline that identifies the version number and format package.
+The <em>term_offset</em> variable is temporarily incorrect, but the discrepancy is not serious since we assume that this part of the program is system dependent.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the output routines <a href="./part05.html#section-55">55</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">wterm(BANNER);
+if (format_ident == 0) {
+    wterm_ln(" (no format preloaded)");
+}
+else {
+    slow_print(format_ident);
+    print_ln();
+}
+update_terminal;
+</code></pre>
+</div>
+<h1 id="section-62"><a class="header" href="#section-62">Section 62</a></h1>
+<p>The procedure <em>print_nl</em> is like <em>print</em>, but it makes sure that the string appears at the beginning of a new line.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Same as <em>print</em>, there are two versions.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">void print_nl(char *s) {
+    if ((term_offset &gt; 0 &amp;&amp; odd(selector))
+        || (file_offset &gt; 0 &amp;&amp; selector &gt;= LOG_ONLY))
+    {
+        print_ln();
+    }
+    print(s);
+}
+
+// prints string |s| at beginning of line
+void print_nl_strnumber(str_number s) {
+    if ((term_offset &gt; 0 &amp;&amp; odd(selector))
+        || (file_offset &gt; 0 &amp;&amp; selector &gt;= LOG_ONLY))
+    {
+        print_ln();
+    }
+    print_strnumber(s);
+}
+</code></pre>
+</div>
+<h1 id="section-63"><a class="header" href="#section-63">Section 63</a></h1>
+<p>The procedure <em>print_esc</em> prints a string that is preceded by the user’s escape character (which is usually a backslash).</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Again, two versions are provided.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">void print_esc(char *s) {
+    int c;
+    // &lt;&lt; Set variable |c| to the current escape character, 243 &gt;&gt;
+    if (c &gt;= 0 &amp;&amp; c &lt; 256) {
+        print_strnumber(c);
+    }
+    print(s);
+}
+
+// prints escape character, then |s|
+void print_esc_strnumber(str_number s) {
+    int c; // the escape character code
+    // &lt;&lt; Set variable |c| to the current escape character, 243 &gt;&gt;
+    if (c &gt;= 0 &amp;&amp; c &lt; 256) {
+        print_strnumber(c);
+    }
+    slow_print(s);
+}
+</code></pre>
+</div>
+<h1 id="section-64"><a class="header" href="#section-64">Section 64</a></h1>
+<p>An array of digits in the range <em>0 .. 15</em> is printed by <em>print_the_digs</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">// prints |dig[k - 1]| ... |dig[0]|
+void print_the_digs(eight_bits k) {
+    while (k &gt; 0) {
+        decr(k);
+        if (dig[k] &lt; 10) {
+            print_char('0' + dig[k]);
+        }
+        else {
+            print_char('A' - 10 + dig[k]);
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-65"><a class="header" href="#section-65">Section 65</a></h1>
+<p>The following procedure, which prints out the decimal representation of a given integer <em>n</em>, has been written carefully so that it works properly if <em>n = 0</em> or if <em>(−n)</em> would cause overflow.
+It does not apply <strong>mod</strong> or <strong>div</strong> to negative arguments, since such operations are not implemented consistently by all Pascal compilers.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">// prints an integer in decimal form
+void print_int(int n) {
+    int k = 0; // index to current digit; we assume that |n| &lt; 10^{23}
+    int m;     // used to negate |n| in possibly dangerous cases
+    if (n &lt; 0) {
+        print_char('-');
+        if (n &gt; -100000000) {
+            negate(n);
+        }
+        else {
+            m = -1 - n;
+            n = m / 10;
+            m = (m % 10) + 1;
+            k = 1;
+            if (m &lt; 10) {
+                dig[0] = m;
+            }
+            else {
+                dig[0] = 0;
+                incr(n);
+            }
+        }
+    }
+    do {
+        dig[k] = n % 10;
+        n /= 10;
+        incr(k);
+    } while (n != 0);
+    print_the_digs(k);
+}
+</code></pre>
+</div>
+<h1 id="section-66"><a class="header" href="#section-66">Section 66</a></h1>
+<p>Here is a trivial procedure to print two digits; it is usually called with a parameter in the range <em>0</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>n</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>99</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">// prints two least significant digits
+void print_two(int n) {
+    n = abs(n) % 100;
+    print_char('0' + (n / 10));
+    print_char('0' + (n % 10));
+}
+</code></pre>
+</div>
+<h1 id="section-67"><a class="header" href="#section-67">Section 67</a></h1>
+<p>Hexadecimal printing of nonnegative integers is accomplished by <em>print_hex</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">// prints a positive integer in hexadecimal form
+void print_hex(int n) {
+    int k = 0; // index to current digit; we assume that 0 &lt;= n &lt; 16^{22}
+    print_char('"');
+    do {
+        dig[k] = n % 16;
+        n /= 16;
+        incr(k);
+    } while (n != 0);
+    print_the_digs(k);
+}
+</code></pre>
+</div>
+<h1 id="section-68"><a class="header" href="#section-68">Section 68</a></h1>
+<p>Old versions of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> needed a procedure called <em>print_ASCII</em> whose function is now subsumed by <em>print</em>.
+We retain the old name here as a possible aid to future software archæologists.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Not kept, but the code was:</p>
+<pre><code class="language-c">#define print_ASCII print
+</code></pre>
+</blockquote>
+</div>
+<h1 id="section-69"><a class="header" href="#section-69">Section 69</a></h1>
+<p>Roman numerals are produced by the <em>print_roman_int</em> routine.
+Readers who like puzzles might enjoy trying to figure out how this tricky code works;
+therefore no explanation will be given.
+Notice that 1990 yields <code>mcmxc</code>, not <code>mxm</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">void print_roman_int(int n) {
+    char *s = "m2d5c2l5x2v5i";
+    int j = 0, k;    // mysterious indices into |s|
+    int u, v = 1000; // mysterious numbers
+    while(true) {
+        while (n &gt;= v) {
+            print_char(s[j]);
+            n -= v;
+        }
+        if (n &lt;= 0) {
+            break; // nonpositive input produces no output
+        }
+        k = j + 2;
+        u = v / (s[k - 1] - '0');
+        if (s[k - 1] == '2') {
+            k += 2;
+            u /= (s[k - 1] - '0');
+        }
+        if (n + u &gt;= v) {
+            print_char(s[k]);
+            n += u;
+        }
+        else {
+            j += 2;
+            v /= (s[j - 1] - '0');
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-70"><a class="header" href="#section-70">Section 70</a></h1>
+<p>The <em>print</em> subroutine will not print a string that is still being created.
+The following procedure will.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">// prints a yet-unmade string
+void print_current_string() {
+    pool_pointer j; // points to current character code
+    j = str_start[str_ptr];
+    while (j &lt; pool_ptr) {
+        print_char(str_pool[j]);
+        incr(j);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-71"><a class="header" href="#section-71">Section 71</a></h1>
+<p>Here is a procedure that asks the user to type a line of input, assuming that the <em>selector</em> setting is either <em>TERM_ONLY</em> or <em>TERM_AND_LOG</em>.
+The input is placed into locations <em>first</em> through <em>last − 1</em> of the <em>buffer</em> array, and echoed on the transcript file if appropriate.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">// prints a string and gets a line of input
+#define prompt_input(X) print((X)); term_input()
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">terminal.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |terminal.c|, 1382 &gt;&gt;
+
+// gets a line from the terminal
+void term_input() {
+    int k; // index into |buffer|
+    update_terminal; // now the user sees the prompt for sure
+    if (!input_ln(stdin)) {
+        fatal_error("End of file on the terminal");
+    }
+    term_offset = 0; // the user's line ended with &lt;return&gt;
+    decr(selector); // prepare to echo the input
+    if (last != first) {
+        for(k = first; k &lt; last; k++) {
+            print_strnumber(buffer[k]);
+        }
+    }
+    print_ln();
+    incr(selector); // restore previous status
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part04.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part06.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part04.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part06.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

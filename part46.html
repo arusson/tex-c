@@ -1,0 +1,1062 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 1029–1054 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html" class="active">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-1029-the-chief-executive"><a class="header" href="#section-1029-the-chief-executive">Section 1029: The chief executive</a></h1>
+<p>We come now to the <em>main_control</em> routine, which contains the master switch that causes all the various pieces of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> to do their things, in the right order.</p>
+<p>In a sense, this is the grand climax of the program:
+It applies all the tools that we have worked so hard to construct.
+In another sense, this is the messiest part of the program:
+It necessarily refers to other pieces of code all over the place, so that a person can’t fully understand what is going on without paging back and forth to be reminded of conventions that are defined elsewhere.
+We are now at the hub of the web, the central nervous system that touches most of the other parts and ties them together.</p>
+<p>The structure of <em>main_control</em> itself is quite simple.
+There’s a label called <em>big_switch</em>, at which point the next token of input is fetched using <em>get_x_token</em>.
+Then the program branches at high speed into one of about 100 possible directions, based on the value of the current mode and the newly fetched command code;
+the sum <em>abs(mode) + cur_cmd</em> indicates what to do next.
+For example, the case <em>‘VMODE + LETTER’</em> arises when a letter occurs in vertical mode (or internal vertical mode); this case leads to instructions that initialize a new paragraph and enter horizontal mode.</p>
+<p>The big <strong>case</strong> statement that contains this multiway switch has been labeled <em>reswitch</em>, so that the program can <strong>goto</strong> <em>reswitch</em> when the next token has already been fetched.
+Most of the cases are quite short; they call an “action procedure” that does the work for that case, and then they either <strong>goto</strong> <em>reswitch</em> or they “fall through” to the end of the <strong>case</strong> statement, which returns control back to <em>big_switch</em>.
+Thus, <em>main_control</em> is not an extremely large procedure, in spite of the multiplicity of things it must do; it is small enough to be handled by Pascal compilers that put
+severe restrictions on procedure size.</p>
+<p>One case is singled out for special treatment, because it accounts for most of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s activities in typical applications.
+The process of reading simple text and converting it into <em>CHAR_NODE</em> records, while looking for ligatures and kerns, is part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s “inner loop”; the whole program runs efficiently when its inner loop is fast, so this part has been written with particular care.</p>
+<h1 id="section-1030"><a class="header" href="#section-1030">Section 1030</a></h1>
+<p>We shall concentrate first on the inner loop of <em>main_control</em>, deferring consideration of the other cases until later.</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right"></th><th></th></tr></thead><tbody>
+<tr><td style="text-align: right"><em>big_switch</em></td><td>go here to branch on the next token of input;</td></tr>
+<tr><td style="text-align: right"><em>main_loop</em></td><td>go here to typeset a string of consecutive characters;</td></tr>
+<tr><td style="text-align: right"><em>main_loop_wrapup</em></td><td>go here to finish a character or ligature;</td></tr>
+<tr><td style="text-align: right"><em>main_loop_move</em></td><td>go here to advance the ligature cursor;</td></tr>
+<tr><td style="text-align: right"><em>main_loop_move_lig</em></td><td>same, when advancing past a generated ligature;</td></tr>
+<tr><td style="text-align: right"><em>main_loop_lookahead</em></td><td>go here to bring in another character, if any;</td></tr>
+<tr><td style="text-align: right"><em>main_lig_loop</em></td><td>go here to check for ligatures or kerning;</td></tr>
+<tr><td style="text-align: right"><em>append_normal_space</em></td><td>go here to append a normal space between words.</td></tr>
+</tbody></table>
+</div><div class="blockcode">
+<div class="blockcode-header-fname">chief.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |chief.c|, 1382 &gt;&gt;
+
+// &lt;&lt; Declare action procedures for use by |main_control|, 1043 &gt;&gt;
+
+// governs TeX's activities
+void main_control() {
+    int t; // general-purpose temporary variable
+    if (every_job != null) {
+        begin_token_list(every_job, EVERY_JOB_TEXT);
+    }
+
+big_switch:
+    get_x_token();
+
+reswitch:
+    // &lt;&lt; Give diagnostic information, if requested, 1031 &gt;&gt;
+    switch (abs(mode) + cur_cmd) {
+    case HMODE + LETTER:
+    case HMODE + OTHER_CHAR:
+    case HMODE + CHAR_GIVEN:
+        goto main_loop;
+    
+    case HMODE + CHAR_NUM:
+        scan_char_num();
+        cur_chr = cur_val;
+        goto main_loop;
+    
+    case HMODE + NO_BOUNDARY:
+        get_x_token();
+        if (cur_cmd == LETTER
+            || cur_cmd == OTHER_CHAR
+            || cur_cmd == CHAR_GIVEN
+            || cur_cmd == CHAR_NUM)
+        {
+            cancel_boundary = true;
+        }
+        goto reswitch;
+
+    case HMODE + SPACER:
+        if (space_factor == 1000) {
+            goto append_normal_space;
+        }
+        else {
+            app_space();
+        }
+        break;
+    
+    case HMODE + EX_SPACE:
+    case MMODE + EX_SPACE:
+        goto append_normal_space;
+    
+    // &lt;&lt; Cases of |main_control| that are not part of the inner loop, 1045 &gt;&gt;
+
+    } // end of the big |case| statement
+    goto big_switch;
+
+main_loop:
+    // &lt;&lt; Append character |cur_chr| and the following characters (if any) to the current hlist in the current font; |goto reswitch| when a non-character has been fetched, 1034 &gt;&gt;
+
+append_normal_space:
+    // &lt;&lt; Append a normal inter-word space to the current list, then |goto big_switch|, 1041 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-1031"><a class="header" href="#section-1031">Section 1031</a></h1>
+<p>When a new token has just been fetched at <em>big_switch</em>, we have an ideal place to monitor <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s activity.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Give diagnostic information, if requested <a href="./part46.html#section-1031">1031</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (interrupt != 0 &amp;&amp; ok_to_interrupt) {
+    back_input();
+    check_interrupt;
+    goto big_switch;
+}
+#ifdef DEBUG
+if (panicking) {
+    check_mem(false);
+}
+#endif
+if (tracing_commands &gt; 0) {
+    show_cur_cmd_chr();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1030">1030</a>.</p>
+</div></div>
+<h1 id="section-1032"><a class="header" href="#section-1032">Section 1032</a></h1>
+<p>The following part of the program was first written in a structured manner, according to the philosophy that “premature optimization is the root of all evil”.
+Then it was rearranged into pieces of spaghetti so that the most common actions could proceed with little or no redundancy.</p>
+<p>The original unoptimized form of this algorithm resembles the <em>reconstitute</em> procedure, which was described earlier in connection with hyphenation.
+Again we have an implied “cursor” between characters <em>cur_l</em> and <em>cur_r</em>.
+The main difference is that the <em>lig_stack</em> can now contain a charnode as well as pseudo-ligatures; that stack is now usually nonempty, because the next character of input (if any) has been appended to it.
+In <em>main_control</em> we have</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.715em;vertical-align:-0.315em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">cur_r</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3em;vertical-align:-1.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">character</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">lig_stack</span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">font_bchar</span></span></span></span><span class="mopen">[</span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">cur_font</span></span></span></span><span class="mclose">]</span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord textsf">if </span></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">lig_stack</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">null</span></span></span></span><span class="mpunct">;</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord textsf">otherwise</span></span><span class="mpunct">;</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>except when <em>character(lig_stack) = font_false_bchar[cur_font]</em>.
+Several additional global variables are needed.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">internal_font_number main_f; // the current font
+memory_word main_i;          // character information bytes for |cur_l|
+memory_word main_j;          // ligature/kern command
+int main_k;                  // index into |font_info|
+pointer main_p;              // temporary register for list manipulation
+int main_s;                  // space factor value
+halfword bchar;              // boundary character of current font, or |NON_CHAR|
+halfword false_bchar;        // nonexistent character matching |bchar|, or |NON_CHAR|
+bool cancel_boundary;        // should the left boundary be ignored?
+bool ins_disc;               // should we insert a discretionary node?
+</code></pre>
+</div>
+<h1 id="section-1033"><a class="header" href="#section-1033">Section 1033</a></h1>
+<p>The boolean variables of the main loop are normally false, and always reset to false before the loop is left.
+That saves us the extra work of initializing each time.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">ligature_present = false;
+cancel_boundary = false;
+lft_hit = false;
+rt_hit = false;
+ins_disc = false;
+</code></pre>
+</div>
+<h1 id="section-1034"><a class="header" href="#section-1034">Section 1034</a></h1>
+<p>We leave the <em>space_factor</em> unchanged if <em>sf_code(cur_chr) = 0</em>;
+otherwise we set it equal to <em>sf_code(cur_chr)</em>, except that it should never change from a value less than 1000 to a value exceeding 1000.
+The most common case is <em>sf_code(cur_chr) = 1000</em>, so we want that case to be fast.</p>
+<p>The overall structure of the main loop is presented here.
+Some program labels are inside the individual sections.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">#define adjust_space_factor             \
+    do {                                \
+        main_s = sf_code(cur_chr);      \
+        if (main_s == 1000) {           \
+            space_factor = 1000;        \
+        }                               \
+        else if (main_s &lt; 1000) {       \
+            if (main_s &gt; 0) {           \
+                space_factor = main_s;  \
+            }                           \
+        }                               \
+        else if (space_factor &lt; 1000) { \
+            space_factor = 1000;        \
+        }                               \
+        else {                          \
+            space_factor = main_s;      \
+        }                               \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append character <em>cur_chr</em> and the following characters (if any) to the current hlist in the current font; <em>goto reswitch</em> when a non-character has been fetched <a href="./part46.html#section-1034">1034</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">adjust_space_factor;
+main_f = cur_font;
+bchar = font_bchar[main_f];
+false_bchar = font_false_bchar[main_f];
+if (mode &gt; 0 &amp;&amp; language != clang) {
+    fix_language();
+}
+fast_get_avail(lig_stack);
+font(lig_stack) = main_f;
+cur_l = cur_chr;
+character(lig_stack) = cur_l;
+cur_q = tail;
+if (cancel_boundary) {
+    cancel_boundary = false;
+    main_k = NON_ADDRESS;
+}
+else {
+    main_k = bchar_label[main_f];
+}
+if (main_k == NON_ADDRESS) {
+    goto main_loop_move_2; // no left boundary processing
+}
+cur_r = cur_l;
+cur_l = NON_CHAR;
+goto main_lig_loop_1; // begin with cursor after left boundary
+
+main_loop_wrapup:
+// &lt;&lt; Make a ligature node, if |ligature_present|; insert a null discretionary, if appropriate, 1035 &gt;&gt;
+
+main_loop_move:
+// &lt;&lt; If the cursor is immediately followed by the right boundary, |goto reswitch|; if it's followed by an invalid character, |goto big_switch|; otherwise move the cursor one step to the right and |goto main_lig_loop|, 1036 &gt;&gt;
+
+main_loop_lookahead:
+// &lt;&lt; Look ahead for another character, or leave |lig_stack| empty if there's none there, 1038 &gt;&gt;
+
+main_lig_loop:
+// &lt;&lt; If there's a ligature/kern command relevant to |cur_l| and |cur_r|, adjust the text appropriately; exit to |main_loop_wrapup|, 1039 &gt;&gt;
+
+main_loop_move_lig:
+// &lt;&lt; Move the cursor past a pseudo-ligature, then |goto main_loop_lookahead| or |main_lig_loop|, 1037 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1030">1030</a>.</p>
+</div></div>
+<h1 id="section-1035"><a class="header" href="#section-1035">Section 1035</a></h1>
+<p>If <em>link(cur_q)</em> is nonnull when <em>wrapup</em> is invoked, <em>cur_q</em> points to the list of characters that were consumed while building the ligature character <em>cur_l</em>.</p>
+<p>A discretionary break is not inserted for an explicit hyphen when we are in restricted horizontal mode.
+In particular, this avoids putting discretionary nodes inside of other discretionaries.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">// the parameter is either |rt_hit| or |false|
+#define pack_lig(X)                                    \
+    main_p = new_ligature(main_f, cur_l, link(cur_q)); \
+    if (lft_hit) {                                     \
+        subtype(main_p) = 2;                           \
+        lft_hit = false;                               \
+    }                                                  \
+    if ((X) &amp;&amp; lig_stack == null) {                    \
+        incr(subtype(main_p));                         \
+        rt_hit = false;                                \
+    }                                                  \
+    link(cur_q) = main_p;                              \
+    tail = main_p;                                     \
+    ligature_present = false
+
+#define wrapup(X)                                           \
+    do {                                                    \
+        if (cur_l &lt; NON_CHAR) {                             \
+            if (link(cur_q) &gt; null                          \
+                &amp;&amp; character(tail) == hyphen_char[main_f])  \
+            {                                               \
+                ins_disc = true;                            \
+            }                                               \
+            if (ligature_present) {                         \
+                pack_lig((X));                              \
+            }                                               \
+            if (ins_disc) {                                 \
+                ins_disc = false;                           \
+                if (mode &gt; 0) {                             \
+                    tail_append(new_disc());                \
+                }                                           \
+            }                                               \
+        }                                                   \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make a ligature node, if <em>ligature_present</em>; insert a null discretionary, if appropriate <a href="./part46.html#section-1035">1035</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">wrapup(rt_hit);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1034">1034</a>.</p>
+</div></div>
+<h1 id="section-1036"><a class="header" href="#section-1036">Section 1036</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If the cursor is immediately followed by the right boundary, <em>goto reswitch</em>; if it’s followed by an invalid character, <em>goto big_switch</em>; otherwise move the cursor one step to the right and <em>goto main_lig_loop</em> <a href="./part46.html#section-1036">1036</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (lig_stack == null) {
+    goto reswitch;
+}
+cur_q = tail;
+cur_l = character(lig_stack);
+
+main_loop_move_1:
+if (!is_char_node(lig_stack)) {
+    goto main_loop_move_lig;
+}
+
+main_loop_move_2:
+if (cur_chr &lt; font_bc[main_f] || cur_chr &gt; font_ec[main_f]) {
+    char_warning(main_f, cur_chr);
+    free_avail(lig_stack);
+    goto big_switch;
+}
+main_i = char_info(main_f, cur_l);
+if (!char_exists(main_i)) {
+    char_warning(main_f, cur_chr);
+    free_avail(lig_stack);
+    goto big_switch;
+}
+link(tail) = lig_stack;
+tail = lig_stack; // |main_loop_lookahead| is next
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1034">1034</a>.</p>
+</div></div>
+<h1 id="section-1037"><a class="header" href="#section-1037">Section 1037</a></h1>
+<p>Here we are at <em>main_loop_move_lig</em>.
+When we begin this code we have <em>cur_q = tail</em> and <em>cur_l = character(lig_stack)</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Move the cursor past a pseudo-ligature, then <em>goto main_loop_lookahead</em> or <em>main_lig_loop</em> <a href="./part46.html#section-1037">1037</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">main_p = lig_ptr(lig_stack);
+if (main_p &gt; null) {
+    tail_append(main_p); // append a single character
+}
+temp_ptr = lig_stack;
+lig_stack = link(temp_ptr);
+free_node(temp_ptr, SMALL_NODE_SIZE);
+main_i = char_info(main_f, cur_l);
+ligature_present = true;
+if (lig_stack == null) {
+    if (main_p &gt; null) {
+        goto main_loop_lookahead;
+    }
+    else {
+        cur_r = bchar;
+    }
+}
+else {
+    cur_r = character(lig_stack);
+}
+goto main_lig_loop;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1034">1034</a>.</p>
+</div></div>
+<h1 id="section-1038"><a class="header" href="#section-1038">Section 1038</a></h1>
+<p>The result of <code>\char</code> can participate in a ligature or kern, so we must look ahead for it.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Look ahead for another character, or leave <em>lig_stack</em> empty if there’s none there <a href="./part46.html#section-1038">1038</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">get_next(); // set only |cur_cmd| and |cur_chr|, for speed
+if (cur_cmd == LETTER
+    || cur_cmd == OTHER_CHAR
+    || cur_cmd == CHAR_GIVEN)
+{
+    goto main_loop_lookahead_1;
+}
+x_token(); // now expand and set |cur_cmd|, |cur_chr|, |cur_tok|
+if (cur_cmd == LETTER
+    || cur_cmd == OTHER_CHAR
+    || cur_cmd == CHAR_GIVEN)
+{
+    goto main_loop_lookahead_1;
+}
+if (cur_cmd == CHAR_NUM) {
+    scan_char_num();
+    cur_chr = cur_val;
+    goto main_loop_lookahead_1;
+}
+if (cur_cmd == NO_BOUNDARY) {
+    bchar = NON_CHAR;
+}
+cur_r = bchar;
+lig_stack = null;
+goto main_lig_loop;
+
+main_loop_lookahead_1:
+adjust_space_factor;
+fast_get_avail(lig_stack);
+font(lig_stack) = main_f;
+cur_r = cur_chr;
+character(lig_stack) = cur_r;
+if (cur_r == false_bchar) {
+    cur_r = NON_CHAR; // this prevents spurious ligatures
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1034">1034</a>.</p>
+</div></div>
+<h1 id="section-1039"><a class="header" href="#section-1039">Section 1039</a></h1>
+<p>Even though comparatively few characters have a lig/kern program, several of the instructions here count as part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop, since a potentially long sequential search must be performed.
+For example, tests with Computer Modern Roman showed that about 40 per cent of all characters actually encountered in practice had a lig/kern program, and that about four lig/kern commands were investigated for every such character.</p>
+<p>At the beginning of this code we have <em>main_i = char_info(main_f, cur_l)</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If there’s a ligature/kern command relevant to <em>cur_l</em> and <em>cur_r</em>, adjust the text appropriately; exit to <em>main_loop_wrapup</em> <a href="./part46.html#section-1039">1039</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (char_tag(main_i) != LIG_TAG ||cur_r == NON_CHAR) {
+    goto main_loop_wrapup;
+}
+main_k = lig_kern_start(main_f, main_i);
+main_j = font_info[main_k];
+if (skip_byte(main_j) &lt;= STOP_FLAG) {
+    goto main_lig_loop_2;
+}
+main_k = lig_kern_restart(main_f, main_j);
+
+main_lig_loop_1:
+main_j = font_info[main_k];
+
+main_lig_loop_2:
+if (next_char(main_j) == cur_r &amp;&amp; skip_byte(main_j) &lt;= STOP_FLAG) {
+    // &lt;&lt; Do ligature or kern command, returning to |main_lig_loop| or |main_loop_wrapup| or |main_loop_move|, 1040 &gt;&gt;
+}
+if (skip_byte(main_j) == 0) {
+    incr(main_k);
+}
+else {
+    if (skip_byte(main_j) &gt;= STOP_FLAG) {
+        goto main_loop_wrapup;
+    }
+    main_k += skip_byte(main_j) + 1;
+}
+goto main_lig_loop_1;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1034">1034</a>.</p>
+</div></div>
+<h1 id="section-1040"><a class="header" href="#section-1040">Section 1040</a></h1>
+<p>When a ligature or kern instruction matches a character, we know from <em>read_font_info</em> that the character exists in the font, even though we haven’t verified its existence in the normal way.</p>
+<p>This section could be made into a subroutine, if the code inside <em>main_control</em> needs to be shortened.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Do ligature or kern command, returning to <em>main_lig_loop</em> or <em>main_loop_wrapup</em> or <em>main_loop_move</em> <a href="./part46.html#section-1040">1040</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (op_byte(main_j) &gt;= KERN_FLAG) {
+    wrapup(rt_hit);
+    tail_append(new_kern(char_kern(main_f, main_j)));
+    goto main_loop_move;
+}
+if (cur_l == NON_CHAR) {
+    lft_hit = true;
+}
+else if (lig_stack == null) {
+    rt_hit = true;
+}
+check_interrupt; // allow a way out in case there's an infinite ligature loop
+switch (op_byte(main_j)) {
+case 1:
+case 5:
+    // =:|, =:|&gt;
+    cur_l = rem_byte(main_j);
+    main_i = char_info(main_f, cur_l);
+    ligature_present = true;
+    break;
+
+case 2:
+case 6:
+    // |=:, |=:&gt;
+    cur_r = rem_byte(main_j);
+    if (lig_stack == null) {
+        // right boundary character is being consumed
+        lig_stack = new_lig_item(cur_r);
+        bchar = NON_CHAR;
+    }
+    else if (is_char_node(lig_stack)) {
+        // |link(lig_stack) = null|
+        main_p = lig_stack;
+        lig_stack = new_lig_item(cur_r);
+        lig_ptr(lig_stack) = main_p;
+    }
+    else {
+        character(lig_stack) = cur_r;
+    }
+    break;
+
+case 3:
+    // |=:|
+    cur_r = rem_byte(main_j);
+    main_p = lig_stack;
+    lig_stack = new_lig_item(cur_r);
+    link(lig_stack) = main_p;
+    break;
+
+case 7:
+case 11:
+    // |=:|&gt;, |=:|&gt;&gt;
+    wrapup(false);
+    cur_q = tail;
+    cur_l = rem_byte(main_j);
+    main_i = char_info(main_f, cur_l);
+    ligature_present = true;
+    break;
+
+default:
+    // =:
+    cur_l = rem_byte(main_j);
+    ligature_present = true;
+    if (lig_stack == null) {
+        goto main_loop_wrapup;
+    }
+    else {
+        goto main_loop_move_1;
+    }
+}
+if (op_byte(main_j) &gt; 4 &amp;&amp; op_byte(main_j) != 7) {
+    goto main_loop_wrapup;
+}
+if (cur_l &lt; NON_CHAR) {
+    goto main_lig_loop;
+}
+main_k = bchar_label[main_f];
+goto main_lig_loop_1;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1039">1039</a>.</p>
+</div></div>
+<h1 id="section-1041"><a class="header" href="#section-1041">Section 1041</a></h1>
+<p>The occurrence of blank spaces is almost part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop, since we usually encounter about one space for every five non-blank characters.
+Therefore <em>main_control</em> gives second-highest priority to ordinary spaces.</p>
+<p>When a glue parameter like <code>\spaceskip</code> is set to ‘<code>0pt</code>’, we will see to it later that the corresponding glue specification is precisely <em>ZERO_GLUE</em>, not merely a pointer to some specification that happens to be full of zeroes.
+Therefore it is simple to test whether a glue parameter is zero or not.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append a normal inter-word space to the current list, then <em>goto big_switch</em> <a href="./part46.html#section-1041">1041</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (space_skip == ZERO_GLUE) {
+    // &lt;&lt; Find the glue specification, |main_p|, for text spaces in the current font, 1042 &gt;&gt;
+    temp_ptr = new_glue(main_p);
+}
+else {
+    temp_ptr = new_param_glue(SPACE_SKIP_CODE);
+}
+link(tail) = temp_ptr;
+tail = temp_ptr;
+goto big_switch;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1030">1030</a>.</p>
+</div></div>
+<h1 id="section-1042"><a class="header" href="#section-1042">Section 1042</a></h1>
+<p>Having <em>font_glue</em> allocated for each text font saves both time and memory.
+If any of the three spacing parameters are subsequently changed by the use of <code>\fontdimen</code>, the <em>find_font_dimen</em> procedure deallocates the <em>font_glue</em> specification allocated here.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Find the glue specification, <em>main_p</em>, for text spaces in the current font <a href="./part46.html#section-1042">1042</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">main_p = font_glue[cur_font];
+if (main_p == null) {
+    main_p = new_spec(ZERO_GLUE);
+    main_k = param_base[cur_font] + SPACE_CODE;
+    width(main_p) = font_info[main_k].sc;       // that's |space(cur_font)|
+    stretch(main_p) = font_info[main_k + 1].sc; // and |space_stretch(cur_font)|
+    shrink(main_p) = font_info[main_k + 2].sc;  // and |space_shrink(cur_font)|
+    font_glue[cur_font] = main_p;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part46.html#section-1041">1041</a>, and <a href="./part46.html#section-1043">1043</a>.</p>
+</div></div>
+<h1 id="section-1043"><a class="header" href="#section-1043">Section 1043</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare action procedures for use by <em>main_control</em> <a href="./part46.html#section-1043">1043</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// handle spaces when |space_factor != 1000|
+void app_space() {
+    pointer q; // glue node
+    if (space_factor &gt;= 2000 &amp;&amp; xspace_skip != ZERO_GLUE) {
+        q = new_param_glue(XSPACE_SKIP_CODE);
+    }
+    else {
+        if (space_skip != ZERO_GLUE) {
+            main_p = space_skip;
+        }
+        else {
+            // &lt;&lt; Find the glue specification, |main_p|, for text spaces in the current font, 1042 &gt;&gt;
+        }
+        main_p = new_spec(main_p);
+        // &lt;&lt; Modify the glue specification in |main_p| according to the space factor, 1044 &gt;&gt;
+        q = new_glue(main_p);
+        glue_ref_count(main_p) = null;
+    }
+    link(tail) = q;
+    tail = q;
+}
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part46.html#section-1047">1047</a>, <a href="./part46.html#section-1050">1050</a>, <a href="./part46.html#section-1051">1051</a>, <a href="./part46.html#section-1054">1054</a>, <a href="./part47.html#section-1069">1069</a>, <a href="./part47.html#section-1129">1129</a>, <a href="./part47.html#section-1135">1135</a>, and <a href="./part53.html#section-1376">1376</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1030">1030</a>.</p>
+</div></div>
+<h1 id="section-1044"><a class="header" href="#section-1044">Section 1044</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Modify the glue specification in <em>main_p</em> according to the space factor <a href="./part46.html#section-1044">1044</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (space_factor &gt;= 2000) {
+    width(main_p) += extra_space(cur_font);
+}
+stretch(main_p) = xn_over_d(stretch(main_p), space_factor, 1000);
+shrink(main_p) = xn_over_d(shrink(main_p), 1000, space_factor);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1043">1043</a>.</p>
+</div></div>
+<h1 id="section-1045"><a class="header" href="#section-1045">Section 1045</a></h1>
+<p>Whew—that covers the main loop.
+We can now proceed at a leisurely pace through the other combinations of possibilities.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">// for mode-independent commands
+#define any_mode(X)   \
+    case VMODE + (X): \
+    case HMODE + (X): \
+    case MMODE + (X)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that are not part of the inner loop <a href="./part46.html#section-1045">1045</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">any_mode(RELAX):
+case VMODE + SPACER:
+case MMODE + SPACER:
+case MMODE + NO_BOUNDARY:
+    do_nothing;
+    break;
+
+any_mode(IGNORE_SPACES):
+    // &lt;&lt; Get the next non-blank non-call token, 406 &gt;&gt;
+    goto reswitch;
+
+case VMODE + STOP:
+    if (its_all_over()) {
+        // this is the only way out
+        return;
+    }
+    break;
+
+// &lt;&lt; Forbidden cases detected in |main_control|, 1048 &gt;&gt;
+any_mode(MAC_PARAM):
+    report_illegal_case();
+    break;
+
+// &lt;&lt; Math-only cases in non-math modes, or vice versa, 1046 &gt;&gt;
+    insert_dollar_sign();
+    break;
+
+// &lt;&lt; Cases of |main_control| that build boxes and lists, 1056 &gt;&gt;
+
+// &lt;&lt; Cases of |main_control| that don't depend on |mode|, 1210 &gt;&gt;
+
+// &lt;&lt; Cases of |main_control| that are for extensions to TeX, 1347 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1030">1030</a>.</p>
+</div></div>
+<h1 id="section-1046"><a class="header" href="#section-1046">Section 1046</a></h1>
+<p>Here is a list of cases where the user has probably gotten into or out of math mode by mistake.
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will insert a dollar sign and rescan the current token.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">#define non_math(X)   \
+    case VMODE + (X): \
+    case HMODE + (X)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Math-only cases in non-math modes, or vice versa <a href="./part46.html#section-1046">1046</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">non_math(SUP_MARK):
+non_math(SUB_MARK):
+non_math(MATH_CHAR_NUM):
+non_math(MATH_GIVEN):
+non_math(MATH_COMP):
+non_math(DELIM_NUM):
+non_math(LEFT_RIGHT):
+non_math(ABOVE):
+non_math(RADICAL):
+non_math(MATH_STYLE):
+non_math(MATH_CHOICE):
+non_math(VCENTER):
+non_math(NON_SCRIPT):
+non_math(MKERN):
+non_math(LIMIT_SWITCH):
+non_math(MSKIP):
+non_math(MATH_ACCENT):
+case MMODE + ENDV:
+case MMODE + PAR_END:
+case MMODE + STOP:
+case MMODE + VSKIP:
+case MMODE + UN_VBOX:
+case MMODE + VALIGN:
+case MMODE + HRULE:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1045">1045</a>.</p>
+</div></div>
+<h1 id="section-1047"><a class="header" href="#section-1047">Section 1047</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare action procedures for use by <em>main_control</em> <a href="./part46.html#section-1043">1043</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void insert_dollar_sign() {
+    back_input();
+    cur_tok = MATH_SHIFT_TOKEN + '$';
+    print_err("Missing $ inserted");
+    help2("I've inserted a begin-math/end-math symbol since I think")
+        ("you left one out. Proceed, with fingers crossed.");
+    ins_error();
+}
+</code></pre>
+</div>
+<h1 id="section-1048"><a class="header" href="#section-1048">Section 1048</a></h1>
+<p>When erroneous situations arise, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> usually issues an error message specific to the particular error.
+For example, ‘<code>\noalign</code>’ should not appear in any mode, since it is recognized by the <em>align_peek</em> routine in all of its legitimate appearances; a special error message is given when ‘<code>\noalign</code>’ occurs elsewhere.
+But sometimes the most appropriate error message is simply that the user is not allowed to do what he or she has attempted.
+For example, ‘<code>\moveleft</code>’ is allowed only in vertical mode, and ‘<code>\lower</code>’ only in non-vertical modes.
+Such cases are enumerated here and in the other sections referred to under ‘See also <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span>.’</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Forbidden cases detected in <em>main_control</em> <a href="./part46.html#section-1048">1048</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">case VMODE + VMOVE:
+case HMODE + HMOVE:
+case MMODE + HMOVE:
+any_mode(LAST_ITEM):
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part47.html#section-1098">1098</a>, <a href="./part47.html#section-1111">1111</a>, and <a href="./part48.html#section-1144">1144</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1045">1045</a>.</p>
+</div></div>
+<h1 id="section-1049"><a class="header" href="#section-1049">Section 1049</a></h1>
+<p>The <em>‘you_cant’</em> procedure prints a line saying that the current command is illegal in the current mode; it identifies these things symbolically.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">chief.c</div>
+<pre><code class="language-c">void you_cant() {
+    print_err("You can't use `");
+    print_cmd_chr(cur_cmd, cur_chr);
+    print("' in ");
+    print_mode(mode);
+}
+</code></pre>
+</div>
+<h1 id="section-1050"><a class="header" href="#section-1050">Section 1050</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare action procedures for use by <em>main_control</em> <a href="./part46.html#section-1043">1043</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void report_illegal_case() {
+    you_cant();
+    help4("Sorry, but I'm not programmed to handle this case;")
+        ("I'll just pretend that you didn't ask for it.")
+        ("If you're in the wrong mode, you might be able to")
+        ("return to the right one by typing `I}' or `I$' or `I\\par'.");
+    error();
+}
+</code></pre>
+</div>
+<h1 id="section-1051"><a class="header" href="#section-1051">Section 1051</a></h1>
+<p>Some operations are allowed only in privileged modes, i.e., in cases that <em>mode</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>0</em>.
+The <em>privileged</em> function is used to detect violations of this rule; it issues an error message and returns <em>false</em> if the current <em>mode</em> is negative.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare action procedures for use by <em>main_control</em> <a href="./part46.html#section-1043">1043</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">bool privileged() {
+    if (mode &gt; 0) {
+        return true;
+    }
+    else {
+        report_illegal_case();
+        return false;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1052"><a class="header" href="#section-1052">Section 1052</a></h1>
+<p>Either <code>\dump</code> or <code>\end</code> will cause <em>main_control</em> to enter the endgame, since both of them have <em>‘STOP’</em> as their command code.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("end", STOP, 0);
+primitive("dump", STOP, 1);
+</code></pre>
+</div>
+<h1 id="section-1053"><a class="header" href="#section-1053">Section 1053</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case STOP:
+    if (chr_code == 1) {
+        print_esc("dump");
+    }
+    else {
+        print_esc("end");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1054"><a class="header" href="#section-1054">Section 1054</a></h1>
+<p>We don’t want to leave <em>main_control</em> immediately when a <em>STOP</em> command is sensed, because it may be necessary to invoke an <code>\output</code> routine several times before things really grind to a halt.
+(The output routine might even say ‘<code>\gdef\end{...}</code>’, to prolong the life of the job.)
+Therefore <em>its_all_over</em> is <em>true</em> only when the current page and contribution list are empty, and when the last output was not a “dead cycle”.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare action procedures for use by <em>main_control</em> <a href="./part46.html#section-1043">1043</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">// do this when \end or \dump occurs
+bool its_all_over() {
+    if (privileged()) {
+        if (PAGE_HEAD == page_tail &amp;&amp; head == tail &amp;&amp; dead_cycles == 0) {
+            return true;
+        }
+        back_input(); // we will try to end again after ejecting residual material
+        tail_append(new_null_box());
+        width(tail) = hsize;
+        tail_append(new_glue(FILL_GLUE));
+        tail_append(new_penalty(-0x40000000));
+        build_page(); // append \hbox to \hsize{}\vfill\penalty-'10000000000
+    }
+    return false;
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part45.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part47.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part45.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part47.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

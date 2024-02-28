@@ -1,0 +1,1790 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 220–255 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html" class="active">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-220-the-table-of-equivalents"><a class="header" href="#section-220-the-table-of-equivalents">Section 220: The table of equivalents</a></h1>
+<p>Now that we have studied the data structures for <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s semantic routines, we ought to consider the data structures used by its syntactic routines.
+In other words, our next concern will be the tables that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> looks at when it is scanning what the user has written.</p>
+<p>The biggest and most important such table is called <em>eqtb</em>.
+It holds the current “equivalents” of things; i.e., it explains what things mean or what their current values are, for all quantities that are subject to the nesting structure provided by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s grouping mechanism.
+There are six parts to <em>eqtb</em>:</p>
+<ol>
+<li>
+<p><em>eqtb[ACTIVE_BASE .. (HASH_BASE − 1)]</em> holds the current equivalents
+of single-character control sequences.</p>
+</li>
+<li>
+<p><em>eqtb[HASH_BASE .. (GLUE_BASE − 1)]</em> holds the current equivalents
+of multiletter control sequences.</p>
+</li>
+<li>
+<p><em>eqtb[GLUE_BASE .. (LOCAL_BASE − 1)]</em> holds the current equivalents
+of glue parameters like the current baselineskip.</p>
+</li>
+<li>
+<p><em>eqtb[LOCAL_BASE .. (INT_BASE − 1)]</em> holds the current equivalents
+of local halfword quantities like the current box registers,
+the current “catcodes”, the current font, and a pointer to the current
+paragraph shape.</p>
+</li>
+<li>
+<p><em>eqtb[INT_BASE .. (DIMEN_BASE − 1)]</em> holds the current equivalents
+of fullword integer parameters like the current hyphenation penalty.</p>
+</li>
+<li>
+<p><em>eqtb[DIMEN_BASE .. EQTB_SIZE]</em> holds the current equivalents
+of fullword dimension parameters like the current hsize or amount of
+hanging indentation.</p>
+</li>
+</ol>
+<p>Note that, for example, the current amount of baselineskip glue is determined by the setting of a particular location in region 3 of <em>eqtb</em>, while the current meaning of the control sequence ‘<code>\baselineskip</code>’ (which might have been changed by <code>\def</code> or <code>\let</code>) appears in region 2.</p>
+<h1 id="section-221"><a class="header" href="#section-221">Section 221</a></h1>
+<p>Each entry in <em>eqtb</em> is a <em>memory_word</em>. Most of these words are of type
+<em>two_halves</em>, and subdivided into three fields:</p>
+<ol>
+<li>
+<p>The <em>eq_level</em> (a quarterword) is the level of grouping at
+which this equivalent was defined. If the level is <em>LEVEL_ZERO</em>, the
+equivalent has never been defined; <em>LEVEL_ONE</em> refers to the outer level
+(outside of all groups), and this level is also used for global
+definitions that never go away. Higher levels are for equivalents that
+will disappear at the end of their group.</p>
+</li>
+<li>
+<p>The <em>eq_type</em> (another quarterword) specifies what kind of
+entry this is. There are many types, since each <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> primitive like
+<code>\hbox</code>, <code>\def</code>, etc., has its own special code. The list of
+command codes above includes all possible settings of the <em>eq_type</em> field.</p>
+</li>
+<li>
+<p>The <em>equiv</em> (a halfword) is the current equivalent value.
+This may be a font number, a pointer into <em>mem</em>, or a variety of other things.</p>
+</li>
+</ol>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define LEVEL_ZERO MIN_QUARTERWORD // level for undefined quantities
+#define LEVEL_ONE (LEVEL_ZERO + 1) // outermost level for defined quantities
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define eq_level_field(X) hh_b1((X))
+#define eq_type_field(X)  hh_b0((X))
+#define equiv_field(X)    hh_rh((X))
+
+#define eq_level(X) eq_level_field(eqtb[(X)]) // level of definition
+#define eq_type(X)  eq_type_field(eqtb[(X)])  // command code for equivalent
+#define equiv(X)    equiv_field(eqtb[(X)])    // equivalent value
+</code></pre>
+</div>
+<h1 id="section-222"><a class="header" href="#section-222">Section 222</a></h1>
+<p>Many locations in <em>eqtb</em> have symbolic names.
+The purpose of the next paragraphs is to define these names, and to set up the initial values of the equivalents.</p>
+<p>In the first region we have 256 equivalents for “active characters” that act as control sequences, followed by 256 equivalents for single-character control sequences.</p>
+<p>Then comes region 2, which corresponds to the hash table that we will define later.
+The maximum address in this region is used for a dummy control sequence that is perpetually undefined.
+There also are several locations for control sequences that are perpetually defined (since they are used in error recovery).</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define ACTIVE_BASE                1                                // beginning of region 1, for active character equivalents
+#define SINGLE_BASE                (ACTIVE_BASE + 256)              // equivalents of one-character control sequences
+#define NULL_CS                    (SINGLE_BASE + 256)              // equivalent of \csname\endcsname
+#define HASH_BASE                  (NULL_CS + 1)                    // beginning of region 2, for the hash table
+#define FROZEN_CONTROL_SEQUENCE    (HASH_BASE + HASH_SIZE)          // for error recovery
+#define FROZEN_PROTECTION          FROZEN_CONTROL_SEQUENCE          // inaccessible but definable
+#define FROZEN_CR                  (FROZEN_CONTROL_SEQUENCE + 1)    // permanent `\cr'
+#define FROZEN_END_GROUP           (FROZEN_CONTROL_SEQUENCE + 2)    // permanent `\endgroup'
+#define FROZEN_RIGHT               (FROZEN_CONTROL_SEQUENCE + 3)    // permanent `\right'
+#define FROZEN_FI                  (FROZEN_CONTROL_SEQUENCE + 4)    // permanent `\fi'
+#define FROZEN_END_TEMPLATE        (FROZEN_CONTROL_SEQUENCE + 5)    // permanent `\endtemplate'
+#define FROZEN_ENDV                (FROZEN_CONTROL_SEQUENCE + 6)    // second permanent `\endtemplate'
+#define FROZEN_RELAX               (FROZEN_CONTROL_SEQUENCE + 7)    // permanent `\relax'
+#define END_WRITE                  (FROZEN_CONTROL_SEQUENCE + 8)    // permanent `\endwrite'
+#define FROZEN_DONT_EXPAND         (FROZEN_CONTROL_SEQUENCE + 9)    // permanent `\notexpanded:'
+#define FROZEN_NULL_FONT           (FROZEN_CONTROL_SEQUENCE + 10)   // permanent `\nullfont'
+#define FONT_ID_BASE               (FROZEN_NULL_FONT - FONT_BASE)   // begins table of 257 permanent font identifiers
+#define UNDEFINED_CONTROL_SEQUENCE (FROZEN_NULL_FONT + 257)         // dummy location
+#define GLUE_BASE                  (UNDEFINED_CONTROL_SEQUENCE + 1) // beginning of region 3
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">eq_type(UNDEFINED_CONTROL_SEQUENCE) = UNDEFINED_CS;
+equiv(UNDEFINED_CONTROL_SEQUENCE) = null;
+eq_level(UNDEFINED_CONTROL_SEQUENCE) = LEVEL_ZERO;
+for(k = ACTIVE_BASE; k &lt; UNDEFINED_CONTROL_SEQUENCE; k++) {
+    eqtb[k] = eqtb[UNDEFINED_CONTROL_SEQUENCE];
+}
+</code></pre>
+</div>
+<h1 id="section-223"><a class="header" href="#section-223">Section 223</a></h1>
+<p>Here is a routine that displays the current meaning of an <em>eqtb</em> entry in region 1 or 2.
+(Similar routines for the other regions will appear below.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show equivalent <em>n</em>, in region 1 or 2 <a href="./part17.html#section-223">223</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">sprint_cs(n);
+print_char('=');
+print_cmd_chr(eq_type(n), equiv(n));
+if (eq_type(n) &gt;= CALL) {
+    print_char(':');
+    show_token_list(link(equiv(n)), null, 32);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part17.html#section-252">252</a>.</p>
+</div></div>
+<h1 id="section-224"><a class="header" href="#section-224">Section 224</a></h1>
+<p>Region 3 of <em>eqtb</em> contains the 256 <code>\skip</code> registers, as well as the glue parameters defined here.
+It is important that the “muskip” parameters have larger numbers than the others.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The  ⟨ Current <em>mem</em> equivalent of glue parameter number <em>n</em> 224 ⟩ is directly included in sections <a href="./part10.html#section-152">152</a> and <a href="./part10.html#section-154">154</a>.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define LINE_SKIP_CODE                0      // interline glue if |baseline_skip| is infeasible
+#define BASELINE_SKIP_CODE            1      // desired glue between baselines
+#define PAR_SKIP_CODE                 2      // extra glue just above a paragraph
+#define ABOVE_DISPLAY_SKIP_CODE       3      // extra glue just above displayed math
+#define BELOW_DISPLAY_SKIP_CODE       4      // extra glue just below displayed math
+#define ABOVE_DISPLAY_SHORT_SKIP_CODE 5      // glue above displayed math following short lines
+#define BELOW_DISPLAY_SHORT_SKIP_CODE 6      // glue below displayed math following short lines
+#define LEFT_SKIP_CODE                7      // glue at left of justified lines
+#define RIGHT_SKIP_CODE               8      // glue at right of justified lines
+#define TOP_SKIP_CODE                 9      // glue at top of main pages
+#define SPLIT_TOP_SKIP_CODE           10     // glue at top of split pages
+#define TAB_SKIP_CODE                 11     // glue between aligned entries
+#define SPACE_SKIP_CODE               12     // glue between words (if not |ZERO_GLUE|)
+#define XSPACE_SKIP_CODE              13     // glue after sentences (if not |ZERO_GLUE|)
+#define PAR_FILL_SKIP_CODE            14     // glue on last line of paragraph
+#define THIN_MU_SKIP_CODE             15     // thin space in math formula
+#define MED_MU_SKIP_CODE              16     // medium space in math formula
+#define THICK_MU_SKIP_CODE            17     // thick space in math formula
+#define GLUE_PARS                     18     // total number of glue parameters
+#define SKIP_BASE    (GLUE_BASE + GLUE_PARS) // table of 256 "skip" registers
+#define MU_SKIP_BASE (SKIP_BASE + 256)       // table of 256 "muskip" registers
+#define LOCAL_BASE   (MU_SKIP_BASE + 256)    // beginning of region 4
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define skip(X)     equiv(SKIP_BASE + (X))    // |mem| location of glue specification
+#define mu_skip(X)  equiv(MU_SKIP_BASE + (X)) // |mem| location of math glue spec
+#define glue_par(X) equiv(GLUE_BASE + (X))    // |mem| location of glue specification
+
+#define line_skip                glue_par(LINE_SKIP_CODE)
+#define baseline_skip            glue_par(BASELINE_SKIP_CODE)
+#define par_skip                 glue_par(PAR_SKIP_CODE)
+#define above_display_skip       glue_par(ABOVE_DISPLAY_SKIP_CODE)
+#define below_display_skip       glue_par(BELOW_DISPLAY_SKIP_CODE)
+#define above_display_short_skip glue_par(ABOVE_DISPLAY_SHORT_SKIP_CODE)
+#define below_display_short_skip glue_par(BELOW_DISPLAY_SHORT_SKIP_CODE)
+#define left_skip                glue_par(LEFT_SKIP_CODE)
+#define right_skip               glue_par(RIGHT_SKIP_CODE)
+#define top_skip                 glue_par(TOP_SKIP_CODE)
+#define split_top_skip           glue_par(SPLIT_TOP_SKIP_CODE)
+#define tab_skip                 glue_par(TAB_SKIP_CODE)
+#define space_skip               glue_par(SPACE_SKIP_CODE)
+#define xspace_skip              glue_par(XSPACE_SKIP_CODE)
+#define par_fill_skip            glue_par(PAR_FILL_SKIP_CODE)
+#define thin_mu_skip             glue_par(THIN_MU_SKIP_CODE)
+#define med_mu_skip              glue_par(MED_MU_SKIP_CODE)
+#define thick_mu_skip            glue_par(THICK_MU_SKIP_CODE)
+</code></pre>
+</div>
+<h1 id="section-225"><a class="header" href="#section-225">Section 225</a></h1>
+<p>Sometimes we need to convert <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s internal code numbers into symbolic form.
+The <em>print_skip_param</em> routine gives the symbolic name of a glue parameter.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">other_printing.c</div>
+<pre><code class="language-c">void print_skip_param(int n) {
+    switch(n) {
+    case LINE_SKIP_CODE:
+        print_esc("lineskip");
+        break;
+    
+    case BASELINE_SKIP_CODE:
+        print_esc("baselineskip");
+        break;
+    
+    case PAR_SKIP_CODE:
+        print_esc("parskip");
+        break;
+    
+    case ABOVE_DISPLAY_SKIP_CODE:
+        print_esc("abovedisplayskip");
+        break;
+    
+    case BELOW_DISPLAY_SKIP_CODE:
+        print_esc("belowdisplayskip");
+        break;
+    
+    case ABOVE_DISPLAY_SHORT_SKIP_CODE:
+        print_esc("abovedisplayshortskip");
+        break;
+    
+    case BELOW_DISPLAY_SHORT_SKIP_CODE:
+        print_esc("belowdisplayshortskip");
+        break;
+    
+    case LEFT_SKIP_CODE:
+        print_esc("leftskip");
+        break;
+    
+    case RIGHT_SKIP_CODE:
+        print_esc("rightskip");
+        break;
+    
+    case TOP_SKIP_CODE:
+        print_esc("topskip");
+        break;
+    
+    case SPLIT_TOP_SKIP_CODE:
+        print_esc("splittopskip");
+        break;
+    
+    case TAB_SKIP_CODE:
+        print_esc("tabskip");
+        break;
+    
+    case SPACE_SKIP_CODE:
+        print_esc("spaceskip");
+        break;
+    
+    case XSPACE_SKIP_CODE:
+        print_esc("xspaceskip");
+        break;
+    
+    case PAR_FILL_SKIP_CODE:
+        print_esc("parfillskip");
+        break;
+    
+    case THIN_MU_SKIP_CODE:
+        print_esc("thinmuskip");
+        break;
+    
+    case MED_MU_SKIP_CODE:
+        print_esc("medmuskip");
+        break;
+    
+    case THICK_MU_SKIP_CODE:
+        print_esc("thickmuskip");
+        break;
+    
+    default:
+        print("[unknown glue parameter!]");
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-226"><a class="header" href="#section-226">Section 226</a></h1>
+<p>The symbolic names for glue parameters are put into <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s hash table by using the routine called <em>primitive</em>, defined below.
+Let us enter them now, so that we don’t have to list all those parameter names anywhere else.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">primitive("lineskip", ASSIGN_GLUE, GLUE_BASE + LINE_SKIP_CODE);
+primitive("baselineskip", ASSIGN_GLUE, GLUE_BASE + BASELINE_SKIP_CODE);
+primitive("parskip", ASSIGN_GLUE, GLUE_BASE + PAR_SKIP_CODE);
+primitive("abovedisplayskip", ASSIGN_GLUE, GLUE_BASE + ABOVE_DISPLAY_SKIP_CODE);
+primitive("belowdisplayskip", ASSIGN_GLUE, GLUE_BASE + BELOW_DISPLAY_SKIP_CODE);
+primitive("abovedisplayshortskip",  ASSIGN_GLUE, GLUE_BASE + ABOVE_DISPLAY_SHORT_SKIP_CODE);
+primitive("belowdisplayshortskip",  ASSIGN_GLUE, GLUE_BASE + BELOW_DISPLAY_SHORT_SKIP_CODE);
+primitive("leftskip", ASSIGN_GLUE, GLUE_BASE + LEFT_SKIP_CODE);
+primitive("rightskip", ASSIGN_GLUE, GLUE_BASE + RIGHT_SKIP_CODE);
+primitive("topskip", ASSIGN_GLUE, GLUE_BASE + TOP_SKIP_CODE);
+primitive("splittopskip", ASSIGN_GLUE, GLUE_BASE + SPLIT_TOP_SKIP_CODE);
+primitive("tabskip", ASSIGN_GLUE, GLUE_BASE + TAB_SKIP_CODE);
+primitive("spaceskip", ASSIGN_GLUE, GLUE_BASE + SPACE_SKIP_CODE);
+primitive("xspaceskip", ASSIGN_GLUE, GLUE_BASE + XSPACE_SKIP_CODE);
+primitive("parfillskip", ASSIGN_GLUE, GLUE_BASE + PAR_FILL_SKIP_CODE);
+primitive("thinmuskip", ASSIGN_MU_GLUE, GLUE_BASE + THIN_MU_SKIP_CODE);
+primitive("medmuskip", ASSIGN_MU_GLUE, GLUE_BASE + MED_MU_SKIP_CODE);
+primitive("thickmuskip", ASSIGN_MU_GLUE, GLUE_BASE + THICK_MU_SKIP_CODE);
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part17.html#section-230">230</a>, <a href="./part17.html#section-238">238</a>, <a href="./part17.html#section-248">248</a>, <a href="./part18.html#section-265">265</a>, <a href="./part24.html#section-334">334</a>, <a href="./part25.html#section-376">376</a>, <a href="./part25.html#section-384">384</a>, <a href="./part26.html#section-411">411</a>, <a href="./part26.html#section-416">416</a>, <a href="./part27.html#section-468">468</a>, <a href="./part28.html#section-487">487</a>, <a href="./part28.html#section-491">491</a>, <a href="./part30.html#section-553">553</a>, <a href="./part37.html#section-780">780</a>, <a href="./part45.html#section-983">983</a>, <a href="./part46.html#section-1052">1052</a>, <a href="./part47.html#section-1058">1058</a>, <a href="./part47.html#section-1071">1071</a>, <a href="./part47.html#section-1088">1088</a>, <a href="./part47.html#section-1107">1107</a>, <a href="./part47.html#section-1114">1114</a>, <a href="./part48.html#section-1141">1141</a>, <a href="./part48.html#section-1156">1156</a>, <a href="./part48.html#section-1169">1169</a>, <a href="./part48.html#section-1178">1178</a>, <a href="./part48.html#section-1188">1188</a>, <a href="./part49.html#section-1208">1208</a>, <a href="./part49.html#section-1219">1219</a>, <a href="./part49.html#section-1222">1222</a>, <a href="./part49.html#section-1230">1230</a>, <a href="./part49.html#section-1250">1250</a>, <a href="./part49.html#section-1254">1254</a>, <a href="./part49.html#section-1262">1262</a>, <a href="./part49.html#section-1272">1272</a>, <a href="./part49.html#section-1277">1277</a>, <a href="./part49.html#section-1286">1286</a>, <a href="./part49.html#section-1291">1291</a>, and <a href="./part53.html#section-1344">1344</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part51.html#section-1336">1336</a>.</p>
+</div></div>
+<h1 id="section-227"><a class="header" href="#section-227">Section 227</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">case ASSIGN_GLUE:
+case ASSIGN_MU_GLUE:
+    if (chr_code &lt; SKIP_BASE) {
+        print_skip_param(chr_code - GLUE_BASE);
+    }
+    else if (chr_code &lt; MU_SKIP_BASE) {
+        print_esc("skip");
+        print_int(chr_code - SKIP_BASE);
+    }
+    else {
+        print_esc("muskip");
+        print_int(chr_code - MU_SKIP_BASE);
+    }
+    break;
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part17.html#section-231">231</a>, <a href="./part17.html#section-239">239</a>, <a href="./part17.html#section-249">249</a>, <a href="./part18.html#section-266">266</a>, <a href="./part24.html#section-335">335</a>, <a href="./part25.html#section-377">377</a>, <a href="./part25.html#section-385">385</a>, <a href="./part26.html#section-412">412</a>, <a href="./part26.html#section-417">417</a>, <a href="./part27.html#section-469">469</a>, <a href="./part28.html#section-488">488</a>, <a href="./part28.html#section-492">492</a>, <a href="./part37.html#section-781">781</a>, <a href="./part45.html#section-984">984</a>, <a href="./part46.html#section-1053">1053</a>, <a href="./part47.html#section-1059">1059</a>, <a href="./part47.html#section-1072">1072</a>, <a href="./part47.html#section-1089">1089</a>, <a href="./part47.html#section-1108">1108</a>, <a href="./part47.html#section-1115">1115</a>, <a href="./part48.html#section-1143">1143</a>, <a href="./part48.html#section-1157">1157</a>, <a href="./part48.html#section-1170">1170</a>, <a href="./part48.html#section-1179">1179</a>, <a href="./part48.html#section-1189">1189</a>, <a href="./part49.html#section-1209">1209</a>, <a href="./part49.html#section-1220">1220</a>, <a href="./part49.html#section-1223">1223</a>, <a href="./part49.html#section-1231">1231</a>, <a href="./part49.html#section-1251">1251</a>, <a href="./part49.html#section-1255">1255</a>, <a href="./part49.html#section-1261">1261</a>, <a href="./part49.html#section-1263">1263</a>, <a href="./part49.html#section-1273">1273</a>, <a href="./part49.html#section-1278">1278</a>, <a href="./part49.html#section-1287">1287</a>, <a href="./part49.html#section-1292">1292</a>, <a href="./part49.html#section-1295">1295</a>, and <a href="./part53.html#section-1346">1346</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part21.html#section-298">298</a>.</p>
+</div></div>
+<h1 id="section-228"><a class="header" href="#section-228">Section 228</a></h1>
+<p>All glue parameters and registers are initially ‘<code>0pt plus0pt minus0pt</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">equiv(GLUE_BASE) = ZERO_GLUE;
+eq_level(GLUE_BASE) = LEVEL_ONE;
+eq_type(GLUE_BASE) = GLUE_REF;
+for(k = GLUE_BASE + 1; k &lt; LOCAL_BASE; k++) {
+    eqtb[k] = eqtb[GLUE_BASE];
+}
+glue_ref_count(ZERO_GLUE) += LOCAL_BASE - GLUE_BASE;
+</code></pre>
+</div>
+<h1 id="section-229"><a class="header" href="#section-229">Section 229</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show equivalent <em>n</em>, in region 3 <a href="./part17.html#section-229">229</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (n &lt; SKIP_BASE) {
+    print_skip_param(n - GLUE_BASE);
+    print_char('=');
+    if (n &lt; GLUE_BASE + THIN_MU_SKIP_CODE) {
+        print_spec(equiv(n), "pt");
+    }
+    else {
+        print_spec(equiv(n), "mu");
+    }
+} 
+else if (n &lt; MU_SKIP_BASE) {
+  print_esc("skip");
+  print_int(n - SKIP_BASE);
+  print_char('=');
+  print_spec(equiv(n), "pt");
+}
+else {
+    print_esc("muskip");
+    print_int(n - MU_SKIP_BASE);
+    print_char('=');
+    print_spec(equiv(n), "mu");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part17.html#section-252">252</a>.</p>
+</div></div>
+<h1 id="section-230"><a class="header" href="#section-230">Section 230</a></h1>
+<p>Region 4 of <em>eqtb</em> contains the local quantities defined here.
+The bulk of this region is taken up by five tables that are indexed by eight-bit characters;
+these tables are important to both the syntactic and semantic portions of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.
+There are also a bunch of special things like font and token parameters, as well as the tables of <code>\toks</code> and <code>\box</code> registers.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define PAR_SHAPE_LOC      LOCAL_BASE             // specifies paragraph shape
+#define OUTPUT_ROUTINE_LOC (LOCAL_BASE + 1)       // points to token list for \output
+#define EVERY_PAR_LOC      (LOCAL_BASE + 2)       // points to token list for \everypar
+#define EVERY_MATH_LOC     (LOCAL_BASE + 3)       // points to token list for \everymath
+#define EVERY_DISPLAY_LOC  (LOCAL_BASE + 4)       // points to token list for \everydisplay
+#define EVERY_HBOX_LOC     (LOCAL_BASE + 5)       // points to token list for \everyhbox
+#define EVERY_VBOX_LOC     (LOCAL_BASE + 6)       // points to token list for \everyvbox
+#define EVERY_JOB_LOC      (LOCAL_BASE + 7)       // points to token list for \everyjob
+#define EVERY_CR_LOC       (LOCAL_BASE + 8)       // points to token list for \everycr
+#define ERR_HELP_LOC       (LOCAL_BASE + 9)       // points to token list for \errhelp
+#define TOKS_BASE          (LOCAL_BASE + 10)      // table of 256 token list registers
+#define BOX_BASE           (TOKS_BASE + 256)      // table of 256 box registers
+#define CUR_FONT_LOC       (BOX_BASE + 256)       // internal font number outside math mode
+#define MATH_FONT_BASE     (CUR_FONT_LOC + 1)     // table of 48 math font numbers
+#define CAT_CODE_BASE      (MATH_FONT_BASE + 48)  // table of 256 command codes (the "catcodes")
+#define LC_CODE_BASE       (CAT_CODE_BASE + 256)  // table of 256 lowercase mappings
+#define UC_CODE_BASE       (LC_CODE_BASE + 256)   // table of 256 uppercase mappings
+#define SF_CODE_BASE       (UC_CODE_BASE + 256)   // table of 256 spacefactor mappings
+#define MATH_CODE_BASE     (SF_CODE_BASE + 256)   // table of 256 math mode mappings
+#define INT_BASE           (MATH_CODE_BASE + 256) // beginning of region 5
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define par_shape_ptr  equiv(PAR_SHAPE_LOC)
+#define output_routine equiv(OUTPUT_ROUTINE_LOC)
+#define every_par      equiv(EVERY_PAR_LOC)
+#define every_math     equiv(EVERY_MATH_LOC)
+#define every_display  equiv(EVERY_DISPLAY_LOC)
+#define every_hbox     equiv(EVERY_HBOX_LOC)
+#define every_vbox     equiv(EVERY_VBOX_LOC)
+#define every_job      equiv(EVERY_JOB_LOC)
+#define every_cr       equiv(EVERY_CR_LOC)
+#define err_help       equiv(ERR_HELP_LOC)
+#define toks(X)        equiv(TOKS_BASE + (X))
+#define box(X)         equiv(BOX_BASE + (X))
+#define cur_font       equiv(CUR_FONT_LOC)
+#define fam_fnt(X)     equiv(MATH_FONT_BASE + (X))
+#define cat_code(X)    equiv(CAT_CODE_BASE + (X))
+#define lc_code(X)     equiv(LC_CODE_BASE + (X))
+#define uc_code(X)     equiv(UC_CODE_BASE + (X))
+#define sf_code(X)     equiv(SF_CODE_BASE + (X))
+// Note: |math_code(c)| is the true math code plus |MIN_HALFWORD|
+#define math_code(X)   equiv(MATH_CODE_BASE + (X))
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("output", ASSIGN_TOKS, OUTPUT_ROUTINE_LOC);
+primitive("everypar", ASSIGN_TOKS, EVERY_PAR_LOC);
+primitive("everymath", ASSIGN_TOKS, EVERY_MATH_LOC);
+primitive("everydisplay", ASSIGN_TOKS, EVERY_DISPLAY_LOC);
+primitive("everyhbox", ASSIGN_TOKS, EVERY_HBOX_LOC);
+primitive("everyvbox", ASSIGN_TOKS, EVERY_VBOX_LOC);
+primitive("everyjob", ASSIGN_TOKS, EVERY_JOB_LOC);
+primitive("everycr", ASSIGN_TOKS, EVERY_CR_LOC);
+primitive("errhelp", ASSIGN_TOKS, ERR_HELP_LOC);
+</code></pre>
+</div>
+<h1 id="section-231"><a class="header" href="#section-231">Section 231</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case ASSIGN_TOKS:
+    if (chr_code &gt;= TOKS_BASE) {
+        print_esc("toks");
+        print_int(chr_code - TOKS_BASE);
+    }
+    else {
+        switch(chr_code) {
+        case OUTPUT_ROUTINE_LOC:
+            print_esc("output");
+            break;
+        
+        case EVERY_PAR_LOC:
+            print_esc("everypar");
+            break;
+        
+        case EVERY_MATH_LOC:
+            print_esc("everymath");
+            break;
+        
+        case EVERY_DISPLAY_LOC:
+            print_esc("everydisplay");
+            break;
+        
+        case EVERY_HBOX_LOC:
+            print_esc("everyhbox");
+            break;
+        
+        case EVERY_VBOX_LOC:
+            print_esc("everyvbox");
+            break;
+        
+        case EVERY_JOB_LOC:
+            print_esc("everyjob");
+            break;
+        
+        case EVERY_CR_LOC:
+            print_esc("everycr");
+            break;
+        
+        default:
+            print_esc("errhelp");
+        }
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-232"><a class="header" href="#section-232">Section 232</a></h1>
+<p>We initialize most things to null or undefined values. An undefined font is represented by the internal code <em>FONT_BASE</em>.</p>
+<p>However, the character code tables are given initial values based on the conventional interpretation of ASCII code.
+These initial values should not be changed when <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is adapted for use with non-English languages;
+all changes to the initialization conventions should be made in format packages, not in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> itself, so that global interchange of formats is possible.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define NULL_FONT FONT_BASE
+#define VAR_CODE 0x7000 // math code meaning "use the current family"
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">par_shape_ptr = null;
+eq_type(PAR_SHAPE_LOC) = SHAPE_REF;
+eq_level(PAR_SHAPE_LOC) = LEVEL_ONE;
+for(k = OUTPUT_ROUTINE_LOC; k &lt;= TOKS_BASE + 255; k++) {
+    eqtb[k] = eqtb[UNDEFINED_CONTROL_SEQUENCE];
+}
+box(0) = null;
+eq_type(BOX_BASE) = BOX_REF;
+eq_level(BOX_BASE) = LEVEL_ONE;
+for(k = BOX_BASE + 1; k &lt;= BOX_BASE + 255; k++) {
+    eqtb[k] = eqtb[BOX_BASE];
+}
+cur_font = NULL_FONT;
+eq_type(CUR_FONT_LOC) = DATA;
+eq_level(CUR_FONT_LOC) = LEVEL_ONE;
+for(k = MATH_FONT_BASE; k &lt;= MATH_FONT_BASE + 47; k++) {
+    eqtb[k] = eqtb[CUR_FONT_LOC];
+}
+equiv(CAT_CODE_BASE) = 0;
+eq_type(CAT_CODE_BASE) = DATA;
+eq_level(CAT_CODE_BASE) = LEVEL_ONE;
+for(k = CAT_CODE_BASE + 1; k &lt;= INT_BASE - 1; k++) {
+    eqtb[k] = eqtb[CAT_CODE_BASE];
+}
+for(k = 0; k &lt;= 255; k++) {
+    cat_code(k) = OTHER_CHAR;
+    math_code(k) = hi(k);
+    sf_code(k) = 1000;
+}
+cat_code(CARRIAGE_RETURN) = CAR_RET;
+cat_code(' ') = SPACER;
+cat_code('\\') = ESCAPE;
+cat_code('%') = COMMENT;
+cat_code(INVALID_CODE) = INVALID_CHAR;
+cat_code(NULL_CODE) = IGNORE;
+for(k = '0'; k &lt;= '9'; k++) {
+    math_code(k) = hi(k + VAR_CODE);
+}
+for(k = 'A'; k &lt;= 'Z'; k++) {
+    cat_code(k) = LETTER;
+    cat_code(k + 'a' - 'A') = LETTER;
+    math_code(k) = hi(k + VAR_CODE + 0x100);
+    math_code(k + 'a' - 'A') = hi(k + 'a' - 'A' + VAR_CODE + 0x100);
+    lc_code(k) = k + 'a' - 'A';
+    lc_code(k + 'a' - 'A') = k + 'a' - 'A';
+    uc_code(k) = k;
+    uc_code(k + 'a' - 'A') = k;
+    sf_code(k) = 999;
+}
+</code></pre>
+</div>
+<h1 id="section-233"><a class="header" href="#section-233">Section 233</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show equivalent <em>n</em>, in region 4 <a href="./part17.html#section-233">233</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (n == PAR_SHAPE_LOC) {
+    print_esc("parshape");
+    print_char('=');
+    if (par_shape_ptr == null) {
+        print_char('0');
+    }
+    else {
+        print_int(info(par_shape_ptr));
+    }
+}
+else if (n &lt; TOKS_BASE) {
+  print_cmd_chr(ASSIGN_TOKS, n);
+  print_char('=');
+  if (equiv(n) != null) {
+    show_token_list(link(equiv(n)), null, 32);
+  }
+}
+else if (n &lt; BOX_BASE) {
+  print_esc("toks");
+  print_int(n - TOKS_BASE);
+  print_char('=');
+  if (equiv(n) != null) {
+    show_token_list(link(equiv(n)), null, 32);
+  }
+}
+else if (n &lt; CUR_FONT_LOC) {
+  print_esc("box");
+  print_int(n - BOX_BASE);
+  print_char('=');
+  if (equiv(n) == null) {
+    print("void");
+  }
+  else {
+    depth_threshold = 0;
+    breadth_max = 1;
+    show_node_list(equiv(n));
+  }
+}
+else if (n &lt; CAT_CODE_BASE) {
+    // &lt;&lt; Show the font identifier in |eqtb[n]|, 234 &gt;&gt;
+}
+else {
+    // &lt;&lt; Show the halfword code in |eqtb[n]|, 235 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part17.html#section-252">252</a>.</p>
+</div></div>
+<h1 id="section-234"><a class="header" href="#section-234">Section 234</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show the font identifier in <em>eqtb[n]</em> <a href="./part17.html#section-234">234</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (n == CUR_FONT_LOC) {
+    print("current font");
+}
+else if (n &lt; MATH_FONT_BASE + 16) {
+    print_esc("textfont");
+    print_int(n - MATH_FONT_BASE);
+}
+else if (n &lt; MATH_FONT_BASE + 32) {
+    print_esc("scriptfont");
+    print_int(n - MATH_FONT_BASE - 16);
+}
+else  {
+    print_esc("scriptscriptfont");
+    print_int(n - MATH_FONT_BASE - 32);
+}
+print_char('=');
+print_esc_strnumber(hh_rh(hash[FONT_ID_BASE + equiv(n)])); // that's |font_id_text(equiv(n))|
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part17.html#section-233">233</a>.</p>
+</div></div>
+<h1 id="section-235"><a class="header" href="#section-235">Section 235</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show the halfword code in <em>eqtb[n]</em> <a href="./part17.html#section-235">235</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (n &lt; MATH_CODE_BASE) {
+  if (n &lt; LC_CODE_BASE) {
+    print_esc("catcode");
+    print_int(n - CAT_CODE_BASE);
+  }
+  else if (n &lt; UC_CODE_BASE) {
+    print_esc("lccode");
+    print_int(n - LC_CODE_BASE);
+  }
+  else if (n &lt; SF_CODE_BASE) {
+    print_esc("uccode");
+    print_int(n - UC_CODE_BASE);
+  }
+  else {
+    print_esc("sfcode");
+    print_int(n - SF_CODE_BASE);
+  }
+  print_char('=');
+  print_int(equiv(n));
+}
+else {
+    print_esc("mathcode");
+    print_int(n - MATH_CODE_BASE);
+    print_char('=');
+    print_int(ho(equiv(n)));
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part17.html#section-233">233</a>.</p>
+</div></div>
+<h1 id="section-236"><a class="header" href="#section-236">Section 236</a></h1>
+<p>Region 5 of <em>eqtb</em> contains the integer parameters and registers defined here, as well as the <em>DEL_CODE</em> table.
+The latter table differs from the <em>CAT_CODE .. MATH_CODE</em> tables that precede it, since delimiter codes are fullword integers while the other kinds of codes occupy at most a halfword.
+This is what makes region 5 different from region 4.
+We will store the <em>eq_level</em> information in an auxiliary array of quarterwords that will be defined later.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>time</em> is defined as <em>time_</em> to avoid conflict with <em>time</em> from file <code>time.h</code> used to get local time.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define PRETOLERANCE_CODE           0        // badness tolerance before hyphenation
+#define TOLERANCE_CODE              1        // badness tolerance after hyphenation
+#define LINE_PENALTY_CODE           2        // added to the badness of every line
+#define HYPHEN_PENALTY_CODE         3        // penalty for break after discretionary hyphen
+#define EX_HYPHEN_PENALTY_CODE      4        // penalty for break after explicit hyphen
+#define CLUB_PENALTY_CODE           5        // penalty for creating a club line
+#define WIDOW_PENALTY_CODE          6        // penalty for creating a widow line
+#define DISPLAY_WIDOW_PENALTY_CODE  7        // ditto, just before a display
+#define BROKEN_PENALTY_CODE         8        // penalty for breaking a page at a broken line
+#define BIN_OP_PENALTY_CODE         9        // penalty for breaking after a binary operation
+#define REL_PENALTY_CODE            10       // penalty for breaking after a relation
+#define PRE_DISPLAY_PENALTY_CODE    11       // penalty for breaking just before a displayed formula
+#define POST_DISPLAY_PENALTY_CODE   12       // penalty for breaking just after a displayed formula
+#define INTER_LINE_PENALTY_CODE     13       // additional penalty between lines
+#define DOUBLE_HYPHEN_DEMERITS_CODE 14       // demerits for double hyphen break
+#define FINAL_HYPHEN_DEMERITS_CODE  15       // demerits for final hyphen break
+#define ADJ_DEMERITS_CODE           16       // demerits for adjacent incompatible lines
+#define MAG_CODE                    17       // magnification ratio
+#define DELIMITER_FACTOR_CODE       18       // ratio for variable-size delimiters
+#define LOOSENESS_CODE              19       // change in number of lines for a paragraph
+#define TIME_CODE                   20       // current time of day
+#define DAY_CODE                    21       // current day of the month
+#define MONTH_CODE                  22       // current month of the year
+#define YEAR_CODE                   23       // current year of our Lord
+#define SHOW_BOX_BREADTH_CODE       24       // nodes per level in |show_box|
+#define SHOW_BOX_DEPTH_CODE         25       // maximum level in |show_box|
+#define HBADNESS_CODE               26       // hboxes exceeding this badness will be shown by |hpack|
+#define VBADNESS_CODE               27       // vboxes exceeding this badness will be shown by |vpack|
+#define PAUSING_CODE                28       // pause after each line is read from a file
+#define TRACING_ONLINE_CODE         29       // show diagnostic output on terminal
+#define TRACING_MACROS_CODE         30       // show macros as they are being expanded
+#define TRACING_STATS_CODE          31       // show memory usage if TeX knows it
+#define TRACING_PARAGRAPHS_CODE     32       // show line-break calculations
+#define TRACING_PAGES_CODE          33       // show page-break calculations
+#define TRACING_OUTPUT_CODE         34       // show boxes when they are shipped out
+#define TRACING_LOST_CHARS_CODE     35       // show characters that aren't in the font
+#define TRACING_COMMANDS_CODE       36       // show command codes at |big_switch|
+#define TRACING_RESTORES_CODE       37       // show equivalents when they are restored
+#define UC_HYPH_CODE                38       // hyphenate words beginning with a capital letter
+#define OUTPUT_PENALTY_CODE         39       // penalty found at current page break
+#define MAX_DEAD_CYCLES_CODE        40       // bound on consecutive dead cycles of output
+#define HANG_AFTER_CODE             41       // hanging indentation changes after this many lines
+#define FLOATING_PENALTY_CODE       42       // penalty for insertions held over after a split
+#define GLOBAL_DEFS_CODE            43       // override \global specifications
+#define CUR_FAM_CODE                44       // current family
+#define ESCAPE_CHAR_CODE            45       // escape character for token output
+#define DEFAULT_HYPHEN_CHAR_CODE    46       // value of \hyphenchar when a font is loaded
+#define DEFAULT_SKEW_CHAR_CODE      47       // value of \skewchar when a font is loaded
+#define END_LINE_CHAR_CODE          48       // character placed at the right end of the buffer
+#define NEW_LINE_CHAR_CODE          49       // character that prints as |print_ln|
+#define LANGUAGE_CODE               50       // current hyphenation table
+#define LEFT_HYPHEN_MIN_CODE        51       // minimum left hyphenation fragment size
+#define RIGHT_HYPHEN_MIN_CODE       52       // minimum right hyphenation fragment size
+#define HOLDING_INSERTS_CODE        53       // do not remove insertion nodes from \box255
+#define ERROR_CONTEXT_LINES_CODE    54       // maximum intermediate line pairs shown
+#define INT_PARS                    55       // total number of integer parameters
+#define COUNT_BASE    (INT_BASE + INT_PARS)  // 256 user \count registers
+#define DEL_CODE_BASE (COUNT_BASE + 256)     // 256 delimiter code mappings
+#define DIMEN_BASE    (DEL_CODE_BASE + 256)  // beginning of region 6
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define del_code(X)              eqtb[DEL_CODE_BASE + (X)].integer
+#define count(X)                 eqtb[COUNT_BASE + (X)].integer
+#define int_par(X)               eqtb[INT_BASE + (X)].integer // an integer parameter
+#define pretolerance             int_par(PRETOLERANCE_CODE)
+#define tolerance                int_par(TOLERANCE_CODE)
+#define line_penalty             int_par(LINE_PENALTY_CODE)
+#define hyphen_penalty           int_par(HYPHEN_PENALTY_CODE)
+#define ex_hyphen_penalty        int_par(EX_HYPHEN_PENALTY_CODE)
+#define club_penalty             int_par(CLUB_PENALTY_CODE)
+#define widow_penalty            int_par(WIDOW_PENALTY_CODE)
+#define display_widow_penalty    int_par(DISPLAY_WIDOW_PENALTY_CODE)
+#define broken_penalty           int_par(BROKEN_PENALTY_CODE)
+#define bin_op_penalty           int_par(BIN_OP_PENALTY_CODE)
+#define rel_penalty              int_par(REL_PENALTY_CODE)
+#define pre_display_penalty      int_par(PRE_DISPLAY_PENALTY_CODE)
+#define post_display_penalty     int_par(POST_DISPLAY_PENALTY_CODE)
+#define inter_line_penalty       int_par(INTER_LINE_PENALTY_CODE)
+#define double_hyphen_demerits   int_par(DOUBLE_HYPHEN_DEMERITS_CODE)
+#define final_hyphen_demerits    int_par(FINAL_HYPHEN_DEMERITS_CODE)
+#define adj_demerits             int_par(ADJ_DEMERITS_CODE)
+#define mag                      int_par(MAG_CODE)
+#define delimiter_factor         int_par(DELIMITER_FACTOR_CODE)
+#define looseness                int_par(LOOSENESS_CODE)
+#define time_                    int_par(TIME_CODE)
+#define day                      int_par(DAY_CODE)
+#define month                    int_par(MONTH_CODE)
+#define year                     int_par(YEAR_CODE)
+#define show_box_breadth         int_par(SHOW_BOX_BREADTH_CODE)
+#define show_box_depth           int_par(SHOW_BOX_DEPTH_CODE)
+#define hbadness                 int_par(HBADNESS_CODE)
+#define vbadness                 int_par(VBADNESS_CODE)
+#define pausing                  int_par(PAUSING_CODE)
+#define tracing_online           int_par(TRACING_ONLINE_CODE)
+#define tracing_macros           int_par(TRACING_MACROS_CODE)
+#define tracing_stats            int_par(TRACING_STATS_CODE)
+#define tracing_paragraphs       int_par(TRACING_PARAGRAPHS_CODE)
+#define tracing_pages            int_par(TRACING_PAGES_CODE)
+#define tracing_output           int_par(TRACING_OUTPUT_CODE)
+#define tracing_lost_chars       int_par(TRACING_LOST_CHARS_CODE)
+#define tracing_commands         int_par(TRACING_COMMANDS_CODE)
+#define tracing_restores         int_par(TRACING_RESTORES_CODE)
+#define uc_hyph                  int_par(UC_HYPH_CODE)
+#define output_penalty           int_par(OUTPUT_PENALTY_CODE)
+#define max_dead_cycles          int_par(MAX_DEAD_CYCLES_CODE)
+#define hang_after               int_par(HANG_AFTER_CODE)
+#define floating_penalty         int_par(FLOATING_PENALTY_CODE)
+#define global_defs              int_par(GLOBAL_DEFS_CODE)
+#define cur_fam                  int_par(CUR_FAM_CODE)
+#define escape_char              int_par(ESCAPE_CHAR_CODE)
+#define default_hyphen_char      int_par(DEFAULT_HYPHEN_CHAR_CODE)
+#define default_skew_char        int_par(DEFAULT_SKEW_CHAR_CODE)
+#define end_line_char            int_par(END_LINE_CHAR_CODE)
+#define new_line_char            int_par(NEW_LINE_CHAR_CODE)
+#define language                 int_par(LANGUAGE_CODE)
+#define left_hyphen_min          int_par(LEFT_HYPHEN_MIN_CODE)
+#define right_hyphen_min         int_par(RIGHT_HYPHEN_MIN_CODE)
+#define holding_inserts          int_par(HOLDING_INSERTS_CODE)
+#define error_context_lines      int_par(ERROR_CONTEXT_LINES_CODE)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assign the values <em>depth_threshold = show_box_depth</em> and <em>breadth_max = show_box_breadth</em> <a href="./part17.html#section-236">236</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">depth_threshold = show_box_depth;
+breadth_max = show_box_breadth;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-198">198</a>.</p>
+</div></div>
+<h1 id="section-237"><a class="header" href="#section-237">Section 237</a></h1>
+<p>We can print the symbolic name of an integer parameter as follows.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">other_printing.c</div>
+<pre><code class="language-c">void print_param(int n) {
+    switch(n) {
+    case PRETOLERANCE_CODE:
+        print_esc("pretolerance");
+        break;
+    
+    case TOLERANCE_CODE:
+        print_esc("tolerance");
+        break;
+    
+    case LINE_PENALTY_CODE:
+        print_esc("linepenalty");
+        break;
+    
+    case HYPHEN_PENALTY_CODE:
+        print_esc("hyphenpenalty");
+        break;
+    
+    case EX_HYPHEN_PENALTY_CODE:
+        print_esc("exhyphenpenalty");
+        break;
+    
+    case CLUB_PENALTY_CODE:
+        print_esc("clubpenalty");
+        break;
+    
+    case WIDOW_PENALTY_CODE:
+        print_esc("widowpenalty");
+        break;
+    
+    case DISPLAY_WIDOW_PENALTY_CODE:
+        print_esc("displaywidowpenalty");
+        break;
+    
+    case BROKEN_PENALTY_CODE:
+        print_esc("brokenpenalty");
+        break;
+    
+    case BIN_OP_PENALTY_CODE:
+        print_esc("binoppenalty");
+        break;
+    
+    case REL_PENALTY_CODE:
+        print_esc("relpenalty");
+        break;
+    
+    case PRE_DISPLAY_PENALTY_CODE:
+        print_esc("predisplaypenalty");
+        break;
+    
+    case POST_DISPLAY_PENALTY_CODE:
+        print_esc("postdisplaypenalty");
+        break;
+    
+    case INTER_LINE_PENALTY_CODE:
+        print_esc("interlinepenalty");
+        break;
+    
+    case DOUBLE_HYPHEN_DEMERITS_CODE:
+        print_esc("doublehyphendemerits");
+        break;
+    
+    case FINAL_HYPHEN_DEMERITS_CODE:
+        print_esc("finalhyphendemerits");
+        break;
+    
+    case ADJ_DEMERITS_CODE:
+        print_esc("adjdemerits");
+        break;
+    
+    case MAG_CODE:
+        print_esc("mag");
+        break;
+    
+    case DELIMITER_FACTOR_CODE:
+        print_esc("delimiterfactor");
+        break;
+    
+    case LOOSENESS_CODE:
+        print_esc("looseness");
+        break;
+    
+    case TIME_CODE:
+        print_esc("time");
+        break;
+    
+    case DAY_CODE:
+        print_esc("day");
+        break;
+    
+    case MONTH_CODE:
+        print_esc("month");
+        break;
+    
+    case YEAR_CODE:
+        print_esc("year");
+        break;
+    
+    case SHOW_BOX_BREADTH_CODE:
+        print_esc("showboxbreadth");
+        break;
+    
+    case SHOW_BOX_DEPTH_CODE:
+        print_esc("showboxdepth");
+        break;
+    
+    case HBADNESS_CODE:
+        print_esc("hbadness");
+        break;
+    
+    case VBADNESS_CODE:
+        print_esc("vbadness");
+        break;
+    
+    case PAUSING_CODE:
+        print_esc("pausing");
+        break;
+    
+    case TRACING_ONLINE_CODE:
+        print_esc("tracingonline");
+        break;
+    
+    case TRACING_MACROS_CODE:
+        print_esc("tracingmacros");
+        break;
+    
+    case TRACING_STATS_CODE:
+        print_esc("tracingstats");
+        break;
+    
+    case TRACING_PARAGRAPHS_CODE:
+        print_esc("tracingparagraphs");
+        break;
+    
+    case TRACING_PAGES_CODE:
+        print_esc("tracingpages");
+        break;
+    
+    case TRACING_OUTPUT_CODE:
+        print_esc("tracingoutput");
+        break;
+    
+    case TRACING_LOST_CHARS_CODE:
+        print_esc("tracinglostchars");
+        break;
+    
+    case TRACING_COMMANDS_CODE:
+        print_esc("tracingcommands");
+        break;
+    
+    case TRACING_RESTORES_CODE:
+        print_esc("tracingrestores");
+        break;
+    
+    case UC_HYPH_CODE:
+        print_esc("uchyph");
+        break;
+    
+    case OUTPUT_PENALTY_CODE:
+        print_esc("outputpenalty");
+        break;
+    
+    case MAX_DEAD_CYCLES_CODE:
+        print_esc("maxdeadcycles");
+        break;
+    
+    case HANG_AFTER_CODE:
+        print_esc("hangafter");
+        break;
+    
+    case FLOATING_PENALTY_CODE:
+        print_esc("floatingpenalty");
+        break;
+    
+    case GLOBAL_DEFS_CODE:
+        print_esc("globaldefs");
+        break;
+    
+    case CUR_FAM_CODE:
+        print_esc("fam");
+        break;
+    
+    case ESCAPE_CHAR_CODE:
+        print_esc("escapechar");
+        break;
+    
+    case DEFAULT_HYPHEN_CHAR_CODE:
+        print_esc("defaulthyphenchar");
+        break;
+    
+    case DEFAULT_SKEW_CHAR_CODE:
+        print_esc("defaultskewchar");
+        break;
+    
+    case END_LINE_CHAR_CODE:
+        print_esc("endlinechar");
+        break;
+    
+    case NEW_LINE_CHAR_CODE:
+        print_esc("newlinechar");
+        break;
+    
+    case LANGUAGE_CODE:
+        print_esc("language");
+        break;
+    
+    case LEFT_HYPHEN_MIN_CODE:
+        print_esc("lefthyphenmin");
+        break;
+    
+    case RIGHT_HYPHEN_MIN_CODE:
+        print_esc("righthyphenmin");
+        break;
+    
+    case HOLDING_INSERTS_CODE:
+        print_esc("holdinginserts");
+        break;
+    
+    case ERROR_CONTEXT_LINES_CODE:
+        print_esc("errorcontextlines");
+        break;
+    
+    default:
+        print("[unknown integer parameter!]");
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-238"><a class="header" href="#section-238">Section 238</a></h1>
+<p>The integer parameter names must be entered into the hash table.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("pretolerance", ASSIGN_INT, INT_BASE + PRETOLERANCE_CODE);
+primitive("tolerance", ASSIGN_INT, INT_BASE + TOLERANCE_CODE);
+primitive("linepenalty", ASSIGN_INT, INT_BASE + LINE_PENALTY_CODE);
+primitive("hyphenpenalty", ASSIGN_INT, INT_BASE + HYPHEN_PENALTY_CODE);
+primitive("exhyphenpenalty", ASSIGN_INT, INT_BASE + EX_HYPHEN_PENALTY_CODE);
+primitive("clubpenalty", ASSIGN_INT, INT_BASE + CLUB_PENALTY_CODE);
+primitive("widowpenalty", ASSIGN_INT, INT_BASE + WIDOW_PENALTY_CODE);
+primitive("displaywidowpenalty",  ASSIGN_INT, INT_BASE + DISPLAY_WIDOW_PENALTY_CODE);
+primitive("brokenpenalty", ASSIGN_INT, INT_BASE + BROKEN_PENALTY_CODE);
+primitive("binoppenalty", ASSIGN_INT, INT_BASE + BIN_OP_PENALTY_CODE);
+primitive("relpenalty", ASSIGN_INT, INT_BASE + REL_PENALTY_CODE);
+primitive("predisplaypenalty", ASSIGN_INT, INT_BASE + PRE_DISPLAY_PENALTY_CODE);
+primitive("postdisplaypenalty", ASSIGN_INT, INT_BASE + POST_DISPLAY_PENALTY_CODE);
+primitive("interlinepenalty", ASSIGN_INT, INT_BASE + INTER_LINE_PENALTY_CODE);
+primitive("doublehyphendemerits",  ASSIGN_INT, INT_BASE + DOUBLE_HYPHEN_DEMERITS_CODE);
+primitive("finalhyphendemerits",  ASSIGN_INT, INT_BASE + FINAL_HYPHEN_DEMERITS_CODE);
+primitive("adjdemerits", ASSIGN_INT, INT_BASE + ADJ_DEMERITS_CODE);
+primitive("mag", ASSIGN_INT, INT_BASE + MAG_CODE);
+primitive("delimiterfactor", ASSIGN_INT, INT_BASE + DELIMITER_FACTOR_CODE);
+primitive("looseness", ASSIGN_INT, INT_BASE + LOOSENESS_CODE);
+primitive("time", ASSIGN_INT, INT_BASE + TIME_CODE);
+primitive("day", ASSIGN_INT, INT_BASE + DAY_CODE);
+primitive("month", ASSIGN_INT, INT_BASE + MONTH_CODE);
+primitive("year", ASSIGN_INT, INT_BASE + YEAR_CODE);
+primitive("showboxbreadth", ASSIGN_INT, INT_BASE + SHOW_BOX_BREADTH_CODE);
+primitive("showboxdepth", ASSIGN_INT, INT_BASE + SHOW_BOX_DEPTH_CODE);
+primitive("hbadness", ASSIGN_INT, INT_BASE + HBADNESS_CODE);
+primitive("vbadness", ASSIGN_INT, INT_BASE + VBADNESS_CODE);
+primitive("pausing", ASSIGN_INT, INT_BASE + PAUSING_CODE);
+primitive("tracingonline", ASSIGN_INT, INT_BASE + TRACING_ONLINE_CODE);
+primitive("tracingmacros", ASSIGN_INT, INT_BASE + TRACING_MACROS_CODE);
+primitive("tracingstats", ASSIGN_INT, INT_BASE + TRACING_STATS_CODE);
+primitive("tracingparagraphs", ASSIGN_INT, INT_BASE + TRACING_PARAGRAPHS_CODE);
+primitive("tracingpages", ASSIGN_INT, INT_BASE + TRACING_PAGES_CODE);
+primitive("tracingoutput", ASSIGN_INT, INT_BASE + TRACING_OUTPUT_CODE);
+primitive("tracinglostchars", ASSIGN_INT, INT_BASE + TRACING_LOST_CHARS_CODE);
+primitive("tracingcommands", ASSIGN_INT, INT_BASE + TRACING_COMMANDS_CODE);
+primitive("tracingrestores", ASSIGN_INT, INT_BASE + TRACING_RESTORES_CODE);
+primitive("uchyph", ASSIGN_INT, INT_BASE + UC_HYPH_CODE);
+primitive("outputpenalty", ASSIGN_INT, INT_BASE + OUTPUT_PENALTY_CODE);
+primitive("maxdeadcycles", ASSIGN_INT, INT_BASE + MAX_DEAD_CYCLES_CODE);
+primitive("hangafter", ASSIGN_INT, INT_BASE + HANG_AFTER_CODE);
+primitive("floatingpenalty", ASSIGN_INT, INT_BASE + FLOATING_PENALTY_CODE);
+primitive("globaldefs", ASSIGN_INT, INT_BASE + GLOBAL_DEFS_CODE);
+primitive("fam", ASSIGN_INT, INT_BASE + CUR_FAM_CODE);
+primitive("escapechar", ASSIGN_INT, INT_BASE + ESCAPE_CHAR_CODE);
+primitive("defaulthyphenchar", ASSIGN_INT, INT_BASE + DEFAULT_HYPHEN_CHAR_CODE);
+primitive("defaultskewchar", ASSIGN_INT, INT_BASE + DEFAULT_SKEW_CHAR_CODE);
+primitive("endlinechar", ASSIGN_INT, INT_BASE + END_LINE_CHAR_CODE);
+primitive("newlinechar", ASSIGN_INT, INT_BASE + NEW_LINE_CHAR_CODE);
+primitive("language", ASSIGN_INT, INT_BASE + LANGUAGE_CODE);
+primitive("lefthyphenmin", ASSIGN_INT, INT_BASE + LEFT_HYPHEN_MIN_CODE);
+primitive("righthyphenmin", ASSIGN_INT, INT_BASE + RIGHT_HYPHEN_MIN_CODE);
+primitive("holdinginserts", ASSIGN_INT, INT_BASE + HOLDING_INSERTS_CODE);
+primitive("errorcontextlines", ASSIGN_INT, INT_BASE + ERROR_CONTEXT_LINES_CODE);
+</code></pre>
+</div>
+<h1 id="section-239"><a class="header" href="#section-239">Section 239</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case ASSIGN_INT:
+    if (chr_code &lt; COUNT_BASE) {
+        print_param(chr_code - INT_BASE);
+    }
+    else {
+        print_esc("count");
+        print_int(chr_code - COUNT_BASE);
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-240"><a class="header" href="#section-240">Section 240</a></h1>
+<p>The integer parameters should really be initialized by a macro package;
+the following initialization does the minimum to keep <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> from complete failure.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">for(k = INT_BASE; k &lt; DEL_CODE_BASE; k++) {
+    eqtb[k].integer = 0;
+}
+mag = 1000;
+tolerance = 10000;
+hang_after = 1; max_dead_cycles = 25;
+escape_char = '\\';
+end_line_char = CARRIAGE_RETURN;
+for(k = 0; k &lt;= 255; k++) {
+    del_code(k) = -1;
+}
+del_code('.') = 0; // this null delimiter is used in error recovery
+</code></pre>
+</div>
+<h1 id="section-241"><a class="header" href="#section-241">Section 241</a></h1>
+<p>The following procedure, which is called just before <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> initializes its input and output, establishes the initial values of the date and time.
+Since standard Pascal cannot provide such information, something special is needed.
+The program here simply assumes that suitable values appear in the global variables <em>sys_time</em>, <em>sys_day</em>, <em>sys_month</em>, and <em>sys_year</em> (which are initialized to noon on 4 July 1776, in case the implementor is careless).</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>We make use of <em>localtime</em> function to get the time from the machine.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">init_cleanup.c</div>
+<pre><code class="language-c">void fix_date_and_time() {
+    time_t rawtime;
+    struct tm *data;
+    time(&amp;rawtime);
+    data = localtime(&amp;rawtime);
+    sys_time = data-&gt;tm_hour * 60 + data-&gt;tm_min;
+    sys_day = data-&gt;tm_mday;
+    sys_month = data-&gt;tm_mon + 1;
+    sys_year = data-&gt;tm_year + 1900;
+
+    time_ = sys_time;  // minutes since midnight
+    day = sys_day;     // day of the month
+    month = sys_month; // month of the year
+    year = sys_year;   // Anno Domini
+}
+</code></pre>
+</div>
+<h1 id="section-242"><a class="header" href="#section-242">Section 242</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show equivalent <em>n</em>, in region 5 <a href="./part17.html#section-242">242</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (n &lt; COUNT_BASE) {
+    print_param(n - INT_BASE);
+}
+else if (n &lt; DEL_CODE_BASE) {
+    print_esc("count");
+    print_int(n - COUNT_BASE);
+}
+else {
+    print_esc("delcode");
+    print_int(n - DEL_CODE_BASE);
+}
+print_char('=');
+print_int(eqtb[n].integer);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part17.html#section-252">252</a>.</p>
+</div></div>
+<h1 id="section-243"><a class="header" href="#section-243">Section 243</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set variable <em>c</em> to the current escape character <a href="./part17.html#section-243">243</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">c = escape_char;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part05.html#section-63">63</a>, and <a href="./part05.html#section-63">63</a>.</p>
+</div></div>
+<h1 id="section-244"><a class="header" href="#section-244">Section 244</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>⟨ Character |s| is the current new-line character 244 ⟩ is already included in sections <a href="./part05.html#section-58">58</a> and <a href="./part05.html#section-59">59</a>.</p>
+</blockquote>
+</div>
+<h1 id="section-245"><a class="header" href="#section-245">Section 245</a></h1>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is occasionally supposed to print diagnostic information that goes only into the transcript file, unless <em>tracing_online</em> is positive.
+Here are two routines that adjust the destination of print commands:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">other_printing.c</div>
+<pre><code class="language-c">// prepare to do some tracing
+void begin_diagnostic() {
+    old_setting = selector;
+    if (tracing_online &lt;= 0 &amp;&amp; selector == TERM_AND_LOG) {
+        decr(selector);
+        if (history == SPOTLESS) {
+            history = WARNING_ISSUED;
+        }
+    }
+}
+
+// restore proper conditions after tracing
+void end_diagnostic(bool blank_line) {
+    print_nl("");
+    if (blank_line) {
+        print_ln();
+    }
+    selector = old_setting;
+}
+</code></pre>
+</div>
+<h1 id="section-246"><a class="header" href="#section-246">Section 246</a></h1>
+<p>Of course we had better declare a few more global variables, if the previous routines are going to work.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int old_setting;
+int sys_time, sys_day, sys_month, sys_year; // date and time supplied by external system
+</code></pre>
+</div>
+<h1 id="section-247"><a class="header" href="#section-247">Section 247</a></h1>
+<p>The final region of <em>eqtb</em> contains the dimension parameters defined here, and the 256 <code>\dimen</code> registers.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define PAR_INDENT_CODE           0           // indentation of paragraphs
+#define MATH_SURROUND_CODE        1           // space around math in text
+#define LINE_SKIP_LIMIT_CODE      2           // threshold for |line_skip| instead of |baseline_skip|
+#define HSIZE_CODE                3           // line width in horizontal mode
+#define VSIZE_CODE                4           // page height in vertical mode
+#define MAX_DEPTH_CODE            5           // maximum depth of boxes on main pages
+#define SPLIT_MAX_DEPTH_CODE      6           // maximum depth of boxes on split pages
+#define BOX_MAX_DEPTH_CODE        7           // maximum depth of explicit vboxes
+#define HFUZZ_CODE                8           // tolerance for overfull hbox messages
+#define VFUZZ_CODE                9           // tolerance for overfull vbox messages
+#define DELIMITER_SHORTFALL_CODE  10          // maximum amount uncovered by variable delimiters
+#define NULL_DELIMITER_SPACE_CODE 11          // blank space in null delimiters
+#define SCRIPT_SPACE_CODE         12          // extra space after subscript or superscript
+#define PRE_DISPLAY_SIZE_CODE     13          // length of text preceding a display
+#define DISPLAY_WIDTH_CODE        14          // length of line for displayed equation
+#define DISPLAY_INDENT_CODE       15          // indentation of line for displayed equation
+#define OVERFULL_RULE_CODE        16          // width of rule that identifies overfull hboxes
+#define HANG_INDENT_CODE          17          // amount of hanging indentation
+#define H_OFFSET_CODE             18          // amount of horizontal offset when shipping pages out
+#define V_OFFSET_CODE             19          // amount of vertical offset when shipping pages out
+#define EMERGENCY_STRETCH_CODE    20          // reduces badnesses on final pass of line-breaking
+#define DIMEN_PARS                21          // total number of dimension parameters
+#define SCALED_BASE (DIMEN_BASE + DIMEN_PARS) // table of 256 user-defined \dimen registers
+#define EQTB_SIZE   (SCALED_BASE + 255)       // largest subscript of |eqtb|
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define dimen(X)             eqtb[SCALED_BASE + (X)].sc
+#define dimen_par(X)         eqtb[DIMEN_BASE + (X)].sc  // a scaled quantity
+#define par_indent           dimen_par(PAR_INDENT_CODE)
+#define math_surround        dimen_par(MATH_SURROUND_CODE)
+#define line_skip_limit      dimen_par(LINE_SKIP_LIMIT_CODE)
+#define hsize                dimen_par(HSIZE_CODE)
+#define vsize                dimen_par(VSIZE_CODE)
+#define max_depth            dimen_par(MAX_DEPTH_CODE)
+#define split_max_depth      dimen_par(SPLIT_MAX_DEPTH_CODE)
+#define box_max_depth        dimen_par(BOX_MAX_DEPTH_CODE)
+#define hfuzz                dimen_par(HFUZZ_CODE)
+#define vfuzz                dimen_par(VFUZZ_CODE)
+#define delimiter_shortfall  dimen_par(DELIMITER_SHORTFALL_CODE)
+#define null_delimiter_space dimen_par(NULL_DELIMITER_SPACE_CODE)
+#define script_space         dimen_par(SCRIPT_SPACE_CODE)
+#define pre_display_size     dimen_par(PRE_DISPLAY_SIZE_CODE)
+#define display_width        dimen_par(DISPLAY_WIDTH_CODE)
+#define display_indent       dimen_par(DISPLAY_INDENT_CODE)
+#define overfull_rule        dimen_par(OVERFULL_RULE_CODE)
+#define hang_indent          dimen_par(HANG_INDENT_CODE)
+#define h_offset             dimen_par(H_OFFSET_CODE)
+#define v_offset             dimen_par(V_OFFSET_CODE)
+#define emergency_stretch    dimen_par(EMERGENCY_STRETCH_CODE)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">other_printing.c</div>
+<pre><code class="language-c">void print_length_param(int n) {
+    switch(n) {
+    case PAR_INDENT_CODE:
+        print_esc("parindent");
+        break;
+    
+    case MATH_SURROUND_CODE:
+        print_esc("mathsurround");
+        break;
+    
+    case LINE_SKIP_LIMIT_CODE:
+        print_esc("lineskiplimit");
+        break;
+    
+    case HSIZE_CODE:
+        print_esc("hsize");
+        break;
+    
+    case VSIZE_CODE:
+        print_esc("vsize");
+        break;
+    
+    case MAX_DEPTH_CODE:
+        print_esc("maxdepth");
+        break;
+    
+    case SPLIT_MAX_DEPTH_CODE:
+        print_esc("splitmaxdepth");
+        break;
+    
+    case BOX_MAX_DEPTH_CODE:
+        print_esc("boxmaxdepth");
+        break;
+    
+    case HFUZZ_CODE:
+        print_esc("hfuzz");
+        break;
+    
+    case VFUZZ_CODE:
+        print_esc("vfuzz");
+        break;
+    
+    case DELIMITER_SHORTFALL_CODE:
+        print_esc("delimitershortfall");
+        break;
+    
+    case NULL_DELIMITER_SPACE_CODE:
+        print_esc("nulldelimiterspace");
+        break;
+    
+    case SCRIPT_SPACE_CODE:
+        print_esc("scriptspace");
+        break;
+    
+    case PRE_DISPLAY_SIZE_CODE:
+        print_esc("predisplaysize");
+        break;
+    
+    case DISPLAY_WIDTH_CODE:
+        print_esc("displaywidth");
+        break;
+    
+    case DISPLAY_INDENT_CODE:
+        print_esc("displayindent");
+        break;
+    
+    case OVERFULL_RULE_CODE:
+        print_esc("overfullrule");
+        break;
+    
+    case HANG_INDENT_CODE:
+        print_esc("hangindent");
+        break;
+    
+    case H_OFFSET_CODE:
+        print_esc("hoffset");
+        break;
+    
+    case V_OFFSET_CODE:
+        print_esc("voffset");
+        break;
+    
+    case EMERGENCY_STRETCH_CODE:
+        print_esc("emergencystretch");
+        break;
+    
+    default:
+        print("[unknown dimen parameter!]");
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-248"><a class="header" href="#section-248">Section 248</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("parindent", ASSIGN_DIMEN, DIMEN_BASE + PAR_INDENT_CODE);
+primitive("mathsurround", ASSIGN_DIMEN, DIMEN_BASE + MATH_SURROUND_CODE);
+primitive("lineskiplimit", ASSIGN_DIMEN, DIMEN_BASE + LINE_SKIP_LIMIT_CODE);
+primitive("hsize", ASSIGN_DIMEN, DIMEN_BASE + HSIZE_CODE);
+primitive("vsize", ASSIGN_DIMEN, DIMEN_BASE + VSIZE_CODE);
+primitive("maxdepth", ASSIGN_DIMEN, DIMEN_BASE + MAX_DEPTH_CODE);
+primitive("splitmaxdepth", ASSIGN_DIMEN, DIMEN_BASE + SPLIT_MAX_DEPTH_CODE);
+primitive("boxmaxdepth", ASSIGN_DIMEN, DIMEN_BASE + BOX_MAX_DEPTH_CODE);
+primitive("hfuzz", ASSIGN_DIMEN, DIMEN_BASE + HFUZZ_CODE);
+primitive("vfuzz", ASSIGN_DIMEN, DIMEN_BASE + VFUZZ_CODE);
+primitive("delimitershortfall", ASSIGN_DIMEN, DIMEN_BASE + DELIMITER_SHORTFALL_CODE);
+primitive("nulldelimiterspace", ASSIGN_DIMEN, DIMEN_BASE + NULL_DELIMITER_SPACE_CODE);
+primitive("scriptspace", ASSIGN_DIMEN, DIMEN_BASE + SCRIPT_SPACE_CODE);
+primitive("predisplaysize", ASSIGN_DIMEN, DIMEN_BASE + PRE_DISPLAY_SIZE_CODE);
+primitive("displaywidth", ASSIGN_DIMEN, DIMEN_BASE + DISPLAY_WIDTH_CODE);
+primitive("displayindent", ASSIGN_DIMEN, DIMEN_BASE + DISPLAY_INDENT_CODE);
+primitive("overfullrule", ASSIGN_DIMEN, DIMEN_BASE + OVERFULL_RULE_CODE);
+primitive("hangindent", ASSIGN_DIMEN, DIMEN_BASE + HANG_INDENT_CODE);
+primitive("hoffset", ASSIGN_DIMEN, DIMEN_BASE + H_OFFSET_CODE);
+primitive("voffset", ASSIGN_DIMEN, DIMEN_BASE + V_OFFSET_CODE);
+primitive("emergencystretch", ASSIGN_DIMEN, DIMEN_BASE + EMERGENCY_STRETCH_CODE);
+</code></pre>
+</div>
+<h1 id="section-249"><a class="header" href="#section-249">Section 249</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case ASSIGN_DIMEN:
+    if (chr_code &lt; SCALED_BASE) {
+        print_length_param(chr_code - DIMEN_BASE);
+    }
+    else {
+        print_esc("dimen");
+        print_int(chr_code - SCALED_BASE);
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-250"><a class="header" href="#section-250">Section 250</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">for(k = DIMEN_BASE; k &lt;= EQTB_SIZE; k++) {
+    eqtb[k].sc = 0;
+}
+</code></pre>
+</div>
+<h1 id="section-251"><a class="header" href="#section-251">Section 251</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show equivalent <em>n</em>, in region 6 <a href="./part17.html#section-251">251</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (n &lt; SCALED_BASE) {
+    print_length_param(n - DIMEN_BASE);
+}
+else {
+    print_esc("dimen");
+    print_int(n - SCALED_BASE);
+}
+print_char('=');
+print_scaled(eqtb[n].sc);
+print("pt");
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part17.html#section-252">252</a>.</p>
+</div></div>
+<h1 id="section-252"><a class="header" href="#section-252">Section 252</a></h1>
+<p>Here is a procedure that displays the contents of <em>eqtb[n]</em> symbolically.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">other_printing.c</div>
+<pre><code class="language-c">#ifdef STAT
+void show_eqtb(pointer n) {
+    if (n &lt; ACTIVE_BASE) {
+        print_char('?'); // this can't happen
+    }
+    else if (n &lt;GLUE_BASE) {
+        // &lt;&lt; Show equivalent |n|, in region 1 or 2, 223 &gt;&gt;
+    }
+    else if (n &lt;LOCAL_BASE) {
+        // &lt;&lt; Show equivalent |n|, in region 3, 229 &gt;&gt;
+    }
+    else if (n &lt;INT_BASE) {
+        // &lt;&lt; Show equivalent |n|, in region 4, 233 &gt;&gt;
+    }
+    else if (n &lt;DIMEN_BASE) {
+        // &lt;&lt; Show equivalent |n|, in region 5, 242 &gt;&gt;
+    }
+    else if (n &lt;=EQTB_SIZE) {
+        // &lt;&lt; Show equivalent |n|, in region 6, 251 &gt;&gt;
+    }
+    else {
+        print_char('?'); // this can't happen either
+    }
+}
+#endif
+</code></pre>
+</div>
+<h1 id="section-253"><a class="header" href="#section-253">Section 253</a></h1>
+<p>The last two regions of <em>eqtb</em> have fullword values instead of the three fields <em>eq_level</em>, <em>eq_type</em>, and <em>equiv</em>.
+An <em>eq_type</em> is unnecessary, but <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> needs to store the <em>eq_level</em> information in another array called <em>xeq_level</em>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Little bit of pointer arithmetic so arrays can be indexed by something other than zero.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">memory_word eqtb0[EQTB_SIZE - ACTIVE_BASE + 1];
+memory_word *eqtb = eqtb0 - ACTIVE_BASE;
+quarterword xeq_level0[EQTB_SIZE - INT_BASE + 1];
+quarterword *xeq_level = xeq_level0 - INT_BASE;
+</code></pre>
+</div>
+<h1 id="section-254"><a class="header" href="#section-254">Section 254</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">for(k = INT_BASE; k &lt;= EQTB_SIZE; k++) {
+    xeq_level[k] = LEVEL_ONE;
+}
+</code></pre>
+</div>
+<h1 id="section-255"><a class="header" href="#section-255">Section 255</a></h1>
+<p>When the debugging routine <em>search_mem</em> is looking for pointers having a given value, it is interested only in regions 1 to 3 of <em>eqtb</em>, and in the first part of region 4.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Search <em>eqtb</em> for equivalents equal to <em>p</em> <a href="./part17.html#section-255">255</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">for(q = ACTIVE_BASE; q &lt;= BOX_BASE + 255; q++) {
+    if (equiv(q) == p) {
+        print_nl("EQUIV(");
+        print_int(q);
+        print_char(')');
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part11.html#section-172">172</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part16.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part18.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part16.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part18.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

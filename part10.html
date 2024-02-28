@@ -1,0 +1,719 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 133–161 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html" class="active">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-133-data-structures-for-boxes-and-their-friends"><a class="header" href="#section-133-data-structures-for-boxes-and-their-friends">Section 133: Data structures for boxes and their friends</a></h1>
+<p>From the computer’s standpoint, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s chief mission is to create horizontal and vertical lists. We shall now investigate how the elements of these lists are represented internally as nodes in the dynamic memory.</p>
+<p>A horizontal or vertical list is linked together by <em>link</em> fields in the first word of each node.
+Individual nodes represent boxes, glue, penalties, or special things like discretionary hyphens; because of this variety, some nodes are longer than others, and we must distinguish different kinds of nodes.
+We do this by putting a <em>‘type’</em> field in the first word, together with the link and an optional <em>‘subtype’</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define type(X)    hh_b0(mem[(X)]) // identifies what kind of node this is
+#define subtype(X) hh_b1(mem[(X)]) // secondary identification in some cases
+</code></pre>
+</div>
+<h1 id="section-134"><a class="header" href="#section-134">Section 134</a></h1>
+<p>A <em>CHAR_NODE</em>, which represents a single character, is the most important kind of node because it accounts for the vast majority of all boxes.
+Special precautions are therefore taken to ensure that a <em>CHAR_NODE</em> does not take up much memory space.
+Every such node is one word long, and in fact it is identifiable by this property, since other kinds of nodes have at least two words, and they appear in <em>mem</em> locations less than <em>hi_mem_min</em>.
+This makes it possible to omit the <em>type</em> field in a <em>CHAR_NODE</em>, leaving us room for two bytes that identify a <em>font</em> and a <em>character</em> within that font.</p>
+<p>Note that the format of a <em>CHAR_NODE</em> allows for up to 256 different fonts and up to 256 characters per font; but most implementations will probably limit the total number of fonts to fewer than 75 per job, and most fonts will stick to characters whose codes are less than 128 (since higher codes are more difficult to access on most keyboards).</p>
+<p>Extensions of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> intended for oriental languages will need even more than 256<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">×</span></span></span></span>256 possible characters, when we consider different sizes and styles of type.
+It is suggested that Chinese and Japanese fonts be handled by representing such characters in two consecutive <em>CHAR_NODE</em> entries:
+The first of these has <em>font = FONT_BASE</em>, and its <em>link</em> points to the second;
+the second identifies the font and the character dimensions.
+The saving feature about oriental characters is that most of them have the same box dimensions. The <em>character</em> field of the first <em>CHAR_NODE</em> is a <em>“charext”</em> that distinguishes between graphic symbols whose dimensions are identical for typesetting purposes. (See the <code>METAFONT</code> manual.)
+Such an extension of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> would not be difficult; further details are left to the reader.</p>
+<p>In order to make sure that the <em>character</em> code fits in a quarterword, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> adds the quantity <em>MIN_QUARTERWORD</em> to the actual code.</p>
+<p>Character nodes appear only in horizontal lists, never in vertical lists.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define is_char_node(X) ((X) &gt;= hi_mem_min) // does the argument point to a |CHAR_NODE|?
+#define font            type                // the font code in a |CHAR_NODE|
+#define character       subtype             // the character code in a |CHAR_NODE|
+</code></pre>
+</div>
+<h1 id="section-135"><a class="header" href="#section-135">Section 135</a></h1>
+<p>An <em>HLIST_NODE</em> stands for a box that was made from a horizontal list.
+Each <em>HLIST_NODE</em> is seven words long, and contains the following fields (in addition to the mandatory <em>type</em> and <em>link</em>, which we shall not mention explicitly when discussing the other node types):
+The <em>height</em> and <em>width</em> and <em>depth</em> are scaled integers denoting the dimensions of the box.
+There is also a <em>shift_amount</em> field, a scaled integer indicating how much this box should be lowered (if it appears in a horizontal list), or how much it should be moved to the right (if it appears in a vertical list).
+There is a <em>list_ptr</em> field, which points to the beginning of the list from which this box was fabricated;
+if <em>list_ptr</em> is <em>null</em>, the box is empty. Finally, there are three fields that represent the setting of the glue:
+<em>glue_set(p)</em> is a word of type <em>glue_ratio</em> that represents the proportionality constant for glue setting;
+<em>glue_sign(p)</em> is <em>STRETCHING</em> or <em>SHRINKING</em> or <em>NORMAL</em> depending on whether or not the glue should stretch or shrink or remain rigid;
+and <em>glue_order(p)</em> specifies the order of infinity to which glue setting applies (<em>NORMAL</em>,
+<em>FIL</em>, <em>FILL</em>, or <em>FILLL</em>).
+The <em>subtype</em> field is not used.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define HLIST_NODE    0 // |type| of hlist nodes
+#define BOX_NODE_SIZE 7 // number of words to allocate for a box node
+#define WIDTH_OFFSET  1 // position of |width| field in a box node
+#define DEPTH_OFFSET  2 // position of |depth| field in a box node
+#define HEIGHT_OFFSET 3 // position of |height| field in a box node
+#define LIST_OFFSET   5 // position of |list_ptr| field in a box node
+#define NORMAL        0 // the most common case when several cases are named
+#define STRETCHING    1 // glue setting applies to the stretch components
+#define SHRINKING     2 // glue setting applies to the shrink components
+#define GLUE_OFFSET   6 // position of |glue_set| in a box node
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define width(X)        mem[(X) + WIDTH_OFFSET].sc  // width of the box, in sp
+#define depth(X)        mem[(X) + DEPTH_OFFSET].sc  // depth of the box, in sp
+#define height(X)       mem[(X) + HEIGHT_OFFSET].sc // height of the box, in sp
+#define shift_amount(X) mem[(X) + 4].sc             // repositioning distance, in sp
+#define list_ptr(X)     link((X) + LIST_OFFSET)     // beginning of the list inside the box
+#define glue_order(X)   subtype((X) + LIST_OFFSET)  // applicable order of infinity
+#define glue_sign(X)    type((X) + LIST_OFFSET)     // stretching or shrinking
+#define glue_set(X)     mem[(X) + GLUE_OFFSET].gr   // a word of type |glue_ratio| for glue setting
+</code></pre>
+</div>
+<h1 id="section-136"><a class="header" href="#section-136">Section 136</a></h1>
+<p>The <em>new_null_box</em> function returns a pointer to an <em>HLIST_NODE</em> in which all subfields have the values corresponding to ‘<code>\hbox{}</code>’.
+(The <em>subtype</em> field is set to <em>MIN_QUARTERWORD</em>, for historic reasons that are no longer relevant.)</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |nodes.c|, 1382 &gt;&gt;
+
+// creates a new box node
+pointer new_null_box() {
+    pointer p = get_node(BOX_NODE_SIZE); // the new node
+    type(p) = HLIST_NODE;
+    subtype(p) = MIN_QUARTERWORD;
+    width(p) = 0;
+    depth(p) = 0;
+    height(p) = 0;
+    shift_amount(p) = 0;
+    list_ptr(p) = null;
+    glue_sign(p) = NORMAL;
+    glue_order(p) = NORMAL;
+    set_glue_ratio_zero(glue_set(p));
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-137"><a class="header" href="#section-137">Section 137</a></h1>
+<p>A <em>VLIST_NODE</em> is like an <em>HLIST_NODE</em> in all respects except that it contains a vertical list.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define VLIST_NODE 1 // |type| of vlist nodes
+</code></pre>
+</div>
+<h1 id="section-138"><a class="header" href="#section-138">Section 138</a></h1>
+<p>A <em>RULE_NODE</em> stands for a solid black rectangle; it has <em>width</em>, <em>depth</em>, and <em>height</em> fields just as in an <em>HLIST_NODE</em>.
+However, if any of these dimensions is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">30</span></span></span></span></span></span></span></span></span></span></span></span>, the actual value will be determined by running the rule up to the boundary of the innermost enclosing box.
+This is called a “running dimension”.
+The <em>width</em> is never running in an hlist; the <em>height</em> and <em>depth</em> are never running in a vlist.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define RULE_NODE 2           // |type| of rule nodes
+#define RULE_NODE_SIZE 4      // number of words to allocate for a rule node
+#define NULL_FLAG -0x40000000 // -2^{30}, signifies a missing item
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define is_running(X) ((X) == NULL_FLAG) // tests for a running dimension
+</code></pre>
+</div>
+<h1 id="section-139"><a class="header" href="#section-139">Section 139</a></h1>
+<p>A new rule node is delivered by the <em>new_rule</em> function.
+It makes all the dimensions “running”, so you have to change the ones that are not allowed to run.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">pointer new_rule() {
+    pointer p = get_node(RULE_NODE_SIZE); // the new node
+    type(p) = RULE_NODE;
+    subtype(p) = 0; // the |subtype| is not used
+    width(p) = NULL_FLAG;
+    depth(p) = NULL_FLAG;
+    height(p) = NULL_FLAG;
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-140"><a class="header" href="#section-140">Section 140</a></h1>
+<p>Insertions are represented by <em>INS_NODE</em> records, where the <em>subtype</em> indicates the corresponding box number.
+For example, ‘<code>\insert 250</code>’ leads to an <em>INS_NODE</em> whose <em>subtype</em> is <em>250 + MIN_QUARTERWORD</em>.
+The <em>height</em> field of an <em>INS_NODE</em> is slightly misnamed; it actually holds the natural height plus depth of the vertical list being inserted.
+The <em>depth</em> field holds the <em>split_max_depth</em> to be used in case this insertion is split, and the <em>split_top_ptr</em> points to the corresponding <em>split_top_skip</em>.
+The <em>float_cost</em> field holds the <em>floating_penalty</em> that will be used if this insertion floats to a subsequent page after a split insertion of the same class.
+There is one more field, the <em>ins_ptr</em>, which points to the beginning of the vlist for the insertion.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define INS_NODE      3 // |type| of insertion nodes
+#define INS_NODE_SIZE 5 // number of words to allocate for an insertion
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define float_cost(X)    mem[(X) + 1].integer // the |floating_penalty| to be used
+#define ins_ptr(X)       info((X) + 4)        // the vertical list to be inserted
+#define split_top_ptr(X) link((X) + 4)        // the |split_top_skip| to be used
+</code></pre>
+</div>
+<h1 id="section-141"><a class="header" href="#section-141">Section 141</a></h1>
+<p>A <em>MARK_NODE</em> has a <em>mark_ptr</em> field that points to the reference count of a token list that contains the user’s <code>\mark</code> text.
+This field occupies a full word instead of a halfword, because there’s nothing to put in the other halfword; it is easier in Pascal to use the full word than to risk leaving garbage in the unused half.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define MARK_NODE       4 // |type| of a mark node
+#define SMALL_NODE_SIZE 2 // number of words to allocate for most node types
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define mark_ptr(X) mem[(X) + 1].integer // head of the token list for a mark
+</code></pre>
+</div>
+<h1 id="section-142"><a class="header" href="#section-142">Section 142</a></h1>
+<p>An <em>ADJUST_NODE</em>, which occurs only in horizontal lists, specifies material that will be moved out into the surrounding vertical list; i.e., it is used to implement <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s ‘<code>\vadjust</code>’
+operation.
+The <em>adjust_ptr</em> field points to the vlist containing this material.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define ADJUST_NODE 5 // |type| of an adjust node
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define adjust_ptr mark_ptr // vertical list to be moved out of horizontal list
+</code></pre>
+</div>
+<h1 id="section-143"><a class="header" href="#section-143">Section 143</a></h1>
+<p>A <em>LIGATURE_NODE</em>, which occurs only in horizontal lists, specifies a character that was fabricated from the interaction of two or more actual characters.
+The second word of the node, which is called the <em>lig_char</em> word, contains <em>font</em> and <em>character</em> fields just as in a <em>CHAR_NODE</em>.
+The characters that generated the ligature have not been forgotten, since they are needed for diagnostic messages and for hyphenation; the <em>lig_ptr</em> field points to a linked list of character nodes for all original characters that have been deleted.
+(This list might be empty if the characters that generated the ligature were retained in other nodes.)</p>
+<p>The <em>subtype</em> field is 0, plus 2 and/or 1 if the original source of the ligature included implicit left and/or right boundaries.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define LIGATURE_NODE 6 // |type| of a ligature node
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define lig_char(X) ((X) + 1)           // the word where the ligature is to be found
+#define lig_ptr(X)  link(lig_char((X))) // the list of characters
+</code></pre>
+</div>
+<h1 id="section-144"><a class="header" href="#section-144">Section 144</a></h1>
+<p>The <em>new_ligature</em> function creates a ligature node having given contents of the <em>font</em>, <em>character</em>, and <em>lig_ptr</em> fields.
+We also have a <em>new_lig_item</em> function, which returns a two-word node having a given <em>character</em> field.
+Such nodes are used for temporary processing as ligatures are being created.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">pointer new_ligature(quarterword f, quarterword c, pointer q) {
+    pointer p = get_node(SMALL_NODE_SIZE); // the new node
+    type(p) = LIGATURE_NODE;
+    font(lig_char(p)) = f;
+    character(lig_char(p)) = c;
+    lig_ptr(p) = q;
+    subtype(p) = 0;
+    return p;
+}
+
+pointer new_lig_item(quarterword c) {
+    pointer p = get_node(SMALL_NODE_SIZE); // the new node
+    character(p) = c;
+    lig_ptr(p) = null;
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-145"><a class="header" href="#section-145">Section 145</a></h1>
+<p>A <em>DISC_NODE</em>, which occurs only in horizontal lists, specifies a “discretionary” line break.
+If such a break occurs at node <em>p</em>, the text that starts at <em>pre_break(p)</em> will precede the break, the text that starts at <em>post_break(p)</em> will follow the break, and text that appears in the next <em>replace_count(p)</em> nodes will be ignored.
+For example, an ordinary discretionary hyphen, indicated by ‘<code>\-</code>’, yields a <em>DISC_NODE</em> with <em>pre_break</em> pointing to a <em>CHAR_NODE</em> containing a hyphen, <em>post_break = null</em>, and <em>replace_count = 0</em>.
+All three of the discretionary texts must be lists that consist entirely of character, kern, box, rule, and ligature nodes.</p>
+<p>If <em>pre_break(p) = null</em>, the <em>ex_hyphen_penalty</em> will be charged for this break.
+Otherwise the <em>hyphen_penalty</em> will be charged.
+The texts will actually be substituted into the list by the line-breaking algorithm if it decides to make the break, and the discretionary node will disappear at that time; thus, the output routine sees only discretionaries that were not chosen.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define DISC_NODE 7 // |type| of a discretionary node
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define replace_count subtype // how many subsequent nodes to replace
+#define pre_break     llink   // text that precedes a discretionary break
+#define post_break    rlink   // text that follows a discretionary break
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">pointer new_disc() {
+    pointer p = get_node(SMALL_NODE_SIZE); // the new node
+    type(p) = DISC_NODE;
+    replace_count(p) = 0;
+    pre_break(p) = null;
+    post_break(p) = null;
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-146"><a class="header" href="#section-146">Section 146</a></h1>
+<p>A <em>WHATSIT_NODE</em> is a wild card reserved for extensions to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.
+The <em>subtype</em> field in its first word says what <em>‘whatsit’</em> it is, and implicitly determines the node size (which must be 2 or more) and the format of the remaining words.
+When a <em>WHATSIT_NODE</em> is encountered in a list, special actions are invoked; knowledgeable people who are careful not to mess up the rest of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> are able to make <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> do new things by adding code at the end of the program.
+For example, there might be a ‘<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>nicolor’ extension to specify different colors of ink, and the whatsit node might contain the desired parameters.</p>
+<p>The present implementation of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> treats the features associated with ‘<code>\write</code>’ and ‘<code>\special</code>’ as if they were extensions, in order to illustrate how such routines might be coded.
+We shall defer further discussion of extensions until the end of this program.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define WHATSIT_NODE 8 // |type| of special extension nodes
+</code></pre>
+</div>
+<h1 id="section-147"><a class="header" href="#section-147">Section 147</a></h1>
+<p>A <em>MATH_NODE</em>, which occurs only in horizontal lists, appears before and after mathematical formulas.
+The <em>subtype</em> field is <em>before</em> before the formula and <em>after</em> after it.
+There is a <em>width</em> field, which represents the amount of surrounding space inserted by <code>\mathsurround</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define MATH_NODE 9 // |type| of a math node
+#define BEFORE    0 // |subtype| for math node that introduces a formula
+#define AFTER     1 // |subtype| for math node that winds up a formula
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">pointer new_math(scaled w, small_number s) {
+    pointer p = get_node(SMALL_NODE_SIZE); // the new node
+    type(p) = MATH_NODE;
+    subtype(p) = s;
+    width(p) = w;
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-148"><a class="header" href="#section-148">Section 148</a></h1>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> makes use of the fact that <em>HLIST_NODE</em>, <em>VLIST_NODE</em>, <em>RULE_NODE</em>, <em>INS_NODE</em>, <em>MARK_NODE</em>, <em>ADJUST_NODE</em>, <em>LIGATURE_NODE</em>, <em>DISC_NODE</em>, <em>WHATSIT_NODE</em>, and <em>MATH_NODE</em> are at the low end of the type codes, by permitting a break at glue in a list if and only if the <em>type</em> of the previous node is less than <em>MATH_NODE</em>.
+Furthermore, a node is discarded after a break if its type is <em>MATH_NODE</em> or more.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define precedes_break(X)  (type((X)) &lt; MATH_NODE)
+#define non_discardable(X) (type((X)) &lt; MATH_NODE)
+</code></pre>
+</div>
+<h1 id="section-149"><a class="header" href="#section-149">Section 149</a></h1>
+<p>A <em>GLUE_NODE</em> represents glue in a list.
+However, it is really only a pointer to a separate glue specification, since <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> makes use of the fact that many essentially identical nodes of glue are usually present.
+If <em>p</em> points to a <em>GLUE_NODE</em>, <em>glue_ptr(p)</em> points to another packet of words that specify the stretch and shrink components, etc.</p>
+<p>Glue nodes also serve to represent leaders; the <em>subtype</em> is used to distinguish between ordinary glue (which is called <em>NORMAL</em>) and the three kinds of leaders (which are called <em>A_LEADERS</em>, <em>C_LEADERS</em>, and <em>X_LEADERS</em>).
+The <em>leader_ptr</em> field points to a rule node or to a box node containing the leaders; it is set to <em>null</em> in ordinary glue nodes.</p>
+<p>Many kinds of glue are computed from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s “skip” parameters, and it is helpful to know which parameter has led to a particular glue node.
+Therefore the <em>subtype</em> is set to indicate the source of glue, whenever it originated as a parameter.
+We will be defining symbolic names for the parameter numbers later (e.g., <em>LINE_SKIP_CODE = 0</em>, <em>BASELINE_SKIP_CODE = 1</em>, etc.); it suffices for now to say that the <em>subtype</em> of parametric glue will be the same as the parameter number, plus one.</p>
+<p>In math formulas there are two more possibilities for the <em>subtype</em> in a glue node: <em>MU_GLUE</em> denotes an <code>\mskip</code> (where the units are scaled <code>mu</code> instead of scaled <code>pt</code>);
+and <em>COND_MATH_GLUE</em> denotes the ‘<code>\nonscript</code>’ feature that cancels the glue node immediately following if it appears in a subscript.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define GLUE_NODE      10  // |type| of node that points to a glue specification
+#define COND_MATH_GLUE 98  // special |subtype| to suppress glue in the next node
+#define MU_GLUE        99  // |subtype| for math glue
+#define A_LEADERS      100 // |subtype| for aligned leaders
+#define C_LEADERS      101 // |subtype| for centered leaders
+#define X_LEADERS      102 // |subtype| for expanded leaders
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define glue_ptr   llink // pointer to a glue specification
+#define leader_ptr rlink // pointer to box or rule node for leaders
+</code></pre>
+</div>
+<h1 id="section-150"><a class="header" href="#section-150">Section 150</a></h1>
+<p>A glue specification has a halfword reference count in its first word, representing <em>null</em> plus the number of glue nodes that point to it (less one).
+Note that the reference count appears in the same position as the <em>link</em> field in list nodes; this is the field that is initialized to <em>null</em> when a node is allocated, and it is also the field that is flagged by <em>EMPTY_FLAG</em> in empty nodes.</p>
+<p>Glue specifications also contain three <em>scaled</em> fields, for the <em>width</em>, <em>stretch</em>, and <em>shrink</em> dimensions. Finally, there are two one-byte fields called <em>stretch_order</em> and <em>shrink_order</em>; these contain the orders of infinity (<em>NORMAL</em>, <em>FIL</em>, <em>FILL</em>, or <em>FILLL</em>) corresponding to the stretch and shrink values.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define GLUE_SPEC_SIZE 4 // number of words to allocate for a glue specification
+#define FIL            1 // first-order infinity
+#define FILL           2 // second-order infinity
+#define FILLL          3 // third-order infinity
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define glue_ref_count(X) link((X))       // reference count of a glue specification
+#define stretch(X)        mem[(X) + 2].sc // the stretchability of this glob of glue
+#define shrink(X)         mem[(X) + 3].sc // the shrinkability of this glob of glue
+#define stretch_order     type            // order of infinity for stretching
+#define shrink_order      subtype         // order of infinity for shrinking
+</code></pre>
+</div>
+<h1 id="section-151"><a class="header" href="#section-151">Section 151</a></h1>
+<p>Here is a function that returns a pointer to a copy of a glue spec.
+The reference count in the copy is <em>null</em>, because there is assumed to be exactly one reference to the new specification.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">// duplicates a glue specification
+pointer new_spec(pointer p) {
+    pointer q = get_node(GLUE_SPEC_SIZE); // the new spec
+    mem[q] = mem[p];
+    glue_ref_count(q) = null;
+    width(q) = width(p);
+    stretch(q) = stretch(p);
+    shrink(q) = shrink(p);
+    return q;
+}
+</code></pre>
+</div>
+<h1 id="section-152"><a class="header" href="#section-152">Section 152</a></h1>
+<p>And here’s a function that creates a glue node for a given parameter identified by its code number; for example, <em>new_param_glue(LINE_SKIP_CODE)</em> returns a pointer to a glue node for the current <code>\lineskip</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">pointer new_param_glue(small_number n) {
+    pointer p; // the new node
+    pointer q; // the glue specification
+    p = get_node(SMALL_NODE_SIZE);
+    type(p) = GLUE_NODE;
+    subtype(p) = n + 1;
+    leader_ptr(p) = null;
+    q = glue_par(n);
+    glue_ptr(p) = q;
+    incr(glue_ref_count(q));
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-153"><a class="header" href="#section-153">Section 153</a></h1>
+<p>Glue nodes that are more or less anonymous are created by <em>new_glue</em>, whose argument points to a glue specification.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">pointer new_glue(halfword q) {
+    pointer p = get_node(SMALL_NODE_SIZE); // the new node
+    type(p) = GLUE_NODE;
+    subtype(p) = NORMAL;
+    leader_ptr(p) = null;
+    glue_ptr(p) = q;
+    incr(glue_ref_count(q));
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-154"><a class="header" href="#section-154">Section 154</a></h1>
+<p>Still another subroutine is needed:
+This one is sort of a combination of <em>new_param_glue</em> and <em>new_glue</em>.
+It creates a glue node for one of the current glue parameters, but it makes a fresh copy of the glue specification, since that specification will probably be subject to change, while the parameter will stay put.
+The global variable <em>temp_ptr</em> is set to the address of the new spec.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">pointer new_skip_param(small_number n) {
+    pointer p; // the new node
+    temp_ptr = new_spec(glue_par(n));
+    p = new_glue(temp_ptr);
+    glue_ref_count(temp_ptr) = null;
+    subtype(p) = n + 1;
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-155"><a class="header" href="#section-155">Section 155</a></h1>
+<p>A <em>KERN_NODE</em> has a <em>width</em> field to specify a (normally negative) amount of spacing.
+This spacing correction appears in horizontal lists between letters like A and V when the font designer said that it looks better to move them closer together or further apart.
+A kern node can also appear in a vertical list, when its <em>‘width’</em> denotes additional spacing in the vertical direction.
+The <em>subtype</em> is either <em>NORMAL</em> (for kerns inserted from font information or math mode calculations) or <em>EXPLICIT</em> (for kerns inserted from <code>\kern</code> and <code>\/</code> commands) or <em>ACC_KERN</em> (for kerns inserted from non-math accents) or <em>MU_GLUE</em> (for kerns inserted from <code>\mkern</code> specifications in math formulas).</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define KERN_NODE 11 // |type| of a kern node
+#define EXPLICIT  1  // |subtype| of kern nodes from \kern and \/
+#define ACC_KERN  2  // |subtype| of kern nodes from accents
+</code></pre>
+</div>
+<h1 id="section-156"><a class="header" href="#section-156">Section 156</a></h1>
+<p>The <em>new_kern</em> function creates a kern node having a given width.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">pointer new_kern(scaled w) {
+    pointer p = get_node(SMALL_NODE_SIZE); // the new node
+    type(p) = KERN_NODE;
+    subtype(p) = NORMAL;
+    width(p) = w;
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-157"><a class="header" href="#section-157">Section 157</a></h1>
+<p>A <em>PENALTY_NODE</em> specifies the penalty associated with line or page breaking, in its <em>penalty</em> field.
+This field is a fullword integer, but the full range of integer values is not used:
+Any penalty <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>10000</em> is treated as infinity, and no break will be allowed for such high values.
+Similarly, any penalty <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>−10000</em> is treated as negative infinity, and a break will be forced.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define PENALTY_NODE  12             // |type| of a penalty node
+#define INF_PENALTY   INF_BAD        // "infinite" penalty value
+#define EJECT_PENALTY (-INF_PENALTY) // "negatively infinite" penalty value
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define penalty(X) mem[(X) + 1].integer // the added cost of breaking a list here
+</code></pre>
+</div>
+<h1 id="section-158"><a class="header" href="#section-158">Section 158</a></h1>
+<p>Anyone who has been reading the last few sections of the program will be able to guess what comes next.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">nodes.c</div>
+<pre><code class="language-c">pointer new_penalty(int m) {
+    pointer p = get_node(SMALL_NODE_SIZE); // the new node
+    type(p) = PENALTY_NODE;
+    subtype(p) = 0; // the |subtype| is not used
+    penalty(p) = m;
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-159"><a class="header" href="#section-159">Section 159</a></h1>
+<p>You might think that we have introduced enough node types by now.
+Well, almost, but there is one more:
+An <em>UNSET_NODE</em> has nearly the same format as an <em>HLIST_NODE</em> or <em>VLIST_NODE</em>;
+it is used for entries in <code>\halign</code> or <code>\valign</code> that are not yet in their final form, since the box dimensions are their “natural” sizes before any glue adjustment has been made.
+The <em>glue_set</em> word is not present; instead, we have a <em>glue_stretch</em> field, which contains the total stretch of order <em>glue_order</em> that is present in the hlist or vlist being boxed.
+Similarly, the <em>shift_amount</em> field is replaced by a <em>glue_shrink</em> field, containing the total shrink of order <em>glue_sign</em> that is present.
+The <em>subtype</em> field is called <em>span_count</em>; an unset box typically contains the data for <em>span_count + 1</em> columns.
+Unset nodes will be changed to box nodes when alignment is completed.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define UNSET_NODE 13 // |type| for an unset node
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define glue_stretch(X) mem[(X) + GLUE_OFFSET].sc // total stretch in an unset node
+#define glue_shrink     shift_amount              // total shrink in an unset node
+#define span_count      subtype                   // indicates the number of spanned columns
+</code></pre>
+</div>
+<h1 id="section-160"><a class="header" href="#section-160">Section 160</a></h1>
+<p>In fact, there are still more types coming. When we get to math formula processing we will see that a <em>STYLE_NODE</em> has <em>type = 14</em>; and a number of larger type codes will also be defined, for use in math mode only.</p>
+<h1 id="section-161"><a class="header" href="#section-161">Section 161</a></h1>
+<p>Warning: If any changes are made to these data structure layouts, such as changing any of the node sizes or even reordering the words of nodes, the <em>copy_node_list</em> procedure and the memory initialization code below may have to be changed.
+Such potentially dangerous parts of the program are listed in the index under ‘data structure assumptions’.
+However, other references to the nodes are made symbolically in terms of the <code>WEB</code> macro definitions above, so that format changes will leave <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s other algorithms intact.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part09.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part11.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part09.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part11.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

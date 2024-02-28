@@ -1,0 +1,1822 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 719–767 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html" class="active">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-719-typesetting-math-formulas"><a class="header" href="#section-719-typesetting-math-formulas">Section 719: Typesetting math formulas</a></h1>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s most important routine for dealing with formulas is called <em>mlist_to_hlist</em>.
+After a formula has been scanned and represented as an mlist, this routine converts it to an hlist that can be placed into a box or incorporated into the text of a paragraph.
+There are three implicit parameters, passed in global variables: <em>cur_mlist</em> points to the first node or noad in the given mlist (and it might be <em>null</em>); <em>cur_style</em> is a style code; and <em>mlist_penalties</em> is <em>true</em> if penalty nodes for potential line breaks are to be inserted into the resulting hlist.
+After <em>mlist_to_hlist</em> has acted, <em>link(TEMP_HEAD)</em> points to the translated hlist.</p>
+<p>Since mlists can be inside mlists, the procedure is recursive.
+And since this is not part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop, the program has been written in a manner that stresses compactness over efficiency.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer      cur_mlist; // beginning of mlist to be translated
+small_number cur_style; // style code at current place in the list
+small_number cur_size;  // size code corresponding to |cur_style|
+scaled       cur_mu;    // the math unit width corresponding to |cur_size|
+bool mlist_penalties;   // should |mlist_to_hlist| insert penalties?
+</code></pre>
+</div>
+<h1 id="section-720"><a class="header" href="#section-720">Section 720</a></h1>
+<p>The recursion in <em>mlist_to_hlist</em> is due primarily to a subroutine called <em>clean_box</em> that puts a given noad field into a box using a given math style; <em>mlist_to_hlist</em> can call <em>clean_box</em>, which can call <em>mlist_to_hlist</em>.</p>
+<p>The box returned by <em>clean_box</em> is “clean” in the sense that its <em>shift_amount</em> is zero.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">math_typesetting.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |math_typesetting.c|, 1382 &gt;&gt;
+
+pointer clean_box(pointer p, small_number s) {
+    pointer q;               // beginning of a list to be boxed
+    small_number save_style; // |cur_style| to be restored
+    pointer x;               // box to be returned
+    pointer r;               // temporary pointer
+    
+    switch (math_type(p)) {
+    case MATH_CHAR:
+        cur_mlist = new_noad();
+        mem[nucleus(cur_mlist)] = mem[p];
+        break;
+    
+    case SUB_BOX:
+        q = info(p);
+        goto found;
+    
+    case SUB_MLIST:
+        cur_mlist = info(p);
+        break;
+    
+    default:
+        q = new_null_box();
+        goto found;
+    }
+    save_style = cur_style;
+    cur_style = s;
+    mlist_penalties = false;
+    mlist_to_hlist();
+    q = link(TEMP_HEAD); // recursive call
+    cur_style = save_style; // restore the style
+    // &lt;&lt; Set up the values of |cur_size| and |cur_mu|, based on |cur_style|, 703 &gt;&gt;
+
+found:
+    if (is_char_node(q) || q == null) {
+        x = hpack(q, NATURAL);
+    }
+    else if (link(q) == null
+        &amp;&amp; type(q) &lt;= VLIST_NODE
+        &amp;&amp; shift_amount(q) == 0)
+    {
+        x = q; // it's already clean
+    }
+    else {
+        x = hpack(q, NATURAL);
+    }
+    // &lt;&lt; Simplify a trivial box, 721 &gt;&gt;
+    return x;
+}
+</code></pre>
+</div>
+<h1 id="section-721"><a class="header" href="#section-721">Section 721</a></h1>
+<p>Here we save memory space in a common case.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Simplify a trivial box <a href="./part36.html#section-721">721</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = list_ptr(x);
+if (is_char_node(q)) {
+    r = link(q);
+    if (r != null
+        &amp;&amp; link(r) == null
+        &amp;&amp; !is_char_node(r)
+        &amp;&amp; type(r) == KERN_NODE)
+    {
+        // unneeded italic correction
+        free_node(r, SMALL_NODE_SIZE);
+        link(q) = null;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-720">720</a>.</p>
+</div></div>
+<h1 id="section-722"><a class="header" href="#section-722">Section 722</a></h1>
+<p>It is convenient to have a procedure that converts a <em>MATH_CHAR</em> field to an “unpacked” form.
+The <em>fetch</em> routine sets <em>cur_f</em>, <em>cur_c</em>, and <em>cur_i</em> to the font code, character code, and character information bytes of a given noad field.
+It also takes care of issuing error messages for nonexistent characters; in such cases, <em>char_exists(cur_i)</em> will be <em>false</em> after <em>fetch</em> has acted, and the field will also have been reset to <em>EMPTY</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">math_typesetting.c</div>
+<pre><code class="language-c">// unpack the |MATH_CHAR| field |a|
+void fetch(pointer a) {
+    cur_c = character(a);
+    cur_f = fam_fnt(fam(a) + cur_size);
+    if (cur_f == NULL_FONT) {
+        // &lt;&lt; Complain about an undefined family and set |cur_i| null, 723 &gt;&gt;
+    }
+    else {
+        if (cur_c &gt;= font_bc[cur_f] &amp;&amp; cur_c &lt;= font_ec[cur_f]) {
+            cur_i = char_info(cur_f, cur_c);
+        }
+        else {
+            cur_i = null_character;
+        }
+        if (!char_exists(cur_i)) {
+            char_warning(cur_f, cur_c);
+            math_type(a) = EMPTY;
+            cur_i = null_character;
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-723"><a class="header" href="#section-723">Section 723</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Complain about an undefined family and set <em>cur_i</em> null <a href="./part36.html#section-723">723</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("");
+print_size(cur_size);
+print_char(' ');
+print_int(fam(a));
+print(" is undefined (character ");
+print_strnumber(cur_c);
+print_char(')');
+help4("Somewhere in the math formula just ended, you used the")
+    ("stated character from an undefined font family. For example,")
+    ("plain TeX doesn't allow \\it or \\sl in subscripts. Proceed,")
+    ("and I'll try to forget that I needed that character.");
+error();
+cur_i = null_character;
+math_type(a) = EMPTY;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-722">722</a>.</p>
+</div></div>
+<h1 id="section-724"><a class="header" href="#section-724">Section 724</a></h1>
+<p>The outputs of <em>fetch</em> are placed in global variables.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">internal_font_number cur_f; // the |font| field of a |MATH_CHAR|
+quarterword cur_c;          // the |character| field of a |MATH_CHAR|
+memory_word cur_i;          // the |char_info| of a |MATH_CHAR|, or a lig/kern instruction
+</code></pre>
+</div>
+<h1 id="section-725"><a class="header" href="#section-725">Section 725</a></h1>
+<p>We need to do a lot of different things, so <em>mlist_to_hlist</em> makes two passes over the given mlist.</p>
+<p>The first pass does most of the processing: It removes “mu” spacing from glue, it recursively evaluates all subsidiary mlists so that only the top-level mlist remains to be handled, it puts fractions and square roots and such things into boxes, it attaches subscripts and superscripts, and it computes the overall height and depth of the top-level mlist so that the size of delimiters for a <em>LEFT_NOAD</em> and a <em>RIGHT_NOAD</em> will be known.
+The hlist resulting from each noad is recorded in that noad’s <em>new_hlist</em> field, an integer field that replaces the <em>nucleus</em> or <em>thickness</em>.</p>
+<p>The second pass eliminates all noads and inserts the correct glue and penalties between nodes.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">texmath.h</div>
+<pre><code class="language-c">#define new_hlist(X) mem[nucleus((X))].integer // the translation of an mlist
+</code></pre>
+</div>
+<h1 id="section-726"><a class="header" href="#section-726">Section 726</a></h1>
+<p>Here is the overall plan of <em>mlist_to_hlist</em>, and the list of its local variables.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The <em>MATH_SPACING</em> string is only used for <em>mlist_to_hlist</em> so it must be declared beforehand.
+Its value is given in section <a href="#section-764">764</a>.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">math_typesetting.c</div>
+<pre><code class="language-c">// &lt;&lt; Declare math construction procedures, 734 &gt;&gt;
+
+// &lt;&lt; Declare |MATH_SPACING| for |mlist_to_hlist|, 764 &gt;&gt;
+
+void mlist_to_hlist() {
+    pointer mlist;           // beginning of the given list
+    bool penalties;          // should penalty nodes be inserted?
+    small_number style;      // the given style
+    small_number save_style; // holds |cur_style| during recursion
+    pointer q;               // runs through the mlist
+    pointer r;               // the most recent noad preceding |q|
+    small_number r_type;     // the |type| of noad |r|, or |OP_NOAD| if |r = null|
+    small_number t;          // the effective |type| of noad |q| during the second pass
+    pointer p, x, y, z;      // temporary registers for list construction
+    int pen;                 // a penalty to be inserted
+    small_number s;          // the size of a noad to be deleted
+    scaled max_h, max_d;     // maximum height and depth of the list translated so far
+    scaled delta;            // offset between subscript and superscript
+
+    p = null;
+    x = null;
+    mlist = cur_mlist;
+    penalties = mlist_penalties;
+    style = cur_style; // tuck global parameters away as local variables
+    q = mlist;
+    r = null;
+    r_type = OP_NOAD;
+    max_h = 0;
+    max_d = 0;
+    // &lt;&lt; Set up the values of |cur_size| and |cur_mu|, based on |cur_style|, 703 &gt;&gt;
+    while (q != null) {
+        // &lt;&lt; Process node-or-noad |q| as much as possible in preparation for the second pass of |mlist_to_hlist|, then move to the next item in the mlist, 727 &gt;&gt;
+    }
+    // &lt;&lt; Convert a final |BIN_NOAD| to an |ORD_NOAD|, 729 &gt;&gt;
+    // &lt;&lt; Make a second pass over the mlist, removing all noads and inserting the proper spacing and penalties, 760 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-727"><a class="header" href="#section-727">Section 727</a></h1>
+<p>We use the fact that no character nodes appear in an mlist, hence the field <em>type(q)</em> is always present.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Process node-or-noad <em>q</em> as much as possible in preparation for the second pass of <em>mlist_to_hlist</em>, then move to the next item in the mlist <a href="./part36.html#section-727">727</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Do first-pass processing based on |type(q)|; |goto done_with_noad| if a noad has been fully processed, |goto check_dimensions| if it has been translated into |new_hlist(q)|, or |goto done_with_node| if a node has been fully processed, 728 &gt;&gt;
+
+check_dimensions:
+z = hpack(new_hlist(q), NATURAL);
+if (height(z) &gt; max_h) {
+    max_h = height(z);
+}
+if (depth(z) &gt; max_d) {
+    max_d = depth(z);
+}
+free_node(z, BOX_NODE_SIZE);
+
+done_with_noad:
+r = q;
+r_type = type(r);
+
+done_with_node:
+q = link(q);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-726">726</a>.</p>
+</div></div>
+<h1 id="section-728"><a class="header" href="#section-728">Section 728</a></h1>
+<p>One of the things we must do on the first pass is change a <em>BIN_NOAD</em> to an <em>ORD_NOAD</em> if the <em>BIN_NOAD</em> is not in the context of a binary operator.
+The values of <em>r</em> and <em>r_type</em> make this fairly easy.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Do first-pass processing based on <em>type(q)</em>; <em>goto done_with_noad</em> if a noad has been fully processed, <em>goto check_dimensions</em> if it has been translated into <em>new_hlist(q)</em>, or <em>goto done_with_node</em> if a node has been fully processed <a href="./part36.html#section-728">728</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">reswitch:
+delta = 0;
+switch (type(q)) {
+case BIN_NOAD:
+    switch (r_type) {
+    case BIN_NOAD:
+    case OP_NOAD:
+    case REL_NOAD:
+    case OPEN_NOAD:
+    case PUNCT_NOAD:
+    case LEFT_NOAD:
+        type(q) = ORD_NOAD;
+        goto reswitch;
+
+    default:
+        do_nothing;
+    }
+    break;
+
+case REL_NOAD:
+case CLOSE_NOAD:
+case PUNCT_NOAD:
+case RIGHT_NOAD:
+    // &lt;&lt; Convert a final |BIN_NOAD| to an |ORD_NOAD|, 729 &gt;&gt;
+    if (type(q) == RIGHT_NOAD) {
+        goto done_with_noad;
+    }
+    break;
+
+// &lt;&lt; Cases for noads that can follow a |BIN_NOAD|, 733 &gt;&gt;
+
+// &lt;&lt; Cases for nodes that can appear in an mlist, after which we |goto done_with_node|, 730 &gt;&gt;
+
+default:
+    confusion("mlist1");
+}
+
+// &lt;&lt; Convert |nucleus(q)| to an hlist and attach the sub/superscripts, 754 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-727">727</a>.</p>
+</div></div>
+<h1 id="section-729"><a class="header" href="#section-729">Section 729</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Convert a final <em>BIN_NOAD</em> to an <em>ORD_NOAD</em> <a href="./part36.html#section-729">729</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (r_type == BIN_NOAD) {
+    type(r) = ORD_NOAD;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part36.html#section-726">726</a>, and <a href="./part36.html#section-728">728</a>.</p>
+</div></div>
+<h1 id="section-730"><a class="header" href="#section-730">Section 730</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases for nodes that can appear in an mlist, after which we <em>goto done_with_node</em> <a href="./part36.html#section-730">730</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">case STYLE_NODE:
+    cur_style = subtype(q);
+    // &lt;&lt; Set up the values of |cur_size| and |cur_mu|, based on |cur_style|, 703 &gt;&gt;
+    goto done_with_node;
+
+case CHOICE_NODE:
+    // &lt;&lt; Change this node to a style node followed by the correct choice, then |goto done_with_node|, 731 &gt;&gt;
+
+case INS_NODE:
+case MARK_NODE:
+case ADJUST_NODE:
+case WHATSIT_NODE:
+case PENALTY_NODE:
+case DISC_NODE:
+    goto done_with_node;
+
+case RULE_NODE:
+    if (height(q) &gt; max_h) {
+        max_h = height(q);
+    }
+    if (depth(q) &gt; max_d) {
+        max_d = depth(q);
+    }
+    goto done_with_node;
+
+case GLUE_NODE:
+    // &lt;&lt; Convert math glue to ordinary glue, 732 &gt;&gt;
+    goto done_with_node;
+
+case KERN_NODE:
+    math_kern(q, cur_mu);
+    goto done_with_node;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-728">728</a>.</p>
+</div></div>
+<h1 id="section-731"><a class="header" href="#section-731">Section 731</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">texmath.h</div>
+<pre><code class="language-c">#define choose_mlist(X) p = X(q); X(q) = null
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Change this node to a style node followed by the correct choice, then <em>goto done_with_node</em> <a href="./part36.html#section-731">731</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (cur_style / 2) {
+case 0:
+    // |DISPLAY_STYLE = 0|
+    choose_mlist(display_mlist);
+    break;
+
+case 1:
+    // |TEXT_STYLE = 2|
+    choose_mlist(text_mlist);
+    break;
+
+case 2:
+    // |SCRIPT_STYLE = 4|
+    choose_mlist(script_mlist);
+    break;
+
+default:
+    // case 3:
+    // |SCRIPT_SCRIPT_STYLE = 6|
+    choose_mlist(script_script_mlist);
+} // there are no other cases
+flush_node_list(display_mlist(q));
+flush_node_list(text_mlist(q));
+flush_node_list(script_mlist(q));
+flush_node_list(script_script_mlist(q));
+type(q) = STYLE_NODE;
+subtype(q) = cur_style;
+width(q) = 0;
+depth(q) = 0;
+if (p != null){
+    z = link(q);
+    link(q) = p;
+    while (link(p) != null) {
+        p = link(p);
+    }
+    link(p) = z;
+}
+goto done_with_node;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-730">730</a>.</p>
+</div></div>
+<h1 id="section-732"><a class="header" href="#section-732">Section 732</a></h1>
+<p>Conditional math glue (‘<code>\nonscript</code>’) results in a <em>GLUE_NODE</em> pointing to <em>ZERO_GLUE</em>, with <em>subtype(q) = COND_MATH_GLUE</em>; in such a case the node following will be eliminated if it is a glue or kern node and if the current size is different from <em>TEXT_SIZE</em>.
+Unconditional math glue (‘<code>\muskip</code>’) is converted to normal glue by multiplying the dimensions by <em>cur_mu</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Convert math glue to ordinary glue <a href="./part36.html#section-732">732</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (subtype(q) == MU_GLUE) {
+    x = glue_ptr(q);
+    y = math_glue(x, cur_mu);
+    delete_glue_ref(x);
+    glue_ptr(q) = y;
+    subtype(q) = NORMAL;
+}
+else if (cur_size != TEXT_SIZE &amp;&amp; subtype(q) == COND_MATH_GLUE) {
+    p = link(q);
+    if (p != null
+        &amp;&amp; (type(p) == GLUE_NODE || type(p) == KERN_NODE))
+    {
+        link(q) = link(p);
+        link(p) = null;
+        flush_node_list(p);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-730">730</a>.</p>
+</div></div>
+<h1 id="section-733"><a class="header" href="#section-733">Section 733</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases for noads that can follow a <em>BIN_NOAD</em> <a href="./part36.html#section-733">733</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">case LEFT_NOAD:
+    goto done_with_noad;
+
+case FRACTION_NOAD:
+    make_fraction(q);
+    goto check_dimensions;
+
+case OP_NOAD:
+    delta = make_op(q);
+    if (subtype(q) == LIMITS) {
+        goto check_dimensions;
+    }
+    break;
+
+case ORD_NOAD:
+    make_ord(q);
+    break;
+
+case OPEN_NOAD:
+case INNER_NOAD:
+    do_nothing;
+    break;
+
+case RADICAL_NOAD:
+    make_radical(q);
+    break;
+
+case OVER_NOAD:
+    make_over(q);
+    break;
+
+case UNDER_NOAD:
+    make_under(q);
+    break;
+
+case ACCENT_NOAD:
+    make_math_accent(q);
+    break;
+
+case VCENTER_NOAD:
+    make_vcenter(q);
+    break;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-728">728</a>.</p>
+</div></div>
+<h1 id="section-734"><a class="header" href="#section-734">Section 734</a></h1>
+<p>Most of the actual construction work of <em>mlist_to_hlist</em> is done by procedures with names like <em>make_fraction</em>, <em>make_radical</em>, etc.
+To illustrate the general setup of such procedures, let’s begin with a couple of simple ones.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare math construction procedures <a href="./part36.html#section-734">734</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">void make_over(pointer q) {
+    info(nucleus(q)) = overbar(
+        clean_box(nucleus(q), cramped_style(cur_style)),
+        3*default_rule_thickness, default_rule_thickness
+    );
+    math_type(nucleus(q)) = SUB_BOX;
+}
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part36.html#section-735">735</a>, <a href="./part36.html#section-736">736</a>, <a href="./part36.html#section-737">737</a>, <a href="./part36.html#section-738">738</a>, <a href="./part36.html#section-743">743</a>, <a href="./part36.html#section-749">749</a>, <a href="./part36.html#section-752">752</a>, <a href="./part36.html#section-756">756</a>, and <a href="./part36.html#section-762">762</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-726">726</a>.</p>
+</div></div>
+<h1 id="section-735"><a class="header" href="#section-735">Section 735</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare math construction procedures <a href="./part36.html#section-734">734</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void make_under(pointer q) {
+    pointer p, x, y; // temporary registers for box construction
+    scaled delta;    // overall height plus depth
+    x = clean_box(nucleus(q), cur_style);
+    p = new_kern(3*default_rule_thickness);
+    link(x) = p;
+    link(p) = fraction_rule(default_rule_thickness);
+    y = vpack(x, NATURAL);
+    delta = height(y) + depth(y) + default_rule_thickness;
+    height(y) = height(x);
+    depth(y) = delta - height(y);
+    info(nucleus(q)) = y;
+    math_type(nucleus(q)) = SUB_BOX;
+}
+</code></pre>
+</div>
+<h1 id="section-736"><a class="header" href="#section-736">Section 736</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare math construction procedures <a href="./part36.html#section-734">734</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void make_vcenter(pointer q) {
+    pointer v;    // the box that should be centered vertically
+    scaled delta; // its height plus depth
+    v = info(nucleus(q));
+    if (type(v) != VLIST_NODE) {
+        confusion("vcenter");
+    }
+    delta = height(v) + depth(v);
+    height(v) = axis_height(cur_size) + half(delta);
+    depth(v) = delta - height(v);
+}
+</code></pre>
+</div>
+<h1 id="section-737"><a class="header" href="#section-737">Section 737</a></h1>
+<p>According to the rules in the <code>DVI</code> file specifications, we ensure alignment between a square root sign and the rule above its nucleus by assuming that the baseline of the square-root symbol is the same as the bottom of the rule.
+The height of the square-root symbol will be the thickness of the rule, and the depth of the square-root symbol should exceed or equal the height-plus-depth of the nucleus plus a certain minimum clearance <em>clr</em>.
+The symbol will be placed so that the actual clearance is <em>clr</em> plus half the excess.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare math construction procedures <a href="./part36.html#section-734">734</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void make_radical(pointer q) {
+    pointer x, y;      // temporary registers for box construction
+    scaled delta, clr; // dimensions involved in the calculation
+    x = clean_box(nucleus(q), cramped_style(cur_style));
+    if (cur_style &lt; TEXT_STYLE) {
+        // display style
+        clr = default_rule_thickness + abs(math_x_height(cur_size)) / 4;
+    }
+    else {
+        clr = default_rule_thickness;
+        clr += abs(clr) / 4;
+    }
+    y = var_delimiter(left_delimiter(q), cur_size, height(x) + depth(x) + clr + default_rule_thickness);
+    delta = depth(y) - (height(x) + depth(x) + clr);
+    if (delta &gt; 0) {
+        clr += half(delta); // increase the actual clearance
+    }
+    shift_amount(y) = -(height(x) + clr);
+    link(y) = overbar(x, clr, height(y));
+    info(nucleus(q)) = hpack(y, NATURAL);
+    math_type(nucleus(q)) = SUB_BOX;
+}
+</code></pre>
+</div>
+<h1 id="section-738"><a class="header" href="#section-738">Section 738</a></h1>
+<p>Slants are not considered when placing accents in math mode.
+The accenter is centered over the accentee, and the accent width is treated as zero with respect to the size of the final box.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare math construction procedures <a href="./part36.html#section-734">734</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void make_math_accent(pointer q) {
+    pointer p, x, y;        // temporary registers for box construction
+    int a;                  // address of lig/kern instruction
+    quarterword c;          // accent character
+    internal_font_number f; // its font
+    memory_word i;          // its |char_info|
+    scaled s;               // amount to skew the accent to the right
+    scaled h;               // height of character being accented
+    scaled delta;           // space to remove between accent and accentee
+    scaled w;               // width of the accentee, not including sub/superscripts
+    
+    fetch(accent_chr(q));
+    if (char_exists(cur_i)) {
+        i = cur_i;
+        c = cur_c;
+        f = cur_f;
+        // &lt;&lt; Compute the amount of skew, 741 &gt;&gt;
+        x = clean_box(nucleus(q), cramped_style(cur_style));
+        w = width(x);
+        h = height(x);
+        // &lt;&lt; Switch to a larger accent if available and appropriate, 740 &gt;&gt;
+        if (h &lt; x_height(f)) {
+            delta = h;
+        }
+        else {
+            delta = x_height(f);
+        }
+        if ((math_type(supscr(q)) != EMPTY || math_type(subscr(q)) != EMPTY)
+            &amp;&amp; math_type(nucleus(q)) == MATH_CHAR)
+        {
+            // &lt;&lt; Swap the subscript and superscript into box |x|, 742 &gt;&gt;
+        }
+        y = char_box(f, c);
+        shift_amount(y) = s + half(w - width(y));
+        width(y) = 0;
+        p = new_kern(-delta);
+        link(p) = x;
+        link(y) = p;
+        y = vpack(y, NATURAL);
+        width(y) = width(x);
+        if (height(y) &lt; h) {
+            // &lt;&lt; Make the height of box |y| equal to |h|, 739 &gt;&gt;
+        }
+        info(nucleus(q)) = y;
+        math_type(nucleus(q)) = SUB_BOX;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-739"><a class="header" href="#section-739">Section 739</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make the height of box <em>y</em> equal to <em>h</em> <a href="./part36.html#section-739">739</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = new_kern(h - height(y));
+link(p) = list_ptr(y);
+list_ptr(y) = p;
+height(y) = h;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-738">738</a>.</p>
+</div></div>
+<h1 id="section-740"><a class="header" href="#section-740">Section 740</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Switch to a larger accent if available and appropriate <a href="./part36.html#section-740">740</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while(true) {
+    if (char_tag(i) != LIST_TAG) {
+        break; // goto done
+    }
+    y = rem_byte(i);
+    i = char_info(f, y);
+    if (!char_exists(i) || char_width(f, i) &gt; w) {
+        break; // goto done
+    }
+    c = y;
+}
+// done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-738">738</a>.</p>
+</div></div>
+<h1 id="section-741"><a class="header" href="#section-741">Section 741</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the amount of skew <a href="./part36.html#section-741">741</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">s = 0;
+if (math_type(nucleus(q)) == MATH_CHAR) {
+    fetch(nucleus(q));
+    if (char_tag(cur_i) == LIG_TAG) {
+        a = lig_kern_start(cur_f, cur_i);
+        cur_i = font_info[a];
+        if (skip_byte(cur_i) &gt; STOP_FLAG) {
+            a = lig_kern_restart(cur_f, cur_i);
+            cur_i = font_info[a];
+        }
+        while(true) {
+            if (next_char(cur_i) == skew_char[cur_f]) {
+                if (op_byte(cur_i) &gt;= KERN_FLAG &amp;&amp; skip_byte(cur_i) &lt;= STOP_FLAG) {
+                    s = char_kern(cur_f, cur_i);
+                }
+                break; // goto done1
+            }
+            if (skip_byte(cur_i) &gt;= STOP_FLAG) {
+                break; // goto done1
+            }
+            a += skip_byte(cur_i) + 1;
+            cur_i = font_info[a];
+        }
+    }
+}
+// done1:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-738">738</a>.</p>
+</div></div>
+<h1 id="section-742"><a class="header" href="#section-742">Section 742</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Swap the subscript and superscript into box <em>x</em> <a href="./part36.html#section-742">742</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">flush_node_list(x);
+x = new_noad();
+mem[nucleus(x)] = mem[nucleus(q)];
+mem[supscr(x)] = mem[supscr(q)];
+mem[subscr(x)] = mem[subscr(q)];
+mem[supscr(q)] = empty_field;
+mem[subscr(q)] = empty_field;
+math_type(nucleus(q)) = SUB_MLIST;
+info(nucleus(q)) = x;
+x = clean_box(nucleus(q), cur_style);
+delta += height(x) - h;
+h = height(x);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-738">738</a>.</p>
+</div></div>
+<h1 id="section-743"><a class="header" href="#section-743">Section 743</a></h1>
+<p>The <em>make_fraction</em> procedure is a bit different because it sets <em>new_hlist(q)</em> directly rather than making a sub-box.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare math construction procedures <a href="./part36.html#section-734">734</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void make_fraction(pointer q) {
+    pointer p, v, x, y, z; // temporary registers for box construction
+    scaled delta, delta1, delta2, shift_up, shift_down, clr; // dimensions for box calculations
+    if (thickness(q) == DEFAULT_CODE) {
+        thickness(q) = default_rule_thickness;
+    }
+
+    // &lt;&lt; Create equal-width boxes |x| and |z| for the numerator and denominator, and compute the default amounts |shift_up| and |shift_down| by which they are displaced from the baseline, 744 &gt;&gt;
+
+    if (thickness(q) == 0) {
+        // &lt;&lt; Adjust |shift_up| and |shift_down| for the case of no fraction line, 745 &gt;&gt;
+    }
+    else {
+        // &lt;&lt; Adjust |shift_up| and |shift_down| for the case of a fraction line, 746 &gt;&gt;
+    }
+
+    // &lt;&lt; Construct a vlist box for the fraction, according to |shift_up| and |shift_down|, 747 &gt;&gt;
+
+    // &lt;&lt; Put the fraction into a box with its delimiters, and make |new_hlist(q)| point to it, 748 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-744"><a class="header" href="#section-744">Section 744</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Create equal-width boxes <em>x</em> and <em>z</em> for the numerator and denominator, and compute the default amounts <em>shift_up</em> and <em>shift_down</em> by which they are displaced from the baseline <a href="./part36.html#section-744">744</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">x = clean_box(numerator(q), num_style(cur_style));
+z = clean_box(denominator(q), denom_style(cur_style));
+if (width(x) &lt; width(z)) {
+    x = rebox(x, width(z));
+}
+else {
+    z = rebox(z, width(x));
+}
+if (cur_style &lt; TEXT_STYLE) {
+    // display style
+    shift_up = num1(cur_size);
+    shift_down = denom1(cur_size);
+}
+else {
+    shift_down = denom2(cur_size);
+    if (thickness(q) != 0) {
+        shift_up = num2(cur_size);
+    }
+    else {
+        shift_up = num3(cur_size);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-743">743</a>.</p>
+</div></div>
+<h1 id="section-745"><a class="header" href="#section-745">Section 745</a></h1>
+<p>The numerator and denominator must be separated by a certain minimum clearance, called <em>clr</em> in the following program.
+The difference between <em>clr</em> and the actual clearance is twice <em>delta</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Adjust <em>shift_up</em> and <em>shift_down</em> for the case of no fraction line <a href="./part36.html#section-745">745</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_style &lt; TEXT_STYLE) {
+    clr = 7 * default_rule_thickness;
+}
+else {
+    clr = 3 * default_rule_thickness;
+}
+delta = half(clr - ((shift_up - depth(x)) - (height(z) - shift_down)));
+if (delta &gt; 0) {
+    shift_up += delta;
+    shift_down += delta;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-743">743</a>.</p>
+</div></div>
+<h1 id="section-746"><a class="header" href="#section-746">Section 746</a></h1>
+<p>In the case of a fraction line, the minimum clearance depends on the actual thickness of the line.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Adjust <em>shift_up</em> and <em>shift_down</em> for the case of a fraction line <a href="./part36.html#section-746">746</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_style &lt; TEXT_STYLE) {
+    clr = 3 * thickness(q);
+}
+else {
+    clr = thickness(q);
+}
+delta = half(thickness(q));
+delta1 = clr - ((shift_up - depth(x)) - (axis_height(cur_size) + delta));
+delta2 = clr - ((axis_height(cur_size) - delta) - (height(z) - shift_down));
+if (delta1 &gt; 0) {
+    shift_up += delta1;
+}
+if (delta2 &gt; 0) {
+    shift_down += delta2;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-743">743</a>.</p>
+</div></div>
+<h1 id="section-747"><a class="header" href="#section-747">Section 747</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Construct a vlist box for the fraction, according to <em>shift_up</em> and <em>shift_down</em> <a href="./part36.html#section-747">747</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">v = new_null_box();
+type(v) = VLIST_NODE;
+height(v) = shift_up + height(x);
+depth(v) = depth(z) + shift_down;
+width(v) = width(x); // this also equals |width(z)|
+if (thickness(q) == 0) {
+    p = new_kern((shift_up - depth(x)) - (height(z) - shift_down));
+    link(p) = z;
+}
+else {
+    y = fraction_rule(thickness(q));
+    p = new_kern((axis_height(cur_size) - delta) - (height(z) - shift_down));
+    link(y) = p;
+    link(p) = z;
+    p = new_kern((shift_up - depth(x)) - (axis_height(cur_size) + delta));
+    link(p) = y;
+}
+link(x) = p;
+list_ptr(v) = x;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-743">743</a>.</p>
+</div></div>
+<h1 id="section-748"><a class="header" href="#section-748">Section 748</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put the fraction into a box with its delimiters, and make <em>new_hlist(q)</em> point to it <a href="./part36.html#section-748">748</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_style &lt; TEXT_STYLE) {
+    delta = delim1(cur_size);
+}
+else {
+    delta = delim2(cur_size);
+}
+x = var_delimiter(left_delimiter(q), cur_size, delta);
+link(x) = v;
+z = var_delimiter(right_delimiter(q), cur_size, delta);
+link(v) = z;
+new_hlist(q) = hpack(x, NATURAL);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-743">743</a>.</p>
+</div></div>
+<h1 id="section-749"><a class="header" href="#section-749">Section 749</a></h1>
+<p>If the nucleus of an <em>OP_NOAD</em> is a single character, it is to be centered vertically with respect to the axis, after first being enlarged (via a character list in the font) if we are in display style.
+The normal convention for placing displayed limits is to put them above and below the operator in display style.</p>
+<p>The italic correction is removed from the character if there is a subscript and the limits are not being displayed.
+The <em>make_op</em> routine returns the value that should be used as an offset between subscript and superscript.</p>
+<p>After <em>make_op</em> has acted, <em>subtype(q)</em> will be <em>LIMITS</em> if and only if the limits have been set above and below the operator.
+In that case, <em>new_hlist(q)</em> will already contain the desired final box.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare math construction procedures <a href="./part36.html#section-734">734</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">scaled make_op(pointer q) {
+    scaled delta;          // offset between subscript and superscript
+    pointer p, v, x, y, z; // temporary registers for box construction
+    quarterword c;         // registers for character examination
+    memory_word i;               
+    scaled shift_up, shift_down; // dimensions for box calculation
+    
+    if (subtype(q) == NORMAL &amp;&amp; cur_style &lt; TEXT_STYLE) {
+        subtype(q) = LIMITS;
+    }
+    if (math_type(nucleus(q)) == MATH_CHAR) {
+        fetch(nucleus(q));
+        if (cur_style &lt; TEXT_STYLE &amp;&amp; char_tag(cur_i) == LIST_TAG) {
+            // make it larger
+            c = rem_byte(cur_i);
+            i = char_info(cur_f, c);
+            if (char_exists(i)) {
+                cur_c = c;
+                cur_i = i;
+                character(nucleus(q)) = c;
+            }
+        }
+        delta = char_italic(cur_f, cur_i);
+        x = clean_box(nucleus(q), cur_style);
+        if (math_type(subscr(q)) != EMPTY &amp;&amp; subtype(q) != LIMITS) {
+            // remove italic correction
+            width(x) -= delta;
+        }
+        // center vertically
+        shift_amount(x) = half(height(x) - depth(x)) - axis_height(cur_size);
+        math_type(nucleus(q)) = SUB_BOX;
+        info(nucleus(q)) = x;
+    }
+    else {
+        delta = 0;
+    }
+    if (subtype(q) == LIMITS) {
+        // &lt;&lt; Construct a box with limits above and below it, skewed by |delta|, 750 &gt;&gt;
+    }
+    return delta;
+}
+</code></pre>
+</div>
+<h1 id="section-750"><a class="header" href="#section-750">Section 750</a></h1>
+<p>The following program builds a vlist box <em>v</em> for displayed limits.
+The width of the box is not affected by the fact that the limits may be skewed.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Construct a box with limits above and below it, skewed by <em>delta</em> <a href="./part36.html#section-750">750</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">x = clean_box(supscr(q), sup_style(cur_style));
+y = clean_box(nucleus(q), cur_style);
+z = clean_box(subscr(q), sub_style(cur_style));
+v = new_null_box();
+type(v) = VLIST_NODE;
+width(v) = width(y);
+if (width(x) &gt; width(v)) {
+    width(v) = width(x);
+}
+if (width(z) &gt; width(v)) {
+    width(v) = width(z);
+}
+x = rebox(x, width(v));
+y = rebox(y, width(v));
+z = rebox(z, width(v));
+shift_amount(x) = half(delta);
+shift_amount(z) = -shift_amount(x);
+height(v) = height(y);
+depth(v) = depth(y);
+// &lt;&lt; Attach the limits to |y| and adjust |height(v)|, |depth(v)| to account for their presence, 751 &gt;&gt;
+new_hlist(q) = v;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-749">749</a>.</p>
+</div></div>
+<h1 id="section-751"><a class="header" href="#section-751">Section 751</a></h1>
+<p>We use <em>shift_up</em> and <em>shift_down</em> in the following program for the amount of glue between the displayed operator <em>y</em> and its limits <em>x</em> and <em>z</em>.
+The vlist inside box <em>v</em> will consist of <em>x</em> followed by <em>y</em> followed by <em>z</em>, with kern nodes for the spaces between and around them.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Attach the limits to <em>y</em> and adjust <em>height(v)</em>, <em>depth(v)</em> to account for their presence <a href="./part36.html#section-751">751</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (math_type(supscr(q)) == EMPTY) {
+    free_node(x, BOX_NODE_SIZE);
+    list_ptr(v) = y;
+}
+else {
+    shift_up = big_op_spacing3 - depth(x);
+    if (shift_up &lt; big_op_spacing1) {
+        shift_up = big_op_spacing1;
+    }
+    p = new_kern(shift_up);
+    link(p) = y;
+    link(x) = p;
+    p = new_kern(big_op_spacing5);
+    link(p) = x;
+    list_ptr(v) = p;
+    height(v) += big_op_spacing5 + height(x) + depth(x) + shift_up;
+}
+if (math_type(subscr(q)) == EMPTY) {
+    free_node(z, BOX_NODE_SIZE);
+}
+else {
+    shift_down = big_op_spacing4 - height(z);
+    if (shift_down &lt; big_op_spacing2) {
+        shift_down = big_op_spacing2;
+    }
+    p = new_kern(shift_down);
+    link(y) = p;
+    link(p) = z;
+    p = new_kern(big_op_spacing5);
+    link(z) = p;
+    depth(v) += big_op_spacing5 + height(z) + depth(z) + shift_down;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-750">750</a>.</p>
+</div></div>
+<h1 id="section-752"><a class="header" href="#section-752">Section 752</a></h1>
+<p>A ligature found in a math formula does not create a <em>LIGATURE_NODE</em>, because there is no question of hyphenation afterwards; the ligature will simply be stored in an ordinary <em>CHAR_NODE</em>, after residing in an <em>ORD_NOAD</em>.</p>
+<p>The <em>math_type</em> is converted to <em>MATH_TEXT_CHAR</em> here if we would not want to apply an italic correction to the current character unless it belongs to a math font (i.e., a font with <em>space = 0</em>).</p>
+<p>No boundary characters enter into these ligatures.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare math construction procedures <a href="./part36.html#section-734">734</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void make_ord(pointer q) {
+    int a; // address of lig/kern instruction
+    pointer p, r; // temporary registers for list manipulation
+restart:
+    if (math_type(subscr(q)) == EMPTY
+        &amp;&amp; math_type(supscr(q)) == EMPTY
+        &amp;&amp; math_type(nucleus(q)) == MATH_CHAR)
+    {
+        p = link(q);
+        if (p != null
+            &amp;&amp; type(p) &gt;= ORD_NOAD
+            &amp;&amp; type(p) &lt;= PUNCT_NOAD
+            &amp;&amp; math_type(nucleus(p)) == MATH_CHAR
+            &amp;&amp; fam(nucleus(p)) == fam(nucleus(q)))
+        {
+            math_type(nucleus(q)) = MATH_TEXT_CHAR;
+            fetch(nucleus(q));
+            if (char_tag(cur_i) == LIG_TAG) {
+                a = lig_kern_start(cur_f, cur_i);
+                cur_c = character(nucleus(p));
+                cur_i = font_info[a];
+                if (skip_byte(cur_i) &gt; STOP_FLAG) {
+                    a = lig_kern_restart(cur_f, cur_i);
+                    cur_i = font_info[a];
+                }
+                while(true) {
+                    // &lt;&lt; If instruction |cur_i| is a kern with |cur_c|, attach the kern after |q|; or if it is a ligature with |cur_c|, combine noads |q| and |p| appropriately; then |return| if the cursor has moved past a noad, or |goto restart|, 753 &gt;&gt;
+
+                    if (skip_byte(cur_i) &gt;= STOP_FLAG) {
+                        return;
+                    }
+                    a += skip_byte(cur_i) + 1;
+                    cur_i = font_info[a];
+                }
+            }
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-753"><a class="header" href="#section-753">Section 753</a></h1>
+<p>Note that a ligature between an <em>ORD_NOAD</em> and another kind of noad is replaced by an <em>ORD_NOAD</em>, when the two noads collapse into one.
+But we could make a parenthesis (say) change shape when it follows certain letters.
+Presumably a font designer will define such ligatures only when this convention makes sense.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If instruction <em>cur_i</em> is a kern with <em>cur_c</em>, attach the kern after <em>q</em>; or if it is a ligature with <em>cur_c</em>, combine noads <em>q</em> and <em>p</em> appropriately; then <em>return</em> if the cursor has moved past a noad, or <em>goto restart</em> <a href="./part36.html#section-753">753</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (next_char(cur_i) == cur_c &amp;&amp; skip_byte(cur_i) &lt;= STOP_FLAG) {
+    if (op_byte(cur_i) &gt;= KERN_FLAG) {
+        p = new_kern(char_kern(cur_f, cur_i));
+        link(p) = link(q);
+        link(q) = p;
+        return;
+    }
+    check_interrupt; // allow a way out of infinite ligature loop
+    switch (op_byte(cur_i)) {
+    case 1:
+    case 5:
+        // =:|, =:|&gt;
+        character(nucleus(q)) = rem_byte(cur_i);
+        break;
+    
+    case 2:
+    case 6:
+        // |=:, |=:&gt;
+        character(nucleus(p)) = rem_byte(cur_i);
+        break;
+
+    case 3:
+    case 7:
+    case 11: 
+        // |=:|, |=:|&gt;, |=:|&gt;&gt;
+        r = new_noad();
+        character(nucleus(r)) = rem_byte(cur_i);
+        fam(nucleus(r)) = fam(nucleus(q));
+        link(q) = r;
+        link(r) = p;
+        if (op_byte(cur_i) &lt; 11) {
+            math_type(nucleus(r)) = MATH_CHAR;
+        }
+        else {
+            // prevent combination
+            math_type(nucleus(r)) = MATH_TEXT_CHAR;
+        }
+        break;
+    
+    default:
+        // =:
+        link(q) = link(p);
+        character(nucleus(q)) = rem_byte(cur_i);
+        mem[subscr(q)] = mem[subscr(p)];
+        mem[supscr(q)] = mem[supscr(p)];
+        free_node(p, NOAD_SIZE);   
+    }
+    if (op_byte(cur_i) &gt; 3) {
+        return;
+    }
+    math_type(nucleus(q)) = MATH_CHAR;
+    goto restart;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-752">752</a>.</p>
+</div></div>
+<h1 id="section-754"><a class="header" href="#section-754">Section 754</a></h1>
+<p>When we get to the following part of the program, we have “fallen through” from cases that did not lead to <em>check_dimensions</em> or <em>done_with_noad</em> or <em>done_with_node</em>.
+Thus, <em>q</em> points to a noad whose nucleus may need to be converted to an hlist, and whose subscripts and superscripts need to be appended if they are present.</p>
+<p>If <em>nucleus(q)</em> is not a <em>MATH_CHAR</em>, the variable <em>delta</em> is the amount by which a superscript  be moved right with respect to a subscript when both are present.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Convert <em>nucleus(q)</em> to an hlist and attach the sub/superscripts <a href="./part36.html#section-754">754</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (math_type(nucleus(q))) {
+case MATH_CHAR:
+case MATH_TEXT_CHAR:
+    // &lt;&lt; Create a character node |p| for |nucleus(q)|, possibly followed by a kern node for the italic correction, and set |delta| to the italic correction if a subscript is present, 755 &gt;&gt;
+    break;
+
+case EMPTY:
+    p = null;
+    break;
+
+case SUB_BOX:
+    p = info(nucleus(q));
+    break;
+
+case SUB_MLIST:
+    cur_mlist = info(nucleus(q));
+    save_style = cur_style;
+    mlist_penalties = false;
+    mlist_to_hlist(); // recursive call
+    cur_style = save_style;
+    // &lt;&lt; Set up the values of |cur_size| and |cur_mu|, based on |cur_style|, 703 &gt;&gt;
+    p = hpack(link(TEMP_HEAD), NATURAL);
+    break;
+
+default:
+    confusion("mlist2");
+}
+new_hlist(q) = p;
+if (math_type(subscr(q)) == EMPTY &amp;&amp; math_type(supscr(q)) == EMPTY) {
+    goto check_dimensions;
+}
+make_scripts(q, delta);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-728">728</a>.</p>
+</div></div>
+<h1 id="section-755"><a class="header" href="#section-755">Section 755</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Create a character node <em>p</em> for <em>nucleus(q)</em>, possibly followed by a kern node for the italic correction, and set <em>delta</em> to the italic correction if a subscript is present <a href="./part36.html#section-755">755</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">fetch(nucleus(q));
+if (char_exists(cur_i)) {
+    delta = char_italic(cur_f, cur_i);
+    p = new_character(cur_f, cur_c);
+    if (math_type(nucleus(q)) == MATH_TEXT_CHAR &amp;&amp; space(cur_f) != 0) {
+        // no italic correction in mid-word of text font
+        delta = 0;
+    }
+    if (math_type(subscr(q)) == EMPTY &amp;&amp; delta != 0) {
+        link(p) = new_kern(delta);
+        delta = 0;
+    }
+}
+else {
+    p = null;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-754">754</a>.</p>
+</div></div>
+<h1 id="section-756"><a class="header" href="#section-756">Section 756</a></h1>
+<p>The purpose of <em>make_scripts(q, delta)</em> is to attach the subscript and/or superscript of noad <em>q</em> to the list that starts at <em>new_hlist(q)</em>, given that the subscript and superscript aren’t both empty.
+The superscript will appear to the right of the subscript by a given distance <em>delta</em>.</p>
+<p>We set <em>shift_down</em> and <em>shift_up</em> to the minimum amounts to shift the baseline of subscripts and superscripts based on the given nucleus.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare math construction procedures <a href="./part36.html#section-734">734</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void make_scripts(pointer q, scaled delta) {
+    pointer p, x, y, z;               // temporary registers for box construction
+    scaled shift_up, shift_down, clr; // dimensions in the calculation
+    small_number t;                   // subsidiary size code
+    
+    p = new_hlist(q);
+    if (is_char_node(p)) {
+        shift_up = 0;
+        shift_down = 0;
+    }
+    else {
+        z = hpack(p, NATURAL);
+        if (cur_style &lt; SCRIPT_STYLE) {
+            t = SCRIPT_SIZE;
+        }
+        else {
+            t = SCRIPT_SCRIPT_SIZE;
+        }
+        shift_up = height(z) - sup_drop(t);
+        shift_down = depth(z) + sub_drop(t);
+        free_node(z, BOX_NODE_SIZE);
+    }
+    if (math_type(supscr(q)) == EMPTY) {
+        // &lt;&lt; Construct a subscript box |x| when there is no superscript, 757 &gt;&gt;
+    }
+    else {
+        // &lt;&lt; Construct a superscript box |x|, 758 &gt;&gt;
+        if (math_type(subscr(q)) == EMPTY) {
+            shift_amount(x) = -shift_up;
+        }
+        else {
+            // &lt;&lt; Construct a sub/superscript combination box |x|, with the superscript offset by |delta|, 759 &gt;&gt;
+        }
+    }
+    if (new_hlist(q) == null) {
+        new_hlist(q) = x;
+    }
+    else {
+        p = new_hlist(q);
+        while (link(p) != null) {
+            p = link(p);
+        }
+        link(p) = x;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-757"><a class="header" href="#section-757">Section 757</a></h1>
+<p>When there is a subscript without a superscript, the top of the subscript should not exceed the baseline plus four-fifths of the x-height.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Construct a subscript box <em>x</em> when there is no superscript <a href="./part36.html#section-757">757</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">x = clean_box(subscr(q), sub_style(cur_style));
+width(x) += script_space;
+if (shift_down &lt; sub1(cur_size)) {
+    shift_down = sub1(cur_size);
+}
+clr = height(x) - (abs(math_x_height(cur_size) * 4) / 5);
+if (shift_down &lt; clr) {
+    shift_down = clr;
+}
+shift_amount(x) = shift_down;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-756">756</a>.</p>
+</div></div>
+<h1 id="section-758"><a class="header" href="#section-758">Section 758</a></h1>
+<p>The bottom of a superscript should never descend below the baseline plus one-fourth of the x-height.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Construct a superscript box <em>x</em> <a href="./part36.html#section-758">758</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">x = clean_box(supscr(q), sup_style(cur_style));
+width(x) += script_space;
+if (odd(cur_style)) {
+    clr = sup3(cur_size);
+}
+else if (cur_style &lt; TEXT_STYLE) {
+    clr = sup1(cur_size);
+}
+else {
+    clr = sup2(cur_size);
+}
+if (shift_up &lt; clr) {
+    shift_up = clr;
+}
+clr = depth(x) + (abs(math_x_height(cur_size)) / 4);
+if (shift_up &lt; clr) {
+    shift_up = clr;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-756">756</a>.</p>
+</div></div>
+<h1 id="section-759"><a class="header" href="#section-759">Section 759</a></h1>
+<p>When both subscript and superscript are present, the subscript must be separated from the superscript by at least four times <em>default_rule_thickness</em>.
+If this condition would be violated, the subscript moves down, after which both subscript and superscript move up so that the bottom of the superscript is at least as high as the baseline plus four-fifths of the x-height.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Construct a sub/superscript combination box <em>x</em>, with the superscript offset by <em>delta</em> <a href="./part36.html#section-759">759</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">y = clean_box(subscr(q), sub_style(cur_style));
+width(y) += script_space;
+if (shift_down &lt; sub2(cur_size)) {
+    shift_down = sub2(cur_size);
+}
+clr = 4 * default_rule_thickness - ((shift_up - depth(x)) - (height(y) - shift_down));
+if (clr &gt; 0) {
+    shift_down += clr;
+    clr = (abs(math_x_height(cur_size) * 4) / 5) - (shift_up - depth(x));
+    if (clr &gt; 0) {
+        shift_up += clr;
+        shift_down -= clr;
+    }
+}
+shift_amount(x) = delta; // superscript is |delta| to the right of the subscript
+p = new_kern((shift_up - depth(x)) - (height(y) - shift_down));
+link(x) = p;
+link(p) = y;
+x = vpack(x, NATURAL);
+shift_amount(x) = shift_down;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-756">756</a>.</p>
+</div></div>
+<h1 id="section-760"><a class="header" href="#section-760">Section 760</a></h1>
+<p>We have now tied up all the loose ends of the first pass of <em>mlist_to_hlist</em>.
+The second pass simply goes through and hooks everything together with the proper glue and penalties.
+It also handles the <em>LEFT_NOAD</em> and <em>RIGHT_NOAD</em> that might be present, since <em>max_h</em> and <em>max_d</em> are now known.
+Variable <em>p</em> points to a node at the current end of the final hlist.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make a second pass over the mlist, removing all noads and inserting the proper spacing and penalties <a href="./part36.html#section-760">760</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = TEMP_HEAD;
+link(p) = null;
+q = mlist;
+r_type = 0;
+cur_style = style;
+// &lt;&lt; Set up the values of |cur_size| and |cur_mu|, based on |cur_style|, 703 &gt;&gt;
+while (q != null) {
+    // &lt;&lt; If node |q| is a style node, change the style and |goto delete_q|; otherwise if it is not a noad, put it into the hlist, advance |q|, and |goto done|; otherwise set |s| to the size of noad |q|, set |t| to the associated type (|ORD_NOAD .. INNER_NOAD|), and set |pen| to the associated penalty, 761 &gt;&gt;
+
+    // &lt;&lt; Append inter-element spacing based on |r_type| and |t|, 766 &gt;&gt;
+
+    // &lt;&lt; Append any |new_hlist| entries for |q|, and any appropriate penalties, 767 &gt;&gt;
+    r_type = t;
+delete_q:
+    r = q;
+    q = link(q);
+    free_node(r, s);
+// done: (equivalent to continue the loop)
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-726">726</a>.</p>
+</div></div>
+<h1 id="section-761"><a class="header" href="#section-761">Section 761</a></h1>
+<p>Just before doing the big <strong>case</strong> switch in the second pass, the program sets up default values so that most of the branches are short.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If node <em>q</em> is a style node, change the style and <em>goto delete_q</em>; otherwise if it is not a noad, put it into the hlist, advance <em>q</em>, and <em>goto done</em>; otherwise set <em>s</em> to the size of noad <em>q</em>, set <em>t</em> to the associated type (<em>ORD_NOAD .. INNER_NOAD</em>), and set <em>pen</em> to the associated penalty <a href="./part36.html#section-761">761</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">t = ORD_NOAD;
+s = NOAD_SIZE;
+pen = INF_PENALTY;
+switch (type(q)) {
+case OP_NOAD:
+case OPEN_NOAD:
+case CLOSE_NOAD:
+case PUNCT_NOAD:
+case INNER_NOAD:
+    t = type(q);
+    break;
+
+case BIN_NOAD:
+    t = BIN_NOAD;
+    pen = bin_op_penalty;
+    break;
+
+case REL_NOAD:
+    t = REL_NOAD;
+    pen = rel_penalty;
+    break;
+
+case ORD_NOAD:
+case VCENTER_NOAD:
+case OVER_NOAD:
+case UNDER_NOAD:
+    do_nothing;
+    break;
+
+case RADICAL_NOAD:
+    s = RADICAL_NOAD_SIZE;
+    break;
+
+case ACCENT_NOAD:
+    s = ACCENT_NOAD_SIZE;
+    break;
+
+case FRACTION_NOAD:
+    s = FRACTION_NOAD_SIZE;
+    break;
+
+case LEFT_NOAD:
+case RIGHT_NOAD:
+    t = make_left_right(q, style, max_d, max_h);
+    break;
+
+case STYLE_NODE:
+    // &lt;&lt; Change the current style and |goto delete_q|, 763 &gt;&gt;
+
+case WHATSIT_NODE:
+case PENALTY_NODE:
+case RULE_NODE:
+case DISC_NODE:
+case ADJUST_NODE:
+case INS_NODE:
+case MARK_NODE:
+case GLUE_NODE:
+case KERN_NODE:
+    link(p) = q;
+    p = q;
+    q = link(q);
+    link(p) = null;
+    continue; // goto done
+
+default:
+    confusion("mlist3");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-760">760</a>.</p>
+</div></div>
+<h1 id="section-762"><a class="header" href="#section-762">Section 762</a></h1>
+<p>The <em>make_left_right</em> function constructs a left or right delimiter of the required size and returns the value <em>OPEN_NOAD</em> or <em>CLOSE_NOAD</em>.
+The <em>RIGHT_NOAD</em> and <em>LEFT_NOAD</em> will both be based on the original <em>style</em>, so they will have consistent sizes.</p>
+<p>We use the fact that <em>RIGHT_NOAD − LEFT_NOAD = CLOSE_NOAD − OPEN_NOAD</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare math construction procedures <a href="./part36.html#section-734">734</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">small_number make_left_right(pointer q, small_number style, scaled max_d, scaled max_h) {
+    scaled delta, delta1, delta2; // dimensions used in the calculation
+    if (style &lt; SCRIPT_STYLE) {
+        cur_size = TEXT_SIZE;
+    }
+    else {
+        cur_size = 16 * ((style - TEXT_STYLE) / 2);
+    }
+    delta2 = max_d + axis_height(cur_size);
+    delta1 = max_h + max_d - delta2;
+    if (delta2 &gt; delta1) {
+        // |delta1| is max distance from axis
+        delta1 = delta2;
+    }
+    delta = (delta1 / 500) * delimiter_factor;
+    delta2 = delta1 + delta1 - delimiter_shortfall;
+    if (delta &lt; delta2) {
+        delta = delta2;
+    }
+    new_hlist(q) = var_delimiter(delimiter(q), cur_size, delta);
+    return type(q) - (LEFT_NOAD - OPEN_NOAD); // |OPEN_NOAD| or |CLOSE_NOAD|
+}
+</code></pre>
+</div>
+<h1 id="section-763"><a class="header" href="#section-763">Section 763</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Change the current style and <em>goto delete_q</em> <a href="./part36.html#section-763">763</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">cur_style = subtype(q);
+s = STYLE_NODE_SIZE;
+// &lt;&lt; Set up the values of |cur_size| and |cur_mu|, based on |cur_style|, 703 &gt;&gt;
+goto delete_q;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-761">761</a>.</p>
+</div></div>
+<h1 id="section-764"><a class="header" href="#section-764">Section 764</a></h1>
+<p>The inter-element spacing in math formulas depends on an 8<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">×</span></span></span></span>8 table that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> preloads as a 64-digit string.
+The elements of this string have the following significance:</p>
+<div align="center">
+<div style="text-align: left; max-width: 80%; display: inline-block;">
+<p><code>0</code> means no space;<br>
+<code>1</code> means a conditional thin space (<code>\nonscript\mskip\thinmuskip</code>);<br>
+<code>2</code> means a thin space (<code>\mskip\thinmuskip</code>);<br>
+<code>3</code> means a conditional medium space (<code>\nonscript\mskip\medmuskip</code>);<br>
+<code>4</code> means a conditional thick space (<code>\nonscript\mskip\thickmuskip</code>);<br>
+<code>*</code> means an impossible case.</p>
+</div>
+</div>
+<p>This is all pretty cryptic, but <em>The TeXbook</em> explains what is supposed to happen, and the string makes it happen.</p>
+<p>A global variable <em>magic_offset</em> is computed so that if <em>a</em> and <em>b</em> are in the range <em>ORD_NOAD .. INNER_NOAD</em>, then <em>str_pool[a*8 + b + magic_offset]</em> is the digit for spacing between noad types <em>a</em> and <em>b</em>.</p>
+<p>If Pascal had provided a good way to preload constant arrays, this part of the program would not have been so strange.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>We can define without any problem a constant array in C, so the <em>magic_offset</em> global variable is not needed.</p>
+<p>Written in capital since it is a <em>const</em>, and not in <code>global.c</code> because it is used only in <code>math_typesetting.c</code>.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare <em>MATH_SPACING</em> for <em>mlist_to_hlist</em> <a href="./part36.html#section-764">764</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">const char *MATH_SPACING = "0234000122*4000133**3**344*0400400*000000234000111*1111112341011";
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-726">726</a>.</p>
+</div></div>
+<h1 id="section-765"><a class="header" href="#section-765">Section 765</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>No need for the magic offset, because its value does not depend of the position of <em>MATH_SPACING</em> in the pool.
+Its constant value is −9<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">×</span></span></span></span><em>ORD_NOAD</em>, directly used in next section.</p>
+</blockquote>
+</div>
+<h1 id="section-766"><a class="header" href="#section-766">Section 766</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append inter-element spacing based on <em>r_type</em> and <em>t</em> <a href="./part36.html#section-766">766</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (r_type &gt; 0) {
+    // not the first noad
+    switch (MATH_SPACING[r_type * 8 + t - 9 * ORD_NOAD]) {
+    case '0':
+        x = 0;
+        break;
+    
+    case '1':
+        if (cur_style &lt; SCRIPT_STYLE) {
+            x = THIN_MU_SKIP_CODE;
+        }
+        else {
+            x = 0;
+        }
+        break;
+    
+    case '2':
+        x = THIN_MU_SKIP_CODE;
+        break;
+    
+    case '3':
+        if (cur_style &lt; SCRIPT_STYLE) {
+            x = MED_MU_SKIP_CODE;
+        }
+        else {
+            x = 0;
+        }
+        break;
+    
+    case '4':
+        if (cur_style &lt; SCRIPT_STYLE) {
+            x = THICK_MU_SKIP_CODE;
+        }
+        else {
+            x = 0;
+        }
+        break;
+    
+    default:
+        confusion("mlist4");
+    }
+
+    if (x != 0) {
+        y = math_glue(glue_par(x), cur_mu);
+        z = new_glue(y);
+        glue_ref_count(y) = null;
+        link(p) = z;
+        p = z;
+        subtype(z) = x + 1; // store a symbolic subtype
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-760">760</a>.</p>
+</div></div>
+<h1 id="section-767"><a class="header" href="#section-767">Section 767</a></h1>
+<p>We insert a penalty node after the hlist entries of noad <em>q</em> if <em>pen</em> is not an “infinite” penalty, and if the node immediately following <em>q</em> is not a penalty node or a <em>REL_NOAD</em> or absent entirely.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append any <em>new_hlist</em> entries for <em>q</em>, and any appropriate penalties <a href="./part36.html#section-767">767</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (new_hlist(q) != null) {
+    link(p) = new_hlist(q);
+    do {
+        p = link(p);
+    } while (link(p) != null);
+}
+if (penalties
+    &amp;&amp; link(q) != null
+    &amp;&amp; pen &lt; INF_PENALTY)
+{
+    r_type = type(link(q));
+    if (r_type != PENALTY_NODE &amp;&amp; r_type != REL_NOAD) {
+        z = new_penalty(pen);
+        link(p) = z;
+        p = z;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-760">760</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part35.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part37.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part35.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part37.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

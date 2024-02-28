@@ -1,0 +1,1031 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 862–890 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html" class="active">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-862-breaking-paragraphs-into-lines-continued"><a class="header" href="#section-862-breaking-paragraphs-into-lines-continued">Section 862: Breaking paragraphs into lines, continued</a></h1>
+<p>So far we have gotten a little way into the <em>line_break</em> routine, having covered its important <em>try_break</em> subroutine.
+Now let’s consider the rest of the process.</p>
+<p>The main loop of <em>line_break</em> traverses the given hlist, starting at <em>link(TEMP_HEAD)</em>, and calls <em>try_break</em> at each legal breakpoint.
+A variable called <em>auto_breaking</em> is set to true except within math formulas, since glue nodes are not legal breakpoints when they appear in formulas.</p>
+<p>The current node of interest in the hlist is pointed to by <em>cur_p</em>.
+Another variable, <em>prev_p</em>, is usually one step behind <em>cur_p</em>, but the real meaning of <em>prev_p</em> is this: If <em>type(cur_p) = GLUE_NODE</em> then <em>cur_p</em> is a legal breakpoint if and only if <em>auto_breaking</em> is true and <em>prev_p</em> does not point to a glue node, penalty node, explicit kern node, or math node.</p>
+<p>The following declarations provide for a few other local variables that are used in special calculations.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Local variables for line breaking <a href="./part39.html#section-862">862</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">bool auto_breaking;      // is node |cur_p| outside a formula?
+pointer prev_p;          // helps to determine when glue nodes are breakpoints
+pointer q, r, s, prev_s; // miscellaneous nodes of temporary interest
+internal_font_number f;  // used when calculating character widths
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also section <a href="./part40.html#section-893">893</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-815">815</a>.</p>
+</div></div>
+<h1 id="section-863"><a class="header" href="#section-863">Section 863</a></h1>
+<p>The ‘<strong>loop</strong>’ in the following code is performed at most thrice per call of <em>line_break</em>, since it is actually a pass over the entire paragraph.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Find optimal breakpoints <a href="./part39.html#section-863">863</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">threshold = pretolerance;
+if (threshold &gt;= 0) {
+#ifdef STAT
+    if (tracing_paragraphs &gt; 0) {
+        begin_diagnostic();
+        print_nl("@firstpass");
+    } 
+#endif
+    second_pass = false;
+    final_pass = false;
+}
+else {
+    threshold = tolerance;
+    second_pass = true;
+    final_pass = (emergency_stretch &lt;= 0);
+ 
+#ifdef STAT
+    if (tracing_paragraphs &gt; 0) {
+        begin_diagnostic();
+    }
+#endif
+}
+while(true) {
+    if (threshold &gt; INF_BAD) {
+        threshold = INF_BAD;
+    }
+    if (second_pass) {
+        // &lt;&lt; Initialize for hyphenating a paragraph, 891 &gt;&gt;
+    }
+    // &lt;&lt; Create an active breakpoint representing the beginning of the paragraph, 864 &gt;&gt;
+    cur_p = link(TEMP_HEAD);
+    auto_breaking = true;
+    prev_p = cur_p; // glue at beginning is not a legal breakpoint
+    while (cur_p != null &amp;&amp; link(ACTIVE) != LAST_ACTIVE) {
+        // &lt;&lt; Call |try_break| if |cur_p| is a legal breakpoint; on the second pass, also try to hyphenate the next word, if |cur_p| is a glue node; then advance |cur_p| to the next node of the paragraph that could possibly be a legal breakpoint, 866 &gt;&gt;
+    }
+    if (cur_p == null) {
+        // &lt;&lt; Try the final line break at the end of the paragraph, and |goto done| if the desired breakpoints have been found, 873 &gt;&gt;
+    }
+    // &lt;&lt; Clean up the memory by removing the break nodes, 865 &gt;&gt;
+    if (!second_pass) {
+#ifdef STAT
+        if (tracing_paragraphs &gt; 0) {
+            print_nl("@secondpass");
+        }
+#endif
+        threshold = tolerance;
+        second_pass = true;
+        final_pass = (emergency_stretch &lt;= 0);
+    } // if at first you don't succeed, \dots
+    else {
+#ifdef STAT
+        if (tracing_paragraphs &gt; 0) {
+            print_nl("@emergencypass");
+        }
+#endif
+        background[2] += emergency_stretch;
+        final_pass = true;
+    }
+}
+done:
+#ifdef STAT
+if (tracing_paragraphs &gt; 0) {
+    end_diagnostic(true);
+    normalize_selector();
+}
+#endif
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-815">815</a>.</p>
+</div></div>
+<h1 id="section-864"><a class="header" href="#section-864">Section 864</a></h1>
+<p>The active node that represents the starting point does not need a corresponding passive node.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define store_background(X) active_width[(X)] = background[(X)]
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Create an active breakpoint representing the beginning of the paragraph <a href="./part39.html#section-864">864</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = get_node(ACTIVE_NODE_SIZE);
+type(q) = UNHYPHENATED;
+fitness(q) = DECENT_FIT;
+link(q) = LAST_ACTIVE;
+break_node(q) = null;
+line_number(q) = prev_graf + 1;
+total_demerits(q) = 0;
+link(ACTIVE) = q;
+do_all_six(store_background);
+passive = null;
+printed_node = TEMP_HEAD;
+pass_number = 0;
+font_in_short_display = NULL_FONT;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-863">863</a>.</p>
+</div></div>
+<h1 id="section-865"><a class="header" href="#section-865">Section 865</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Clean up the memory by removing the break nodes <a href="./part39.html#section-865">865</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = link(ACTIVE);
+while (q != LAST_ACTIVE) {
+    cur_p = link(q);
+    if (type(q) == DELTA_NODE) {
+        free_node(q, DELTA_NODE_SIZE);
+    }
+    else {
+        free_node(q, ACTIVE_NODE_SIZE);
+    }
+    q = cur_p;
+}
+q = passive;
+while (q != null) {
+    cur_p = link(q);
+    free_node(q, PASSIVE_NODE_SIZE);
+    q = cur_p;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part38.html#section-815">815</a>, and <a href="./part39.html#section-863">863</a>.</p>
+</div></div>
+<h1 id="section-866"><a class="header" href="#section-866">Section 866</a></h1>
+<p>Here is the main switch in the <em>line_break</em> routine, where legal breaks are determined.
+As we move through the hlist, we need to keep the <em>active_width</em> array up to date, so that the badness of individual lines is readily calculated by <em>try_break</em>.
+It is convenient to use the short name <em>act_width</em> for the component of active width that represents real width as opposed to glue.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define act_width active_width[1] // length from first active node to current node
+#define kern_break                             \
+    do {                                       \
+        if (!is_char_node(link(cur_p))         \
+            &amp;&amp; auto_breaking                   \
+            &amp;&amp; type(link(cur_p)) == GLUE_NODE) \
+        {                                      \
+            try_break(0, UNHYPHENATED);        \
+        }                                      \
+        act_width += width(cur_p);             \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Call <em>try_break</em> if <em>cur_p</em> is a legal breakpoint; on the second pass, also try to hyphenate the next word, if <em>cur_p</em> is a glue node; then advance <em>cur_p</em> to the next node of the paragraph that could possibly be a legal breakpoint <a href="./part39.html#section-866">866</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_char_node(cur_p)) {
+    // &lt;&lt; Advance |cur_p| to the node following the present string of characters, 867 &gt;&gt;
+}
+switch (type(cur_p)) {
+case HLIST_NODE:
+case VLIST_NODE:
+case RULE_NODE:
+    act_width += width(cur_p);
+    break;
+
+case WHATSIT_NODE:
+    // &lt;&lt; Advance past a whatsit node in the |line_break| loop, 1362 &gt;&gt;
+    break;
+
+case GLUE_NODE:
+    // &lt;&lt; If node |cur_p| is a legal breakpoint, call |try_break|; then update the active widths by including the glue in |glue_ptr(cur_p)|, 868 &gt;&gt;
+    if (second_pass &amp;&amp; auto_breaking) {
+        // &lt;&lt; Try to hyphenate the following word, 894 &gt;&gt;
+    }
+    break;
+
+case KERN_NODE:
+    if (subtype(cur_p) == EXPLICIT) {
+        kern_break;
+    }
+    else {
+        act_width += width(cur_p);
+    }
+    break;
+
+case LIGATURE_NODE:
+    f = font(lig_char(cur_p));
+    act_width += char_width(f, char_info(f, character(lig_char(cur_p))));
+    break;
+
+case DISC_NODE:
+    // &lt;&lt; Try to break after a discretionary fragment, then |goto done5|, 869 &gt;&gt;
+
+case MATH_NODE:
+    auto_breaking = (subtype(cur_p) == AFTER);
+    kern_break;
+    break;
+
+case PENALTY_NODE:
+    try_break(penalty(cur_p), UNHYPHENATED);
+    break;
+
+case MARK_NODE:
+case INS_NODE:
+case ADJUST_NODE:
+    do_nothing;
+    break;
+
+default:
+    confusion("paragraph");
+}
+prev_p = cur_p;
+cur_p = link(cur_p);
+done5:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-863">863</a>.</p>
+</div></div>
+<h1 id="section-867"><a class="header" href="#section-867">Section 867</a></h1>
+<p>The code that passes over the characters of words in a paragraph is part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop, so it has been streamlined for speed.
+We use the fact that ‘<code>\parfillskip</code>’ glue appears at the end of each paragraph;
+it is therefore unnecessary to check if <em>link(cur_p) = null</em> when <em>cur_p</em> is a character node.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Advance <em>cur_p</em> to the node following the present string of characters <a href="./part39.html#section-867">867</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">prev_p = cur_p;
+do {
+    f = font(cur_p);
+    act_width += char_width(f, char_info(f, character(cur_p)));
+    cur_p = link(cur_p);
+} while (is_char_node(cur_p));
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-866">866</a>.</p>
+</div></div>
+<h1 id="section-868"><a class="header" href="#section-868">Section 868</a></h1>
+<p>When node <em>cur_p</em> is a glue node, we look at <em>prev_p</em> to see whether or not a breakpoint is legal at <em>cur_p</em>, as explained above.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If node <em>cur_p</em> is a legal breakpoint, call <em>try_break</em>; then update the active widths by including the glue in <em>glue_ptr(cur_p)</em> <a href="./part39.html#section-868">868</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (auto_breaking) {
+    if (is_char_node(prev_p)
+        || precedes_break(prev_p)
+        || (type(prev_p) == KERN_NODE &amp;&amp; subtype(prev_p) != EXPLICIT))
+    {
+        try_break(0, UNHYPHENATED);
+    }
+}
+check_shrinkage(glue_ptr(cur_p));
+q = glue_ptr(cur_p);
+act_width += width(q);
+active_width[2 + stretch_order(q)] += stretch(q);
+active_width[6] += shrink(q);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-866">866</a>.</p>
+</div></div>
+<h1 id="section-869"><a class="header" href="#section-869">Section 869</a></h1>
+<p>The following code knows that discretionary texts contain only character nodes, kern nodes, box nodes, rule nodes, and ligature nodes.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Try to break after a discretionary fragment, then <em>goto done5</em> <a href="./part39.html#section-869">869</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">s = pre_break(cur_p);
+disc_width = 0;
+if (s == null) {
+    try_break(ex_hyphen_penalty, HYPHENATED);
+}
+else {
+    do {
+        // &lt;&lt; Add the width of node |s| to |disc_width|, 870 &gt;&gt;
+        s = link(s);
+    } while (s != null);
+    act_width += disc_width;
+    try_break(hyphen_penalty, HYPHENATED);
+    act_width -= disc_width;
+}
+r = replace_count(cur_p);
+s = link(cur_p);
+while (r &gt; 0) {
+    // &lt;&lt; Add the width of node |s| to |act_width|, 871 &gt;&gt;
+    decr(r);
+    s = link(s);
+}
+prev_p = cur_p;
+cur_p = s;
+goto done5;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-866">866</a>.</p>
+</div></div>
+<h1 id="section-870"><a class="header" href="#section-870">Section 870</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Add the width of node <em>s</em> to <em>disc_width</em> <a href="./part39.html#section-870">870</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_char_node(s)) {
+    f = font(s);
+    disc_width += char_width(f, char_info(f, character(s)));
+}
+else {
+    switch (type(s)) {
+    case LIGATURE_NODE:
+        f = font(lig_char(s));
+        disc_width += char_width(f, char_info(f, character(lig_char(s)))); 
+        break;
+    
+    case HLIST_NODE:
+    case VLIST_NODE:
+    case RULE_NODE:
+    case KERN_NODE:
+        disc_width += width(s);
+        break;
+    
+    default:
+        confusion("disc3");
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-869">869</a>.</p>
+</div></div>
+<h1 id="section-871"><a class="header" href="#section-871">Section 871</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Add the width of node <em>s</em> to <em>act_width</em> <a href="./part39.html#section-871">871</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_char_node(s)) {
+    f = font(s);
+    act_width += char_width(f, char_info(f, character(s)));
+}
+else {
+    switch (type(s)) {
+    case LIGATURE_NODE:
+        f = font(lig_char(s));
+        act_width += char_width(f, char_info(f, character(lig_char(s))));
+        break;
+    
+    case HLIST_NODE:
+    case VLIST_NODE:
+    case RULE_NODE:
+    case KERN_NODE:
+        act_width += width(s);
+        break;
+    
+    default:
+        confusion("disc4");
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-869">869</a>.</p>
+</div></div>
+<h1 id="section-872"><a class="header" href="#section-872">Section 872</a></h1>
+<p>The forced line break at the paragraph’s end will reduce the list of breakpoints so that all active nodes represent breaks at <em>cur_p = null</em>.
+On the first pass, we insist on finding an active node that has the correct “looseness”.
+On the final pass, there will be at least one active node, and we will match the desired looseness as well as we can.</p>
+<p>The global variable <em>best_bet</em> will be set to the active node for the best way to break the paragraph, and a few other variables are used to help determine what is best.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer best_bet;     // use this passive node and its predecessors
+int fewest_demerits;  // the demerits associated with |best_bet|
+halfword best_line;   // line number following the last line of the new paragraph
+int actual_looseness; // the difference between |line_number(best_bet)| and the optimum |best_line|
+int line_diff;        // the difference between the current line number and the optimum |best_line|
+</code></pre>
+</div>
+<h1 id="section-873"><a class="header" href="#section-873">Section 873</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Try the final line break at the end of the paragraph, and <em>goto done</em> if the desired breakpoints have been found <a href="./part39.html#section-873">873</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">try_break(EJECT_PENALTY, HYPHENATED);
+if (link(ACTIVE) != LAST_ACTIVE) {
+    // &lt;&lt; Find an active node with fewest demerits, 874 &gt;&gt;
+    if (looseness == 0) {
+        goto done;
+    }
+    // &lt;&lt; Find the best active node for the desired looseness, 875 &gt;&gt;
+    if (actual_looseness == looseness || final_pass) {
+        goto done;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-863">863</a>.</p>
+</div></div>
+<h1 id="section-874"><a class="header" href="#section-874">Section 874</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Find an active node with fewest demerits <a href="./part39.html#section-874">874</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = link(ACTIVE);
+fewest_demerits = AWFUL_BAD;
+do {
+    if (type(r) != DELTA_NODE &amp;&amp; total_demerits(r) &lt; fewest_demerits) {
+        fewest_demerits = total_demerits(r);
+        best_bet = r;
+    }
+    r = link(r);
+} while (r != LAST_ACTIVE);
+best_line = line_number(best_bet);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-873">873</a>.</p>
+</div></div>
+<h1 id="section-875"><a class="header" href="#section-875">Section 875</a></h1>
+<p>The adjustment for a desired looseness is a slightly more complicated version of the loop just considered.
+Note that if a paragraph is broken into segments by displayed equations, each segment will be subject to the looseness calculation, independently of the other segments.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Find the best active node for the desired looseness <a href="./part39.html#section-875">875</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = link(ACTIVE);
+actual_looseness = 0;
+do {
+    if (type(r) != DELTA_NODE) {
+        line_diff = line_number(r) - best_line;
+        if ((line_diff &lt; actual_looseness &amp;&amp; looseness &lt;= line_diff)
+            || (line_diff &gt; actual_looseness &amp;&amp; looseness &gt;= line_diff))
+        {
+            best_bet = r;
+            actual_looseness = line_diff;
+            fewest_demerits = total_demerits(r);
+        }
+        else if (line_diff == actual_looseness &amp;&amp; total_demerits(r) &lt; fewest_demerits) {
+            best_bet = r;
+            fewest_demerits = total_demerits(r);
+        }
+    }
+    r = link(r);
+} while (r != LAST_ACTIVE);
+best_line = line_number(best_bet);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-873">873</a>.</p>
+</div></div>
+<h1 id="section-876"><a class="header" href="#section-876">Section 876</a></h1>
+<p>Once the best sequence of breakpoints has been found (hurray), we call on the procedure <em>post_line_break</em> to finish the remainder of the work.
+(By introducing this subprocedure, we are able to keep <em>line_break</em> from getting extremely long.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Break the paragraph at the chosen breakpoints, justify the resulting lines to the correct widths, and append them to the current vertical list <a href="./part39.html#section-876">876</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">post_line_break(final_widow_penalty);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-815">815</a>.</p>
+</div></div>
+<h1 id="section-877"><a class="header" href="#section-877">Section 877</a></h1>
+<p>The total number of lines that will be set by <em>post_line_break</em> is <em>best_line − prev_graf − 1</em>.
+The last breakpoint is specified by <em>break_node(best_bet)</em>, and this passive node points to the other breakpoints via the <em>prev_break</em> links.
+The finishing-up phase starts by linking the relevant passive nodes in forward order, changing <em>prev_break</em> to <em>next_break</em>.
+(The <em>next_break</em> fields actually reside in the same memory space as the <em>prev_break</em> fields did, but we give them a new name because of their new significance.) Then the lines are justified, one by one.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define next_break prev_break // new name for |prev_break| after links are reversed
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>line_break</em> <a href="./part38.html#section-826">826</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void post_line_break(int final_widow_penalty) {
+    pointer q, r, s;      // temporary registers for list manipulation
+    bool disc_break;      // was the current break at a discretionary node?
+    bool post_disc_break; // and did it have a nonempty post-break part?
+    scaled cur_width;     // width of line number |cur_line|
+    scaled cur_indent;    // left margin of line number |cur_line|
+    quarterword t;        // used for replacement counts in discretionary nodes
+    int pen;              // use when calculating penalties between lines
+    halfword cur_line;    // the current line number being justified
+    
+    // &lt;&lt; Reverse the links of the relevant passive nodes, setting |cur_p| to the first breakpoint, 878 &gt;&gt;
+    cur_line = prev_graf + 1;
+    do {
+        // &lt;&lt; Justify the line ending at breakpoint |cur_p|, and append it to the current vertical list, together with associated penalties and other insertions, 880 &gt;&gt;
+        incr(cur_line);
+        cur_p = next_break(cur_p);
+        if (cur_p != null &amp;&amp; !post_disc_break) {
+            // &lt;&lt; Prune unwanted nodes at the beginning of the next line, 879 &gt;&gt;
+        }
+    } while (cur_p != null);
+    if (cur_line != best_line || link(TEMP_HEAD) != null) {
+        confusion("line breaking");
+    }
+    prev_graf = best_line - 1;
+}
+</code></pre>
+</div>
+<h1 id="section-878"><a class="header" href="#section-878">Section 878</a></h1>
+<p>The job of reversing links in a list is conveniently regarded as the job of taking items off one stack and putting them on another.
+In this case we take them off a stack pointed to by <em>q</em> and having <em>prev_break</em> fields;
+we put them on a stack pointed to by <em>cur_p</em> and having <em>next_break</em> fields. Node <em>r</em> is the passive node being moved from stack to stack.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Reverse the links of the relevant passive nodes, setting <em>cur_p</em> to the first breakpoint <a href="./part39.html#section-878">878</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = break_node(best_bet);
+cur_p = null;
+do {
+    r = q;
+    q = prev_break(q);
+    next_break(r) = cur_p;
+    cur_p = r;
+} while (q != null);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-877">877</a>.</p>
+</div></div>
+<h1 id="section-879"><a class="header" href="#section-879">Section 879</a></h1>
+<p>Glue and penalty and kern and math nodes are deleted at the beginning of a line, except in the anomalous case that the node to be deleted is actually one of the chosen breakpoints.
+Otherwise the pruning done here is designed to match the lookahead computation in <em>try_break</em>, where the <em>break_width</em> values are computed for non-discretionary  breakpoints.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Prune unwanted nodes at the beginning of the next line <a href="./part39.html#section-879">879</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = TEMP_HEAD;
+while(true) {
+    q = link(r);
+    if (q == cur_break(cur_p) // |cur_break(cur_p)| is the next breakpoint
+        // now |q| cannot be |null|   
+        || is_char_node(q)
+        || non_discardable(q)
+        || (type(q) == KERN_NODE &amp;&amp; subtype(q) != EXPLICIT))
+    {
+        break; // goto done1
+    }    
+    r = q; // now |type(q) = GLUE_NODE|, |KERN_NODE|, |MATH_NODE|, or |PENALTY_NODE|
+}
+//done1:
+if (r != TEMP_HEAD) {
+    link(r) = null;
+    flush_node_list(link(TEMP_HEAD));
+    link(TEMP_HEAD) = q;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-877">877</a>.</p>
+</div></div>
+<h1 id="section-880"><a class="header" href="#section-880">Section 880</a></h1>
+<p>The current line to be justified appears in a horizontal list starting at <em>link(TEMP_HEAD)</em> and ending at <em>cur_break(cur_p)</em>.
+If <em>cur_break(cur_p)</em> is a glue node, we reset the glue to equal the <em>right_skip</em> glue; otherwise we append the <em>right_skip</em> glue at the right.
+If <em>cur_break(cur_p)</em> is a discretionary node, we modify the list so that the discretionary break is compulsory, and we set <em>disc_break</em> to <em>true</em>.
+We also append the <em>left_skip</em> glue at the left of the line, unless it is zero.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Justify the line ending at breakpoint <em>cur_p</em>, and append it to the current vertical list, together with associated penalties and other insertions <a href="./part39.html#section-880">880</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Modify the end of the line to reflect the nature of the break and to include \rightskip; also set the proper value of |disc_break|, 881 &gt;&gt;
+
+// &lt;&lt; Put the \leftskip glue at the left and detach this line, 887 &gt;&gt;
+
+// &lt;&lt; Call the packaging subroutine, setting |just_box| to the justified box, 889 &gt;&gt;
+
+// &lt;&lt; Append the new box to the current vertical list, followed by the list of special nodes taken out of the box by the packager, 888 &gt;&gt;
+
+// &lt;&lt; Append a penalty node, if a nonzero penalty is appropriate, 890 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-877">877</a>.</p>
+</div></div>
+<h1 id="section-881"><a class="header" href="#section-881">Section 881</a></h1>
+<p>At the end of the following code, <em>q</em> will point to the final node on the list about to be justified.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Modify the end of the line to reflect the nature of the break and to include \rightskip; also set the proper value of <em>disc_break</em> <a href="./part39.html#section-881">881</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = cur_break(cur_p);
+disc_break = false;
+post_disc_break = false;
+if (q != null) {
+    // |q| cannot be a |CHAR_NODE|
+    if (type(q) == GLUE_NODE) {
+        delete_glue_ref(glue_ptr(q));
+        glue_ptr(q) = right_skip;
+        subtype(q) = RIGHT_SKIP_CODE + 1;
+        add_glue_ref(right_skip);
+        goto done;
+    }
+    else {
+        if (type(q) == DISC_NODE) {
+            // &lt;&lt; Change discretionary to compulsory and set |disc_break = true|, 882 &gt;&gt;
+        }
+        else if (type(q) == MATH_NODE || type(q) == KERN_NODE) {
+            width(q) = 0;
+        }
+    }
+}
+else {
+    q = TEMP_HEAD;
+    while (link(q) != null) {
+        q = link(q);
+    }
+}
+// &lt;&lt; Put the \rightskip glue after node |q|, 886 &gt;&gt;
+done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-880">880</a>.</p>
+</div></div>
+<h1 id="section-882"><a class="header" href="#section-882">Section 882</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Change discretionary to compulsory and set <em>disc_break = true</em> <a href="./part39.html#section-882">882</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">t = replace_count(q);
+// &lt;&lt; Destroy the |t| nodes following |q|, and make |r| point to the following node, 883 &gt;&gt;
+if (post_break(q) != null) {
+    // &lt;&lt; Transplant the post-break list, 884 &gt;&gt;
+}
+if (pre_break(q) != null) {
+    // &lt;&lt; Transplant the pre-break list, 885 &gt;&gt;
+}
+link(q) = r;
+disc_break = true;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-881">881</a>.</p>
+</div></div>
+<h1 id="section-883"><a class="header" href="#section-883">Section 883</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Destroy the <em>t</em> nodes following <em>q</em>, and make <em>r</em> point to the following node <a href="./part39.html#section-883">883</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (t == 0) {
+    r = link(q);
+}
+else {
+    r = q;
+    while (t &gt; 1) {
+        r = link(r);
+        decr(t);
+    }
+    s = link(r);
+    r = link(s);
+    link(s) = null;
+    flush_node_list(link(q));
+    replace_count(q) = 0;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-882">882</a>.</p>
+</div></div>
+<h1 id="section-884"><a class="header" href="#section-884">Section 884</a></h1>
+<p>We move the post-break list from inside node <em>q</em> to the main list by reattaching it just before the present node <em>r</em>, then resetting <em>r</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Transplant the post-break list <a href="./part39.html#section-884">884</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">s = post_break(q);
+while (link(s) != null) {
+    s = link(s);
+}
+link(s) = r;
+r = post_break(q);
+post_break(q) = null;
+post_disc_break = true;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-882">882</a>.</p>
+</div></div>
+<h1 id="section-885"><a class="header" href="#section-885">Section 885</a></h1>
+<p>We move the pre-break list from inside node <em>q</em> to the main list by reattaching it just after the present node <em>q</em>, then resetting <em>q</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Transplant the pre-break list <a href="./part39.html#section-885">885</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">s = pre_break(q);
+link(q) = s;
+while (link(s) != null) {
+    s = link(s);
+}
+pre_break(q) = null;
+q = s;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-882">882</a>.</p>
+</div></div>
+<h1 id="section-886"><a class="header" href="#section-886">Section 886</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put the \rightskip glue after node <em>q</em> <a href="./part39.html#section-886">886</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = new_param_glue(RIGHT_SKIP_CODE);
+link(r) = link(q);
+link(q) = r;
+q = r;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-881">881</a>.</p>
+</div></div>
+<h1 id="section-887"><a class="header" href="#section-887">Section 887</a></h1>
+<p>The following code begins with <em>q</em> at the end of the list to be justified.
+It ends with <em>q</em> at the beginning of that list, and with <em>link(TEMP_HEAD)</em> pointing to the remainder of the paragraph, if any.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put the \leftskip glue at the left and detach this line <a href="./part39.html#section-887">887</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = link(q);
+link(q) = null;
+q = link(TEMP_HEAD);
+link(TEMP_HEAD) = r;
+if (left_skip != ZERO_GLUE) {
+    r = new_param_glue(LEFT_SKIP_CODE);
+    link(r) = q;
+    q = r;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-880">880</a>.</p>
+</div></div>
+<h1 id="section-888"><a class="header" href="#section-888">Section 888</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append the new box to the current vertical list, followed by the list of special nodes taken out of the box by the packager <a href="./part39.html#section-888">888</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">append_to_vlist(just_box);
+if (ADJUST_HEAD != adjust_tail) {
+    link(tail) = link(ADJUST_HEAD);
+    tail = adjust_tail;
+}
+adjust_tail = null;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-880">880</a>.</p>
+</div></div>
+<h1 id="section-889"><a class="header" href="#section-889">Section 889</a></h1>
+<p>Now <em>q</em> points to the hlist that represents the current line of the paragraph.
+We need to compute the appropriate line width, pack the line into a box of this size, and shift the box by the appropriate amount of indentation.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Call the packaging subroutine, setting <em>just_box</em> to the justified box <a href="./part39.html#section-889">889</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_line &gt; last_special_line) {
+    cur_width = second_width;
+    cur_indent = second_indent;
+}
+else if (par_shape_ptr == null) {
+    cur_width = first_width;
+    cur_indent = first_indent;
+}
+else {
+    cur_width = mem[par_shape_ptr + 2*cur_line].sc;
+    cur_indent = mem[par_shape_ptr + 2*cur_line - 1].sc;
+}
+adjust_tail = ADJUST_HEAD;
+just_box = hpack(q, cur_width, EXACTLY);
+shift_amount(just_box) = cur_indent;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-880">880</a>.</p>
+</div></div>
+<h1 id="section-890"><a class="header" href="#section-890">Section 890</a></h1>
+<p>Penalties between the lines of a paragraph come from club and widow lines, from the <em>inter_line_penalty</em> parameter, and from lines that end at discretionary breaks.
+Breaking between lines of a two-line paragraph gets both club-line and widow-line penalties.
+The local variable <em>pen</em> will be set to the sum of all relevant penalties for the current line, except that the final line is never penalized.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append a penalty node, if a nonzero penalty is appropriate <a href="./part39.html#section-890">890</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_line + 1 != best_line) {
+    pen = inter_line_penalty;
+    if (cur_line == prev_graf + 1) {
+        pen += club_penalty;
+    }
+    if (cur_line + 2 == best_line) {
+        pen += final_widow_penalty;
+    }
+    if (disc_break) {
+        pen += broken_penalty;
+    }
+    if (pen != 0) {
+        r = new_penalty(pen);
+        link(tail) = r;
+        tail = r;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-880">880</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part38.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part40.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part38.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part40.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

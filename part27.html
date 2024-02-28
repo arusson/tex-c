@@ -1,0 +1,884 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 464–486 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html" class="active">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-464-building-token-lists"><a class="header" href="#section-464-building-token-lists">Section 464: Building token lists</a></h1>
+<p>The token lists for macros and for other things like <code>\mark</code> and <code>\output</code> and <code>\write</code> are produced by a procedure called <em>scan_toks</em>.</p>
+<p>Before we get into the details of <em>scan_toks</em>, let’s consider a much simpler task, that of converting the current string into a token list.
+The <em>str_toks</em> function does this; it classifies spaces as type <em>SPACER</em> and everything else as type <em>OTHER_CHAR</em>.</p>
+<p>The token list created by <em>str_toks</em> begins at <em>link(TEMP_HEAD)</em> and ends at the value <em>p</em> that is returned.
+(If <em>p = TEMP_HEAD</em>, the list is empty.)</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">build_tokens.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |build_tokens.c|, 1382 &gt;&gt;
+
+// converts |str_pool[b .. pool_ptr - 1]| to a token list
+pointer str_toks(pool_pointer b) {
+    pointer p;      // tail of the token list
+    pointer q;      // new node being added to the token list via |store_new_token|
+    halfword t;     // token being appended
+    pool_pointer k; // index into |str_pool|
+    str_room(1);
+    p = TEMP_HEAD;
+    link(p) = null;
+    k = b;
+    while (k &lt; pool_ptr) {
+        t = str_pool[k];
+        if (t == ' ') {
+            t = SPACE_TOKEN;
+        }
+        else {
+            t = OTHER_TOKEN + t;
+        }
+        fast_store_new_token(t);
+        incr(k);
+    }
+    pool_ptr = b;
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-465"><a class="header" href="#section-465">Section 465</a></h1>
+<p>The main reason for wanting <em>str_toks</em> is the next function, <em>the_toks</em>, which has similar input/output characteristics.</p>
+<p>This procedure is supposed to scan something like ‘<code>\skip\count12</code>’, i.e., whatever can follow ‘<code>\the</code>’, and it constructs a token list containing something like ‘<code>-3.0pt minus 0.5fill</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">build_tokens.c</div>
+<pre><code class="language-c">pointer the_toks() {
+    int  old_setting; // holds |selector| setting
+    pointer p, q, r; // used for copying a token list
+    pool_pointer b;  // base of temporary string
+    get_x_token();
+    scan_something_internal(TOK_VAL, false);
+    if (cur_val_level &gt;= IDENT_VAL) {
+        // &lt;&lt; Copy the token list, 466 &gt;&gt;
+    }
+    else {
+        old_setting = selector;
+        selector = NEW_STRING;
+        b = pool_ptr;
+        switch (cur_val_level) {
+        case INT_VAL:
+            print_int(cur_val);
+            break;
+        
+        case DIMEN_VAL:
+            print_scaled(cur_val);
+            print("pt");
+            break;
+        
+        case GLUE_VAL:
+            print_spec(cur_val, "pt");
+            delete_glue_ref(cur_val);
+            break;
+        
+        case MU_VAL:
+            print_spec(cur_val, "mu");
+            delete_glue_ref(cur_val);
+        } // there are no other cases
+        selector = old_setting;
+        return str_toks(b);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-466"><a class="header" href="#section-466">Section 466</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Copy the token list <a href="./part27.html#section-466">466</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = TEMP_HEAD;
+link(p) = null;
+if (cur_val_level == IDENT_VAL) {
+    store_new_token(CS_TOKEN_FLAG + cur_val);
+}
+else if (cur_val != null) {
+    r = link(cur_val); // do not copy the reference count
+    while (r != null) {
+        fast_store_new_token(info(r));
+        r = link(r);
+    }
+}
+return p;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-465">465</a>.</p>
+</div></div>
+<h1 id="section-467"><a class="header" href="#section-467">Section 467</a></h1>
+<p>Here’s part of the <em>expand</em> subroutine that we are now ready to complete:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">build_tokens.c</div>
+<pre><code class="language-c">void ins_the_toks() {
+    link(GARBAGE) = the_toks();
+    ins_list(link(TEMP_HEAD));
+}
+</code></pre>
+</div>
+<h1 id="section-468"><a class="header" href="#section-468">Section 468</a></h1>
+<p>The primitives <code>\number</code>, <code>\romannumeral</code>, <code>\string</code>, <code>\meaning</code>, <code>\fontname</code>, and <code>\jobname</code> are defined as follows.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define NUMBER_CODE        0 // command code for \number
+#define ROMAN_NUMERAL_CODE 1 // command code for \romannumeral
+#define STRING_CODE        2 // command code for \string
+#define MEANING_CODE       3 // command code for \meaning
+#define FONT_NAME_CODE     4 // command code for \fontname
+#define JOB_NAME_CODE      5 // command code for \jobname
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("number", CONVERT, NUMBER_CODE);
+primitive("romannumeral", CONVERT, ROMAN_NUMERAL_CODE);
+primitive("string", CONVERT, STRING_CODE);
+primitive("meaning", CONVERT, MEANING_CODE);
+primitive("fontname", CONVERT, FONT_NAME_CODE);
+primitive("jobname", CONVERT, JOB_NAME_CODE);
+</code></pre>
+</div>
+<h1 id="section-469"><a class="header" href="#section-469">Section 469</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case CONVERT:
+    switch (chr_code) {
+    case NUMBER_CODE:
+        print_esc("number");
+        break;
+    
+    case ROMAN_NUMERAL_CODE:
+        print_esc("romannumeral");
+        break;
+    
+    case STRING_CODE:
+        print_esc("string");
+        break;
+    
+    case MEANING_CODE:
+        print_esc("meaning");
+        break;
+    
+    case FONT_NAME_CODE:
+        print_esc("fontname");
+        break;
+    
+    default:
+        print_esc("jobname");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-470"><a class="header" href="#section-470">Section 470</a></h1>
+<p>The procedure <em>conv_toks</em> uses <em>str_toks</em> to insert the token list for <em>convert</em> functions into the scanner; ‘<code>\outer</code>’ control sequences are allowed to follow ‘<code>\string</code>’ and ‘<code>\meaning</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">build_tokens.c</div>
+<pre><code class="language-c">void conv_toks() {
+    int old_setting; // holds |selector| setting
+    int c; // desired type of conversion
+    small_number save_scanner_status; // |scanner_status| upon entry
+    pool_pointer b; // base of temporary string
+    c = cur_chr;
+    // &lt;&lt; Scan the argument for command |c|, 471 &gt;&gt;
+    old_setting = selector;
+    selector = NEW_STRING;
+    b = pool_ptr;
+    // &lt;&lt; Print the result of command |c|, 472 &gt;&gt;
+    selector = old_setting;
+    link(GARBAGE) = str_toks(b);
+    ins_list(link(TEMP_HEAD));
+}
+</code></pre>
+</div>
+<h1 id="section-471"><a class="header" href="#section-471">Section 471</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan the argument for command <em>c</em> <a href="./part27.html#section-471">471</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (c) {
+case NUMBER_CODE:
+case ROMAN_NUMERAL_CODE:
+    scan_int();
+    break;
+
+case STRING_CODE:
+case MEANING_CODE:
+    save_scanner_status = scanner_status;
+    scanner_status = NORMAL;
+    get_token();
+    scanner_status = save_scanner_status;
+    break;
+
+case FONT_NAME_CODE:
+    scan_font_ident();
+    break;
+
+case JOB_NAME_CODE:
+    if (job_name == 0) {
+        open_log_file();
+    }
+} // there are no other cases
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-470">470</a>.</p>
+</div></div>
+<h1 id="section-472"><a class="header" href="#section-472">Section 472</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print the result of command <em>c</em> <a href="./part27.html#section-472">472</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (c) {
+case NUMBER_CODE:
+    print_int(cur_val);
+    break;
+
+case ROMAN_NUMERAL_CODE:
+    print_roman_int(cur_val);
+    break;
+
+case STRING_CODE:
+    if (cur_cs != 0) {
+        sprint_cs(cur_cs);
+    }
+    else {
+        print_char(cur_chr);
+    }
+    break;
+
+case MEANING_CODE:
+    print_meaning();
+    break;
+
+case FONT_NAME_CODE:
+    print_strnumber(font_name[cur_val]);
+    if (font_size[cur_val] != font_dsize[cur_val]) {
+        print(" at ");
+        print_scaled(font_size[cur_val]);
+        print("pt");
+    }
+    break;
+
+case JOB_NAME_CODE:
+    print_strnumber(job_name);
+} // there are no other cases
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-470">470</a>.</p>
+</div></div>
+<h1 id="section-473"><a class="header" href="#section-473">Section 473</a></h1>
+<p>Now we can’t postpone the difficulties any longer; we must bravely tackle <em>scan_toks</em>. This function returns a pointer to the tail of a new token list, and it also makes <em>def_ref</em> point to the reference count at the head of that list.</p>
+<p>There are two boolean parameters, <em>macro_def</em> and <em>xpand</em>.
+If <em>macro_def</em> is true, the goal is to create the token list for a macro definition;
+otherwise the goal is to create the token list for some other <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> primitive:
+<code>\mark</code>, <code>\output</code>, <code>\everypar</code>, <code>\lowercase</code>, <code>\uppercase</code>, <code>\message</code>, <code>\errmessage</code>, <code>\write</code>, or <code>\special</code>.
+In the latter cases a left brace must be scanned next;
+this left brace will not be part of the token list, nor will the matching right brace that comes at the end.
+If <em>xpand</em> is false, the token list will simply be copied from the input using <em>get_token</em>.
+Otherwise all expandable tokens will be expanded until unexpandable tokens are left, except that the results of expanding ‘<code>\the</code>’ are not expanded further.
+If both <em>macro_def</em> and <em>xpand</em> are true, the expansion applies only to the macro body (i.e., to the material following the first <em>LEFT_BRACE</em> character).</p>
+<p>The value of <em>cur_cs</em> when <em>scan_toks</em> begins should be the <em>eqtb</em> address of the control sequence to display in “runaway” error messages.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">build_tokens.c</div>
+<pre><code class="language-c">pointer scan_toks(bool macro_def, bool xpand) {
+    halfword t;          // token representing the highest parameter number
+    halfword s;          // saved token
+    pointer p;           // tail of the token list being built
+    pointer q;           // new node being added to the token list via |store_new_token|
+    halfword unbalance;  // number of unmatched left braces
+    halfword hash_brace; // possible '#{' token
+    if (macro_def) {
+        scanner_status = DEFINING;
+    }
+    else {
+        scanner_status = ABSORBING;
+    }
+    warning_index = cur_cs;
+    def_ref = get_avail();
+    token_ref_count(def_ref) = null;
+    p = def_ref;
+    hash_brace = 0;
+    t = ZERO_TOKEN;
+    if (macro_def) {
+        // &lt;&lt; Scan and build the parameter part of the macro definition, 474 &gt;&gt;
+    }
+    else {
+        scan_left_brace(); // remove the compulsory left brace
+    }
+    // &lt;&lt; Scan and build the body of the token list; |goto found| when finished, 477 &gt;&gt;
+found:
+    scanner_status = NORMAL;
+    if (hash_brace != 0) {
+        store_new_token(hash_brace);
+    }
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-474"><a class="header" href="#section-474">Section 474</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan and build the parameter part of the macro definition <a href="./part27.html#section-474">474</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while(true) {
+    get_token(); // set |cur_cmd|, |cur_chr|, |cur_tok|
+    if (cur_tok &lt; RIGHT_BRACE_LIMIT) {
+        break; // Goto done1
+    }
+    if (cur_cmd == MAC_PARAM) {
+        // &lt;&lt; If the next character is a parameter number, make |cur_tok| a |MATCH| token; but if it is a left brace; store '|LEFT_BRACE|, |END_MATCH|', set |hash_brace|, and |goto done|, 476 &gt;&gt;
+    }
+    store_new_token(cur_tok);
+}
+// done1:
+store_new_token(END_MATCH_TOKEN);
+if (cur_cmd == RIGHT_BRACE) {
+    // &lt;&lt; Express shock at the missing left brace; |goto found|, 475 &gt;&gt;
+}
+done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-473">473</a>.</p>
+</div></div>
+<h1 id="section-475"><a class="header" href="#section-475">Section 475</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Express shock at the missing left brace; <em>goto found</em> <a href="./part27.html#section-475">475</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Missing { inserted");
+incr(align_state);
+help2("Where was the left brace? You said something like `\\def\\a}',")
+    ("which I'm going to interpret as `\\def\\a{}'.");
+error();
+goto found;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-474">474</a>.</p>
+</div></div>
+<h1 id="section-476"><a class="header" href="#section-476">Section 476</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If the next character is a parameter number, make <em>cur_tok</em> a <em>MATCH</em> token; but if it is a left brace; store ‘<em>LEFT_BRACE</em>, <em>END_MATCH</em>’, set <em>hash_brace</em>, and <em>goto done</em> <a href="./part27.html#section-476">476</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">s = MATCH_TOKEN + cur_chr;
+get_token();
+if (cur_tok &lt; LEFT_BRACE_LIMIT) {
+    hash_brace = cur_tok;
+    store_new_token(cur_tok);
+    store_new_token(END_MATCH_TOKEN);
+    goto done;
+}
+if (t == ZERO_TOKEN + 9) {
+    print_err("You already have nine parameters");
+    help2("I'm going to ignore the # sign you just used,")
+        ("as well as the token that followed it.");
+    error();
+    continue;
+}
+else {
+    incr(t);
+    if (cur_tok != t) {
+        print_err("Parameters must be numbered consecutively");
+        help2("I've inserted the digit you should have used after the #.")
+            ("Type `1' to delete what you did use.");
+        back_error();
+    }
+    cur_tok = s;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-474">474</a>.</p>
+</div></div>
+<h1 id="section-477"><a class="header" href="#section-477">Section 477</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan and build the body of the token list; <em>goto found</em> when finished <a href="./part27.html#section-477">477</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">unbalance = 1;
+while(true) {
+    if (xpand) {
+        // &lt;&lt; Expand the next part of the input, 478 &gt;&gt;
+    }
+    else {
+        get_token();
+    }
+    if (cur_tok &lt; RIGHT_BRACE_LIMIT) {
+        if (cur_cmd &lt; RIGHT_BRACE) {
+            incr(unbalance);
+        }
+        else {
+            decr(unbalance);
+            if (unbalance == 0) {
+                goto found;
+            }
+        }
+    }
+    else if (cur_cmd == MAC_PARAM &amp;&amp; macro_def) {
+        // &lt;&lt; Look for parameter number or ##, 479 &gt;&gt;
+    }
+    store_new_token(cur_tok);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-473">473</a>.</p>
+</div></div>
+<h1 id="section-478"><a class="header" href="#section-478">Section 478</a></h1>
+<p>Here we insert an entire token list created by <em>the_toks</em> without expanding it further.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Expand the next part of the input <a href="./part27.html#section-478">478</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while(true) {
+    get_next();
+    if (cur_cmd &lt;= MAX_COMMAND) {
+        break; // Goto done2
+    }
+    if (cur_cmd != THE) {
+        expand();
+    }
+    else {
+        q = the_toks();
+        if (link(TEMP_HEAD) != null) {
+            link(p) = link(TEMP_HEAD);
+            p = q;
+        }
+    }
+}
+// done2:
+x_token();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-477">477</a>.</p>
+</div></div>
+<h1 id="section-479"><a class="header" href="#section-479">Section 479</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Look for parameter number or ## <a href="./part27.html#section-479">479</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">s = cur_tok;
+if (xpand) {
+    get_x_token();
+}
+else {
+    get_token();
+}
+if (cur_cmd != MAC_PARAM) {
+    if (cur_tok &lt;= ZERO_TOKEN || cur_tok &gt; t) {
+        print_err("Illegal parameter number in definition of ");
+        sprint_cs(warning_index);
+        help3("You meant to type ## instead of #, right?")
+            ("Or maybe a } was forgotten somewhere earlier, and things")
+            ("are all screwed up? I'm going to assume that you meant ##.");
+        back_error();
+        cur_tok = s;
+    }
+    else {
+        cur_tok = OUT_PARAM_TOKEN - '0' + cur_chr;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-477">477</a>.</p>
+</div></div>
+<h1 id="section-480"><a class="header" href="#section-480">Section 480</a></h1>
+<p>Another way to create a token list is via the <code>\read</code> command.
+The sixteen files potentially usable for reading appear in the following global variables.
+The value of <em>read_open[n]</em> will be <em>closed</em> if stream number <em>n</em> has not been opened or if it has been fully read;
+<em>JUST_OPEN</em> if an <code>\openin</code> but not a <code>\read</code> has been done;
+and <em>NORMAL</em> if it is open and ready to read the next line.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define CLOSED    2 // not open, or at end of file
+#define JUST_OPEN 1 // newly opened, first line not yet read
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">alpha_file read_file[16]; // used for \read
+int read_open[17];        // state of read_file[n]
+</code></pre>
+</div>
+<h1 id="section-481"><a class="header" href="#section-481">Section 481</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">for(k = 0; k &lt;= 16; k++) {
+    read_open[k] = CLOSED;
+}
+</code></pre>
+</div>
+<h1 id="section-482"><a class="header" href="#section-482">Section 482</a></h1>
+<p>The <em>read_toks</em> procedure constructs a token list like that for any macro definition, and makes <em>cur_val</em> point to it.
+Parameter <em>r</em> points to the control sequence that will receive this token list.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">build_tokens.c</div>
+<pre><code class="language-c">void read_toks(int n, pointer r) {
+    pointer p;      // tail of the token list
+    pointer q;      // new node being added to the token list via |store_new_token|
+    int s;          // saved value of |align_state|
+    small_number m; // stream number
+    scanner_status = DEFINING;
+    warning_index = r;
+    def_ref = get_avail();
+    token_ref_count(def_ref) = null;
+    p = def_ref; // the reference count
+    store_new_token(END_MATCH_TOKEN);
+    if (n &lt; 0 || n &gt; 15) {
+        m = 16;
+    }
+    else {
+        m = n;
+    }
+    s = align_state;
+    align_state = 1000000; // disable tab marks, etc.
+    do {
+        // &lt;&lt; Input and store tokens from the next line of the file, 483 &gt;&gt;
+    } while (align_state != 1000000);
+    cur_val = def_ref;
+    scanner_status = NORMAL;
+    align_state = s;
+}
+</code></pre>
+</div>
+<h1 id="section-483"><a class="header" href="#section-483">Section 483</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Input and store tokens from the next line of the file <a href="./part27.html#section-483">483</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">begin_file_reading();
+name = m + 1;
+if (read_open[m] == CLOSED) {
+    // &lt;&lt; Input for \read from the terminal, 484 &gt;&gt;
+}
+else if (read_open[m] == JUST_OPEN) {
+    // &lt;&lt; Input the first line of |read_file[m]|, 485 &gt;&gt;
+}
+else {
+    // &lt;&lt; Input the next line of |read_file[m]|, 486 &gt;&gt;
+}
+limit = last;
+if (end_line_char_inactive) {
+    decr(limit);
+}
+else {
+    buffer[limit] = end_line_char;
+}
+first = limit + 1;
+loc = start;
+state = NEW_LINE;
+while(true) {
+    get_token();
+    if (cur_tok == 0) {
+        break; // Goto done
+        // |cur_cmd == cur_chr == 0| will occur at the end of the line
+    } 
+    if (align_state &lt; 1000000) {
+        // unmatched '}' aborts the line
+        do {
+            get_token();
+        } while (cur_tok != 0);
+        align_state = 1000000;
+        break; // Goto done
+    }
+    store_new_token(cur_tok);
+}
+// done:
+end_file_reading();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-482">482</a>.</p>
+</div></div>
+<h1 id="section-484"><a class="header" href="#section-484">Section 484</a></h1>
+<p>Here we input on-line into the <em>buffer</em> array, prompting the user explicitly if <em>n</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>0</em>.
+The value of <em>n</em> is set negative so that additional prompts will not be given in the case of multi-line input.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Input for \read from the terminal <a href="./part27.html#section-484">484</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (interaction &gt; NONSTOP_MODE) {
+    if (n &lt; 0) {
+        prompt_input("");
+    }
+    else {
+        print_ln();
+        sprint_cs(r);
+        prompt_input("=");
+        n = -1;
+    }
+}
+else {
+    fatal_error("*** (cannot \\read from terminal in nonstop modes)");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-483">483</a>.</p>
+</div></div>
+<h1 id="section-485"><a class="header" href="#section-485">Section 485</a></h1>
+<p>The first line of a file must be treated specially, since <em>input_ln</em> must be told not to start with <em>get</em>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>No need for the boolean, see section <a href="./part03.html#section-31">31</a>.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Input the first line of <em>read_file[m]</em> <a href="./part27.html#section-485">485</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (input_ln(read_file[m])) {
+    read_open[m] = NORMAL;
+}
+else {
+    a_close(read_file[m]);
+    read_open[m] = CLOSED;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-483">483</a>.</p>
+</div></div>
+<h1 id="section-486"><a class="header" href="#section-486">Section 486</a></h1>
+<p>An empty line is appended at the end of a <em>read_file</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Input the next line of <em>read_file[m]</em> <a href="./part27.html#section-486">486</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (!input_ln(read_file[m])) {
+    a_close(read_file[m]);
+    read_open[m] = CLOSED;
+    if (align_state != 1000000) {
+        runaway();
+        print_err("File ended within ");
+        print_esc("read");
+        help1("This \\read has unbalanced braces.");
+        align_state = 1000000;
+        limit = 0;
+        error();
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-483">483</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part26.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part28.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part26.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part28.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

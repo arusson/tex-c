@@ -1,0 +1,2369 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 1379–1383 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html" class="active">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-1379-system-dependent-changes"><a class="header" href="#section-1379-system-dependent-changes">Section 1379: System-dependent changes</a></h1>
+<p>This section should be replaced, if necessary, by any special modifications of the program that are necessary to make <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> work at a particular installation.
+It is usually best to design your change file so that all changes to previous sections preserve the section numbering; then everybody’s version will be consistent with the published program.
+More extensive changes, which introduce new sections, can be inserted here; then only the index itself will get a new section number.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>This part is used to add what is needed to compile this implementation, such as the <em>Makefile</em> and header declarations.</p>
+</blockquote>
+</div>
+<h1 id="section-1380"><a class="header" href="#section-1380">Section 1380</a></h1>
+<p>For this C implementation, all global variables need to be declared as <code>extern</code>.</p>
+<p>For simplicity, they are declared here in one shot.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">tex.h</div>
+<pre><code class="language-c">// ~~~ Section 13 ~~~
+extern int bad; // is some "constant" wrong?
+
+// ~~~ Section 26 ~~~
+extern char name_of_file[FILE_NAME_SIZE + 1];
+extern int name_length; // this many characters are actually relevant in |name_of_file| (the rest are blank)
+// ~~~ End section 26 ~~~
+
+// ~~~ Section 30 ~~~
+extern ASCII_code buffer[BUF_SIZE + 1]; // lines of character being read
+extern int first;                       // the first unused position in |buffer|
+extern int last;                        // end of the line just input to |buffer|
+extern int max_buf_stack;               // largest index used in |buffer|
+// ~~~ End section 30 ~~~
+
+// ~~~ Section 39 ~~~
+extern ASCII_code str_pool[POOL_SIZE + 1];      // the characters
+extern pool_pointer str_start[MAX_STRINGS + 1]; // the starting pointers
+extern pool_pointer pool_ptr;                   // first unused position in |str_pool|
+extern str_number str_ptr;                      // number of the current string being created
+extern pool_pointer init_pool_ptr;              // the starting value of |pool_ptr|
+extern str_number init_str_ptr;                 // the starting value of |str_ptr|
+// ~~~ End section 39 ~~~
+
+// ~~~ Section 54 ~~~
+extern alpha_file log_file;                  // transcript of TeX session
+extern int selector;                         // where to print a message
+extern unsigned char dig[23];                // digits in a number being output
+extern int tally;                            // the number of characters recently printed
+extern int term_offset;                      // the number of characters on the current terminal line
+extern int file_offset;                      // the number of characters on the current file line
+extern ASCII_code trick_buf[ERROR_LINE + 1]; // circular buffer for pseudoprinting
+extern int trick_count;                      // threshold for pseudoprinting, explained later
+extern int first_count;                      // another variable for pseudoprinting
+// ~~~ End section 54 ~~~
+
+// ~~~ Section 73 ~~~
+extern int interaction; // current level of interaction
+// ~~~ End section 73 ~~~
+
+// ~~~ Section 76 ~~~
+extern bool deletions_allowed; // is it safe for |error| to call |get_token|?
+extern bool set_box_allowed;   // is it safe to do a \setbox assignment?
+extern int history;            // has the source input been clean so far?
+extern int error_count;        // the number of scrolled errors since the last paragraph ended
+// ~~~ End section 76 ~~~
+
+// ~~~ Section 79 ~~~
+extern char *help_line[6]; // helps for the next |error|
+extern int help_ptr;       // the number of help lines present
+extern bool use_err_help;  // should the |err_help| list be shown?
+// ~~~ End section 79 ~~~
+
+// ~~~ Section 96 ~~~
+extern int interrupt;        // should TeX pause for instructions?
+extern bool ok_to_interrupt; // should interrupts be observed?
+// ~~~ End section 96 ~~~
+
+// ~~~ Section 104 ~~~
+extern bool arith_error;  // has arithmetic overflow occurred recently?
+extern scaled remainder_; // amount subtracted to get an exact division
+// ~~~ End section 104 ~~~
+
+// ~~~ Section 115 ~~~
+extern pointer temp_ptr; // a pointer variable for occasional emergency use
+// ~~~ End section 115 ~~~
+
+// ~~~ Section 116 ~~~
+extern memory_word mem[MEM_MAX + 1]; // the big dynamic storage area
+extern pointer lo_mem_max; // the largest location of variable-size memory in use
+extern pointer hi_mem_min; // the smallest location of one-word memory in use
+// ~~~ End section 116 ~~~
+
+// ~~~ Section 117 ~~~
+extern int var_used, dyn_used; // how much memory is in use
+// ~~~ End section 117 ~~~
+
+// ~~~ Section 118 ~~~
+extern pointer avail;   // head of the list of available one-word nodes
+extern pointer mem_end; // the last one-word node used in |mem|
+// ~~~ End section 118 ~~~
+
+// ~~~ Section 124 ~~~
+extern pointer rover; // points to some node in the list of empties
+// ~~~ End section 124 ~~~
+
+// ~~~ Section 165 ~~~
+#ifdef DEBUG
+extern bool free_cells[MEM_MAX + 1]; // free_cells
+extern bool was_free[MEM_MAX + 1]; // previously free cells
+extern pointer was_mem_end, was_lo_max, was_hi_min; // previous |mem_end|, |lo_mem_max|, and |hi_mem_min|
+extern bool panicking; // do we want to check memory constantly?
+#endif
+// ~~~ End section 165 ~~~
+
+// ~~~ Section 173 ~~~
+extern int font_in_short_display; // an internal font number
+// ~~~ End section 173 ~~~
+
+// ~~~ Section 181 ~~~
+extern int depth_threshold; // maximum nesting depth in box displays
+extern int breadth_max;    // maximum number of items shown at the same list level
+// ~~~ End section 181 ~~~
+
+// ~~~ Section 213 ~~~
+extern list_state_record nest[NEST_SIZE + 1];
+extern int nest_ptr;               // first unused location of |nest|
+extern int max_nest_stack;         // maximum of |nest_ptr| when pushing
+extern list_state_record cur_list; // top "top" semantic nest
+extern int shown_mode;             // most recent mode shown by \tracingcommands
+// ~~~ End section 213 ~~~
+
+// ~~~ Section 246 ~~~
+extern int old_setting;
+extern int sys_time, sys_day, sys_month, sys_year; // date and time supplied by external system
+// ~~~ End section 246 ~~~
+
+// ~~~ Section 253 ~~~
+extern memory_word eqtb0[EQTB_SIZE - ACTIVE_BASE + 1];
+extern memory_word *eqtb;
+extern quarterword xeq_level0[EQTB_SIZE - INT_BASE + 1];
+extern quarterword *xeq_level;
+// ~~~ End section 253 ~~~
+
+// ~~~ Section 256 ~~~
+extern memory_word hash0[UNDEFINED_CONTROL_SEQUENCE - HASH_BASE]; // the hash table
+extern memory_word *hash;
+extern pointer hash_used;            // allocation pointer for |hash|
+extern bool no_new_control_sequence; // are new identifiers legal?
+extern int cs_count;                 // total number of known identifiers
+// ~~~ End section 256 ~~~
+
+// ~~~ Section 271 ~~~
+extern memory_word save_stack[SAVE_SIZE + 1];
+extern int save_ptr;          // first unused entry on |save_stack|
+extern int max_save_stack;    // maximum usage of save stack
+extern quarterword cur_level; // current nesting level for groups
+extern int cur_group;         // current group type
+extern int cur_boundary;      // where the current level begins
+// ~~~ End section 271 ~~~
+
+// ~~~ Section 286 ~~~
+extern int mag_set; // if nonzero, this magnification should be used henceforth
+// ~~~ End section 286 ~~~
+
+// ~~~ Section 297 ~~~
+extern eight_bits cur_cmd; // current command set by |get_next|
+extern halfword cur_chr;   // operand of current command
+extern pointer cur_cs;     // control sequence found here, zero if none found
+extern halfword cur_tok;   // packed representative of |cur_cmd| and |cur_chr|
+// ~~~ End section 297 ~~~
+
+// ~~~ Section 301 ~~~
+extern in_state_record input_stack[STACK_SIZE + 1];
+extern int input_ptr;             // first unused location of |input_stack|
+extern int max_in_stack;          // largest value of |input_ptr| when pushing
+extern in_state_record cur_input; // the ``top'' input state, according to convention (1)
+// ~~~ End section 301 ~~~
+
+// ~~~ Section 304 ~~~
+extern int in_open; // the number of lines in the buffer, less one
+extern int open_parens; // the number of open text files
+extern alpha_file input_file0[MAX_IN_OPEN];
+extern alpha_file *input_file;
+extern int line; // current line number in the current source file
+extern int line_stack0[MAX_IN_OPEN];
+extern int *line_stack;
+// ~~~ End section 304 ~~~
+
+// ~~~ Section 305 ~~~
+extern int scanner_status;    // can a subfile end now?
+extern pointer warning_index; // identifier relevant to non-|NORMAL| scanner status
+extern pointer def_ref;       // reference count of token list being defined
+// ~~~ End section 305 ~~~
+
+// ~~~ Section 308 ~~~
+extern pointer param_stack[PARAM_SIZE + 1]; // token list pointers for parameters
+extern int param_ptr;                       // first unused entry in |param_stack|
+extern int max_param_stack;                 // largest value of |param_ptr|, will be |&lt;= PARAM_SIZE + 9|
+// ~~~ End section 308 ~~~
+
+// ~~~ Section 309 ~~~
+extern int align_state; // group level with respect to current alignment
+// ~~~ End section 309 ~~~
+
+// ~~~ Section 310 ~~~
+extern int base_ptr; // shallowest level shown by |show_context|
+// ~~~ End section 310 ~~~
+
+// ~~~ Section 333 ~~~
+extern pointer par_loc;    // location of \par in eqtb
+extern halfword par_token; // token representing \par
+// ~~~ End section 333 ~~~
+
+// ~~~ Section 361 ~~~
+extern bool force_eof; // should the next \input be aborted early?
+// ~~~ End section 361 ~~~
+
+// ~~~ Section 382 ~~~
+extern pointer cur_mark[SPLIT_BOT_MARK_CODE + 1]; // token lists for marks
+// ~~~ End section 382 ~~~
+
+// ~~~ Section 387 ~~~
+extern int long_state; // governs the acceptance of \par
+// ~~~ End section 387 ~~~
+
+// ~~~ Section 388 ~~~
+extern pointer pstack[9]; // arguments supplied to a macro
+// ~~~ End section 388 ~~~
+
+// ~~~ Section 410 ~~~
+extern int cur_val; // value returned by numeric scanners
+extern int cur_val_level; // the "level" of this value
+// ~~~ End section 410 ~~~
+
+// ~~~ Section 438 ~~~
+extern small_number radix; // |scan_int| sets this to 8, 10, 16, or zero
+// ~~~ End section 438 ~~~
+
+// ~~~ Section 447 ~~~
+extern int cur_order; // order of infinity found by |scan_dimen|
+// ~~~ End section 447 ~~~
+
+// ~~~ Section 480 ~~~
+extern alpha_file read_file[16]; // used for \read
+extern int read_open[17];        // state of read_file[n]
+// ~~~ End section 480 ~~~
+
+// ~~~ Section 489 ~~~
+extern pointer cond_ptr;    // top of the condition stack
+extern int if_limit;        // upper bound on |fi_or_else| codes
+extern small_number cur_if; // type of conditional being worked on
+extern int if_line;         // line where that conditional began
+// ~~~ End section 489 ~~~
+
+// ~~~ Section 493 ~~~
+extern int skip_line; // skipping began here
+// ~~~ End section 493 ~~~
+
+// ~~~ Section 512 ~~~
+extern str_number cur_name; // name of file just scanned
+extern str_number cur_area; // file area just scanned, or ""
+extern str_number cur_ext;  // file extension just scanned, or ""
+// ~~~ End section 512 ~~~
+
+// ~~~ Section 513 ~~~
+extern pool_pointer area_delimiter; // the most recent '&gt;' or ':', if any
+extern pool_pointer ext_delimiter;  // the relevant '.', if any
+// ~~~ End section 513 ~~~
+
+// ~~~ Section 520 ~~~
+extern char tex_format_default[FORMAT_DEFAULT_LENGTH];
+// ~~~ End section 520 ~~~
+
+// ~~~ Section 527 ~~~
+extern bool name_in_progress; // is a file name being scanned?
+extern str_number job_name;   // principal file name
+extern bool log_opened;       // has the transcript file been opened?
+// ~~~ End section 527 ~~~
+
+// ~~~ Section 532 ~~~
+extern byte_file dvi_file;          // the device-independent output goes here
+extern str_number output_file_name; // full name of the output file
+extern str_number log_name;         // full name of the log file
+// ~~~ End section 532 ~~~
+
+// ~~~ Section 539 ~~~
+extern byte_file tfm_file;
+// ~~~ End section 539 ~~~
+
+// ~~~ Section 549 ~~~
+extern memory_word font_info[FONT_MEM_SIZE + 1]; // the big collection of font data
+extern font_index fmem_ptr;                      // first unused word of |font_info|
+extern internal_font_number font_ptr;            // largest internal font number in use
+extern memory_word font_check[FONT_MAX + 1];     // check sum
+extern scaled font_size[FONT_MAX + 1];           // "at" size
+extern scaled font_dsize[FONT_MAX + 1];          // "design" size
+extern font_index font_params[FONT_MAX + 1];     // how many font parameters are present
+extern str_number font_name[FONT_MAX + 1];       // name of the font
+extern str_number font_area[FONT_MAX + 1];       // area of the font
+extern eight_bits font_bc[FONT_MAX + 1];         // beginning (smallest) character code
+extern eight_bits font_ec[FONT_MAX + 1];         // ending (largest) character code
+extern pointer font_glue[FONT_MAX + 1];          // glue specification for interword space, |null| if not allocated
+extern bool font_used[FONT_MAX + 1];             // has a character from this font actually appeared in the output?
+extern int hyphen_char[FONT_MAX + 1];            // current \hyphenchar values
+extern int skew_char[FONT_MAX + 1];              // current \skewchar values
+extern font_index bchar_label[FONT_MAX + 1];     // start of |lig_kern| program for left boundary character, |NON_ADDRESS| if there is none
+extern int font_bchar[FONT_MAX + 1];        // boundary character, |NON_CHAR| if there is none
+extern int font_false_bchar[FONT_MAX + 1];  // |font_bchar| if it doesn't exist in the font, otherwise |NON_CHAR|
+// ~~~ End section 549 ~~~
+
+// ~~~ Section 550 ~~~
+extern int char_base[FONT_MAX+ 1];      // base addresses for |char_info|
+extern int width_base[FONT_MAX + 1];    // base addresses for widths
+extern int height_base[FONT_MAX + 1];   // base addresses for heights
+extern int depth_base[FONT_MAX + 1];    // base addresses for depths
+extern int italic_base[FONT_MAX + 1];   // base addresses for italic corrections
+extern int lig_kern_base[FONT_MAX + 1]; // base addresses for ligature/kerning programs
+extern int kern_base[FONT_MAX + 1];     // base addresses for kerns
+extern int exten_base[FONT_MAX + 1];    // base addresses for extensible recipes
+extern int param_base[FONT_MAX + 1];    // base addresses for font parameters
+// ~~~ End section 550 ~~~
+
+// ~~~ Section 555 ~~~
+extern memory_word null_character; // nonexistent character information
+// ~~~ End section 555 ~~~
+
+// ~~~ Section 592 ~~~
+extern int total_pages;    // the number of pages that have been shipped out
+extern scaled max_v;       // maximum height-plus-depth of pages shipped so far
+extern scaled max_h;       // maximum width of pages shipped so far
+extern int max_push;       // deepest nesting of |PUSH| commands encountered so far
+extern int last_bop;       // location of previous |BOP| in the `DVI` output
+extern int dead_cycles;    // recent outputs that didn't ship anything out
+extern bool doing_leaders; // are we inside a leader box?
+
+extern quarterword c, f;                 // character and font in current |CHAR_NODE|
+extern scaled rule_ht, rule_dp, rule_wd; // size of current rule being output
+extern pointer g;                        // current glue specification
+extern int lq, lr;                       // quantities used in calculations for leaders
+// ~~~ End section 592 ~~~
+
+// ~~~ Section 595 ~~~
+extern eight_bits dvi_buf[DVI_BUF_SIZE + 1]; // buffer for `DVI` output
+extern int half_buf; // half of |DVI_BUF_SIZE|
+extern int dvi_limit; // end of the current half buffer
+extern int dvi_ptr; // the next available buffer address
+extern int dvi_offset; // |DVI_BUF_SIZE| times the number of times the output buffer has been fully emptied
+extern int dvi_gone; // the number of bytes already output to |dvi_file|
+// ~~~ End section 595 ~~~
+
+// ~~~ Section 605 ~~~
+extern pointer down_ptr, right_ptr; // heads of the down and right stacks
+// ~~~ End section 605 ~~~
+
+// ~~~ Section 616 ~~~
+extern scaled dvi_h, dvi_v;        // a `DVI` reader program thinks we are here
+extern scaled cur_h, cur_v;        // TeX thinks we are here
+extern internal_font_number dvi_f; // the current font
+extern int cur_s;                  // current depth of output box nesting, initially -1
+// ~~~ End section 616 ~~~
+
+// ~~~ Section 646 ~~~
+extern scaled total_stretch[4], total_shrink[4]; // glue found by |hpack| or |vpack|
+extern int last_badness; // badness of the most recently packaged box
+// ~~~ End section 646 ~~~
+
+// ~~~ Section 647 ~~~
+extern pointer adjust_tail; // tail of adjustment list
+// ~~~ End section 647 ~~~
+
+// ~~~ Section 661 ~~~
+extern int pack_begin_line; // source file line where the current paragraph or alignment began; a negative value denotes alignment
+// ~~~ End section 661 ~~~
+
+// ~~~ Section 684 ~~~
+extern memory_word empty_field;
+extern memory_word null_delimiter;
+// ~~~ End section 684 ~~~
+
+// ~~~ Section 719 ~~~
+extern pointer cur_mlist;      // beginning of mlist to be translated
+extern small_number cur_style; // style code at current place in the list
+extern small_number cur_size;  // size code corresponding to |cur_style|
+extern scaled cur_mu;          // the math unit width corresponding to |cur_size|
+extern bool mlist_penalties;   // should |mlist_to_hlist| insert penalties?
+// ~~~ End section 719 ~~~
+
+// ~~~ Section 724 ~~~
+extern internal_font_number cur_f; // the |font| field of a |MATH_CHAR|
+extern quarterword cur_c; // the |character| field of a |MATH_CHAR|
+extern memory_word cur_i; // the |char_info| of a |MATH_CHAR|, or a lig/kern instruction
+// ~~~ End section 724 ~~~
+
+// ~~~ Section 770 ~~~
+extern pointer cur_align;          // current position in preamble list
+extern pointer cur_span;           // start of currently spanned columns in preamble list
+extern pointer cur_loop;           // place to copy when extending a periodic preamble
+extern pointer align_ptr;          // most recently pushed-down alignment stack node
+extern pointer cur_head, cur_tail; // adjustment list pointers
+// ~~~ End section 770 ~~~
+
+// ~~~ Section 814 ~~~
+extern pointer just_box; // the |HLIST_NODE| for the last line of the new paragraph
+// ~~~ End section 814 ~~~
+
+// ~~~ Section 821 ~~~
+extern pointer passive;      // most recent node on passive list
+extern pointer printed_node; // most recent node that has been printed
+extern halfword pass_number; // the number of passive nodes allocated on this pass
+// ~~~ End section 821 ~~~
+
+// ~~~ Section 823 ~~~
+// distance from first active node to |cur_p|
+extern scaled active_width0[6];
+extern scaled *active_width;
+// distance from current active node
+extern scaled cur_active_width0[6];
+extern scaled  *cur_active_width;
+// length of an "empty" line
+extern scaled background0[6];
+extern scaled *background;
+// length being computed after current break
+extern scaled break_width0[6];
+extern scaled *break_width;
+// ~~~ End section 823 ~~~
+
+// ~~~ Section 825 ~~~
+extern bool no_shrink_error_yet; // have we complained about infinite shrinkage?
+// ~~~ End section 825 ~~~
+
+// ~~~ Section 828 ~~~
+extern pointer cur_p;    // the current breakpoint under consideration
+extern bool second_pass; // is this our second attempt to break this paragraph?
+extern bool final_pass;  // is this our final attempt to break this paragraph?
+extern int threshold;    // maximum badness on feasible lines
+// ~~~ End section 828 ~~~
+
+// ~~~ Section 833 ~~~
+extern int minimal_demerits[4];  // best total demerits known for current line class and position, given the fitness
+extern int minimum_demerits;     // best total demerits known for current line class and position
+extern pointer best_place[4];    // how to achieve |minimal_demerits|
+extern halfword best_pl_line[4]; // corresponding line number
+// ~~~ End section 833 ~~~
+
+// ~~~ Section 839 ~~~
+extern scaled disc_width; // the length of discretionary material preceding a break
+// ~~~ End section 839 ~~~
+
+// ~~~ Section 847 ~~~
+extern halfword easy_line;         // line numbers |&gt; easy_line| are equivalent in break nodes
+extern halfword last_special_line; // line numbers |&gt; last_special_line| all have the same width
+extern scaled first_width;         // the width of all lines |&lt;= last_special_line|, if no \parshape has been specified
+extern scaled second_width;        // the width of all lines |&gt; last_special_line|
+extern scaled first_indent;        // left margin to go with |first_width|
+extern scaled second_indent;       // left margin to go with |second_width|
+// ~~~ End section 847 ~~~
+
+// ~~~ Section 872 ~~~
+extern pointer best_bet;     // use this passive node and its predecessors
+extern int fewest_demerits;  // the demerits associated with |best_bet|
+extern halfword best_line;   // line number following the last line of the new paragraph
+extern int actual_looseness; // the difference between |line_number(best_bet)| and the optimum |best_line|
+extern int line_diff;        // the difference between the current line number and the optimum |best_line|
+// ~~~ End section 872 ~~~
+
+// ~~~ Section 892 ~~~
+extern quarterword hc[66];                       // word to be hyphenated
+extern small_number hn;                          // the number of positions occupied in |hc|; not always a |small_number|
+extern pointer ha, hb;                           // nodes |ha .. hb| should be replaced by the hyphenated result
+extern internal_font_number hf;                  // font number of the letters in |hc|
+extern quarterword hu[64];                       // like |hc|, before conversion to lowercase
+extern int hyf_char;                             // hyphen character of the relevant font
+extern ASCII_code cur_lang, init_cur_lang;       // current hyphenation table of interest
+extern int l_hyf, r_hyf, init_l_hyf, init_r_hyf; // limits on fragment sizes
+extern halfword hyf_bchar;                       // boundary character after c_n
+// ~~~ End section 892 ~~~
+
+// ~~~ Section 900 ~~~
+extern quarterword hyf[65]; // odd values indicate discretionary hyphens
+extern pointer init_list;   // list of punctuation characters preceding the word
+extern bool init_lig;       // does |init_list| represent a ligature?
+extern bool init_lft;       // if so, did the ligature involve a left boundary?
+// ~~~ End section 900 ~~~
+
+// ~~~ Section 905 ~~~
+extern small_number hyphen_passed; // first hyphen in a ligature, if any
+// ~~~ End section 905 ~~~
+
+// ~~~ Section 907 ~~~
+extern halfword cur_l, cur_r; // characters before and after the cursor
+extern pointer cur_q;         // where a ligature should be detached
+extern pointer lig_stack;     // unfinished business to the right of the cursor
+extern bool ligature_present; // should a ligature node be made for |cur_l|?
+extern bool lft_hit, rt_hit;  // did we hit a ligature with a boundary character?
+// ~~~ End section 907 ~~~
+
+// ~~~ Section 921 ~~~
+// |trie_link|, |trie_char|, |trie_op|
+extern memory_word trie[TRIE_SIZE + 1];
+// position |k - j| of $n_j$
+extern small_number hyf_distance0[TRIE_OP_SIZE];
+extern small_number *hyf_distance; 
+// value of $n_j$
+extern small_number hyf_num0[TRIE_OP_SIZE];
+extern small_number *hyf_num;
+// continuation code
+extern quarterword hyf_next0[TRIE_OP_SIZE];
+extern quarterword *hyf_next;
+// offset for current language
+extern int op_start[256];
+// ~~~ End section 921 ~~~
+
+// ~~~ Section 926 ~~~
+extern str_number hyph_word[HYPH_SIZE + 1]; // exception words
+extern pointer hyph_list[HYPH_SIZE + 1];    // lists of hyphen positions
+extern int hyph_count;                      // the number of words in the exception dictionary
+// ~~~ End section 926 ~~~
+
+// ~~~ Section 943 ~~~
+#ifdef INIT
+// trie op codes for quadruples
+extern int trie_op_hash0[2*TRIE_OP_SIZE + 1];
+extern int *trie_op_hash;
+
+// largest opcode used so far for this language
+extern quarterword trie_used[256];
+
+// language part of a hashed quadruple
+extern ASCII_code trie_op_lang0[TRIE_OP_SIZE];
+extern ASCII_code *trie_op_lang;
+
+// opcode corresponding to a hashed quadruple
+extern quarterword trie_op_val0[TRIE_OP_SIZE];
+extern quarterword *trie_op_val;
+
+// number of stored ops so far
+extern int trie_op_ptr;
+#endif
+// ~~~ End section 943 ~~~
+
+// ~~~ Section 947 ~~~
+#ifdef INIT
+// characters to match
+
+extern unsigned char trie_c[TRIE_SIZE + 1];
+
+// operations to perform
+extern quarterword trie_o[TRIE_SIZE + 1];
+
+// left subtrie links
+extern int trie_l[TRIE_SIZE + 1];
+
+// right subtrie links
+extern int trie_r[TRIE_SIZE + 1];
+
+// the number of nodes in the trie
+extern int trie_ptr; 
+
+// used to identify equivalent subtries
+extern int trie_hash[TRIE_SIZE + 1];
+#endif
+// ~~~ End section 947 ~~~
+
+// ~~~ Section 950 ~~~
+#ifdef INIT
+// does a family start here?
+extern bool trie_taken0[TRIE_SIZE];
+extern bool *trie_taken;
+extern int trie_min[256];   // the first possible slot for each character
+extern int trie_max;        // largest location used in |trie|
+extern bool trie_not_ready; // is the trie still in linked form?
+#endif
+// ~~~ End section 950 ~~~
+
+// ~~~ Section 971 ~~~
+extern scaled best_height_plus_depth; // height of the best box, without stretching or shrinking
+// ~~~ End section 971 ~~~
+
+// ~~~ Section 980 ~~~
+extern pointer page_tail;       // the final node on the current page
+extern int page_contents;       // what is on the current page so far?
+extern scaled page_max_depth;   // maximum box depth on page being built
+extern pointer best_page_break; // break here to get the best page known so far
+extern int least_page_cost;     // the score for this currently best page
+extern scaled best_size;        // its |page_goal|
+// ~~~ End section 980 ~~~
+
+// ~~~ Section 982 ~~~
+extern scaled page_so_far[8]; // height and glue of the current page
+extern pointer last_glue;     // used to implement \lastskip
+extern int last_penalty;      // used to implement \lastpenalty
+extern scaled last_kern;      // used to implement \lastkern
+extern int insert_penalties;  // sum of the penalties for insertions that were held over
+// ~~~ End section 982 ~~~
+
+// ~~~ Section 989 ~~~
+extern bool output_active; // are we in the midst of an output routine?
+// ~~~ End section 989 ~~~
+
+// ~~~ Section 1032 ~~~
+extern internal_font_number main_f; // the current font
+extern memory_word main_i;          // character information bytes for |cur_l|
+extern memory_word main_j;          // ligature/kern command
+extern int main_k;                  // index into |font_info|
+extern pointer main_p;              // temporary register for list manipulation
+extern int main_s;                  // space factor value
+extern halfword bchar;              // boundary character of current font, or |NON_CHAR|
+extern halfword false_bchar;        // nonexistent character matching |bchar|, or |NON_CHAR|
+extern bool cancel_boundary;        // should the left boundary be ignored?
+extern bool ins_disc;               // should we insert a discretionary node?
+// ~~~ End section 1032 ~~~
+
+// ~~~ Section 1074 ~~~
+extern pointer cur_box; // box to be placed into its context
+// ~~~ End section 1074 ~~~
+
+// ~~~ Section 1266 ~~~
+extern halfword after_token; // zero, or a saved token
+// ~~~ End section 1266 ~~~
+
+// ~~~ Section 1281 ~~~
+extern bool long_help_seen; // has the long \errmessage help been used?
+// ~~~ End section 1281 ~~~
+
+// ~~~ Section 1299 ~~~
+extern str_number format_ident;
+// ~~~ End section 1299 ~~~
+
+// ~~~ Section 1305 ~~~
+extern word_file fmt_file; // for input or output of format information
+// ~~~ End section 1305 ~~~
+
+// ~~~ Section 1342 ~~~
+extern alpha_file write_file[16];
+extern bool write_open[18];
+// ~~~ End section 1342 ~~~
+
+// ~~~ Section 1345 ~~~
+extern pointer write_loc; // |eqtb| address of \write
+// ~~~ End section 1345 ~~~
+// ~~~ End section 13 ~~~
+</code></pre>
+</div>
+<h1 id="section-1381"><a class="header" href="#section-1381">Section 1381</a></h1>
+<p>We specify here the safeguards on header files, includes and prototypes of functions.
+Also, we need to add <code>#endif</code> to each header file to close the include safeguards.</p>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>alignment.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef ALIGNMENT_H_
+#define ALIGNMENT_H_
+
+#include "datastructures.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-769">769</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.h</div>
+<pre><code class="language-c">void init_align();
+
+void align_peek();
+
+void init_row();
+
+void init_span(pointer p);
+
+void init_col();
+
+bool fin_col();
+
+void fin_row();
+
+void fin_align();
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>arithmetic.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef ARITHMETIC_H_
+#define ARITHMETIC_H_
+
+#include "tex.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part07.html#section-105">105</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">arithmetic.h</div>
+<pre><code class="language-c">int half(int x);
+
+// converts a decimal fraction
+scaled round_decimals(small_number k);
+
+scaled mult_and_add(int n, scaled x, scaled y, scaled max_answer);
+
+scaled x_over_n(scaled x, int n);
+
+scaled xn_over_d(scaled x, int n, int d);
+
+// compute badness, given |t &gt;= 0|
+halfword badness(scaled t, scaled s);
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>breaker.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef BREAKER_H_
+#define BREAKER_H_
+
+#include "datastructures.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-819">819</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">void line_break(int final_widow_penalty);
+
+void hyphenate();
+
+void init_trie();
+
+// adjust top after page break
+pointer prune_page_top(pointer p);
+
+// finds optimum page break
+pointer vert_break(pointer p, scaled h, scaled d);
+
+// extracts a page of height |h| from box |n|
+pointer vsplit(eight_bits n, scaled h);
+
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>builder.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef BUILDER_H_
+#define BUILDER_H_
+
+#include "datastructures.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-644">644</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">pointer hpack(pointer p, scaled w, small_number m);
+
+pointer vpackage(pointer p, scaled h, small_number m, scaled l);
+
+void append_to_vlist(pointer b);
+
+void box_error(eight_bits n);
+
+void build_page();
+
+void main_control();
+
+void you_cant();
+
+void report_illegal_case();
+
+void append_glue();
+
+void append_kern();
+
+void off_save();
+
+void handle_right_brace();
+
+void extra_right_brace();
+
+void normal_paragraph();
+
+void begin_box(int box_context);
+
+// the next input should specify a box or perhaps a rule
+void scan_box(int box_context);
+
+void package(small_number c);
+
+small_number norm_min(int h);
+void new_graf(bool indented);
+
+void indent_in_hmode();
+
+void head_for_vmode();
+
+void end_graf();
+
+void begin_insert_or_adjust();
+
+void make_mark();
+
+void append_penalty();
+
+void delete_last();
+
+void unpackage();
+
+void append_italic_correction();
+
+void append_discretionary();
+
+void build_discretionary();
+
+void make_accent();
+
+void align_error();
+
+void do_endv();
+
+void prefixed_command();
+
+void do_assignments();
+
+void open_or_close_in();
+
+void issue_message();
+
+void shift_case();
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>conditional.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef CONDITIONAL_H_
+#define CONDITIONAL_H_
+
+#include "tex.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-489">489</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">conditional.h</div>
+<pre><code class="language-c">#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>constants.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef CONSTANTS_H_
+#define CONSTANTS_H_
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part01.html#section-2">2</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>datastructures.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef DATASTRUCTURES_H_
+#define DATASTRUCTURES_H_
+
+#include "tex.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part08.html#section-113">113</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">// single-word node allocation
+pointer get_avail();
+
+// makes list of single-word nodes
+void flush_list(pointer p);
+
+// variable-size node allocation
+pointer get_node(int s);
+
+// variable-size node liberation
+void free_node(pointer p, halfword s);
+
+#ifdef INIT
+// sorts the available variable-size nodes by location
+void sort_avail();
+#endif
+
+#ifdef DEBUG
+void check_mem(bool print_locs);
+// look for pointers to |p|
+void search_mem(pointer p);
+#endif
+
+// creates a new box node
+pointer new_null_box();
+
+pointer new_rule();
+
+pointer new_ligature(quarterword f, quarterword c, pointer q);
+pointer new_lig_item(quarterword c);
+
+pointer new_disc();
+
+pointer new_math(scaled w, small_number s);
+
+// duplicates a glue specification
+pointer new_spec(pointer p);
+
+pointer new_param_glue(small_number n);
+
+pointer new_glue(halfword q);
+
+pointer new_skip_param(small_number n);
+
+pointer new_kern(scaled w);
+
+pointer new_penalty(int m);
+
+// |p| points to the reference count of a token list that is losing one reference
+void delete_token_ref(pointer p);
+
+// |p| points to a glue specification
+void delete_glue_ref(pointer p);
+
+// erase list of nodes starting at |p|
+void flush_node_list(pointer p);
+
+// makes a duplicate of the node list that starts at |p|
+// and returns a pointer to the new list
+pointer copy_node_list(pointer p);
+
+// enter a new semantic level, save the old
+void push_nest();
+
+// leave a semantic level, re-enter the old
+void pop_nest();
+
+// search the hash table
+pointer id_lookup(int j, int l);
+
+#ifdef INIT
+void primitive(char *s, quarterword c, halfword o);
+#endif
+
+// begin a new level of grouping
+void new_save_level(int c);
+
+//  new data for |eqtb|
+void eq_define(pointer p, quarterword t, halfword e);
+
+void eq_word_define(pointer p, int w);
+
+// global |eq_define|
+void geq_define(pointer p, quarterword t, halfword e);
+
+// global |eq_word_define|
+void geq_word_define(pointer p, int w);
+
+void save_for_after(halfword t);
+
+// pops the top level off the save stack
+void unsave();
+
+void prepare_mag();
+
+void runaway();
+
+void begin_token_list(pointer p, quarterword t);
+
+// leave a token-list input level
+void end_token_list();
+
+// undoes one token of input
+void back_input();
+
+// back up one token and call |error|
+void back_error();
+
+// back up one inserted token and call |error|
+void ins_error();
+
+void begin_file_reading();
+
+void end_file_reading();
+
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>dvi.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef DVI_H_
+#define DVI_H_
+
+#include "io.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part29.html#section-532">532</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.h</div>
+<pre><code class="language-c">void write_dvi(int a, int b);
+
+void dvi_swap();
+
+void dvi_four(int x);
+
+void dvi_font_def(internal_font_number f);
+
+void movement(scaled w, eight_bits o);
+
+void vlist_out();
+
+// output the box |p|
+void ship_out(pointer p);
+
+void out_what(pointer p);
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>texerror.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef ERROR_H_
+#define ERROR_H_
+
+#include "io.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part06.html#section-73">73</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">texerror.h</div>
+<pre><code class="language-c">void error();
+
+void int_error(int n);
+
+void normalize_selector();
+
+void succumb();
+// prints |s| and that's it
+void fatal_error(char *s);
+
+// stop due to finiteness
+void overflow(char *s, int n);
+
+// consistency check violated; |s| tells where
+void confusion(char *s);
+
+void pause_for_instructions();
+
+void mu_error();
+
+void give_err_help();
+
+void clear_for_error_prompt();
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>extensions.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef EXTENSIONS_H_
+#define EXTENSIONS_H_
+
+#include "datastructures.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1341">1341</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">extensions.h</div>
+<pre><code class="language-c">void do_extension();
+
+void new_whatsit(small_number s, small_number w);
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>font_metric.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef FONT_METRIC_H_
+#define FONT_METRIC_H_
+
+#include "datastructures.h"
+#include "texerror.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-545">545</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">// input a `TFM` file
+internal_font_number read_font_info(pointer u, str_number nom, str_number aire, scaled s);
+
+void char_warning(internal_font_number f, eight_bits c);
+
+pointer new_character(internal_font_number f, eight_bits c);
+
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>io.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef IO_H_
+#define IO_H_
+
+#include "strings.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part03.html#section-34">34</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">// open a text file for input
+int a_open_in(alpha_file *f);
+
+// open a text file for output
+int a_open_out(alpha_file *f);
+
+// open a binary file for input
+int b_open_in(byte_file *f);
+
+// open a binary file for output
+int b_open_out(byte_file *f);
+
+// open a word file for input
+int w_open_in(word_file *f);
+
+// open a word file for output
+int w_open_out(word_file *f);
+
+// close a text file
+void a_close(alpha_file f);
+
+// close a binary file
+void b_close(byte_file f);
+
+// close a word file
+void w_close(word_file f);
+
+// inputs the next line or returns |false|
+int input_ln(alpha_file f);
+
+// prints an end-of-line
+void print_ln();
+
+// prints a single character
+void print_char(ASCII_code s);
+
+// prints string s
+void print(char *s);
+void print_strnumber(int s);
+
+// prints string s
+void slow_print(int s);
+
+// prints string |s| at beginning of line
+void print_nl(char *s);
+void print_nl_strnumber(str_number s);
+
+// prints escape character, then |s|
+void print_esc(char *s);
+void print_esc_strnumber(str_number s);
+
+// prints an integer in decimal form
+void print_int(int n);
+
+// prints two least significant digits
+void print_two(int n);
+
+// prints a positive integer in hexadecimal form
+void print_hex(int n);
+
+void print_roman_int(int n);
+
+// prints a yet-unmade string
+void print_current_string();
+
+// gets a line from the terminal
+void term_input();
+
+// prints scaled real, rounded to five digits
+void print_scaled(scaled s);
+
+#ifdef DEBUG
+// prints |w| in all ways
+void print_word(memory_word w);
+#endif
+
+// prints highlights of list |p|
+void short_display(int p);
+
+// prints a glue specification
+void print_spec(int p, char *s);
+
+// prints a node list symbolically
+void show_node_list(int p);
+
+void show_box(pointer p);
+
+// prints the mode represented by |m|
+void print_mode(int m);
+
+void print_skip_param(int n);
+
+void print_param(int n);
+
+// prepare to do some tracing
+void begin_diagnostic();
+void end_diagnostic(bool blank_line);
+
+void print_length_param(int n);
+
+#ifdef STAT
+void show_eqtb(pointer n);
+#endif
+
+// prints a purported control sequence
+void print_cs(int p);
+
+// prints a purported control sequence
+void sprint_cs(pointer p);
+
+void show_token_list(int p, int q, int l);
+
+void token_show(pointer p);
+
+void print_meaning();
+
+void print_cmd_chr(quarterword cmd, halfword chr_code);
+
+void show_cur_cmd_chr();
+
+// prints where the scanner is
+void show_context();
+
+void print_file_name(int n, int a, int e);
+
+bool open_fmt_file();
+
+void prompt_file_name(char *s, str_number e);
+
+void open_log_file();
+
+// TeX will \input something
+void start_input();
+
+// prints family and character
+void print_fam_and_char(pointer p);
+// prints a delimiter as 24-bit hex value
+void print_delimiter(pointer p);
+
+// display a noad field
+void print_subsidiary_data(pointer p, ASCII_code c);
+
+// the reader will kindly forgive this
+void show_info();
+
+void print_style(int c);
+
+void print_size(int s);
+
+void print_totals();
+
+void show_whatever();
+
+#ifdef INIT
+void store_fmt_file();
+#endif
+
+bool load_fmt_file();
+
+void print_write_whatsit(char *s, pointer p);
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>texmath.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef MATH_H_
+#define MATH_H_
+
+#include "datastructures.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part34.html#section-681">681</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">texmath.h</div>
+<pre><code class="language-c">pointer new_noad();
+
+// create a style node
+pointer new_style(small_number s);
+
+// create a choice node
+pointer new_choice();
+
+// construct the bar for a fraction
+pointer fraction_rule(scaled t);
+
+pointer overbar(pointer b, scaled k, scaled t);
+
+pointer var_delimiter(pointer d, small_number s, scaled v);
+
+pointer char_box(internal_font_number f, quarterword c);
+
+pointer rebox(pointer b, scaled w);
+
+pointer math_glue(pointer g, scaled m);
+
+void math_kern(pointer p, scaled m);
+
+void flush_math();
+
+void mlist_to_hlist();
+
+void init_math();
+
+void start_eq_no();
+
+void scan_math(pointer p);
+
+void set_math_char(int c);
+
+void math_limit_switch();
+
+void math_radical();
+
+void math_ac();
+
+void append_choices();
+
+void build_choices();
+
+void sub_sup();
+
+void math_fraction();
+
+pointer fin_mlist(pointer p);
+
+void math_left_right();
+
+void after_math();
+
+void resume_after_display();
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>parser.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef PARSER_H_
+#define PARSER_H_
+
+#include "datastructures.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-344">344</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">// sets |cur_cmd|, |cur_chr|, |cur_cs| to next token
+void get_next();
+
+void firm_up_the_line();
+
+// sets |cur_cmd|, |cur_chr|, |cur_tok|
+void get_token();
+
+void expand();
+
+void insert_relax();
+
+// sets |cur_cmd|, |cur_chr|, |cur_tok|, and expands macros
+void get_x_token();
+
+// |get_x_token| without the initial |get_next|
+void x_token();
+
+// invokes a user-defined control sequence
+void macro_call();
+
+// reads a mandatory |LEFT_BRACE|
+void scan_left_brace();
+
+void scan_optional_equals();
+
+// look for a given string
+bool scan_keyword(char *s);
+
+// fetch an internal parameter
+void scan_something_internal(small_number level, bool negative);
+
+void scan_eight_bit_int();
+
+void scan_char_num();
+
+void scan_four_bit_int();
+
+void scan_fifteen_bit_int();
+
+void scan_twenty_seven_bit_int();
+
+// sets |cur_val| to an integer
+void scan_int();
+
+// sets |cur_val| to a dimension
+void scan_dimen(bool mu, bool inf, bool shortcut);
+
+// sets |cur_val| to a glue spec pointer
+void scan_glue(small_number level);
+
+pointer scan_rule_spec();
+
+pointer the_toks();
+
+void ins_the_toks();
+
+void conv_toks();
+
+pointer scan_toks(bool macro_def, bool xpand);
+
+void read_toks(int n, pointer r);
+
+void pass_text();
+
+void conditional();
+
+void begin_name();
+
+bool more_name(ASCII_code c);
+
+void end_name();
+
+void pack_file_name(str_number n, str_number a, str_number e);
+
+str_number make_name_string();
+
+void scan_file_name();
+
+void pack_job_name(str_number s);
+
+void scan_font_ident();
+
+// sets |cur_val| to |font_info| location
+void find_font_dimen(bool writing);
+
+// scans a box specification and left brace
+void scan_spec(int c, bool three_codes);
+
+#ifdef INIT
+void new_patterns();
+#endif
+
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>strings.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef STRINGS_H_
+#define STRINGS_H_
+
+#include "tex.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part04.html#section-40">40</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">strings.h</div>
+<pre><code class="language-c">// current string enters the pool
+str_number make_string();
+
+// test equality of strings
+int str_eq_buf(str_number s, int k);
+
+// test equality of strings
+int str_eq_str(str_number s, str_number t);
+
+#ifdef INIT
+// initializes the string pool
+void get_strings_started();
+#endif
+
+str_number put_string(char *s);
+
+#endif
+</code></pre>
+</div>
+<hr />
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>tex.h</em> <a href="./part54.html#section-1381">1381</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifndef TEX_H_
+#define TEX_H_
+
+#include &lt;stdio.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;stdbool.h&gt;
+#include "constants.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part01.html#section-4">4</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-fname">tex.h</div>
+<pre><code class="language-c">void initialize();
+
+// gets the terminal input started
+bool init_terminal(int argc, char *argv[]);
+
+void fix_date_and_time();
+
+void close_files_and_terminate();
+
+void final_cleanup();
+
+#ifdef INIT
+// initialize all the primitives
+void init_prim();
+#endif
+
+#ifdef DEBUG
+void debug_help();
+#endif
+
+#endif
+</code></pre>
+</div>
+<h1 id="section-1382"><a class="header" href="#section-1382">Section 1382</a></h1>
+<p>Here we add the files that needs to be included in each C file.
+Having all them here makes it easier to add or remove things.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>alignment.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;math.h&gt;
+#include "alignment.h"
+#include "texerror.h"
+#include "builder.h"
+#include "texmath.h"
+#include "parser.h"
+#include "arithmetic.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-772">772</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>arithmetic.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "tex.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part07.html#section-100">100</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>dvi.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;math.h&gt;
+#include "dvi.h"
+#include "texerror.h"
+#include "extensions.h"
+#include "font_metric.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-597">597</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>error.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+#include "texerror.h"
+#include "datastructures.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part06.html#section-81">81</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>extensions.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "extensions.h"
+#include "parser.h"
+#include "dvi.h"
+#include "builder.h"
+#include "texerror.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1348">1348</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>font_metric.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "font_metric.h"
+#include "arithmetic.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-560">560</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>global.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "tex.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part01.html#section-4">4</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>init_cleanup.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+#include "builder.h"
+#include "conditional.h"
+#include "dvi.h"
+#include "texerror.h"
+#include "parser.h"
+#ifdef INIT
+#include "breaker.h"
+#endif
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part01.html#section-4">4</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>strings.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;string.h&gt;
+#include "strings.h"
+#include "texerror.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part02.html#section-20">20</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>hyphenation.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "breaker.h"
+#include "font_metric.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part40.html#section-895">895</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>line_break.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "breaker.h"
+#include "builder.h"
+#include "texerror.h"
+#include "font_metric.h"
+#include "arithmetic.h"
+#include "extensions.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-815">815</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>page_break.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "breaker.h"
+#include "builder.h"
+#include "texerror.h"
+#include "parser.h"
+#include "arithmetic.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part44.html#section-968">968</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>boxes_and_lists.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;math.h&gt;
+#include "texerror.h"
+#include "builder.h"
+#include "parser.h"
+#include "texmath.h"
+#include "font_metric.h"
+#include "alignment.h"
+#include "dvi.h"
+#include "breaker.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1060">1060</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>chief.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "builder.h"
+#include "texerror.h"
+#include "extensions.h"
+#include "parser.h"
+#include "font_metric.h"
+#include "arithmetic.h"
+#include "alignment.h"
+#include "texmath.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1030">1030</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>independent.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "builder.h"
+#include "texerror.h"
+#include "parser.h"
+#include "arithmetic.h"
+#include "font_metric.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1211">1211</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>packaging.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "builder.h"
+#include "font_metric.h"
+#include "arithmetic.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-649">649</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>page_builder.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "builder.h"
+#include "breaker.h"
+#include "texerror.h"
+#include "parser.h"
+#include "dvi.h"
+#include "arithmetic.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-987">987</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>hash.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifdef INIT
+#include &lt;string.h&gt;
+#endif
+#include "datastructures.h"
+#include "texerror.h"
+#include "strings.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part18.html#section-259">259</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>memory.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "datastructures.h"
+#include "texerror.h"
+#include "extensions.h"
+#include "texmath.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part09.html#section-120">120</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>modes.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "datastructures.h"
+#include "texerror.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part16.html#section-216">216</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>nodes.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "datastructures.h"
+#include "arithmetic.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part10.html#section-136">136</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>stack.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "datastructures.h"
+#include "texerror.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part19.html#section-274">274</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>basic_printing.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;math.h&gt;
+#include &lt;string.h&gt;
+#include "datastructures.h"
+#include "io.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part05.html#section-57">57</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>display_boxes.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;math.h&gt;
+#include &lt;string.h&gt;
+#include "datastructures.h"
+#include "io.h"
+#include "extensions.h"
+#include "texmath.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-174">174</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>display_context.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "datastructures.h"
+#include "io.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part22.html#section-311">311</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>display_math.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "io.h"
+#include "texmath.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part34.html#section-691">691</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>display_tokens.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "datastructures.h"
+#include "io.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part20.html#section-292">292</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>dumping.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifdef INIT
+#include "texerror.h"
+#include "breaker.h"
+#else
+#include "io.h"
+#endif
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part29.html#section-523">523</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>files.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+#include "datastructures.h"
+#include "texerror.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part03.html#section-27">27</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>other_printing.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "arithmetic.h"
+#include "builder.h"
+#include "texerror.h"
+#include "extensions.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part16.html#section-211">211</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>terminal.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;string.h&gt;
+#include "texerror.h"
+#include "io.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part05.html#section-71">71</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>math_lists.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "arithmetic.h"
+#include "breaker.h"
+#include "builder.h"
+#include "font_metric.h"
+#include "parser.h"
+#include "texmath.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part48.html#section-1136">1136</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>math_structures.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "texmath.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part34.html#section-686">686</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>math_subroutines.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "arithmetic.h"
+#include "builder.h"
+#include "font_metric.h"
+#include "texmath.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part35.html#section-704">704</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>math_typesetting.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "arithmetic.h"
+#include "builder.h"
+#include "texerror.h"
+#include "font_metric.h"
+#include "texmath.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part36.html#section-720">720</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>build_tokens.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "datastructures.h"
+#include "texerror.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part27.html#section-464">464</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>conditional.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "conditional.h"
+#include "parser.h"
+#include "texerror.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-494">494</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>expand_next_token.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "conditional.h"
+#include "texerror.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-366">366</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>filenames.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "texerror.h"
+#include "parser.h"
+#include "strings.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part29.html#section-515">515</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>get_next_token.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include "alignment.h"
+#include "texerror.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-336">336</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>hyph_scan.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifdef INIT
+#include "breaker.h"
+#endif
+#include "texerror.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part42.html#section-934">934</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>subroutines.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;string.h&gt;
+#include "arithmetic.h"
+#include "builder.h"
+#include "texerror.h"
+#include "font_metric.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-403">403</a>.</p>
+</div></div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start file <em>main.c</em> <a href="./part54.html#section-1382">1382</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include "builder.h"
+#include "io.h"
+#include "parser.h"
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part51.html#section-1332">1332</a>.</p>
+</div></div>
+<h1 id="section-1383"><a class="header" href="#section-1383">Section 1383</a></h1>
+<p>Finally, the makefile.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">Makefile</div>
+<pre><code class="language-makefile">CC = gcc
+CFLAGS = -Wall -Wextra -O2
+LDFLAGS = -lm
+# -DSTAT and -DDEBUG can be added.
+# For INIT or TRIP: use make rule initex or triptex
+TEXFLAGS =
+
+INCLDIR = include
+BINDIR = bin
+
+BINVIR = virtex
+BININI = initex
+BINTRIP = triptex
+BINS = $(BINVIR) $(BININI)
+
+SRC = $(wildcard *.c) $(wildcard */*.c)
+OBJVIR = $(SRC:%.c=%.o)
+OBJINI = $(SRC:%.c=%_init.o)
+OBJTRIP = $(SRC:%.c=%_trip.o)
+
+.PHONY: all clean
+
+all: $(BINS)
+
+$(BINVIR): $(OBJVIR)
+$(BINVIR): OBJ = $(OBJVIR)
+
+$(BININI): $(OBJINI)
+$(BININI): OBJ = $(OBJINI)
+$(BININI): TEXFLAGS += -DINIT
+
+$(BINTRIP): $(OBJTRIP)
+$(BINTRIP): OBJ = $(OBJTRIP)
+$(BINTRIP): TEXFLAGS = -DINIT -DSTAT -DTRIP
+
+$(BINS) $(BINTRIP): $(BINDIR) $(OBJ)
+$(BINS) $(BINTRIP):
+	$(CC) $(CFLAGS) $(TEXFLAGS) -o $(BINDIR)/$@ $(OBJ) $(LDFLAGS) -I$(INCLDIR)
+
+$(BINDIR):
+	mkdir -p $(BINDIR)
+
+%_init.o: %.c
+	$(CC) $(CFLAGS) $(TEXFLAGS) -c $&lt; -o $@ -I$(INCLDIR)
+
+%_trip.o: %.c
+	$(CC) $(CFLAGS) $(TEXFLAGS) -c $&lt; -o $@ -I$(INCLDIR)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(TEXFLAGS) -c $&lt; -o $@ -I$(INCLDIR)
+
+clean:
+	rm -f $(OBJVIR) $(OBJINI) $(OBJTRIP)
+	rm -rf $(BINDIR)
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part53.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part53.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,1098 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 332–365 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html" class="active">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-332-getting-the-next-token"><a class="header" href="#section-332-getting-the-next-token">Section 332: Getting the next token</a></h1>
+<p>The heart of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s input mechanism is the <em>get_next</em> procedure, which we shall develop in the next few sections of the program.
+Perhaps we shouldn’t actually call it the “heart”, however, because it really acts as <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s eyes and mouth, reading the source files and gobbling them up.
+And it also helps <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> to regurgitate stored token lists that are to be processed again.</p>
+<p>The main duty of <em>get_next</em> is to input one token and to set <em>cur_cmd</em> and <em>cur_chr</em> to that token’s command code and modifier.
+Furthermore, if the input token is a control sequence, the <em>eqtb</em> location of that control sequence is stored in <em>cur_cs</em>; otherwise <em>cur_cs</em> is set to zero.</p>
+<p>Underlying this simple description is a certain amount of complexity because of all the cases that need to be handled.
+However, the inner loop of <em>get_next</em> is reasonably short and fast.</p>
+<p>When <em>get_next</em> is asked to get the next token of a <code>\read</code> line, it sets <em>cur_cmd = cur_chr = cur_cs = 0</em> in the case that no more tokens appear on that line.
+(There might not be any tokens at all, if the <em>end_line_char</em> has <em>ignore</em> as its catcode.)</p>
+<h1 id="section-333"><a class="header" href="#section-333">Section 333</a></h1>
+<p>The value of <em>par_loc</em> is the <em>eqtb</em> address of ‘<code>\par</code>’.
+This quantity
+is needed because a blank line of input is supposed to be exactly equivalent
+to the appearance of <code>\par</code>; we must set <em>cur_cs ← par_loc</em> when detecting a blank line.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer par_loc;    // location of \par in eqtb
+halfword par_token; // token representing \par
+</code></pre>
+</div>
+<h1 id="section-334"><a class="header" href="#section-334">Section 334</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("par", PAR_END, 256); // cf. |scan_file_name|
+par_loc = cur_val;
+par_token = CS_TOKEN_FLAG + par_loc;
+</code></pre>
+</div>
+<h1 id="section-335"><a class="header" href="#section-335">Section 335</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case PAR_END:
+    print_esc("par");
+    break;
+</code></pre>
+</div>
+<h1 id="section-336"><a class="header" href="#section-336">Section 336</a></h1>
+<p>Before getting into <em>get_next</em>, let’s consider the subroutine that is called when an ‘<code>\outer</code>’ control sequence has been scanned or when the end of a file has been reached.
+These two cases are distinguished by <em>cur_cs</em>, which is zero at the end of a file.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">get_next_token.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |get_next_token.c|, 1382 &gt;&gt;
+
+void check_outer_validity() {
+    pointer p; // points to inserted token list
+    pointer q; // auxiliary pointer
+    if (scanner_status != NORMAL) {
+        deletions_allowed = false;
+        // &lt;&lt; Back up an outer control sequence so that it can be reread, 337 &gt;&gt;
+        if (scanner_status &gt; SKIPPING) {
+            // &lt;&lt; Tell the user what has run away and try to recover, 338 &gt;&gt;
+        }
+        else {
+            print_err("Incomplete ");
+            print_cmd_chr(IF_TEST, cur_if);
+            print("; all text was ignored after line ");
+            print_int(skip_line);
+            help3("A forbidden control sequence occurred in skipped text.")
+                ("This kind of error happens when you say `\\if...' and forget")
+                ("the matching `\\fi'. I've inserted a `\\fi'; this might work.");
+            if (cur_cs != 0) {
+                cur_cs = 0;
+            }
+            else {
+                help_line[2] = "The file ended while I was skipping conditional text.";
+            }
+            cur_tok = CS_TOKEN_FLAG + FROZEN_FI;
+            ins_error();
+        }
+        deletions_allowed = true;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-337"><a class="header" href="#section-337">Section 337</a></h1>
+<p>An outer control sequence that occurs in a <code>\read</code> will not be reread, since the error recovery for <code>\read</code> is not very powerful.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Back up an outer control sequence so that it can be reread <a href="./part24.html#section-337">337</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_cs != 0) {
+    if (state == TOKEN_LIST || name &lt; 1 || name &gt; 17) {
+        p = get_avail();
+        info(p) = CS_TOKEN_FLAG + cur_cs;
+        back_list(p); // prepare to read the control sequence again
+    }
+    cur_cmd = SPACER;
+    cur_chr = ' '; // replace it by a space
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-336">336</a>.</p>
+</div></div>
+<h1 id="section-338"><a class="header" href="#section-338">Section 338</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Tell the user what has run away and try to recover <a href="./part24.html#section-338">338</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">runaway(); // print a definition, argument, or preamble
+if (cur_cs == 0) {
+    print_err("File ended");
+}
+else {
+    cur_cs = 0;
+    print_err("Forbidden control sequence found");
+}
+print(" while scanning ");
+// &lt;&lt; Print either 'definition' or 'use' or 'preamble' or 'text', and insert tokens that should lead to recovery, 339 &gt;&gt;
+print(" of ");
+sprint_cs(warning_index);
+help4("I suspect you have forgotten a `}', causing me")
+    ("to read past where you wanted me to stop.")
+    ("I'll try to recover; but if the error is serious,")
+    ("you'd better type `E' or `X' now and fix your file.");
+error();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-336">336</a>.</p>
+</div></div>
+<h1 id="section-339"><a class="header" href="#section-339">Section 339</a></h1>
+<p>The recovery procedure can’t be fully understood without knowing more about the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> routines that should be aborted, but we can sketch the ideas here:
+For a runaway definition or a runaway balanced text we will insert a right brace;
+for a runaway preamble, we will insert a special <code>\cr</code> token and a right brace;
+and for a runaway argument, we will set <em>long_state</em> to <em>OUTER_CALL</em> and insert <code>\par</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print either ‘definition’ or ‘use’ or ‘preamble’ or ‘text’, and insert tokens that should lead to recovery <a href="./part24.html#section-339">339</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = get_avail();
+switch (scanner_status) {
+case DEFINING:
+    print("definition");
+    info(p) = RIGHT_BRACE_TOKEN + '}';
+    break;
+
+case MATCHING:
+    print("use");
+    info(p) = par_token;
+    long_state = OUTER_CALL;
+    break;
+
+case ALIGNING:
+    print("preamble");
+    info(p) = RIGHT_BRACE_TOKEN + '}';
+    q = p;
+    p = get_avail();
+    link(p) = q;
+    info(p) = CS_TOKEN_FLAG + FROZEN_CR;
+    align_state = -1000000;
+    break;
+
+case ABSORBING:
+    print("text");
+    info(p) = RIGHT_BRACE_TOKEN + '}';
+} // there are no other cases
+ins_list(p);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-338">338</a>.</p>
+</div></div>
+<h1 id="section-340"><a class="header" href="#section-340">Section 340</a></h1>
+<p>We need to mention a procedure here that may be called by <em>get_next</em>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>This procedure is <em>firm_up_the_line</em> (declared in a header file).</p>
+</blockquote>
+</div>
+<h1 id="section-341"><a class="header" href="#section-341">Section 341</a></h1>
+<p>Now we’re ready to take the plunge into <em>get_next</em> itself.
+Parts of this routine are executed more often than any other instructions of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">get_next_token.c</div>
+<pre><code class="language-c">// sets |cur_cmd|, |cur_chr|, |cur_cs| to next token
+void get_next() {
+   // restart:  go here to get the next input token
+   // switch:   go here to eat the next character from a file
+   // reswitch: go here to digest it again
+   // start_cs: go here to start looking for a control sequence
+   // found:    go here when a control sequence has been found
+   // return    go here when the next input token has been got
+    int k;            // an index into |buffer|
+    halfword t;       // a token
+    int cat;          // |cat_code(cur_chr)|, usually
+    ASCII_code c, cc; // constituents of a possible expanded code
+    int d;            // number of excess characters in an expanded code
+restart:
+    cur_cs = 0;
+    if (state != TOKEN_LIST) {
+        // &lt;&lt; Input from external file, |goto restart| if no input found, 343 &gt;&gt;
+    }
+    else {
+        // &lt;&lt; Input from token list, |goto restart| if end of list or if a parameter needs to be expanded, 357 &gt;&gt;
+    }
+    // &lt;&lt; If an alignment entry has just ended, take appropriate action, 342 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-342"><a class="header" href="#section-342">Section 342</a></h1>
+<p>An alignment entry ends when a tab or <code>\cr</code> occurs, provided that the current level of braces is the same as the level that was present at the beginning of that alignment entry;
+i.e., provided that <em>align_state</em> has returned to the value it had after the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> template for that entry.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If an alignment entry has just ended, take appropriate action <a href="./part24.html#section-342">342</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_cmd &lt;= CAR_RET
+    &amp;&amp; cur_cmd &gt;= TAB_MARK
+    &amp;&amp; align_state == 0)
+{
+    // &lt;&lt; Insert the &lt;v_j&gt; template and |goto restart|, 789 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-341">341</a>.</p>
+</div></div>
+<h1 id="section-343"><a class="header" href="#section-343">Section 343</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Input from external file, <em>goto restart</em> if no input found <a href="./part24.html#section-343">343</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch_lbl:
+if (loc &lt;= limit) {
+    // current line not yet finished
+    cur_chr = buffer[loc];
+    incr(loc);
+reswitch:
+    cur_cmd = cat_code(cur_chr);
+    // &lt;&lt; Change state if necessary, and |goto switch| if the current character should be ignored, or |goto reswitch| if the current character changes to another, 344 &gt;&gt;
+}
+else {
+    state = NEW_LINE;
+    // &lt;&lt; Move to next line of file, or |goto restart| if there is no next line, or |return| if a \read line has finished, 360 &gt;&gt;
+    check_interrupt;
+    goto switch_lbl;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-341">341</a>.</p>
+</div></div>
+<h1 id="section-344"><a class="header" href="#section-344">Section 344</a></h1>
+<p>The following 48-way switch accomplishes the scanning quickly, assuming that a decent Pascal compiler has translated the code.
+Note that the numeric values for <em>MID_LINE</em>, <em>SKIP_BLANKS</em>, and <em>NEW_LINE</em> are spaced apart from each other by <em>MAX_CHAR_CODE + 1</em>, so we can add a character’s command code to the state to get a single number that characterizes both.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |parser.h|, 1381 &gt;&gt;
+
+#define any_state_plus(X)   \
+    case MID_LINE + (X):    \
+    case SKIP_BLANKS + (X): \
+    case NEW_LINE + (X)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Change state if necessary, and <em>goto switch</em> if the current character should be ignored, or <em>goto reswitch</em> if the current character changes to another <a href="./part24.html#section-344">344</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (state + cur_cmd) {
+// &lt;&lt; Cases where character is ignored, 345 &gt;&gt;
+    goto switch_lbl;
+
+any_state_plus(ESCAPE):
+    // &lt;&lt; Scan a control sequence and set |state = SKIP_BLANKS| or |MID_LINE|, 354 &gt;&gt;
+    break;
+
+any_state_plus(ACTIVE_CHAR):
+    // &lt;&lt; Process an active-character control sequence and set |state = MID_LINE|, 353 &gt;&gt;
+    break;
+
+any_state_plus(SUP_MARK):
+    // &lt;&lt; If this |SUP_MARK| starts an expanded character like ^^A or ^^df, then |goto reswitch|, otherwise set |state = MID_LINE|, 352 &gt;&gt;
+    break;
+
+any_state_plus(INVALID_CHAR):
+    // &lt;&lt; Decry the invalid character and |goto restart|, 346 &gt;&gt;
+
+// &lt;&lt; Handle situations involving spaces, braces, changes of state, 347 &gt;&gt;
+
+default:
+    do_nothing;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-343">343</a>.</p>
+</div></div>
+<h1 id="section-345"><a class="header" href="#section-345">Section 345</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases where character is ignored <a href="./part24.html#section-345">345</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">any_state_plus(IGNORE):
+case SKIP_BLANKS + SPACER:
+case NEW_LINE + SPACER:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-344">344</a>.</p>
+</div></div>
+<h1 id="section-346"><a class="header" href="#section-346">Section 346</a></h1>
+<p>We go to <em>restart</em> instead of to <em>switch</em>, because <em>state</em> might equal <em>TOKEN_LIST</em> after the error has been dealt with (cf. <em>clear_for_error_prompt</em>).</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Decry the invalid character and <em>goto restart</em> <a href="./part24.html#section-346">346</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Text line contains an invalid character");
+help2("A funny symbol that I can't read has just been input.")
+    ("Continue, and I'll forget that it ever happened.");
+deletions_allowed = false;
+error();
+deletions_allowed = true;
+goto restart;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-344">344</a>.</p>
+</div></div>
+<h1 id="section-347"><a class="header" href="#section-347">Section 347</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define add_delims_to(X)   \
+    case (X) + MATH_SHIFT: \
+    case (X) + TAB_MARK:   \
+    case (X) + MAC_PARAM:  \
+    case (X) + SUB_MARK:   \
+    case (X) + LETTER:     \
+    case (X) + OTHER_CHAR
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Handle situations involving spaces, braces, changes of state <a href="./part24.html#section-347">347</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">case MID_LINE + SPACER:
+    // &lt;&lt; Enter |SKIP_BLANKS| state, emit a space, 349 &gt;&gt;
+    break;
+
+case MID_LINE + CAR_RET:
+    // &lt;&lt; Finish line, emit a space, 348 &gt;&gt;
+    break;
+
+case SKIP_BLANKS + CAR_RET:
+any_state_plus(COMMENT):
+    // &lt;&lt; Finish line, |goto switch_lbl|, 350 &gt;&gt;
+    
+case NEW_LINE + CAR_RET:
+    // &lt;&lt; Finish line, emit a \par, 351 &gt;&gt;
+    break;
+
+case MID_LINE + LEFT_BRACE:
+    incr(align_state);
+    break;
+
+case SKIP_BLANKS + LEFT_BRACE:
+case NEW_LINE + LEFT_BRACE:
+    state = MID_LINE;
+    incr(align_state);
+    break;
+
+case MID_LINE + RIGHT_BRACE:
+    decr(align_state);
+    break;
+
+case SKIP_BLANKS + RIGHT_BRACE:
+case NEW_LINE + RIGHT_BRACE:
+    state = MID_LINE;
+    decr(align_state);
+    break;
+
+add_delims_to(SKIP_BLANKS):
+add_delims_to(NEW_LINE):
+    state = MID_LINE;
+    break;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-344">344</a>.</p>
+</div></div>
+<h1 id="section-348"><a class="header" href="#section-348">Section 348</a></h1>
+<p>When a character of type <em>SPACER</em> gets through, its character code is changed to ‘␣’ = 32.
+This means that the ASCII codes for tab and space, and for the space inserted at the end of a line, will be treated alike when macro parameters are being matched.
+We do this since such characters are indistinguishable on most computer terminal displays.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Finish line, emit a space <a href="./part24.html#section-348">348</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">loc = limit + 1;
+cur_cmd = SPACER;
+cur_chr = ' ';
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-347">347</a>.</p>
+</div></div>
+<h1 id="section-349"><a class="header" href="#section-349">Section 349</a></h1>
+<p>The following code is performed only when <em>cur_cmd = SPACER</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Enter <em>SKIP_BLANKS</em> state, emit a space <a href="./part24.html#section-349">349</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">state = SKIP_BLANKS;
+cur_chr = ' ';
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-347">347</a>.</p>
+</div></div>
+<h1 id="section-350"><a class="header" href="#section-350">Section 350</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Finish line, <em>goto switch_lbl</em> <a href="./part24.html#section-350">350</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">loc = limit + 1;
+goto switch_lbl;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-347">347</a>.</p>
+</div></div>
+<h1 id="section-351"><a class="header" href="#section-351">Section 351</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Finish line, emit a \par <a href="./part24.html#section-351">351</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">loc = limit + 1;
+cur_cs = par_loc;
+cur_cmd = eq_type(cur_cs);
+cur_chr = equiv(cur_cs);
+if (cur_cmd &gt;= OUTER_CALL) {
+    check_outer_validity();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-347">347</a>.</p>
+</div></div>
+<h1 id="section-352"><a class="header" href="#section-352">Section 352</a></h1>
+<p>Notice that a code like <code>^^8</code> becomes <code>x</code> if not followed by a hex digit.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define is_hex(X) (((X) &gt;= '0' &amp;&amp; (X) &lt;= '9' ) || ((X) &gt;= 'a' &amp;&amp; (X) &lt;= 'f'))
+#define hex_to_cur_chr                            \
+    do {                                          \
+        if (c &lt;= '9') {                           \
+            cur_chr = c - '0';                    \
+        }                                         \
+        else {                                    \
+            cur_chr = c - 'a' + 10;               \
+        }                                         \
+        if (cc &lt;= '9') {                          \
+            cur_chr = 16*cur_chr + cc - '0';      \
+        }                                         \
+        else {                                    \
+            cur_chr = 16*cur_chr + cc - 'a' + 10; \
+        }                                         \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If this <em>SUP_MARK</em> starts an expanded character like ^^A or ^^df, then <em>goto reswitch</em>, otherwise set <em>state = MID_LINE</em> <a href="./part24.html#section-352">352</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_chr == buffer[loc] &amp;&amp; loc &lt; limit) {
+    c = buffer[loc + 1];
+    if (c &lt; 128) {
+        // yes we have an expanded char
+        loc += 2;
+        if (is_hex(c) &amp;&amp; loc &lt;= limit) {
+            cc = buffer[loc];
+            if (is_hex(cc)) {
+                incr(loc);
+                hex_to_cur_chr;
+                goto reswitch;
+            }
+        }
+        if (c &lt; 64) {
+            cur_chr = c + 64;
+        }
+        else {
+            cur_chr = c - 64;
+        }
+        goto reswitch;
+    }
+}
+state = MID_LINE;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-344">344</a>.</p>
+</div></div>
+<h1 id="section-353"><a class="header" href="#section-353">Section 353</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Process an active-character control sequence and set <em>state = MID_LINE</em> <a href="./part24.html#section-353">353</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">cur_cs = cur_chr + ACTIVE_BASE;
+cur_cmd = eq_type(cur_cs);
+cur_chr = equiv(cur_cs);
+state = MID_LINE;
+if (cur_cmd &gt;= OUTER_CALL) {
+    check_outer_validity();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-344">344</a>.</p>
+</div></div>
+<h1 id="section-354"><a class="header" href="#section-354">Section 354</a></h1>
+<p>Control sequence names are scanned only when they appear in some line of a file;
+once they have been scanned the first time, their <em>eqtb</em> location serves as a unique identification, so <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> doesn’t need to refer to the original name any more except when it prints the equivalent in symbolic form.</p>
+<p>The program that scans a control sequence has been written carefully in order to avoid the blowups that might otherwise occur if a malicious user tried something like ‘<code>\catcode`15 = 0</code>’.
+The algorithm might look at <em>buffer[limit + 1]</em>, but it never looks at <em>buffer[limit + 2]</em>.</p>
+<p>If expanded characters like ‘<code>^^A</code>’ or ‘<code>^^df</code>’ appear in or just following a control sequence name, they are converted to single characters in the buffer and the process is repeated, slowly but surely.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan a control sequence and set <em>state = SKIP_BLANKS</em> or <em>MID_LINE</em> <a href="./part24.html#section-354">354</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (loc &gt; limit) {
+    // |state| is irrelevant in this case
+    cur_cs = NULL_CS;
+}
+else {
+start_cs:
+    k = loc;
+    cur_chr = buffer[k];
+    cat = cat_code(cur_chr);
+    incr(k);
+    if (cat == LETTER) {
+        state = SKIP_BLANKS;
+    }
+    else if (cat == SPACER) {
+        state = SKIP_BLANKS;
+    }
+    else {
+        state = MID_LINE;
+    }
+    if (cat == LETTER &amp;&amp; k &lt;= limit) {
+        // &lt;&lt; Scan ahead in the buffer until finding a nonletter; if an expanded code is encountered, reduce it and |goto start_cs|; otherwise if a multiletter control sequence is found, adjust |cur_cs| and |loc|, and |goto found|, 356 &gt;&gt;
+    }
+    else {
+        // &lt;&lt; If an expanded code is present, reduce it and |goto start_cs|, 355 &gt;&gt;
+    }
+    cur_cs = SINGLE_BASE + buffer[loc];
+    incr(loc);
+}
+found:
+cur_cmd = eq_type(cur_cs);
+cur_chr = equiv(cur_cs);
+if (cur_cmd &gt;= OUTER_CALL) {
+    check_outer_validity();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-344">344</a>.</p>
+</div></div>
+<h1 id="section-355"><a class="header" href="#section-355">Section 355</a></h1>
+<p>Whenever we reach the following piece of code, we will have <em>cur_chr = buffer[k − 1]</em> and <em>k</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>limit + 1</em> and <em>cat = cat_code(cur_chr)</em>.
+If an expanded code like <code>^^A</code> or <code>^^df</code> appears in <em>buffer[(k − 1) .. (k + 1)]</em> or <em>buffer[(k − 1) .. (k + 2)]</em>, we will store the corresponding code in <em>buffer[k − 1]</em> and shift the rest of the buffer left two or three places.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If an expanded code is present, reduce it and <em>goto start_cs</em> <a href="./part24.html#section-355">355</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (buffer[k] == cur_chr
+    &amp;&amp; cat == SUP_MARK
+    &amp;&amp; k &lt; limit)
+{
+    c = buffer[k + 1];
+    if (c &lt; 128) {
+         // yes, one is indeed present
+        d = 2;
+        if (is_hex(c) &amp;&amp; k + 2 &lt;= limit) {
+            cc = buffer[k + 2];
+            if (is_hex(cc)) {
+                incr(d);
+            }
+        }
+        if (d &gt; 2) {
+            hex_to_cur_chr;
+            buffer[k - 1] = cur_chr;
+        }
+        else if (c &lt; 64) {
+            buffer[k - 1] = c + 64;
+        }
+        else {
+            buffer[k - 1] = c - 64;
+        }
+        limit -= d;
+        first -= d;
+        while (k &lt;= limit) {
+            buffer[k] = buffer[k + d];
+            incr(k);
+        }
+        goto start_cs;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part24.html#section-354">354</a>, and <a href="./part24.html#section-356">356</a>.</p>
+</div></div>
+<h1 id="section-356"><a class="header" href="#section-356">Section 356</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan ahead in the buffer until finding a nonletter; if an expanded code is encountered, reduce it and <em>goto start_cs</em>; otherwise if a multiletter control sequence is found, adjust <em>cur_cs</em> and <em>loc</em>, and <em>goto found</em> <a href="./part24.html#section-356">356</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">do {
+    cur_chr = buffer[k];
+    cat = cat_code(cur_chr);
+    incr(k);
+} while (cat == LETTER &amp;&amp; k &lt;= limit);
+// &lt;&lt; If an expanded code is present, reduce it and |goto start_cs|, 355 &gt;&gt;
+if (cat != LETTER) {
+    decr(k);
+} // now |k| points to first nonletter
+if (k &gt; loc + 1) {
+    // multiletter control sequence has been scanned
+    cur_cs = id_lookup(loc, k - loc);
+    loc = k;
+    goto found;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-354">354</a>.</p>
+</div></div>
+<h1 id="section-357"><a class="header" href="#section-357">Section 357</a></h1>
+<p>Let’s consider now what happens when <em>get_next</em> is looking at a token list.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Input from token list, <em>goto restart</em> if end of list or if a parameter needs to be expanded <a href="./part24.html#section-357">357</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (loc != null) {
+    // list not exhausted
+    t = info(loc);
+    loc = link(loc); // move to next
+    if (t &gt;= CS_TOKEN_FLAG) {
+        // a control sequence token
+        cur_cs = t - CS_TOKEN_FLAG;
+        cur_cmd = eq_type(cur_cs);
+        cur_chr = equiv(cur_cs);
+        if (cur_cmd &gt;= OUTER_CALL) {
+            if (cur_cmd == DONT_EXPAND) {
+                // &lt;&lt; Get the next token, suppressing expansion, 358 &gt;&gt;
+            }
+            else {
+                check_outer_validity();
+            }
+        }
+    }
+    else {
+        cur_cmd = t / 256;
+        cur_chr = t % 256;
+        switch (cur_cmd) {
+        case LEFT_BRACE:
+            incr(align_state);
+            break;
+        
+        case RIGHT_BRACE:
+            decr(align_state);
+            break;
+        
+        case OUT_PARAM:
+            // &lt;&lt; Insert macro parameter and |goto restart|, 359 &gt;&gt;
+        
+        default:
+            do_nothing;
+        }
+    }
+}
+else {
+    // we are done with this token list
+    end_token_list();
+    goto restart; // resume previous level
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-341">341</a>.</p>
+</div></div>
+<h1 id="section-358"><a class="header" href="#section-358">Section 358</a></h1>
+<p>The present point in the program is reached only when the <em>expand</em> routine has inserted a special marker into the input.
+In this special case, <em>info(loc)</em> is known to be a control sequence token, and <em>link(loc) = null</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define NO_EXPAND_FLAG 257 // this characterizes a special variant of |RELAX|
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Get the next token, suppressing expansion <a href="./part24.html#section-358">358</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">cur_cs = info(loc) - CS_TOKEN_FLAG;
+loc = null;
+cur_cmd = eq_type(cur_cs);
+cur_chr = equiv(cur_cs);
+if (cur_cmd &gt; MAX_COMMAND) {
+    cur_cmd = RELAX;
+    cur_chr = NO_EXPAND_FLAG;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-357">357</a>.</p>
+</div></div>
+<h1 id="section-359"><a class="header" href="#section-359">Section 359</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert macro parameter and <em>goto restart</em> <a href="./part24.html#section-359">359</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">begin_token_list(param_stack[param_start + cur_chr - 1], PARAMETER);
+goto restart;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-357">357</a>.</p>
+</div></div>
+<h1 id="section-360"><a class="header" href="#section-360">Section 360</a></h1>
+<p>All of the easy branches of <em>get_next</em> have now been taken care of.
+There is one more branch.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define end_line_char_inactive (end_line_char &lt; 0 || end_line_char &gt; 255)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Move to next line of file, or <em>goto restart</em> if there is no next line, or <em>return</em> if a \read line has finished <a href="./part24.html#section-360">360</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (name &gt; 17) {
+    // &lt;&lt; Read next line of file into |buffer|, or |goto restart| if the file has ended, 362 &gt;&gt;
+}
+else {
+    if (!terminal_input){
+        // \read line has ended
+        cur_cmd = 0;
+        cur_chr = 0;
+        return;
+    }
+    if (input_ptr &gt; 0) {
+        // text was inserted during error recovery
+        end_file_reading();
+        goto restart; // resume previous level
+    }
+    if (selector &lt; LOG_ONLY) {
+        open_log_file();
+    }
+    if (interaction &gt; NONSTOP_MODE) {
+        if (end_line_char_inactive) {
+            incr(limit);
+        }
+        if (limit == start) {
+            // previous line was empty
+            print_nl("(Please type a command or say `\\end')");
+        }
+        print_ln();
+        first = start;
+        prompt_input("*"); // input on-line into |buffer|
+        limit = last;
+        if (end_line_char_inactive) {
+            decr(limit);
+        }
+        else {
+            buffer[limit] = end_line_char;
+        }
+        first = limit + 1;
+        loc = start;
+    }
+    else {
+        // nonstop mode, which is intended for overnight batch processing, never waits for on-line input
+        fatal_error("*** (job aborted, no legal \\end found)");
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-343">343</a>.</p>
+</div></div>
+<h1 id="section-361"><a class="header" href="#section-361">Section 361</a></h1>
+<p>The global variable <em>force_eof</em> is normally <em>false</em>; it is set <em>true</em> by an <code>\endinput</code> command.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">bool force_eof; // should the next \input be aborted early?
+</code></pre>
+</div>
+<h1 id="section-362"><a class="header" href="#section-362">Section 362</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read next line of file into <em>buffer</em>, or <em>goto restart</em> if the file has ended <a href="./part24.html#section-362">362</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">incr(line);
+first = start;
+if (!force_eof) {
+    if (input_ln(cur_file)) {
+        // not end of file
+        firm_up_the_line(); // this sets |limit|
+    }
+    else {
+        force_eof = true;
+    }
+}
+if (force_eof) {
+    print_char(')');
+    decr(open_parens);
+    update_terminal; // show user that file has been read
+    force_eof = false;
+    end_file_reading(); // resume previous level
+    check_outer_validity();
+    goto restart;
+}
+if (end_line_char_inactive) {
+    decr(limit);
+}
+else {
+    buffer[limit] = end_line_char;
+}
+first = limit + 1;
+loc = start; // ready to read
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-360">360</a>.</p>
+</div></div>
+<h1 id="section-363"><a class="header" href="#section-363">Section 363</a></h1>
+<p>If the user has set the <em>pausing</em> parameter to some positive value, and if nonstop mode has not been selected, each line of input is displayed on the terminal and the transcript file, followed by ‘<code>=&gt;</code>’.
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> waits for a response.
+If the response is simply <em>CARRIAGE_RETURN</em>, the line is accepted as it stands, otherwise the line typed is used instead of the line in the file.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">get_next_token.c</div>
+<pre><code class="language-c">void firm_up_the_line() {
+    int k; // an index into |buffer|
+    limit = last;
+    if (pausing &gt; 0 &amp;&amp; interaction &gt; NONSTOP_MODE) {
+        print_ln();
+        if (start &lt; limit) {
+            for(k = start; k &lt; limit; k++) {
+                print_strnumber(buffer[k]);
+            }
+        }
+        first = limit;
+        prompt_input("=&gt;"); // wait for user response
+        if (last &gt; first) {
+            for(k = first; k &lt; last; k++) {
+                // move line down in buffer
+                buffer[k + start - first] = buffer[k];
+            }
+            limit = start + last - first;
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-364"><a class="header" href="#section-364">Section 364</a></h1>
+<p>Since <em>get_next</em> is used so frequently in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>, it is convenient to define three related procedures that do a little more:</p>
+<ul>
+<li>
+<p><em>get_token</em> not only sets <em>cur_cmd</em> and <em>cur_chr</em>, it also sets <em>cur_tok</em>, a packed halfword version of the current token.</p>
+</li>
+<li>
+<p><em>get_x_token</em>, meaning “get an expanded token”, is like <em>get_token</em>, but if the current token turns out to be a user-defined control sequence (i.e., a macro call), or a conditional, or something like <code>\topmark</code> or <code>\expandafter</code> or <code>\csname</code>, it is eliminated from the input by beginning the expansion of the macro or the evaluation of the conditional.</p>
+</li>
+<li>
+<p><em>x_token</em> is like <em>get_x_token</em> except that it assumes that <em>get_next</em> has already been called.</p>
+</li>
+</ul>
+<p>In fact, these three procedures account for almost every use of <em>get_next</em>.</p>
+<h1 id="section-365"><a class="header" href="#section-365">Section 365</a></h1>
+<p>No new control sequences will be defined except during a call of <em>get_token</em>, or when <code>\csname</code> compresses a token list, because <em>no_new_control_sequence</em> is always <em>true</em> at other times.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">get_next_token.c</div>
+<pre><code class="language-c">// sets |cur_cmd|, |cur_chr|, |cur_tok|
+void get_token() {
+    no_new_control_sequence = false;
+    get_next();
+    no_new_control_sequence = true;
+    if (cur_cs == 0) {
+        cur_tok = (cur_cmd * 256) + cur_chr;
+    }
+    else {
+        cur_tok = CS_TOKEN_FLAG + cur_cs;
+    }
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part23.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part25.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part23.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part25.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

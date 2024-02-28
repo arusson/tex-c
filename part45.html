@@ -1,0 +1,1597 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 980–1028 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html" class="active">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-980-the-page-builder"><a class="header" href="#section-980-the-page-builder">Section 980: The page builder</a></h1>
+<p>When <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> appends new material to its main vlist in vertical mode, it uses a method something like <em>vsplit</em> to decide where a page ends, except that the calculations are done “on line” as new items come in.
+The main complication in this process is that insertions must be put into their boxes and removed from the vlist, in a more-or-less optimum manner.</p>
+<p>We shall use the term “current page” for that part of the main vlist that is being considered as a candidate for being broken off and sent to the user’s output routine.
+The current page starts at <em>link(PAGE_HEAD)</em>, and it ends at <em>page_tail</em>.
+We have <em>PAGE_HEAD = page_tail</em> if this list is empty.</p>
+<p>Utter chaos would reign if the user kept changing page specifications while a page is being constructed, so the page builder keeps the pertinent specifications frozen as soon as the page receives its first box or insertion.
+The global variable <em>page_contents</em> is <em>EMPTY</em> when the current page contains only mark nodes and content-less whatsit nodes;
+it is <em>inserts_only</em> if the page contains only insertion nodes in addition to
+marks and whatsits.
+Glue nodes, kern nodes, and penalty nodes are discarded until a box or rule node appears, at which time <em>page_contents</em> changes to <em>BOX_THERE</em>.
+As soon as <em>page_contents</em> becomes non-<em>EMPTY</em>, the current <em>vsize</em> and <em>max_depth</em> are squirreled away into <em>page_goal</em> and <em>page_max_depth</em>; the latter values will be used until the page has been forwarded to the user’s output routine.
+The <code>\topskip</code> adjustment is made when <em>page_contents</em> changes to <em>BOX_THERE</em>.</p>
+<p>Although <em>page_goal</em> starts out equal to <em>vsize</em>, it is decreased by the scaled natural height-plus-depth of the insertions considered so far, and by the <code>\skip</code> corrections for those insertions.
+Therefore it represents the size into which the non - inserted material should fit, assuming that all insertions in the current page have been made.</p>
+<p>The global variables <em>best_page_break</em> and <em>least_page_cost</em> correspond respectively to the local variables <em>best_place</em> and <em>least_cost</em> in the <em>vert_break</em> routine that we have already studied; i.e., they record the location and value of the best place currently known for breaking the current page.
+The value of <em>page_goal</em> at the time of the best break is stored in <em>best_size</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define INSERTS_ONLY 1 // |page_contents| when an insert node has been contributed, but no boxes
+#define BOX_THERE    2 // |page_contents| when a box or rule has been contributed
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer page_tail;       // the final node on the current page
+int     page_contents;   // what is on the current page so far?
+scaled  page_max_depth;  // maximum box depth on page being built
+pointer best_page_break; // break here to get the best page known so far
+int     least_page_cost; // the score for this currently best page
+scaled  best_size;       // its |page_goal|
+</code></pre>
+</div>
+<h1 id="section-981"><a class="header" href="#section-981">Section 981</a></h1>
+<p>The page builder has another data structure to keep track of insertions.
+This is a list of four-word nodes, starting and ending at <em>PAGE_INS_HEAD</em>.
+That is, the first element of the list is node <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> = <em>link(PAGE_INS_HEAD)</em>;
+node <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> is followed by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> = <em>link</em>(<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>);
+and if there are <em>n</em> items we have <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span> = <em>PAGE_INS_HEAD</em>.
+The <em>subtype</em> field of each node in this list refers to an insertion number; for example, ‘<code>\insert 250</code>’ would correspond to a node whose <em>subtype</em> is 250 (the same as the <em>subtype</em> field of the relevant <em>INS_NODE</em>).
+These <em>subtype</em> fields are in increasing order, and <em>subtype(PAGE_INS_HEAD)</em> = 255, so <em>PAGE_INS_HEAD</em> serves as a convenient sentinel at the end of the list.
+A record is present for each insertion number that appears in the current page.</p>
+<p>The <em>type</em> field in these nodes distinguishes two possibilities that might occur as we look ahead before deciding on the optimum page break.
+If <em>type(r) = INSERTING</em>, then <em>height(r)</em> contains the total of the height-plus-depth dimensions of the box and all its inserts seen so far.
+If <em>type(r) = SPLIT_UP</em>, then no more insertions will be made into this box, because at least one previous insertion was too big to fit on the current page; <em>broken_ptr(r)</em> points to the node where that insertion will be split, if <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> decides to split it, <em>broken_ins(r)</em> points to the insertion node that was tentatively split, and <em>height(r)</em> includes also the natural height plus depth of the part that would be split off.</p>
+<p>In both cases, <em>last_ins_ptr(r)</em> points to the last <em>INS_NODE</em> encountered for box <em>subtype(r)</em> that would be at least partially inserted on the next page; and <em>best_ins_ptr(r)</em> points to the last such <em>INS_NODE</em> that should actually be inserted, to get the page with minimum badness among all page breaks considered so far.
+We have <em>best_ins_ptr(r) = null</em> if and only if no insertion for this box should be made to produce this optimum page.</p>
+<p>The data structure definitions here use the fact that the <em>height</em> field appears in the fourth word of a box node.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define PAGE_INS_NODE_SIZE 4 // number of words for a page insertion node
+#define INSERTING          0 // an insertion class that has not yet overflowed
+#define SPLIT_UP           1 // an overflowed insertion class
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">#define broken_ptr(X)   link((X) + 1) // an insertion for this class will break here if anywhere
+#define broken_ins(X)   info((X) + 1) // this insertion might break at |broken_ptr|
+#define last_ins_ptr(X) link((X) + 2) // the most recent insertion for this |subtype|
+#define best_ins_ptr(X) info((X) + 2) // the optimum most recent insertion
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the special list heads and constant nodes <a href="./part37.html#section-790">790</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">subtype(PAGE_INS_HEAD) = 255;
+type(PAGE_INS_HEAD) = SPLIT_UP;
+link(PAGE_INS_HEAD) = PAGE_INS_HEAD;
+</code></pre>
+</div>
+<h1 id="section-982"><a class="header" href="#section-982">Section 982</a></h1>
+<p>An array <em>page_so_far</em> records the heights and depths of everything on the current page.
+This array contains six <em>scaled</em> numbers, like the similar arrays already considered in <em>line_break</em> and <em>vert_break</em>; and it also contains <em>page_goal</em> and <em>page_depth</em>, since these values are all accessible to the user via <em>set_page_dimen</em> commands.
+The value of <em>page_so_far[1]</em> is also called <em>page_total</em>.
+The stretch and shrink components of the <code>\skip</code> corrections for each insertion are included in <em>page_so_far</em>, but the natural space components of these corrections are not, since they have been subtracted from <em>page_goal</em>.</p>
+<p>The variable <em>page_depth</em> records the depth of the current page; it has been adjusted so that it is at most <em>page_max_depth</em>.
+The variable <em>last_glue</em> points to the glue specification of the most recent node
+contributed from the contribution list, if this was a glue node; otherwise <em>last_glue = MAX_HALFWORD</em>.
+(If the contribution list is nonempty, however, the value of <em>last_glue</em> is not necessarily accurate.)
+The variables <em>last_penalty</em> and <em>last_kern</em> are similar.
+And finally, <em>insert_penalties</em> holds the sum of the penalties associated with
+all split and floating insertions.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">#define page_goal   page_so_far[0] // desired height of information on page being built
+#define page_total  page_so_far[1] // height of the current page
+#define page_shrink page_so_far[6] // shrinkability of the current page
+#define page_depth  page_so_far[7] // depth of the current page
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">scaled  page_so_far[8];   // height and glue of the current page
+pointer last_glue;        // used to implement \lastskip
+int     last_penalty;     // used to implement \lastpenalty
+scaled  last_kern;        // used to implement \lastkern
+int     insert_penalties; // sum of the penalties for insertions that were held over
+</code></pre>
+</div>
+<h1 id="section-983"><a class="header" href="#section-983">Section 983</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("pagegoal", SET_PAGE_DIMEN, 0);
+primitive("pagetotal", SET_PAGE_DIMEN, 1);
+primitive("pagestretch", SET_PAGE_DIMEN, 2);
+primitive("pagefilstretch", SET_PAGE_DIMEN, 3);
+primitive("pagefillstretch", SET_PAGE_DIMEN, 4);
+primitive("pagefilllstretch", SET_PAGE_DIMEN, 5);
+primitive("pageshrink", SET_PAGE_DIMEN, 6);
+primitive("pagedepth", SET_PAGE_DIMEN, 7);
+</code></pre>
+</div>
+<h1 id="section-984"><a class="header" href="#section-984">Section 984</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case SET_PAGE_DIMEN:
+    switch (chr_code) {
+    case 0:
+        print_esc("pagegoal");
+        break;
+    
+    case 1:
+        print_esc("pagetotal");
+        break;
+
+    case 2:
+        print_esc("pagestretch");
+        break;
+    
+    case 3:
+        print_esc("pagefilstretch");
+        break;
+
+    case 4:
+        print_esc("pagefillstretch");
+        break;
+
+    case 5:
+        print_esc("pagefilllstretch");
+        break;
+
+    case 6:
+        print_esc("pageshrink");
+        break;
+    
+    default:
+        print_esc("pagedepth");
+    }
+
+    break;
+</code></pre>
+</div>
+<h1 id="section-985"><a class="header" href="#section-985">Section 985</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">#define print_plus(X, Y)                    \
+    do {                                    \
+        if (page_so_far[(X)] != 0) {        \
+            print(" plus ");                \
+            print_scaled(page_so_far[(X)]); \
+            print((Y));                     \
+        }                                   \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">other_printing.c</div>
+<pre><code class="language-c">void print_totals() {
+    print_scaled(page_total);
+    print_plus(2, "");
+    print_plus(3, "fil");
+    print_plus(4, "fill");
+    print_plus(5, "filll");
+    if (page_shrink != 0) {
+        print(" minus ");
+        print_scaled(page_shrink);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-986"><a class="header" href="#section-986">Section 986</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show the status of the current page <a href="./part45.html#section-986">986</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (PAGE_HEAD != page_tail) {
+    print_nl("### current page:");
+    if (output_active) {
+        print(" (held over for next output)");
+    }
+    show_box(link(PAGE_HEAD));
+    if (page_contents &gt; EMPTY) {
+        print_nl("total height ");
+        print_totals();
+        print_nl(" goal height ");
+        print_scaled(page_goal);
+        r = link(PAGE_INS_HEAD);
+        while (r != PAGE_INS_HEAD) {
+            print_ln();
+            print_esc("insert");
+            t = subtype(r);
+            print_int(t);
+            print(" adds ");
+            if (count(t) == 1000) {
+                t = height(r);
+            }
+            else {
+                t = x_over_n(height(r), 1000)*count(t);
+            }
+            print_scaled(t);
+            if (type(r) == SPLIT_UP) {
+                q = PAGE_HEAD;
+                t = 0;
+                do {
+                    q = link(q);
+                    if (type(q) == INS_NODE &amp;&amp; subtype(q) == subtype(r)) {
+                        incr(t);
+                    }
+                } while (q != broken_ins(r));
+                print(", #");
+                print_int(t);
+                print(" might split");
+            }
+            r = link(r);
+        }
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part16.html#section-218">218</a>.</p>
+</div></div>
+<h1 id="section-987"><a class="header" href="#section-987">Section 987</a></h1>
+<p>Here is a procedure that is called when the <em>page_contents</em> is changing from <em>EMPTY</em> to <em>INSERTS_ONLY</em> or <em>BOX_THERE</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">#define set_page_so_far_zero(X) page_so_far[(X)] = 0
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">page_builder.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |page_builder.c|, 1382 &gt;&gt;
+
+void freeze_page_specs(small_number s) {
+    page_contents = s;
+    page_goal = vsize;
+    page_max_depth = max_depth;
+    page_depth = 0;
+    do_all_six(set_page_so_far_zero);
+    least_page_cost = AWFUL_BAD;
+#ifdef STAT
+    if (tracing_pages &gt; 0) {
+        begin_diagnostic();
+        print_nl("\%\% goal height=");
+        print_scaled(page_goal);
+        print(", max depth=");
+        print_scaled(page_max_depth);
+        end_diagnostic(false);
+    }
+#endif
+}
+</code></pre>
+</div>
+<h1 id="section-988"><a class="header" href="#section-988">Section 988</a></h1>
+<p>Pages are built by appending nodes to the current list in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s vertical mode, which is at the outermost level of the semantic nest.
+This vlist is split into two parts; the “current page” that we have been talking so much about already, and the “contribution list” that receives new nodes as they are created.
+The current page contains everything that the page builder has accounted for in its data structures, as described above, while the contribution list contains other things that have been generated by other parts of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> but have not yet been seen by the page builder.
+The contribution list starts at <em>link(CONTRIB_HEAD)</em>, and it ends at the current node in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s vertical mode.</p>
+<p>When <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> has appended new material in vertical mode, it calls the procedure <em>build_page</em>, which tries to catch up by moving nodes from the contribution list to the current page.
+This procedure will succeed in its goal of emptying the contribution list, unless a page break is discovered, i.e., unless the current page has grown to the point where the optimum next page break has been determined.
+In the latter case, the nodes after the optimum break will go back onto the contribution list, and control will effectively pass to the user’s output routine.</p>
+<p>We make <em>type(PAGE_HEAD) = GLUE_NODE</em>, so that an initial glue node on the current page will not be considered a valid breakpoint.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the special list heads and constant nodes <a href="./part37.html#section-790">790</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">type(PAGE_HEAD) = GLUE_NODE;
+subtype(PAGE_HEAD) = NORMAL;
+</code></pre>
+</div>
+<h1 id="section-989"><a class="header" href="#section-989">Section 989</a></h1>
+<p>The global variable <em>output_active</em> is true during the time the user’s output routine is driving <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">bool output_active; // are we in the midst of an output routine?
+</code></pre>
+</div>
+<h1 id="section-990"><a class="header" href="#section-990">Section 990</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">output_active = false;
+insert_penalties = 0;
+</code></pre>
+</div>
+<h1 id="section-991"><a class="header" href="#section-991">Section 991</a></h1>
+<p>The page builder is ready to start a fresh page if we initialize the following state variables.
+(However, the page insertion list is initialized elsewhere.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Start a new current page <a href="./part45.html#section-991">991</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">page_contents = EMPTY;
+page_tail = PAGE_HEAD;
+link(PAGE_HEAD) = null;
+last_glue = MAX_HALFWORD;
+last_penalty = 0;
+last_kern = 0;
+page_depth = 0;
+page_max_depth = 0;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part16.html#section-215">215</a>, and <a href="./part45.html#section-1017">1017</a>.</p>
+</div></div>
+<h1 id="section-992"><a class="header" href="#section-992">Section 992</a></h1>
+<p>At certain times box 255 is supposed to be void (i.e., <em>null</em>), or an insertion box is supposed to be ready to accept a vertical list.
+If not, an error message is printed, and the following subroutine flushes the unwanted contents, reporting them to the user.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">page_builder.c</div>
+<pre><code class="language-c">void box_error(eight_bits n) {
+    error();
+    begin_diagnostic();
+    print_nl("The following box has been deleted:");
+    show_box(box(n));
+    end_diagnostic(true);
+    flush_node_list(box(n));
+    box(n) = null;
+}
+</code></pre>
+</div>
+<h1 id="section-993"><a class="header" href="#section-993">Section 993</a></h1>
+<p>The following procedure guarantees that a given box register does not contain an <code>\hbox</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">page_builder.c</div>
+<pre><code class="language-c">void ensure_vbox(eight_bits n) {
+    pointer p; // the box register contents
+    p = box(n);
+    if (p != null &amp;&amp; type(p) == HLIST_NODE) {
+        print_err("Insertions can only be added to a vbox");
+        help3("Tut tut: You're trying to \\insert into a")
+            ("\\box register that now contains an \\hbox.")
+            ("Proceed, and I'll discard its present contents.");
+        box_error(n);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-994"><a class="header" href="#section-994">Section 994</a></h1>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is not always in vertical mode at the time <em>build_page</em> is called; the current mode reflects what <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> should return to, after the contribution list has been emptied.
+A call on <em>build_page</em> should be immediately followed by ‘<strong>goto</strong> <em>big_switch</em>’, which is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s central control point.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">page_builder.c</div>
+<pre><code class="language-c">// &lt;&lt; Declare the procedure called |fire_up|, 1012 &gt;&gt;
+
+// append contributions to the current page
+void build_page() {
+    pointer p;          // the node being appended
+    pointer q, r;       // nodes being examined
+    int b, c;           // badness and cost of current page
+    int pi = 0;         // penalty to be added to the badness
+    int n;              // insertion box number
+    scaled delta, h, w; // sizes used for insertion calculations
+    
+    if (link(CONTRIB_HEAD) == null || output_active) {
+        return;
+    }
+    do {
+continue_lbl:
+        p = link(CONTRIB_HEAD);
+        
+        // &lt;&lt; Update the values of |last_glue|, |last_penalty|, and |last_kern|, 996 &gt;&gt;
+        
+        // &lt;&lt; Move node |p| to the current page; if it is time for a page break, put the nodes following the break back onto the contribution list, and |return| to the user's output routine if there is one, 997 &gt;&gt;
+    } while (link(CONTRIB_HEAD) != null);
+    
+    // &lt;&lt; Make the contribution list empty by setting its tail to |CONTRIB_HEAD|, 995 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-995"><a class="header" href="#section-995">Section 995</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">#define contrib_tail nest[0].tail_field // tail of the contribution list
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make the contribution list empty by setting its tail to <em>CONTRIB_HEAD</em> <a href="./part45.html#section-995">995</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (nest_ptr == 0) {
+    tail = CONTRIB_HEAD; // vertical mode
+}
+else {
+    contrib_tail = CONTRIB_HEAD; // other modes
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-994">994</a>.</p>
+</div></div>
+<h1 id="section-996"><a class="header" href="#section-996">Section 996</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Update the values of <em>last_glue</em>, <em>last_penalty</em>, and <em>last_kern</em> <a href="./part45.html#section-996">996</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (last_glue != MAX_HALFWORD) {
+    delete_glue_ref(last_glue);
+}
+last_penalty = 0;
+last_kern = 0;
+if (type(p) == GLUE_NODE) {
+    last_glue = glue_ptr(p);
+    add_glue_ref(last_glue);
+}
+else {
+    last_glue = MAX_HALFWORD;
+    if (type(p) == PENALTY_NODE) {
+        last_penalty = penalty(p);
+    }
+    else if (type(p) == KERN_NODE) {
+        last_kern = width(p);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-994">994</a>.</p>
+</div></div>
+<h1 id="section-997"><a class="header" href="#section-997">Section 997</a></h1>
+<p>The code here is an example of a many-way switch into routines that merge together in different places.
+Some people call this unstructured programming, but the author doesn’t see much wrong with it, as long as the various labels have a well-understood meaning.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Move node <em>p</em> to the current page; if it is time for a page break, put the nodes following the break back onto the contribution list, and <em>return</em> to the user’s output routine if there is one <a href="./part45.html#section-997">997</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; If the current page is empty and node |p| is to be deleted, |goto done1|; otherwise use node |p| to update the state of the current page; if this node is an insertion, |goto contribute|; otherwise if this node is not a legal breakpoint, |goto contribute| or |update_heights|; otherwise set |pi| to the penalty associated with this breakpoint, 1000 &gt;&gt;
+
+// &lt;&lt; Check if node |p| is a new champion breakpoint; then if it is time for a page break, prepare for output, and either fire up the user's output routine and |return| or ship out the page and |goto done|, 1005 &gt;&gt;
+
+if (type(p) &lt; GLUE_NODE || type(p) &gt; KERN_NODE) {
+    goto contribute;
+}
+update_heights:
+// &lt;&lt; Update the current page measurements with respect to the glue or kern specified by node |p|, 1004 &gt;&gt;
+contribute:
+// &lt;&lt; Make sure that |page_max_depth| is not exceeded, 1003 &gt;&gt;
+// &lt;&lt; Link node |p| into the current page and |goto done|, 998 &gt;&gt;
+done1:
+// &lt;&lt; Recycle node |p|, 999 &gt;&gt;
+done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-994">994</a>.</p>
+</div></div>
+<h1 id="section-998"><a class="header" href="#section-998">Section 998</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Link node <em>p</em> into the current page and <em>goto done</em> <a href="./part45.html#section-998">998</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">link(page_tail) = p;
+page_tail = p;
+link(CONTRIB_HEAD) = link(p);
+link(p) = null;
+goto done;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-997">997</a>.</p>
+</div></div>
+<h1 id="section-999"><a class="header" href="#section-999">Section 999</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Recycle node <em>p</em> <a href="./part45.html#section-999">999</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">link(CONTRIB_HEAD) = link(p);
+link(p) = null;
+flush_node_list(p);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-997">997</a>.</p>
+</div></div>
+<h1 id="section-1000"><a class="header" href="#section-1000">Section 1000</a></h1>
+<p>The title of this section is already so long, it seems best to avoid making it more accurate but still longer, by mentioning the fact that a kern node at the end of the contribution list will not be contributed until we know its successor.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If the current page is empty and node <em>p</em> is to be deleted, <em>goto done1</em>; otherwise use node <em>p</em> to update the state of the current page; if this node is an insertion, <em>goto contribute</em>; otherwise if this node is not a legal breakpoint, <em>goto contribute</em> or <em>update_heights</em>; otherwise set <em>pi</em> to the penalty associated with this breakpoint <a href="./part45.html#section-1000">1000</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (type(p)) {
+case HLIST_NODE:
+case VLIST_NODE:
+case RULE_NODE:
+    if (page_contents &lt; BOX_THERE) {
+        // &lt;&lt; Initialize the current page, insert the \topskip glue ahead of |p|, and |goto continue|, 1001 &gt;&gt;
+    }
+    else {
+        // &lt;&lt; Prepare to move a box or rule node to the current page, then |goto contribute|, 1002 &gt;&gt;
+    }
+    break;
+
+case WHATSIT_NODE:
+    // &lt;&lt; Prepare to move whatsit |p| to the current page, then |goto contribute|, 1364 &gt;&gt;
+
+case GLUE_NODE:
+    if (page_contents &lt; BOX_THERE) {
+        goto done1;
+    }
+    else if (precedes_break(page_tail)) {
+        pi = 0;
+    }
+    else {
+        goto update_heights;
+    }
+    break;
+
+case KERN_NODE:
+    if (page_contents &lt; BOX_THERE) {
+        goto done1;
+    }
+    else if (link(p) == null) {
+        return;
+    }
+    else if (type(link(p)) == GLUE_NODE) {
+        pi = 0;
+    }
+    else {
+        goto update_heights;
+    }
+    break;
+
+case PENALTY_NODE:
+    if (page_contents &lt; BOX_THERE) {
+        goto done1;
+    }
+    else {
+        pi = penalty(p);
+    }
+    break;
+
+case MARK_NODE:
+    goto contribute;
+
+case INS_NODE:
+    // &lt;&lt; Append an insertion to the current page and |goto contribute|, 1008 &gt;&gt;
+
+default:
+    confusion("page");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-997">997</a>.</p>
+</div></div>
+<h1 id="section-1001"><a class="header" href="#section-1001">Section 1001</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the current page, insert the \topskip glue ahead of <em>p</em>, and <em>goto continue</em> <a href="./part45.html#section-1001">1001</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (page_contents == EMPTY) {
+    freeze_page_specs(BOX_THERE);
+}
+else {
+    page_contents = BOX_THERE;
+}
+q = new_skip_param(TOP_SKIP_CODE); // now |temp_ptr = glue_ptr(q)|
+if (width(temp_ptr) &gt; height(p)) {
+    width(temp_ptr) -= height(p);
+}
+else {
+    width(temp_ptr) = 0;
+}
+link(q) = p;
+link(CONTRIB_HEAD) = q;
+goto continue_lbl;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1000">1000</a>.</p>
+</div></div>
+<h1 id="section-1002"><a class="header" href="#section-1002">Section 1002</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Prepare to move a box or rule node to the current page, then <em>goto contribute</em> <a href="./part45.html#section-1002">1002</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">page_total += page_depth + height(p);
+page_depth = depth(p);
+goto contribute;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1000">1000</a>.</p>
+</div></div>
+<h1 id="section-1003"><a class="header" href="#section-1003">Section 1003</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make sure that <em>page_max_depth</em> is not exceeded <a href="./part45.html#section-1003">1003</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (page_depth &gt; page_max_depth) {
+    page_total += page_depth - page_max_depth;
+    page_depth = page_max_depth;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-997">997</a>.</p>
+</div></div>
+<h1 id="section-1004"><a class="header" href="#section-1004">Section 1004</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Update the current page measurements with respect to the glue or kern specified by node <em>p</em> <a href="./part45.html#section-1004">1004</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (type(p) == KERN_NODE) {
+    q = p;
+}
+else {
+    q = glue_ptr(p);
+    page_so_far[2 + stretch_order(q)] += stretch(q);
+    page_shrink += shrink(q);
+    if (shrink_order(q) != NORMAL &amp;&amp; shrink(q) != 0) {
+        print_err("Infinite glue shrinkage found on current page");
+        help4("The page about to be output contains some infinitely")
+            ("shrinkable glue, e.g., `\\vss' or `\\vskip 0pt minus 1fil'.")
+            ("Such glue doesn't belong there; but you can safely proceed,")
+            ("since the offensive shrinkability has been made finite.");
+        error();
+        r = new_spec(q);
+        shrink_order(r) = NORMAL;
+        delete_glue_ref(q);
+        glue_ptr(p) = r;
+        q = r;
+    }
+}
+page_total += page_depth + width(q);
+page_depth = 0;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-997">997</a>.</p>
+</div></div>
+<h1 id="section-1005"><a class="header" href="#section-1005">Section 1005</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Check if node <em>p</em> is a new champion breakpoint; then if it is time for a page break, prepare for output, and either fire up the user’s output routine and <em>return</em> or ship out the page and <em>goto done</em> <a href="./part45.html#section-1005">1005</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (pi &lt; INF_PENALTY) {
+    // &lt;&lt; Compute the badness, |b|, of the current page, using |AWFUL_BAD| if the box is too full, 1007 &gt;&gt;
+    if (b &lt; AWFUL_BAD) {
+        if (pi &lt;= EJECT_PENALTY) {
+            c = pi;
+        }
+        else if (b &lt; INF_BAD) {
+            c = b + pi + insert_penalties;
+        }
+        else {
+            c = DEPLORABLE;
+        }
+    }
+    else {
+        c = b;
+    }
+    if (insert_penalties &gt;= 10000) {
+        c = AWFUL_BAD;
+    }
+
+#ifdef STAT
+    if (tracing_pages &gt; 0) {
+        // &lt;&lt; Display the page break cost, 1006 &gt;&gt;
+    }
+#endif
+
+    if (c &lt;= least_page_cost) {
+        best_page_break = p;
+        best_size = page_goal;
+        least_page_cost = c;
+        r = link(PAGE_INS_HEAD);
+        while (r != PAGE_INS_HEAD) {
+            best_ins_ptr(r) = last_ins_ptr(r);
+            r = link(r);
+        }
+    }
+    if (c == AWFUL_BAD || pi &lt;= EJECT_PENALTY) {
+        fire_up(p); // output the current page at the best place
+        if (output_active) {
+            return; // user's output routine will act
+        }
+        goto done; // the page has been shipped out by default output routine
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-997">997</a>.</p>
+</div></div>
+<h1 id="section-1006"><a class="header" href="#section-1006">Section 1006</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display the page break cost <a href="./part45.html#section-1006">1006</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">begin_diagnostic();
+print_nl("\%");
+print(" t=");
+print_totals();
+print(" g=");
+print_scaled(page_goal);
+print(" b=");
+if (b == AWFUL_BAD) {
+    print_char('*');
+}
+else {
+    print_int(b);
+}
+print(" p=");
+print_int(pi);
+print(" c=");
+if (c == AWFUL_BAD) {
+    print_char('*');
+}
+else {
+    print_int(c);
+}
+if (c &lt;= least_page_cost) {
+    print_char('#');
+}
+end_diagnostic(false);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1005">1005</a>.</p>
+</div></div>
+<h1 id="section-1007"><a class="header" href="#section-1007">Section 1007</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the badness, <em>b</em>, of the current page, using <em>AWFUL_BAD</em> if the box is too full <a href="./part45.html#section-1007">1007</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (page_total &lt; page_goal) {
+    if (page_so_far[3] != 0
+        || page_so_far[4] != 0
+        || page_so_far[5] != 0)
+    {
+        b = 0;
+    }
+    else {
+        b = badness(page_goal - page_total, page_so_far[2]);
+    }
+}
+else if (page_total - page_goal &gt; page_shrink) {
+    b = AWFUL_BAD;
+}
+else {
+    b = badness(page_total - page_goal, page_shrink);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1005">1005</a>.</p>
+</div></div>
+<h1 id="section-1008"><a class="header" href="#section-1008">Section 1008</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append an insertion to the current page and <em>goto contribute</em> <a href="./part45.html#section-1008">1008</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (page_contents == EMPTY) {
+    freeze_page_specs(INSERTS_ONLY);
+}
+n = subtype(p);
+r = PAGE_INS_HEAD;
+while (n &gt;= subtype(link(r))) {
+    r = link(r);
+}
+if (subtype(r) != n) {
+    // &lt;&lt; Create a page insertion node with |subtype(r) = n|, and include the glue correction for box |n| in the current page state, 1009 &gt;&gt;
+}
+if (type(r) == SPLIT_UP) {
+    insert_penalties += float_cost(p);
+}
+else {
+    last_ins_ptr(r) = p;
+    delta = page_goal - page_total - page_depth + page_shrink;
+    // this much room is left if we shrink the maximum
+    if (count(n) == 1000) {
+        h = height(p);
+    }
+    else {
+        h = x_over_n(height(p), 1000)*count(n); // this much room is needed
+    }
+    if ((h &lt;= 0 || h &lt;= delta)
+        &amp;&amp; height(p) + height(r) &lt;= dimen(n))
+    {
+        page_goal -= h;
+        height(r) += height(p);
+    }
+    else {
+        // &lt;&lt; Find the best way to split the insertion, and change |type(r)| to |SPLIT_UP|, 1010 &gt;&gt;
+    }
+}
+goto contribute;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1000">1000</a>.</p>
+</div></div>
+<h1 id="section-1009"><a class="header" href="#section-1009">Section 1009</a></h1>
+<p>We take note of the value of <code>\skip</code> <em>n</em> and the height plus depth of <code>\box</code> <em>n</em> only when the first <code>\insert</code> <em>n</em> node is encountered for a new page.
+A user who changes the contents of <code>\box</code> <em>n</em> after that first <code>\insert</code> <em>n</em> had better be either extremely careful or extremely lucky, or both.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Create a page insertion node with <em>subtype(r) = n</em>, and include the glue correction for box <em>n</em> in the current page state <a href="./part45.html#section-1009">1009</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = get_node(PAGE_INS_NODE_SIZE);
+link(q) = link(r);
+link(r) = q;
+r = q;
+subtype(r) = n;
+type(r) = INSERTING;
+ensure_vbox(n);
+if (box(n) == null) {
+    height(r) = 0;
+}
+else {
+    height(r) = height(box(n)) + depth(box(n));
+}
+best_ins_ptr(r) = null;
+q = skip(n);
+if (count(n) == 1000) {
+    h = height(r);
+}
+else {
+    h = x_over_n(height(r), 1000)*count(n);
+}
+page_goal -= h + width(q);
+page_so_far[2 + stretch_order(q)] += stretch(q);
+page_shrink += shrink(q);
+if (shrink_order(q) != NORMAL &amp;&amp; shrink(q) != 0) {
+    print_err("Infinite glue shrinkage inserted from ");
+    print_esc("skip");
+    print_int(n);
+    help3("The correction glue for page breaking with insertions")
+        ("must have finite shrinkability. But you may proceed,")
+        ("since the offensive shrinkability has been made finite.");
+    error();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1008">1008</a>.</p>
+</div></div>
+<h1 id="section-1010"><a class="header" href="#section-1010">Section 1010</a></h1>
+<p>Here is the code that will split a long footnote between pages, in an emergency.
+The current situation deserves to be recapitulated: Node <em>p</em> is an insertion into box <em>n</em>; the insertion will not fit, in its entirety, either because it would make the total contents of box <em>n</em> greater than <code>\dimen</code> <em>n</em>, or because it would make the incremental amount of growth <em>h</em> greater than the available space <em>delta</em>, or both.
+(This amount <em>h</em> has been weighted by the insertion scaling factor, i.e., by <code>\count</code> <em>n</em> over 1000.)
+Now we will choose the best way to break the vlist of the insertion, using the same criteria as in the <code>\vsplit</code> operation.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Find the best way to split the insertion, and change <em>type(r)</em> to <em>SPLIT_UP</em> <a href="./part45.html#section-1010">1010</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (count(n) &lt;= 0) {
+    w = MAX_DIMEN;
+}
+else {
+    w = page_goal - page_total - page_depth;
+    if (count(n) != 1000) {
+        w = x_over_n(w, count(n))*1000;
+    }
+}
+if (w &gt; dimen(n) - height(r)) {
+    w = dimen(n) - height(r);
+}
+q = vert_break(ins_ptr(p), w, depth(p));
+height(r) += best_height_plus_depth;
+
+#ifdef STAT
+if (tracing_pages &gt; 0) {
+    // &lt;&lt; Display the insertion split cost, 1011 &gt;&gt;
+}
+#endif
+
+if (count(n) != 1000) {
+  best_height_plus_depth = x_over_n(best_height_plus_depth, 1000)*count(n);
+}
+page_goal -= best_height_plus_depth;
+type(r) = SPLIT_UP;
+broken_ptr(r) = q;
+broken_ins(r) = p;
+if (q == null) {
+    insert_penalties += EJECT_PENALTY;
+}
+else if (type(q) == PENALTY_NODE) {
+    insert_penalties += penalty(q);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1008">1008</a>.</p>
+</div></div>
+<h1 id="section-1011"><a class="header" href="#section-1011">Section 1011</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display the insertion split cost <a href="./part45.html#section-1011">1011</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">begin_diagnostic();
+print_nl("\% split");
+print_int(n);
+print(" to ");
+print_scaled(w);
+print_char(',');
+print_scaled(best_height_plus_depth);
+print(" p=");
+if (q == null) {
+    print_int(EJECT_PENALTY);
+}
+else if (type(q) == PENALTY_NODE) {
+    print_int(penalty(q));
+}
+else {
+    print_char('0');
+}
+end_diagnostic(false);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1010">1010</a>.</p>
+</div></div>
+<h1 id="section-1012"><a class="header" href="#section-1012">Section 1012</a></h1>
+<p>When the page builder has looked at as much material as could appear before the next page break, it makes its decision.
+The break that gave minimum badness will be used to put a completed “page” into box 255, with insertions appended to their other boxes.</p>
+<p>We also set the values of <em>top_mark</em>, <em>first_mark</em>, and <em>bot_mark</em>.
+The program uses the fact that <em>bot_mark</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>null</em> implies <em>first_mark</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>null</em>;
+it also knows that <em>bot_mark = null</em> implies <em>top_mark = first_mark = null</em>.</p>
+<p>The <em>fire_up</em> subroutine prepares to output the current page at the best place;
+then it fires up the user’s output routine, if there is one, or it simply ships out the page.
+There is one parameter, <em>c</em>, which represents the node that was being contributed to the page when the decision to force an output was made.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare the procedure called <em>fire_up</em> <a href="./part45.html#section-1012">1012</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">void fire_up(pointer c) {
+    pointer p, q, r, s;          // nodes being examined and/or changed
+    pointer prev_p;              // predecessor of |p|
+    int n;                       // insertion box number
+    bool wait;                   // should the present insertion be held over?
+    int save_vbadness;           // saved value of |vbadness|
+    scaled save_vfuzz;           // saved value of |vfuzz|
+    pointer save_split_top_skip; // saved value of |split_top_skip|
+    
+    // &lt;&lt; Set the value of |output_penalty|, 1013 &gt;&gt;
+    if (bot_mark != null) {
+        if (top_mark != null) {
+            delete_token_ref(top_mark);
+        }
+        top_mark = bot_mark;
+        add_token_ref(top_mark);
+        delete_token_ref(first_mark);
+        first_mark = null;
+    }
+
+    // &lt;&lt; Put the optimal current page into box 255, update |first_mark| and |bot_mark|, append insertions to their boxes, and put the remaining nodes back on the contribution list, 1014 &gt;&gt;
+    
+    if (top_mark != null &amp;&amp; first_mark == null) {
+        first_mark = top_mark;
+        add_token_ref(top_mark);
+    }
+    if (output_routine != null) {
+        if (dead_cycles &gt;= max_dead_cycles) {
+            // &lt;&lt; Explain that too many dead cycles have occurred in a row, 1024 &gt;&gt;
+        }
+        else {
+            // &lt;&lt; Fire up the user's output routine and |return|, 1025 &gt;&gt;
+        }
+    }
+    // &lt;&lt; Perform the default output routine, 1023 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-994">994</a>.</p>
+</div></div>
+<h1 id="section-1013"><a class="header" href="#section-1013">Section 1013</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set the value of <em>output_penalty</em> <a href="./part45.html#section-1013">1013</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (type(best_page_break) == PENALTY_NODE) {
+    geq_word_define(INT_BASE + OUTPUT_PENALTY_CODE, penalty(best_page_break));
+    penalty(best_page_break) = INF_PENALTY;
+}
+else {
+    geq_word_define(INT_BASE + OUTPUT_PENALTY_CODE, INF_PENALTY);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1012">1012</a>.</p>
+</div></div>
+<h1 id="section-1014"><a class="header" href="#section-1014">Section 1014</a></h1>
+<p>As the page is finally being prepared for output, pointer <em>p</em> runs through the vlist, with <em>prev_p</em> trailing behind;
+pointer <em>q</em> is the tail of a list of insertions that are being held over for a subsequent page.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put the optimal current page into box 255, update <em>first_mark</em> and <em>bot_mark</em>, append insertions to their boxes, and put the remaining nodes back on the contribution list <a href="./part45.html#section-1014">1014</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (c == best_page_break) {
+    best_page_break = null; // |c| not yet linked in
+}
+
+// &lt;&lt; Ensure that box 255 is empty before output, 1015 &gt;&gt;
+
+insert_penalties = 0; // this will count the number of insertions held over
+save_split_top_skip = split_top_skip;
+if (holding_inserts &lt;= 0) {
+    // &lt;&lt; Prepare all the boxes involved in insertions to act as queues, 1018 &gt;&gt;
+}
+q = HOLD_HEAD;
+link(q) = null;
+prev_p = PAGE_HEAD;
+p = link(prev_p);
+while (p != best_page_break) {
+    if (type(p) == INS_NODE) {
+        if (holding_inserts &lt;= 0) {
+            // &lt;&lt; Either insert the material specified by node |p| into the appropriate box, or hold it for the next page; also delete node |p| from the current page, 1020 &gt;&gt;
+        }
+    }
+    else if (type(p) == MARK_NODE) {
+        // &lt;&lt; Update the values of |first_mark| and |bot_mark|, 1016 &gt;&gt;
+    }
+    prev_p = p;
+    p = link(prev_p);
+}
+split_top_skip = save_split_top_skip;
+
+// &lt;&lt; Break the current page at node |p|, put it in box 255, and put the remaining nodes on the contribution list, 1017 &gt;&gt;
+
+// &lt;&lt; Delete the page-insertion nodes, 1019 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1012">1012</a>.</p>
+</div></div>
+<h1 id="section-1015"><a class="header" href="#section-1015">Section 1015</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Ensure that box 255 is empty before output <a href="./part45.html#section-1015">1015</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (box(255) != null) {
+    print_err("");
+    print_esc("box");
+    print("255 is not void");
+    help2("You shouldn't use \\box255 except in \\output routines.")
+        ("Proceed, and I'll discard its present contents.");
+    box_error(255);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1014">1014</a>.</p>
+</div></div>
+<h1 id="section-1016"><a class="header" href="#section-1016">Section 1016</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Update the values of <em>first_mark</em> and <em>bot_mark</em> <a href="./part45.html#section-1016">1016</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (first_mark == null) {
+    first_mark = mark_ptr(p);
+    add_token_ref(first_mark);
+}
+if (bot_mark != null) {
+    delete_token_ref(bot_mark);
+}
+bot_mark = mark_ptr(p);
+add_token_ref(bot_mark);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1014">1014</a>.</p>
+</div></div>
+<h1 id="section-1017"><a class="header" href="#section-1017">Section 1017</a></h1>
+<p>When the following code is executed, the current page runs from node <em>link(PAGE_HEAD)</em> to node <em>prev_p</em>, and the nodes from <em>p</em> to <em>page_tail</em> are to be placed back at the front of the contribution list.
+Furthermore the heldover insertions appear in a list from <em>link(HOLD_HEAD)</em> to <em>q</em>;
+we will put them into the current page list for safekeeping while the user’s output routine is active.
+We might have <em>q = HOLD_HEAD</em>; and <em>p = null</em> if and only if <em>prev_p = page_tail</em>.
+Error messages are suppressed within <em>vpackage</em>, since the box might appear to be overfull or underfull simply because the stretch and shrink from the <code>\skip</code> registers for inserts are not actually present in the box.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Break the current page at node <em>p</em>, put it in box 255, and put the remaining nodes on the contribution list <a href="./part45.html#section-1017">1017</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (p != null) {
+    if (link(CONTRIB_HEAD) == null) {
+        if (nest_ptr == 0) {
+            tail = page_tail;
+        }
+        else {
+            contrib_tail = page_tail;
+        }
+    }
+    link(page_tail) = link(CONTRIB_HEAD);
+    link(CONTRIB_HEAD) = p;
+    link(prev_p) = null;
+}
+save_vbadness = vbadness;
+vbadness = INF_BAD;
+save_vfuzz = vfuzz;
+vfuzz = MAX_DIMEN; // inhibit error messages
+box(255) = vpackage(link(PAGE_HEAD), best_size, EXACTLY, page_max_depth);
+vbadness = save_vbadness;
+vfuzz = save_vfuzz;
+if (last_glue != MAX_HALFWORD) {
+    delete_glue_ref(last_glue);
+}
+// this sets |last_glue = MAX_HALFWORD|:
+// &lt;&lt; Start a new current page, 991 &gt;&gt;
+if (q != HOLD_HEAD) {
+    link(PAGE_HEAD) = link(HOLD_HEAD);
+    page_tail = q;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1014">1014</a>.</p>
+</div></div>
+<h1 id="section-1018"><a class="header" href="#section-1018">Section 1018</a></h1>
+<p>If many insertions are supposed to go into the same box, we want to know the position of the last node in that box, so that we don’t need to waste time when linking further information into it.
+The <em>last_ins_ptr</em> fields of the page insertion nodes are therefore used for this purpose during the packaging phase.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Prepare all the boxes involved in insertions to act as queues <a href="./part45.html#section-1018">1018</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = link(PAGE_INS_HEAD);
+while (r != PAGE_INS_HEAD) {
+    if (best_ins_ptr(r) != null) {
+        n = subtype(r);
+        ensure_vbox(n);
+        if (box(n) == null) {
+            box(n) = new_null_box();
+        }
+        p = box(n) + LIST_OFFSET;
+        while (link(p) != null) {
+            p = link(p);
+        }
+        last_ins_ptr(r) = p;
+    }
+    r = link(r);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1014">1014</a>.</p>
+</div></div>
+<h1 id="section-1019"><a class="header" href="#section-1019">Section 1019</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Delete the page-insertion nodes <a href="./part45.html#section-1019">1019</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = link(PAGE_INS_HEAD);
+while (r != PAGE_INS_HEAD) {
+    q = link(r);
+    free_node(r, PAGE_INS_NODE_SIZE);
+    r = q;
+}
+link(PAGE_INS_HEAD) = PAGE_INS_HEAD;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1014">1014</a>.</p>
+</div></div>
+<h1 id="section-1020"><a class="header" href="#section-1020">Section 1020</a></h1>
+<p>We will set <em>best_ins_ptr</em> ← <em>null</em> and package the box corresponding to insertion node <em>r</em>, just after making the final insertion into that box.
+If this final insertion is <em>‘SPLIT_UP’</em>, the remainder after splitting and pruning (if any) will be carried over to the next page.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Either insert the material specified by node <em>p</em> into the appropriate box, or hold it for the next page; also delete node <em>p</em> from the current page <a href="./part45.html#section-1020">1020</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = link(PAGE_INS_HEAD);
+while (subtype(r) != subtype(p)) {
+    r = link(r);
+}
+if (best_ins_ptr(r) == null) {
+    wait = true;
+}
+else {
+    wait = false;
+    s = last_ins_ptr(r);
+    link(s) = ins_ptr(p);
+    if (best_ins_ptr(r) == p) {
+        // &lt;&lt; Wrap up the box specified by node |r|, splitting node |p| if called for; set |wait = true| if node |p| holds a remainder after splitting, 1021 &gt;&gt;
+    }
+    else {
+        while (link(s) != null) {
+            s = link(s);
+        }
+        last_ins_ptr(r) = s;
+    }
+}
+// &lt;&lt; Either append the insertion node |p| after node |q|, and remove it from the current page, or delete |node(p)|, 1022 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1014">1014</a>.</p>
+</div></div>
+<h1 id="section-1021"><a class="header" href="#section-1021">Section 1021</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Wrap up the box specified by node <em>r</em>, splitting node <em>p</em> if called for; set <em>wait = true</em> if node <em>p</em> holds a remainder after splitting <a href="./part45.html#section-1021">1021</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (type(r) == SPLIT_UP
+    &amp;&amp; broken_ins(r) == p
+    &amp;&amp; broken_ptr(r) != null)
+{
+    while (link(s) != broken_ptr(r)) {
+        s = link(s);
+    }
+    link(s) = null;
+    split_top_skip = split_top_ptr(p);
+    ins_ptr(p) = prune_page_top(broken_ptr(r));
+    if (ins_ptr(p) != null) {
+        temp_ptr = vpack(ins_ptr(p), NATURAL);
+        height(p) = height(temp_ptr) + depth(temp_ptr);
+        free_node(temp_ptr, BOX_NODE_SIZE);
+        wait = true;
+    }
+}
+best_ins_ptr(r) = null;
+n = subtype(r);
+temp_ptr = list_ptr(box(n));
+free_node(box(n), BOX_NODE_SIZE);
+box(n) = vpack(temp_ptr, NATURAL);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1020">1020</a>.</p>
+</div></div>
+<h1 id="section-1022"><a class="header" href="#section-1022">Section 1022</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Either append the insertion node <em>p</em> after node <em>q</em>, and remove it from the current page, or delete <em>node(p)</em> <a href="./part45.html#section-1022">1022</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">link(prev_p) = link(p);
+link(p) = null;
+if (wait) {
+    link(q) = p;
+    q = p;
+    incr(insert_penalties);
+}
+else {
+    delete_glue_ref(split_top_ptr(p));
+    free_node(p, INS_NODE_SIZE);
+}
+p = prev_p;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1020">1020</a>.</p>
+</div></div>
+<h1 id="section-1023"><a class="header" href="#section-1023">Section 1023</a></h1>
+<p>The list of heldover insertions, running from <em>link(PAGE_HEAD)</em> to <em>page_tail</em>, must be moved to the contribution list when the user has specified no output routine.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Perform the default output routine <a href="./part45.html#section-1023">1023</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (link(PAGE_HEAD) != null) {
+    if (link(CONTRIB_HEAD) == null) {
+        if (nest_ptr == 0) {
+            tail = page_tail;
+        }
+        else {
+            contrib_tail = page_tail;
+        }
+    }
+    else {
+        link(page_tail) = link(CONTRIB_HEAD);
+    }
+    link(CONTRIB_HEAD) = link(PAGE_HEAD);
+    link(PAGE_HEAD) = null;
+    page_tail = PAGE_HEAD;
+}
+ship_out(box(255));
+box(255) = null;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1012">1012</a>.</p>
+</div></div>
+<h1 id="section-1024"><a class="header" href="#section-1024">Section 1024</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Explain that too many dead cycles have occurred in a row <a href="./part45.html#section-1024">1024</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Output loop---");
+print_int(dead_cycles);
+print(" consecutive dead cycles");
+help3("I've concluded that your \\output is awry; it never does a")
+    ("\\shipout, so I'm shipping \\box255 out myself. Next time")
+    ("increase \\maxdeadcycles if you want me to be more patient!");
+error();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1012">1012</a>.</p>
+</div></div>
+<h1 id="section-1025"><a class="header" href="#section-1025">Section 1025</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Fire up the user’s output routine and <em>return</em> <a href="./part45.html#section-1025">1025</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">output_active = true;
+incr(dead_cycles);
+push_nest();
+mode = -VMODE;
+prev_depth = IGNORE_DEPTH;
+mode_line = -line;
+begin_token_list(output_routine, OUTPUT_TEXT);
+new_save_level(OUTPUT_GROUP);
+normal_paragraph();
+scan_left_brace();
+return;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1012">1012</a>.</p>
+</div></div>
+<h1 id="section-1026"><a class="header" href="#section-1026">Section 1026</a></h1>
+<p>When the user’s output routine finishes, it has constructed a vlist in internal vertical mode, and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will do the following:</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Resume the page builder after an output routine has come to an end <a href="./part45.html#section-1026">1026</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (loc != null
+    || (token_type != OUTPUT_TEXT &amp;&amp; token_type != BACKED_UP))
+{
+    // &lt;&lt; Recover from an unbalanced output routine, 1027 &gt;&gt;
+}
+end_token_list(); // conserve stack space in case more outputs are triggered
+end_graf();
+unsave();
+output_active = false;
+insert_penalties = 0;
+// &lt;&lt; Ensure that box 255 is empty after output, 1028 &gt;&gt;
+if (tail != head) {
+    // current list goes after heldover insertions
+    link(page_tail) = link(head);
+    page_tail = tail;
+}
+if (link(PAGE_HEAD) != null) {
+    // and both go before heldover contributions
+    if (link(CONTRIB_HEAD) == null) {
+        contrib_tail = page_tail;
+    }
+    link(page_tail) = link(CONTRIB_HEAD);
+    link(CONTRIB_HEAD) = link(PAGE_HEAD);
+    link(PAGE_HEAD) = null;
+    page_tail = PAGE_HEAD;
+}
+pop_nest();
+build_page();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1100">1100</a>.</p>
+</div></div>
+<h1 id="section-1027"><a class="header" href="#section-1027">Section 1027</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Recover from an unbalanced output routine <a href="./part45.html#section-1027">1027</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Unbalanced output routine");
+help2("Your sneaky output routine has problematic {'s and/or }'s.")
+    ("I can't handle that very well; good luck.");
+error();
+do {
+    get_token();
+} while (loc != null);
+// loops forever if reading from a file, since |null = MIN_HALFWORD &lt;= 0|
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1026">1026</a>.</p>
+</div></div>
+<h1 id="section-1028"><a class="header" href="#section-1028">Section 1028</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Ensure that box 255 is empty after output <a href="./part45.html#section-1028">1028</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (box(255) != null) {
+    print_err("Output routine didn't use all of ");
+    print_esc("box");
+    print_int(255);
+    help3("Your \\output commands should empty \\box255,")
+        ("e.g., by saying `\\shipout\\box255'.")
+        ("Proceed; I'll discard its present contents.");
+    box_error(255);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1026">1026</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part44.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part46.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part44.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part46.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

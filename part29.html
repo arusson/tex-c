@@ -1,0 +1,1006 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 511–538 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html" class="active">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-511-file-names"><a class="header" href="#section-511-file-names">Section 511: File names</a></h1>
+<p>It’s time now to fret about file names.
+Besides the fact that different operating systems treat files in different ways, we must cope with the fact that completely different naming conventions are used by different groups of people.
+The following programs show what is required for one particular operating system; similar routines for other systems are not difficult to devise.</p>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> assumes that a file name has three parts: the name proper; its “extension”;
+and a “file area” where it is found in an external file system.
+The extension of an input file or a write file is assumed to be ‘<code>.tex</code>’ unless otherwise specified;
+it is ‘<code>.log</code>’ on the transcript file that records each run of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>; it is ‘<code>.tfm</code>’ on the font metric files that describe characters in the fonts <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> uses;
+it is ‘<code>.dvi</code>’ on the output files that specify typesetting information;
+and it is ‘<code>.fmt</code>’ on the format files written by <code>INITEX</code> to initialize <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.
+The file area can be arbitrary on input files, but files are usually output to the user’s current area.
+If an input file cannot be found on the specified area, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will look for it on a special system area;
+this special area is intended for commonly used input files like <code>webmac.tex</code>.</p>
+<p>Simple uses of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> refer only to file names that have no explicit extension or area.
+For example, a person usually says ‘<code>\input paper</code>’ or ‘<code>\font\tenrm = helvetica</code>’ instead of ‘<code>\input paper.new</code>’ or ‘<code>\font\tenrm = &lt;csd.knuth&gt;test</code>’.
+Simple file names are best, because they make the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> source files portable;
+whenever a file name consists entirely of letters and digits, it should be treated in the same way by all implementations of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.
+However, users need the ability to refer to other files in their environment, especially when responding to error messages concerning unopenable files;
+therefore we want to let them use the syntax that appears in their favorite operating system.</p>
+<p>The following procedures don’t allow spaces to be part of file names; but some users seem to like names that are spaced-out.
+System-dependent changes to allow such things should probably be made with reluctance, and only when an entire file name that includes spaces is “quoted” somehow.</p>
+<h1 id="section-512"><a class="header" href="#section-512">Section 512</a></h1>
+<p>In order to isolate the system-dependent aspects of file names, the system-independent parts of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> are expressed in terms of three system-dependent procedures called <em>begin_name</em>, <em>more_name</em>, and <em>end_name</em>.
+In essence, if the user-specified characters of the file name are <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, the system-independent driver program does the operations</p>
+<div align="center">
+<p><em>begin_name</em>; <em>more_name(<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)</em>; <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span>; <em>more_name(<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>)</em>; <em>end_name</em>.</p>
+</div>
+<p>These three procedures communicate with each other via global variables.
+Afterwards the file name will appear in the string pool as three strings called <em>cur_name</em>,
+<em>cur_area</em>, and <em>cur_ext</em>; the latter two are null (i.e., <code>""</code>), unless they were explicitly specified by the user.</p>
+<p>Actually the situation is slightly more complicated, because <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> needs to know when the file name ends.
+The <em>more_name</em> routine is a function (with side effects) that returns <em>true</em> on the calls <em>more_name</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, …, <em>more_name</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.
+The final call <em>more_name</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> returns <em>false</em>; or, it returns <em>true</em> and the token following <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is something like ‘<code>\hbox</code>’ (i.e., not a character).
+In other words, <em>more_name</em> is supposed to return <em>true</em> unless it is sure that the file name has been completely scanned; and <em>end_name</em> is supposed to be able to finish the assembly of <em>cur_name</em>, <em>cur_area</em>, and <em>cur_ext</em> regardless of whether <em>more_name</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> returned <em>true</em> or <em>false</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">str_number cur_name; // name of file just scanned
+str_number cur_area; // file area just scanned, or ""
+str_number cur_ext;  // file extension just scanned, or ""
+</code></pre>
+</div>
+<h1 id="section-513"><a class="header" href="#section-513">Section 513</a></h1>
+<p>The file names we shall deal with for illustrative purposes have the following structure:
+If the name contains ‘<code>&gt;</code>’ or ‘<code>:</code>’, the file area consists of all characters up to and including the final such character;
+otherwise the file area is null.
+If the remaining file name contains ‘<code>.</code>’, the file extension consists of all such characters from the first remaining ‘<code>.</code>’ to the end, otherwise the file extension is null.</p>
+<p>We can scan such file names easily by using two global variables that keep track of the occurrences of area and extension delimiters:</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>This C implementation of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> uses only ‘<code>/</code>’ as the area delimiter.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pool_pointer area_delimiter; // the most recent '&gt;' or ':', if any
+pool_pointer ext_delimiter;  // the relevant '.', if any
+</code></pre>
+</div>
+<h1 id="section-514"><a class="header" href="#section-514">Section 514</a></h1>
+<p>Input files that can’t be found in the user’s area may appear in a standard system area called <em>TEX_AREA</em>.
+Font metric files whose areas are not given explicitly are assumed to appear in a standard system area called <em>TEX_FONT_AREA</em>.
+These system area names will, of course, vary from place to place.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Those strings are added to the pool (with ‘<code>/</code>’ as separator instead of ‘<code>:</code>’).</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string("TeXinputs/"); // TEX_AREA: 258
+put_string("TeXfonts/");  // TEX_FONT_AREA: 259
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define TEX_AREA 258
+#define TEX_FONT_AREA 259
+</code></pre>
+</div>
+<h1 id="section-515"><a class="header" href="#section-515">Section 515</a></h1>
+<p>Here now is the first of the system-dependent routines for file name scanning.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">filenames.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |filenames.c|, 1382 &gt;&gt;
+
+void begin_name() {
+    area_delimiter = 0;
+    ext_delimiter = 0;
+}
+</code></pre>
+</div>
+<h1 id="section-516"><a class="header" href="#section-516">Section 516</a></h1>
+<p>And here’s the second.
+The string pool might change as the file name is being scanned, since a new <code>\csname</code> might be entered; therefore we keep <em>area_delimiter</em> and <em>ext_delimiter</em> relative to the beginning of the current string, instead of assigning an absolute address like <em>pool_ptr</em> to them.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">filenames.c</div>
+<pre><code class="language-c">bool more_name(ASCII_code c) {
+    if (c == ' ') {
+        return false;
+    }
+    else {
+        str_room(1);
+        append_char(c); // contribute |c| to the current string
+        if (c == '/') {
+            area_delimiter = cur_length;
+            ext_delimiter = 0;
+        }
+        else if (c == '.' &amp;&amp; ext_delimiter == 0) {
+            ext_delimiter = cur_length;
+        }
+        return true;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-517"><a class="header" href="#section-517">Section 517</a></h1>
+<p>The third.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">filenames.c</div>
+<pre><code class="language-c">void end_name() {
+    if (str_ptr + 3 &gt; MAX_STRINGS) {
+        overflow("number of strings", MAX_STRINGS - init_str_ptr);
+    }
+    if (area_delimiter == 0) {
+        cur_area = EMPTY_STRING;
+    }
+    else {
+        cur_area = str_ptr;
+        str_start[str_ptr + 1] = str_start[str_ptr] + area_delimiter;
+        incr(str_ptr);
+    }
+    if (ext_delimiter == 0) {
+        cur_ext = EMPTY_STRING;
+        cur_name = make_string();
+    }
+    else {
+        cur_name = str_ptr;
+        str_start[str_ptr + 1] = str_start[str_ptr] + ext_delimiter - area_delimiter - 1;
+        incr(str_ptr);
+        cur_ext = make_string();
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-518"><a class="header" href="#section-518">Section 518</a></h1>
+<p>Conversely, here is a routine that takes three strings and prints a file name that might have produced them.
+(The routine is system dependent, because some operating systems put the file area last instead of first.)</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">void print_file_name(int n, int a, int e) {
+    slow_print(a);
+    slow_print(n);
+    slow_print(e);
+}
+</code></pre>
+</div>
+<h1 id="section-519"><a class="header" href="#section-519">Section 519</a></h1>
+<p>Another system-dependent routine is needed to convert three internal <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> strings into the <em>name_of_file</em> value that is used to open files.
+The present code allows both lowercase and uppercase letters in the file name.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>A macro <em>append_to_name_nul</em> is defined to add null byte at the end of the name.
+Writing spaces after the name has been removed.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define append_to_name(X)              \
+    do {                               \
+        c = (X);                       \
+        if (k &lt; FILE_NAME_SIZE) {      \
+            name_of_file[k] = XCHR[c]; \
+        }                              \
+        incr(k);                       \
+    } while (0)
+
+#define append_to_name_nul name_of_file[name_length] = '\0'
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">filenames.c</div>
+<pre><code class="language-c">void pack_file_name(str_number n, str_number a, str_number e) {
+    int k; // number of positions filled in |name_of_file|
+    ASCII_code c; // character being packed
+    int j; // index into |str_pool|
+    k = 0;
+    for(j = str_start[a]; j &lt;= str_start[a + 1] - 1; j++) {
+        append_to_name(str_pool[j]);
+    }
+    for(j = str_start[n]; j &lt;= str_start[n + 1] - 1; j++) {
+        append_to_name(str_pool[j]);
+    }
+    for(j = str_start[e]; j &lt;= str_start[e + 1] - 1; j++) {
+        append_to_name(str_pool[j]);
+    }
+    if (k &lt;= FILE_NAME_SIZE) {
+        name_length = k;
+    }
+    else {
+        name_length = FILE_NAME_SIZE;
+    }
+    append_to_name_nul;
+}
+</code></pre>
+</div>
+<h1 id="section-520"><a class="header" href="#section-520">Section 520</a></h1>
+<p>A messier routine is also needed, since format file names must be scanned before <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s string mechanism has been initialized.
+We shall use the global variable <em>tex_format_default</em> to supply the text for default system areas
+and extensions related to format files.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String <code>".fmt"</code> must be added in the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define FORMAT_DEFAULT_LENGTH 20      // length of the |tex_format_default| string
+#define FORMAT_AREA_LENGTH    11      // length of its area part
+#define FORMAT_EXT_LENGTH     4       // length of its '.fmt' part
+#define FORMAT_EXTENSION      FMT_EXT // the extension, as a WEB constant
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">char tex_format_default[FORMAT_DEFAULT_LENGTH];
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string(".fmt"); // FMT_EXT: 260
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define FMT_EXT 260
+</code></pre>
+</div>
+<h1 id="section-521"><a class="header" href="#section-521">Section 521</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">memcpy(tex_format_default, "TeXformats/plain.fmt", 20);
+</code></pre>
+</div>
+<h1 id="section-522"><a class="header" href="#section-522">Section 522</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Check the “constant” values for consistency <a href="./part01.html#section-14">14</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">if (FORMAT_DEFAULT_LENGTH &gt; FILE_NAME_SIZE) {
+    bad = 31;
+}
+</code></pre>
+</div>
+<h1 id="section-523"><a class="header" href="#section-523">Section 523</a></h1>
+<p>Here is the messy routine that was just mentioned.
+It sets <em>name_of_file</em> from the first <em>n</em> characters of <em>tex_format_default</em>, followed by <em>buffer[a .. b]</em>, followed by the last <em>FORMAT_EXT_LENGTH</em> characters of <em>tex_format_default</em>.</p>
+<p>We dare not give error messages here, since <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> calls this routine before the <em>error</em> routine is ready to roll.
+Instead, we simply drop excess characters, since the error will be detected in another way when a strange file name isn’t found.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Null byte is added at the end, and <em>tex_format_default</em> is indexed from 0.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">dumping.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |dumping.c|, 1382 &gt;&gt;
+
+void pack_buffered_name(small_number n, int a, int b) {
+    int k; // number of positions filled in |name_of_file|
+    ASCII_code c; // character being packed
+    int j; // index into |buffer| or |tex_format_default|
+    if (n + b - a + 1 + FORMAT_EXT_LENGTH &gt; FILE_NAME_SIZE) {
+        b = a + FILE_NAME_SIZE - n - 1 - FORMAT_EXT_LENGTH;
+    }
+    k = 0;
+    for(j = 0; j &lt; n; j++) {
+        append_to_name(XORD[(int)tex_format_default[j]]);
+    }
+    for(j = a; j &lt;= b; j++) {
+        append_to_name(buffer[j]);
+    }
+    for(j = FORMAT_DEFAULT_LENGTH - FORMAT_EXT_LENGTH; j &lt; FORMAT_DEFAULT_LENGTH; j++) {
+        append_to_name(XORD[(int)tex_format_default[j]]);
+    }
+    if (k &lt;= FILE_NAME_SIZE) {
+        name_length = k;
+    }
+    else {
+        name_length = FILE_NAME_SIZE;
+    }
+    append_to_name_nul;
+}
+</code></pre>
+</div>
+<h1 id="section-524"><a class="header" href="#section-524">Section 524</a></h1>
+<p>Here is the only place we use <em>pack_buffered_name</em>.
+This part of the program becomes active when a “virgin” <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is trying to get going, just after the preliminary initialization, or when the user is substituting another format file by typing ‘<code>&amp;</code>’ after the initial ‘<code>**</code>’ prompt.
+The buffer contains the first line of input in <em>buffer[loc .. (last − 1)]</em>, where <em>loc</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>last</em> and <em>buffer[loc]</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> ‘␣’.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dumping.c</div>
+<pre><code class="language-c">bool open_fmt_file() {
+    int j; // the first space after the format file name
+    j = loc;
+    if (buffer[loc] == '&amp;') {
+        incr(loc);
+        j = loc;
+        buffer[last] = ' ';
+        while (buffer[j] != ' ') {
+            incr(j);
+        }
+        pack_buffered_name(0, loc, j - 1); // try first without the system file area
+        if (w_open_in(&amp;fmt_file)) {
+            goto found;
+        }
+        pack_buffered_name(FORMAT_AREA_LENGTH, loc, j - 1); // now try the system format file area
+        if (w_open_in(&amp;fmt_file)) {
+            goto found;
+        }
+        wterm_ln("Sorry, I can't find that format; will try PLAIN.");
+        update_terminal;
+    }
+    // now pull out all the stops: try for the system plain file
+    pack_buffered_name(FORMAT_DEFAULT_LENGTH - FORMAT_EXT_LENGTH, 1, 0);
+    if (!w_open_in(&amp;fmt_file)) {
+        wterm_ln("I can't find the PLAIN format file!");
+        return false;
+    }
+found:
+    loc = j;
+    return true;
+}
+</code></pre>
+</div>
+<h1 id="section-525"><a class="header" href="#section-525">Section 525</a></h1>
+<p>Operating systems often make it possible to determine the exact name (and possible version number) of a file that has been opened.
+The following routine, which simply makes a <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> string from the value of <em>name_of_file</em>, should ideally be changed to deduce the full name of file <em>f</em>, which is the file most recently opened, if it is possible to do this in a Pascal program.</p>
+<p>This routine might be called after string memory has overflowed, hence we dare not use <em>‘str_room’</em>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Indexing into <em>name_of_file</em> starts from 0 instead of 1.</p>
+<p>Functions <em>a_make_name_string</em>, <em>b_make_name_string</em>, and <em>w_make_name_string</em> have been removed.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">filenames.c</div>
+<pre><code class="language-c">str_number make_name_string() {
+    int k; // index into |name_of_file|
+    if (pool_ptr + name_length &gt; POOL_SIZE
+        || str_ptr == MAX_STRINGS
+        || cur_length &gt; 0)
+    {
+        return '?';
+    }
+    else {
+        for(k = 0; k &lt; name_length; k++) {
+            append_char(XORD[(int)name_of_file[k]]);
+        }
+        return make_string();
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-526"><a class="header" href="#section-526">Section 526</a></h1>
+<p>Now let’s consider the “driver” routines by which <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> deals with file names in a system-independent manner.
+First comes a procedure that looks for a file name in the input by calling <em>get_x_token</em> for the information.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">filenames.c</div>
+<pre><code class="language-c">void scan_file_name() {
+    name_in_progress = true;
+    begin_name();
+    // &lt;&lt; Get the next non-blank non-call token, 406 &gt;&gt;
+    while(true) {
+        if (cur_cmd &gt; OTHER_CHAR || cur_chr &gt; 255) {
+              // not a character
+            back_input();
+            break; // Goto done
+        }
+        if (!more_name(cur_chr)) {
+            break; // Goto done
+        }
+        get_x_token();
+    }
+    // done:
+    end_name();
+    name_in_progress = false;
+}
+</code></pre>
+</div>
+<h1 id="section-527"><a class="header" href="#section-527">Section 527</a></h1>
+<p>The global variable <em>name_in_progress</em> is used to prevent recursive use of <em>scan_file_name</em>, since the <em>begin_name</em> and other procedures communicate via global variables.
+Recursion would arise only by devious tricks like ‘<code>\input\input f</code>’;
+such attempts at sabotage must be thwarted.
+Furthermore, <em>name_in_progress</em> prevents <code>\input</code> from being initiated when a font size specification is being scanned.</p>
+<p>Another global variable, <em>job_name</em>, contains the file name that was first <code>\input</code> by the user.
+This name is extended by ‘<code>.log</code>’ and ‘<code>.dvi</code>’ and ‘<code>.fmt</code>’ in the names of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s output files.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">bool name_in_progress; // is a file name being scanned?
+str_number job_name;   // principal file name
+bool log_opened;       // has the transcript file been opened?
+</code></pre>
+</div>
+<h1 id="section-528"><a class="header" href="#section-528">Section 528</a></h1>
+<p>Initially <em>job_name = 0</em>; it becomes nonzero as soon as the true name is known.
+We have <em>job_name = 0</em> if and only if the ‘<code>.log</code>’ file has not been opened, except of course for a short time just after <em>job_name</em> has become nonzero.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the output routines <a href="./part05.html#section-55">55</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">job_name = 0;
+name_in_progress = false;
+log_opened = false;
+</code></pre>
+</div>
+<h1 id="section-529"><a class="header" href="#section-529">Section 529</a></h1>
+<p>Here is a routine that manufactures the output file names, assuming that <em>job_name</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> 0.
+It ignores and changes the current settings of <em>cur_area</em> and <em>cur_ext</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define pack_cur_name pack_file_name(cur_name, cur_area, cur_ext)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">filenames.c</div>
+<pre><code class="language-c">void pack_job_name(str_number s) {
+    // |s = ".log"|, |".dvi"|, or |FORMAT_EXTENSION|
+    cur_area = EMPTY_STRING;
+    cur_ext = s;
+    cur_name = job_name;
+    pack_cur_name;
+}
+</code></pre>
+</div>
+<h1 id="section-530"><a class="header" href="#section-530">Section 530</a></h1>
+<p>If some trouble arises when <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> tries to open a file, the following routine calls upon the user to supply another file name.
+Parameter <em>s</em> is used in the error message to identify the type of file;
+parameter <em>e</em> is the default extension if none is given.
+Upon exit from the routine, variables <em>cur_name</em>, <em>cur_area</em>, <em>cur_ext</em>, and <em>name_of_file</em> are ready for another attempt at file opening.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String <code>".tex"</code> is added in the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string(".tex"); // TEX_EXT: 261
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define TEX_EXT 261
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">terminal.c</div>
+<pre><code class="language-c">void prompt_file_name(char *s, str_number e) {
+    int k; // index into |buffer|
+    if (strcmp(s, "input file name") == 0) {
+        print_err("I can't find file `");
+    }
+    else {
+        print_err("I can't write on file `");
+    }
+    print_file_name(cur_name, cur_area, cur_ext);
+    print("'.");
+    if (e == TEX_EXT) {
+        show_context();
+    }
+    print_nl("Please type another ");
+    print(s);
+    if (interaction &lt; SCROLL_MODE) {
+        fatal_error("*** (job aborted, file error in nonstop mode)");
+    }
+    clear_terminal;
+    prompt_input(": ");
+    // &lt;&lt; Scan file name in the buffer, 531 &gt;&gt;
+    if (cur_ext == EMPTY_STRING) {
+        cur_ext = e;
+    }
+    pack_cur_name;
+}
+</code></pre>
+</div>
+<h1 id="section-531"><a class="header" href="#section-531">Section 531</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan file name in the buffer <a href="./part29.html#section-531">531</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">begin_name();
+k = first;
+while (buffer[k] == ' ' &amp;&amp; k &lt; last) {
+    incr(k);
+}
+while(true) {
+    if (k == last || !more_name(buffer[k])) {
+        break; // Goto done
+    }
+    incr(k);
+}
+// done:
+end_name();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part29.html#section-530">530</a>.</p>
+</div></div>
+<h1 id="section-532"><a class="header" href="#section-532">Section 532</a></h1>
+<p>Here’s an example of how these conventions are used.
+Whenever it is time to ship out a box of stuff, we shall use the macro <em>ensure_dvi_open</em>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String <code>".dvi"</code> is added in the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string(".dvi"); // DVI_EXT: 262
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define DVI_EXT 262
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |dvi.h|, 1381 &gt;&gt;
+
+#define ensure_dvi_open                                            \
+    do {                                                           \
+        if (output_file_name == 0) {                               \
+            if (job_name == 0) {                                   \
+                open_log_file();                                   \
+            }                                                      \
+            pack_job_name(DVI_EXT);                                \
+            while (!b_open_out(&amp;dvi_file)) {                        \
+                prompt_file_name("file name for output", DVI_EXT); \
+            }                                                      \
+            output_file_name = make_name_string();                 \
+        }                                                          \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">byte_file dvi_file;          // the device-independent output goes here
+str_number output_file_name; // full name of the output file
+str_number log_name;         // full name of the log file
+</code></pre>
+</div>
+<h1 id="section-533"><a class="header" href="#section-533">Section 533</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the output routines <a href="./part05.html#section-55">55</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">output_file_name = 0;
+</code></pre>
+</div>
+<h1 id="section-534"><a class="header" href="#section-534">Section 534</a></h1>
+<p>The <em>open_log_file</em> routine is used to open the transcript file and to help it catch up to what has previously been printed on the terminal.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Strings <code>"texput"</code> and <code>".log"</code> are added in the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string("texput"); // TEXPUT_STRING: 263
+put_string(".log");   // LOG_EXT: 264
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define TEXPUT_STRING 263
+#define LOG_EXT       264
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">files.c</div>
+<pre><code class="language-c">void open_log_file() {
+    int old_setting; // previous |selector| setting
+    int k;           // index into |months| and |buffer|
+    int l;           // end of first input line
+    char *months[12] = {
+        "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+        "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
+    }; // abbreviations of month names
+    old_setting = selector;
+    if (job_name == 0) {
+        job_name = TEXPUT_STRING; // "texput"
+    }
+    pack_job_name(LOG_EXT);
+    while (!a_open_out(&amp;log_file)) {
+        // &lt;&lt; Try to get a different log file name, 535 &gt;&gt;
+    }
+    log_name = make_name_string();
+    selector = LOG_ONLY;
+    log_opened = true;
+    // &lt;&lt; Print the banner line, including the date and time, 536 &gt;&gt;
+    input_stack[input_ptr] = cur_input; // make sure bottom level is in memory
+    print_nl("**");
+    l = input_stack[0].limit_field; // last position of first line
+    if (buffer[l] == end_line_char) {
+        decr(l);
+    }
+    for(k = 1; k &lt;= l; k++) {
+        print_strnumber(buffer[k]);
+    }
+    print_ln(); // now the transcript file contains the first line of input
+    selector = old_setting + 2; // |LOG_ONLY| or |TERM_AND_LOG|
+}
+</code></pre>
+</div>
+<h1 id="section-535"><a class="header" href="#section-535">Section 535</a></h1>
+<p>Sometimes <em>open_log_file</em> is called at awkward moments when <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is unable to print error messages or even to <em>show_context</em>.
+The <em>prompt_file_name</em> routine can result in a <em>fatal_error</em>, but the <em>error</em> routine will not be invoked because <em>log_opened</em> will be false.</p>
+<p>The normal idea of <em>BATCH_MODE</em> is that nothing at all should be written on the terminal.
+However, in the unusual case that no log file could be opened, we make an exception and allow an explanatory message to be seen.</p>
+<p>Incidentally, the program always refers to the log file as a ‘<code>transcript file</code>’, because some systems cannot use the extension ‘<code>.log</code>’ for this file.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Try to get a different log file name <a href="./part29.html#section-535">535</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">selector = TERM_ONLY;
+prompt_file_name("transcript file name", LOG_EXT);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part29.html#section-534">534</a>.</p>
+</div></div>
+<h1 id="section-536"><a class="header" href="#section-536">Section 536</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Months name are stored in a <code>char *</code> (see above) instead of being stored in the string pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print the banner line, including the date and time <a href="./part29.html#section-536">536</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">wlog(BANNER);
+slow_print(format_ident);
+print("  ");
+print_int(sys_day);
+print_char(' ');
+wlog("%s", months[sys_month - 1]);
+print_char(' ');
+print_int(sys_year);
+print_char(' ');
+print_two(sys_time / 60);
+print_char(':');
+print_two(sys_time % 60);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part29.html#section-534">534</a>.</p>
+</div></div>
+<h1 id="section-537"><a class="header" href="#section-537">Section 537</a></h1>
+<p>Let’s turn now to the procedure that is used to initiate file reading when an ‘<code>\input</code>’ command is being processed.
+Beware: For historic reasons, this code foolishly conserves a tiny bit of string pool space; but that can confuse the interactive ‘<code>E</code>’ option.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Recall the ‘<code>E</code>’ option is not supported in this implementation.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">filenames.c</div>
+<pre><code class="language-c">// TeX will \input something
+void start_input() {
+    scan_file_name(); // set |cur_name| to desired file name
+    if (cur_ext == EMPTY_STRING) {
+        cur_ext = TEX_EXT;
+    }
+    pack_cur_name;
+    while(true) {
+        begin_file_reading(); // set up |cur_file| and new level of input
+        if (a_open_in(&amp;cur_file)) {
+            break; // Goto done
+        }
+        if (cur_area == EMPTY_STRING) {
+            pack_file_name(cur_name, TEX_AREA, cur_ext);
+            if (a_open_in(&amp;cur_file)) {
+                break; // Goto done
+            }
+        }
+        end_file_reading(); // remove the level that didn't work
+        prompt_file_name("input file name", TEX_EXT);
+    }
+    // done:
+    name = make_name_string();
+    if (job_name == 0) {
+        job_name = cur_name;
+        open_log_file();
+    } // |open_log_file| doesn't |show_context|, so |limit| and |loc| needn't be set to meaningful values yet
+    if (term_offset + length(name) &gt; MAX_PRINT_LINE - 2) {
+        print_ln();
+    }
+    else if (term_offset &gt; 0 || file_offset &gt; 0) {
+        print_char(' ');
+    }
+    print_char('(');
+    incr(open_parens);
+    slow_print(name);
+    update_terminal;
+    state = NEW_LINE;
+    if (name == str_ptr - 1) {
+        // conserve string pool space (but see note above)
+        flush_string;
+        name = cur_name;
+    }
+    // &lt;&lt; Read the first line of the new file, 538 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-538"><a class="header" href="#section-538">Section 538</a></h1>
+<p>Here we have to remember to tell the <em>input_ln</em> routine not to start with a <em>get</em>.
+If the file is empty, it is considered to contain a single blank line.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The boolean argument of <em>input_ln</em> has been removed (see section <a href="./part03.html#section-31">31</a>).</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the first line of the new file <a href="./part29.html#section-538">538</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">line = 1;
+input_ln(cur_file); // ignore returned value
+firm_up_the_line();
+if (end_line_char_inactive) {
+    decr(limit);
+}
+else {
+    buffer[limit] = end_line_char;
+}
+first = limit + 1;
+loc = start;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part29.html#section-537">537</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part28.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part30.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part28.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part30.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

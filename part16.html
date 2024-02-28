@@ -1,0 +1,511 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 211–219 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html" class="active">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-211-the-semantic-nest"><a class="header" href="#section-211-the-semantic-nest">Section 211: The semantic nest</a></h1>
+<p>TeX is typically in the midst of building many lists at once.
+For example, when a math formula is being processed, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is in math mode and working on an mlist;
+this formula has temporarily interrupted <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> from being in horizontal mode and building the hlist of a paragraph;
+and this paragraph has temporarily interrupted <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> from being in vertical mode and building the vlist for the next page of a document.
+Similarly, when a <code>\vbox</code> occurs inside of an <code>\hbox</code>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is temporarily interrupted from working in restricted horizontal mode, and it enters internal vertical mode.
+The “semantic nest” is a stack that keeps track of what lists and modes are currently suspended.</p>
+<p>At each level of processing we are in one of six modes:</p>
+<ul>
+<li><em>VMODE</em> stands for vertical mode (the page builder);</li>
+<li><em>HMODE</em> stands for horizontal mode (the paragraph builder);</li>
+<li><em>MMODE</em> stands for displayed formula mode;</li>
+<li><em>−VMODE</em> stands for internal vertical mode (e.g., in a <code>\vbox</code>);</li>
+<li><em>−HMODE</em> stands for restricted horizontal mode (e.g., in an <code>\hbox</code>);</li>
+<li><em>−MMODE</em> stands for math formula mode (not displayed).</li>
+</ul>
+<p>The mode is temporarily set to zero while processing <code>\write</code> texts.</p>
+<p>Numeric values are assigned to <em>VMODE</em>, <em>HMODE</em>, and <em>MMODE</em> so that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s “big semantic switch” can select the appropriate thing to do by computing the value <em>abs(mode) + cur_cmd</em>, where <em>mode</em> is the current mode and <em>cur_cmd</em> is the current command code.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define VMODE 1                         // vertical mode
+#define HMODE (VMODE + MAX_COMMAND + 1) // horizontal mode
+#define MMODE (HMODE + MAX_COMMAND + 1) // math mode
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">other_printing.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |other_printing.c|, 1382 &gt;&gt;
+
+// prints the mode represented by |m|
+void print_mode(int m) {
+    if (m &gt; 0) {
+        switch(m / (MAX_COMMAND + 1)) {
+        case 0:
+            print("vertical");
+            break;
+        
+        case 1:
+            print("horizontal");
+            break;
+        
+        case 2:
+            print("display math");
+        }
+    }
+    else if (m == 0) {
+        print("no");
+    }
+    else {
+        switch ((-m) / (MAX_COMMAND + 1)) {
+        case 0:
+            print("internal vertical");
+            break;
+        
+        case 1:
+            print("restricted horizontal");
+            break;
+        
+        case 2:
+            print("math");
+        }
+    }
+    print(" mode");
+}
+</code></pre>
+</div>
+<h1 id="section-212"><a class="header" href="#section-212">Section 212</a></h1>
+<p>The state of affairs at any semantic level can be represented by five values:</p>
+<ul>
+<li><em>mode</em> is the number representing the semantic mode, as just explained.</li>
+<li><em>head</em> is a <em>pointer</em> to a list head for the list being built;
+<em>link(head)</em> therefore points to the first element of the list, or to <em>null</em>
+if the list is empty.</li>
+<li><em>tail</em> is a <em>pointer</em> to the final node of the list being built;
+thus, <em>tail = head</em> if and only if the list is empty.</li>
+<li><em>prev_graf</em> is the number of lines of the current paragraph that have
+already been put into the present vertical list.</li>
+<li><em>aux</em> is an auxiliary <em>memory_word</em> that gives further information
+that is needed to characterize the situation.</li>
+</ul>
+<p>In vertical mode, <em>aux</em> is also known as <em>prev_depth</em>; it is the scaled value representing the depth of the previous box, for use in baseline calculations, or it is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>−1000</em>pt if the next box on the vertical list is to be exempt from baseline calculations.
+In horizontal mode, <em>aux</em> is also known as <em>space_factor</em> and <em>clang</em>;
+it holds the current space factor used in spacing calculations, and the current language used for hyphenation.
+(The value of <em>clang</em> is undefined in restricted horizontal mode.)
+In math mode, <em>aux</em> is also known as <em>incompleat_noad</em>;
+if not <em>null</em>, it points to a record that represents the numerator of a generalized fraction for which the denominator is currently being formed in the current list.</p>
+<p>There is also a sixth quantity, <em>mode_line</em>, which correlates the semantic nest with the user’s input; <em>mode_line</em> contains the source line number at which the current level of nesting was entered.
+The negative of this line number is the <em>mode_line</em> at the level of the user’s output routine.</p>
+<p>In horizontal mode, the <em>prev_graf</em> field is used for initial language data.</p>
+<p>The semantic nest is an array called <em>nest</em> that holds the <em>mode</em>, <em>head</em>, <em>tail</em>, <em>prev_graf</em>, <em>aux</em>, and <em>mode_line</em> values for all semantic levels below the currently active one. Information about the currently active level is kept in the global quantities <em>mode</em>, <em>head</em>, <em>tail</em>, <em>prev_graf</em>, <em>aux</em>, and <em>mode_line</em>, which live in a Pascal record that is ready to be pushed onto <em>nest</em> if necessary.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define IGNORE_DEPTH -65536000 // |prev_depth| value is ignored
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Types in the outer block <a href="./part02.html#section-18">18</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">typedef struct {
+    int mode_field;
+    pointer head_field;
+    pointer tail_field;
+    int pg_field;
+    int ml_field;
+    memory_word aux_field;
+} list_state_record;
+</code></pre>
+</div>
+<h1 id="section-213"><a class="header" href="#section-213">Section 213</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define mode            cur_list.mode_field // current mode
+#define head            cur_list.head_field // header node of current list
+#define tail            cur_list.tail_field // final node on current list
+#define prev_graf       cur_list.pg_field   // number of paragraph lines accumulated
+#define aux             cur_list.aux_field  // auxiliary data about the current list
+#define prev_depth      aux.sc              // the name of |aux| in vertical mode
+#define space_factor    hh_lh(aux)          // part of |aux| in horizontal mode
+#define clang           hh_rh(aux)          // the other part of |aux| in horizontal mode
+#define incompleat_noad aux.integer         // the name of |aux| in math mode
+#define mode_line       cur_list.ml_field   // source file line number at beginning of list
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">list_state_record nest[NEST_SIZE + 1];
+int nest_ptr;               // first unused location of |nest|
+int max_nest_stack;         // maximum of |nest_ptr| when pushing
+list_state_record cur_list; // top "top" semantic nest
+int shown_mode;             // most recent mode shown by \tracingcommands
+</code></pre>
+</div>
+<h1 id="section-214"><a class="header" href="#section-214">Section 214</a></h1>
+<p>Here is a common way to make the current list grow:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define tail_append(X) link(tail) = (X); tail = link(tail)
+</code></pre>
+</div>
+<h1 id="section-215"><a class="header" href="#section-215">Section 215</a></h1>
+<p>We will see later that the vertical list at the bottom semantic level is split into two parts; the “current page” runs from <em>PAGE_HEAD</em> to <em>page_tail</em>, and the “contribution list” runs from <em>CONTRIB_HEAD</em> to <em>tail</em> of semantic level zero.
+The idea is that contributions are first formed in vertical mode, then “contributed” to the current page (during which time the page-breaking decisions are made).
+For now, we don’t need to know any more details about the page-building process.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">nest_ptr = 0;
+max_nest_stack = 0;
+mode = VMODE;
+head = CONTRIB_HEAD;
+tail = CONTRIB_HEAD;
+prev_depth = IGNORE_DEPTH;
+mode_line = 0;
+prev_graf = 0;
+shown_mode = 0;
+// &lt;&lt; Start a new current page, 991 &gt;&gt;
+</code></pre>
+</div>
+<h1 id="section-216"><a class="header" href="#section-216">Section 216</a></h1>
+<p>When <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s work on one level is interrupted, the state is saved by calling <em>push_nest</em>.
+This routine changes <em>head</em> and <em>tail</em> so that a new (empty) list is begun; it does not change <em>mode</em> or <em>aux</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">modes.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |modes.c|, 1382 &gt;&gt;
+
+// enter a new semantic level, save the old
+void push_nest() {
+    if (nest_ptr &gt; max_nest_stack) {
+        max_nest_stack = nest_ptr;
+        if (nest_ptr == NEST_SIZE) {
+            overflow("semantic nest size", NEST_SIZE);
+        }
+    }
+    nest[nest_ptr] = cur_list; // stack the record
+    incr(nest_ptr);
+    head = get_avail();
+    tail = head;
+    prev_graf = 0;
+    mode_line = line;
+}
+</code></pre>
+</div>
+<h1 id="section-217"><a class="header" href="#section-217">Section 217</a></h1>
+<p>Conversely, when <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is finished on the current level, the former state is restored by calling <em>pop_nest</em>.
+This routine will never be called at the lowest semantic level, nor will it be called unless <em>head</em> is a node that should be returned to free memory.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">modes.c</div>
+<pre><code class="language-c">// leave a semantic level, re-enter the old
+void pop_nest() {
+    free_avail(head);
+    decr(nest_ptr);
+    cur_list = nest[nest_ptr];
+}
+</code></pre>
+</div>
+<h1 id="section-218"><a class="header" href="#section-218">Section 218</a></h1>
+<p>Here is a procedure that displays what <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is working on, at all levels.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">other_printing.c</div>
+<pre><code class="language-c">void show_activities() {
+    int p;         // index into |nest|
+    int m;         // mode
+    memory_word a; // auxiliary
+    pointer q, r;  // for showing the current page
+    int t;         // ditto
+
+    nest[nest_ptr] = cur_list; // put the top level into the array
+    print_nl("");
+    print_ln();
+    for(p = nest_ptr; p &gt;= 0; p--) {
+        m = nest[p].mode_field;
+        a = nest[p].aux_field;
+        print_nl("### ");
+        print_mode(m);
+        print(" entered at line ");
+        print_int(abs(nest[p].ml_field));
+        if (m == HMODE &amp;&amp; nest[p].pg_field != 0x830000) {
+            print(" (language");
+            print_int(nest[p].pg_field % 0x10000);
+            print(":hyphenmin");
+            print_int(nest[p].pg_field / 0x400000);
+            print_char(',');
+            print_int((nest[p].pg_field / 0x10000) % 64);
+            print_char(')');
+        }
+        if (nest[p].ml_field &lt; 0) {
+            print(" (\\output routine)");
+        }
+        if (p == 0) {
+            // &lt;&lt; Show the status of the current page, 986 &gt;&gt;
+            if (link(CONTRIB_HEAD) != null) {
+                print_nl("### recent contributions:");
+            }
+        }
+        show_box(link(nest[p].head_field));
+        // &lt;&lt; Show the auxiliary field, |a|, 219 &gt;&gt;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-219"><a class="header" href="#section-219">Section 219</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show the auxiliary field, <em>a</em> <a href="./part16.html#section-219">219</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch(abs(m) / (MAX_COMMAND + 1)) {
+case 0:
+    print_nl("prevdepth ");
+    if (a.sc &lt;= IGNORE_DEPTH) {
+        print("ignored");
+    }
+    else {
+        print_scaled(a.sc);
+    }
+    if (nest[p].pg_field != 0) {
+        print(", prevgraf ");
+        print_int(nest[p].pg_field);
+        print(" line");
+        if (nest[p].pg_field != 1) {
+            print_char('s');
+        }
+    }
+    break;
+
+case 1:
+    print_nl("spacefactor ");
+    print_int(hh_lh(a));
+    if (m &gt; 0 &amp;&amp; hh_rh(a) &gt; 0) {
+        print(", current language ");
+        print_int(hh_rh(a));
+    }
+    break;
+
+case 2:
+    if (a.integer != null) {
+        print("this will begin denominator of:");
+        show_box(a.integer);
+    }
+} // there are no other cases
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part16.html#section-218">218</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part15.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part17.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part15.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part17.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 72–98 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html" class="active">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-72-reporting-errors"><a class="header" href="#section-72-reporting-errors">Section 72: Reporting errors</a></h1>
+<p>When something anomalous is detected, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> typically does something like this:</p>
+<pre><code class="language-c">print_err("Something anomalous has been detected");
+help3("This is the first line of my offer to help.")
+    ("This is the second line. I'm trying to")
+    ("explain the best way for you to proceed.");
+error;
+</code></pre>
+<p>A two-line help message would be given using <em>help2</em>, etc.;
+these informal helps should use simple vocabulary that complements the words used in the official error message that was printed.
+(Outside the U.S.A., the help messages should preferably be translated into the local vernacular.
+Each line of help is at most 60 characters long, in the present implementation, so that <em>MAX_PRINT_LINE</em> will not be exceeded.)</p>
+<p>The <em>print_err</em> procedure supplies a ‘<code>!</code>’ before the official message, and makes sure that the terminal is awake if a stop is going to occur.
+The <em>error</em> procedure supplies a ‘<code>.</code>’ after the official message, then it shows the location of the error; and if <em>interaction = ERROR_STOP_MODE</em>, it also enters into a dialog with the user, during which time the help message may be printed.</p>
+<h1 id="section-73"><a class="header" href="#section-73">Section 73</a></h1>
+<p>The global variable <em>interaction</em> has four settings, representing increasing amounts of user interaction:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define BATCH_MODE      0 // omits all stops and omits terminal output
+#define NONSTOP_MODE    1 // omits all stops
+#define SCROLL_MODE     2 // omits error stops
+#define ERROR_STOP_MODE 3 // stops at every opportunity to interact
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">texerror.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |texerror.h|, 1381 &gt;&gt;
+
+#define print_err(X) print_nl("! "); print((X))
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int interaction; // current level of interaction
+</code></pre>
+</div>
+<h1 id="section-74"><a class="header" href="#section-74">Section 74</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">interaction = ERROR_STOP_MODE;
+</code></pre>
+</div>
+<h1 id="section-75"><a class="header" href="#section-75">Section 75</a></h1>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is careful not to call <em>error</em> when the print <em>selector</em> setting might be unusual.
+The only possible values of <em>selector</em> at the time of error messages are</p>
+<ul>
+<li><em>NO_PRINT</em> (when <em>interaction = BATCH_MODE</em> and <em>log_file</em> not yet open);</li>
+<li><em>TERM_ONLY</em> (when <em>interaction &gt; BATCH_MODE</em> and <em>log_file</em> not yet open);</li>
+<li><em>LOG_ONLY</em> (when <em>interaction = BATCH_MODE</em> and <em>log_file</em> is open);</li>
+<li><em>TERM_AND_LOG</em> (when <em>interaction &gt; BATCH_MODE</em> and <em>log_file</em> is open).</li>
+</ul>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the print <em>selector</em> based on <em>interaction</em> <a href="./part06.html#section-75">75</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (interaction == BATCH_MODE) {
+    selector = NO_PRINT;
+}
+else {
+    selector = TERM_ONLY;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part49.html#section-1265">1265</a>, and <a href="./part51.html#section-1337">1337</a>.</p>
+</div></div>
+<h1 id="section-76"><a class="header" href="#section-76">Section 76</a></h1>
+<p>A global variable <em>deletions_allowed</em> is set <em>false</em> if the <em>get_next</em> routine is active when <em>error</em> is called;
+this ensures that <em>get_next</em> and related routines like <em>get_token</em> will never be called recursively.
+A similar interlock is provided by <em>set_box_allowed</em>.</p>
+<p>The global variable <em>history</em> records the worst level of error that has been detected.
+It has four possible values: <em>SPOTLESS</em>, <em>WARNING_ISSUED</em>, <em>ERROR_MESSAGE_ISSUED</em>, and <em>FATAL_ERROR_STOP</em>.</p>
+<p>Another global variable, <em>error_count</em>, is increased by one when an <em>error</em> occurs without an interactive dialog, and it is reset to zero at the end of every paragraph.
+If <em>error_count</em> reaches 100, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> decides that there is no point in continuing further.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define SPOTLESS             0 // |history| value when nothing has been amiss yet
+#define WARNING_ISSUED       1 // |history| value when |begin_diagnostic| has been called
+#define ERROR_MESSAGE_ISSUED 2 // |history| value when |error| has been called
+#define FATAL_ERROR_STOP     3 // |history| value when termination was premature
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">bool deletions_allowed; // is it safe for |error| to call |get_token|?
+bool set_box_allowed;   // is it safe to do a \setbox assignment?
+int history;            // has the source input been clean so far?
+int error_count;        // the number of scrolled errors since the last paragraph ended
+</code></pre>
+</div>
+<h1 id="section-77"><a class="header" href="#section-77">Section 77</a></h1>
+<p>The value of <em>history</em> is initially <em>FATAL_ERROR_STOP</em>, but it will be changed to <em>SPOTLESS</em> if <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> survives the initialization process.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">deletions_allowed = true;
+set_box_allowed = true;
+error_count = 0;
+// history is initialized elsewhere
+</code></pre>
+</div>
+<h1 id="section-78"><a class="header" href="#section-78">Section 78</a></h1>
+<p>Since errors can be detected almost anywhere in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>, we want to declare the error procedures near the beginning of the program. But the error procedures in turn use some other procedures, which need to be declared <em>forward</em> before we get to <em>error</em> itself.</p>
+<p>It is possible for <em>error</em> to be called recursively if some error arises when <em>get_token</em> is being used to delete a token, and/or if some fatal error occurs while <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is trying to fix a non-fatal one. But such recursion is never more than two levels deep.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>No need for forward declaration; they are in header files.</p>
+</blockquote>
+</div>
+<h1 id="section-79"><a class="header" href="#section-79">Section 79</a></h1>
+<p>Individual lines of help are recorded in the array <em>help_line</em>, which contains entries in positions <em>0 .. (help_ptr − 1)</em>.
+They should be printed in reverse order, i.e., with <em>help_line[0]</em> appearing last.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">texerror.h</div>
+<pre><code class="language-c">#define hlp1(X) help_line[0] = (X)
+#define hlp2(X) help_line[1] = (X); hlp1
+#define hlp3(X) help_line[2] = (X); hlp2
+#define hlp4(X) help_line[3] = (X); hlp3
+#define hlp5(X) help_line[4] = (X); hlp4
+#define hlp6(X) help_line[5] = (X); hlp5
+#define help0   help_ptr = 0       // sometimes there might be no help
+#define help1   help_ptr = 1; hlp1 // use this with one help line
+#define help2   help_ptr = 2; hlp2 // use this with two help lines
+#define help3   help_ptr = 3; hlp3 // use this with three help lines
+#define help4   help_ptr = 4; hlp4 // use this with four help lines
+#define help5   help_ptr = 5; hlp5 // use this with five help lines
+#define help6   help_ptr = 6; hlp6 // use this with six help lines
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">char *help_line[6]; // helps for the next |error|
+int help_ptr;       // the number of help lines present
+bool use_err_help;  // should the |err_help| list be shown?
+</code></pre>
+</div>
+<h1 id="section-80"><a class="header" href="#section-80">Section 80</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">help_ptr = 0;
+use_err_help = false;
+</code></pre>
+</div>
+<h1 id="section-81"><a class="header" href="#section-81">Section 81</a></h1>
+<p>The <em>jump_out</em> procedure just cuts across all active procedure levels and goes to <em>end_of_TEX</em>.
+This is the only nontrivial <strong>goto</strong> statement in the whole program.
+It is used when there is no recovery from a particular error.</p>
+<p>Some Pascal compilers do not implement non-local <strong>goto</strong> statements.
+In such cases the body of <em>jump_out</em> should simply be ‘<em>close_files_and_terminate</em>;’ followed by a call on some system procedure that quietly terminates the program.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |error.c|, 1382 &gt;&gt;
+
+void jump_out() {
+    close_files_and_terminate();
+    exit(0);
+}
+</code></pre>
+</div>
+<h1 id="section-82"><a class="header" href="#section-82">Section 82</a></h1>
+<p>Here now is the general <em>error</em> routine.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">void error() {
+    ASCII_code c;       // what the user types
+    int s1, s2, s3, s4; // used to save global variables when deleting tokens
+    if (history &lt; ERROR_MESSAGE_ISSUED) {
+        history = ERROR_MESSAGE_ISSUED;
+    }
+    print_char('.');
+    show_context();
+    if (interaction == ERROR_STOP_MODE) {
+        // &lt;&lt; Get user's advice and |return|, 83 &gt;&gt;
+    }
+    incr(error_count);
+    if (error_count == 100) {
+        print_nl("(That makes 100 errors; please try again.)");
+        history = FATAL_ERROR_STOP;
+        jump_out();
+    }
+    // &lt;&lt; Put help message on the transcript file, 90 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-83"><a class="header" href="#section-83">Section 83</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Get user’s advice and <em>return</em> <a href="./part06.html#section-83">83</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while(true) {
+    if (interaction != ERROR_STOP_MODE) {
+        return;
+    }
+    clear_for_error_prompt();
+    prompt_input("? ");
+    if (last == first) {
+        return;
+    }
+    c = buffer[first];
+    if (c &gt;= 'a') {
+        c += 'A' - 'a'; // onvert to uppercase.
+    }
+    // &lt;&lt; Interpret code |c| and |return| if done, 84 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part06.html#section-82">82</a>.</p>
+</div></div>
+<h1 id="section-84"><a class="header" href="#section-84">Section 84</a></h1>
+<p>It is desirable to provide an ‘<code>E</code>’ option here that gives the user an easy way to return from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> to the system editor, with the offending line ready to be edited.
+But such an extension requires some system wizardry, so the present implementation simply types out the name of the file that should be edited and the relevant line number.</p>
+<p>There is a secret ‘<code>D</code>’ option available when the debugging routines haven’t been commented~out.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>No ‘E’ option: input edition not supported.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Interpret code <em>c</em> and <em>return</em> if done <a href="./part06.html#section-84">84</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch(c) {
+case '0':
+case '1':
+case '2':
+case '3':
+case '4':
+case '5':
+case '7':
+case '8':
+case '9':
+    if (deletions_allowed) {
+        // &lt;&lt; Delete |c - '0'| tokens and |goto continue|, 88 &gt;&gt;
+    }
+    break;
+
+#ifdef DEBUG
+case 'D':
+    debug_help();
+    continue;
+#endif
+
+case 'H':
+    // &lt;&lt; Print the help information and |goto continue|, 89 &gt;&gt;
+    break;
+
+case 'I':
+    // &lt;&lt; Introduce new material from the terminal and |return|, 87 &gt;&gt;
+    break;
+
+case 'Q':
+case 'R':
+case 'S':
+    // &lt;&lt; Change the interaction level and |return|, 86 &gt;&gt;
+    break;
+
+case 'X':
+    interaction = SCROLL_MODE;
+    jump_out();
+
+default:
+    do_nothing;
+}
+// &lt;&lt; Print the menu of available options, 85 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part06.html#section-83">83</a>.</p>
+</div></div>
+<h1 id="section-85"><a class="header" href="#section-85">Section 85</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print the menu of available options <a href="./part06.html#section-85">85</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print("Type &lt;return&gt; to proceed, S to scroll future error messages,");
+print_nl("R to run without stopping, Q to run quietly,");
+print_nl("I to insert something, ");
+if (deletions_allowed) {
+    print_nl("1 or .... or 9 to ignore the next 1 to 9 tokens of input,");
+}
+print_nl("H for help, X to quit.");
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part06.html#section-84">84</a>.</p>
+</div></div>
+<h1 id="section-86"><a class="header" href="#section-86">Section 86</a></h1>
+<p>Here the author of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> apologizes for making use of the numerical relation between <code>'Q'</code>, <code>'R'</code>, <code>'S'</code>, and the desired interaction settings <em>BATCH_MODE</em>, <em>NONSTOP_MODE</em>, <em>SCROLL_MODE</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Change the interaction level and <em>return</em> <a href="./part06.html#section-86">86</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">error_count = 0;
+interaction = BATCH_MODE + c - 'Q';
+print("OK, entering ");
+switch(c) {
+case 'Q':
+    print_esc("batchmode");
+    decr(selector);
+    break;
+
+case 'R':
+    print_esc("nonstopmode");
+    break;
+
+case 'S':
+    print_esc("scrollmode");
+    break;
+} // there are no other cases
+print("...");
+print_ln();
+update_terminal;
+return;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part06.html#section-84">84</a>.</p>
+</div></div>
+<h1 id="section-87"><a class="header" href="#section-87">Section 87</a></h1>
+<p>When the following code is executed, <em>buffer[(first + 1) .. (last − 1)]</em> may contain the material inserted by the user; otherwise another prompt will be given.
+In order to understand this part of the program fully, you need to be familiar with <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s input stacks.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Introduce new material from the terminal and <em>return</em> <a href="./part06.html#section-87">87</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">begin_file_reading(); // enter a new syntactic level for terminal input
+// now |state = MID_LINE|, so an initial blank space will count as a blank
+if (last &gt; first + 1) {
+    loc = first + 1;
+    buffer[first] = ' ';
+}
+else {
+    prompt_input("insert&gt;");
+    loc = first;
+}
+first = last;
+cur_input.limit_field = last - 1;  // no |end_line_char| ends this line
+return;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part06.html#section-84">84</a>.</p>
+</div></div>
+<h1 id="section-88"><a class="header" href="#section-88">Section 88</a></h1>
+<p>We allow deletion of up to 99 tokens at a time.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Delete <em>c - ‘0’</em> tokens and <em>goto continue</em> <a href="./part06.html#section-88">88</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">s1 = cur_tok;
+s2 = cur_cmd;
+s3 = cur_chr;
+s4 = align_state;
+align_state = 1000000;
+ok_to_interrupt = false;
+if (last &gt; first + 1
+    &amp;&amp; buffer[first + 1] &gt;= '0'
+    &amp;&amp; buffer[first + 1] &lt;= '9')
+{
+    c = c * 10 + buffer[first + 1] - '0' * 11;
+}
+else {
+    c -= '0';
+}
+while (c &gt; 0) {
+    get_token(); // one-level recursive call of |error| is possible
+    decr(c);
+}
+cur_tok = s1;
+cur_cmd = s2;
+cur_chr = s3;
+align_state = s4;
+ok_to_interrupt = true;
+help2("I have just deleted some text, as you asked.")
+    ("You can now delete more, or insert, or whatever.");
+show_context();
+continue;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part06.html#section-84">84</a>.</p>
+</div></div>
+<h1 id="section-89"><a class="header" href="#section-89">Section 89</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print the help information and <em>goto continue</em> <a href="./part06.html#section-89">89</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (use_err_help) {
+    give_err_help();
+    use_err_help = false;
+}
+else {
+    if (help_ptr == 0) {
+        help2("Sorry, I don't know how to help in this situation.")
+            ("Maybe you should try asking a human?");
+    }
+    do {
+        decr(help_ptr);
+        print(help_line[help_ptr]);
+        print_ln();
+    } while (help_ptr != 0);
+}
+help4("Sorry, I already gave what help I could...")
+    ("Maybe you should try asking a human?")
+    ("An error might have occurred before I noticed any problems.")
+    ("``If all else fails, read the instructions.''");
+continue;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part06.html#section-84">84</a>.</p>
+</div></div>
+<h1 id="section-90"><a class="header" href="#section-90">Section 90</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put help message on the transcript file <a href="./part06.html#section-90">90</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (interaction &gt; BATCH_MODE) {
+    decr(selector); // avoid terminal output
+}
+if (use_err_help) {
+    print_ln();
+    give_err_help();
+}
+else {
+    while (help_ptr &gt; 0) {
+        decr(help_ptr);
+        print_nl(help_line[help_ptr]);
+    }
+}
+print_ln();
+if (interaction &gt; BATCH_MODE) {
+    incr(selector); // re-enable terminal output
+}
+print_ln();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part06.html#section-82">82</a>.</p>
+</div></div>
+<h1 id="section-91"><a class="header" href="#section-91">Section 91</a></h1>
+<p>A dozen or so error messages end with a parenthesized integer, so we save a teeny bit of program space by declaring the following procedure:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">void int_error(int n) {
+    print(" (");
+    print_int(n);
+    print_char(')');
+    error();
+}
+</code></pre>
+</div>
+<h1 id="section-92"><a class="header" href="#section-92">Section 92</a></h1>
+<p>In anomalous cases, the print selector might be in an unknown state;
+the following subroutine is called to fix things just enough to keep running a bit longer.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">void normalize_selector() {
+    if (log_opened) {
+        selector = TERM_AND_LOG;
+    }
+    else {
+        selector = TERM_ONLY;
+    }
+
+    if (job_name == 0) {
+        open_log_file();
+    }
+    if (interaction == BATCH_MODE) {
+        decr(selector);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-93"><a class="header" href="#section-93">Section 93</a></h1>
+<p>The following procedure prints <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s last words before dying.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">void succumb() {
+    if (interaction == ERROR_STOP_MODE) {
+        interaction = SCROLL_MODE; // no more interaction
+    }
+    if (log_opened) {
+        error();
+    }
+#ifdef DEBUG
+    if (interaction &gt; BATCH_MODE) {
+        debug_help();
+    }
+#endif
+    history = FATAL_ERROR_STOP;
+    jump_out(); // irrecoverable error
+}
+
+// prints |s| and that's it
+void fatal_error(char *s) {
+    normalize_selector();
+    print_err("Emergency stop");
+    help1(s);
+    succumb();
+}
+</code></pre>
+</div>
+<h1 id="section-94"><a class="header" href="#section-94">Section 94</a></h1>
+<p>Here is the most dreaded error message.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">// stop due to finiteness
+void overflow(char *s, int n) {
+    normalize_selector();
+    print_err("TeX capacity exceeded, sorry [");
+    print(s);
+    print_char('=');
+    print_int(n);
+    print_char(']');
+    help2("If you really absolutely need more capacity,")
+        ("you can ask a wizard to enlarge me.");
+    succumb();
+}
+</code></pre>
+</div>
+<h1 id="section-95"><a class="header" href="#section-95">Section 95</a></h1>
+<p>The program might sometime run completely amok, at which point there is no choice but to stop.
+If no previous error has been detected, that’s bad news; a message is printed that is really intended for the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> maintenance person instead of the user (unless the user has been particularly diabolical).
+The index entries for ‘this can’t happen’ may help to pinpoint the problem.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">// consistency check violated; |s| tells where
+void confusion(char *s) {
+    normalize_selector();
+    if (history &lt; ERROR_MESSAGE_ISSUED) {
+        print_err("This can't happen (");
+        print(s);
+        print_char(')');
+        help1("I´m broken. Please show this to someone who can fix can fix");
+    }
+    else {
+        print_err("I can't go on meeting you like this");
+        help2("One of your faux pas seems to have wounded me deeply...")
+            ("in fact, I'm barely conscious. Please fix it and try again.");
+    }
+    succumb();
+}
+</code></pre>
+</div>
+<h1 id="section-96"><a class="header" href="#section-96">Section 96</a></h1>
+<p>Users occasionally want to interrupt <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> while it’s running.
+If the Pascal runtime system allows this, one can implement a routine that sets the global variable <em>interrupt</em> to some nonzero value when such an interrupt is signalled.
+Otherwise there is probably at least a way to make <em>interrupt</em> nonzero using the Pascal debugger.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">texerror.h</div>
+<pre><code class="language-c">#define check_interrupt               \
+    do {                              \
+        if (interrupt != 0) {         \
+            pause_for_instructions(); \
+        }                             \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int interrupt;        // should TeX pause for instructions?
+bool ok_to_interrupt; // should interrupts be observed?
+</code></pre>
+</div>
+<h1 id="section-97"><a class="header" href="#section-97">Section 97</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">interrupt = 0;
+ok_to_interrupt = true;
+</code></pre>
+</div>
+<h1 id="section-98"><a class="header" href="#section-98">Section 98</a></h1>
+<p>When an interrupt has been detected, the program goes into its highest interaction level and lets the user have nearly the full flexibility of the <em>error</em> routine.
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> checks for interrupts only at times when it is safe to do this.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">void pause_for_instructions() {
+    if (ok_to_interrupt) {
+        interaction = ERROR_STOP_MODE;
+        if (selector == LOG_ONLY || selector == NO_PRINT) {
+            incr(selector);
+        }
+        print_err("Interruption");
+        help3("You rang?")
+            ("Try to insert an instruction for me (e.g. `I\\showlists'),")
+            ("unless you just want to quit by typing `X'.");
+        deletions_allowed = false;
+        error();
+        deletions_allowed = true;
+        interrupt = 0;
+    }
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part05.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part07.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part05.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part07.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

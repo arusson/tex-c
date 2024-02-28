@@ -1,0 +1,945 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 942–966 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html" class="active">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-942-initializing-the-hyphenation-tables"><a class="header" href="#section-942-initializing-the-hyphenation-tables">Section 942: Initializing the hyphenation tables.</a></h1>
+<p>The trie for <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s hyphenation algorithm is built from a sequence of patterns following a <code>\patterns</code> specification.
+Such a specification is allowed only in <code>INITEX</code>, since the extra memory for auxiliary tables and for the initialization program itself would only clutter up the production version of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> with a lot of deadwood.</p>
+<p>The first step is to build a trie that is linked, instead of packed into sequential storage, so that insertions are readily made.
+After all patterns have been processed, <code>INITEX</code> compresses the linked trie by identifying common subtries.
+Finally the trie is packed into the efficient sequential form that the hyphenation algorithm actually uses.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">hyph_scan.c</div>
+<pre><code class="language-c">#ifdef INIT
+// &lt;&lt; Declare procedures for preprocessing hyphenation patterns, 944 &gt;&gt;
+#endif
+</code></pre>
+</div>
+<h1 id="section-943"><a class="header" href="#section-943">Section 943</a></h1>
+<p>Before we discuss trie building in detail, let’s consider the simpler problem of creating the <em>hyf_distance</em>, <em>hyf_num</em>, and <em>hyf_next</em> arrays.</p>
+<p>Suppose, for example, that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> reads the pattern ‘<code>ab2cde1</code>’.
+This is a pattern of length 5, with <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span></span></span></span> in the notation above.
+We want the corresponding <em>trie_op</em> code <em>v</em> to have <em>hyf_distance[v] = 3</em>, <em>hyf_num[v] = 2</em>, and <em>hyf_next[v] = v’</em>, where the auxiliary <em>trie_op</em> code <em>v’</em> has <em>hyf_distance[v’] = 0</em>, <em>hyf_num[v’] = 1</em>, and <em>hyf_next[v’] = MIN_QUARTERWORD</em>.</p>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> computes an appropriate value <em>v</em> with the <em>new_trie_op</em>  subroutine below, by setting</p>
+<div align="center">
+<p><em>v’</em> ← <em>new_trie_op(0, 1, MIN_QUARTERWORD)</em>,<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0em;"></span><span class="mspace" style="margin-right:2em;"></span></span></span></span> <em>v</em> ← <em>new_trie_op(3, 2,v’)</em>.</p>
+</div>
+<p>This subroutine looks up its three parameters in a special hash table, assigning a new value only if these three have not appeared before for the current language.</p>
+<p>The hash table is called <em>trie_op_hash</em>, and the number of entries it contains is <em>trie_op_ptr</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#ifdef INIT
+// trie op codes for quadruples
+int trie_op_hash0[2*TRIE_OP_SIZE + 1];
+int *trie_op_hash = trie_op_hash0 + TRIE_OP_SIZE;
+
+// largest opcode used so far for this language
+quarterword trie_used[256];
+
+// language part of a hashed quadruple
+ASCII_code trie_op_lang0[TRIE_OP_SIZE];
+ASCII_code *trie_op_lang = trie_op_lang0 - 1;
+
+// opcode corresponding to a hashed quadruple
+quarterword trie_op_val0[TRIE_OP_SIZE];
+quarterword *trie_op_val = trie_op_val0 - 1;
+
+// number of stored ops so far
+int trie_op_ptr;
+#endif
+</code></pre>
+</div>
+<h1 id="section-944"><a class="header" href="#section-944">Section 944</a></h1>
+<p>It’s tempting to remove the <em>overflow</em> stops in the following procedure;
+<em>new_trie_op</em> could return <em>MIN_QUARTERWORD</em> (thereby simply ignoring part of a hyphenation pattern) instead of aborting the job.
+However, that would lead to different hyphenation results on different installations of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> using the same patterns.
+The <em>overflow</em> stops are necessary for portability of patterns.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures for preprocessing hyphenation patterns <a href="./part43.html#section-944">944</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">quarterword new_trie_op(small_number d, small_number n, quarterword v) {
+    int h;         // trial hash location
+    quarterword u; // trial op code
+    int l;         // pointer to stored data
+    h = abs(n + 313*d + 361*v + 1009*cur_lang) % (TRIE_OP_SIZE + TRIE_OP_SIZE) - TRIE_OP_SIZE;
+    while(true) {
+        l = trie_op_hash[h];
+        if (l == 0) {
+            // empty position found for a new op
+            if (trie_op_ptr == TRIE_OP_SIZE) {
+                overflow("pattern memory ops", TRIE_OP_SIZE);
+            }
+            u = trie_used[cur_lang];
+            if (u == MAX_QUARTERWORD) {
+                overflow("pattern memory ops per language", MAX_QUARTERWORD - MIN_QUARTERWORD);
+            }
+            incr(trie_op_ptr);
+            incr(u);
+            trie_used[cur_lang] = u;
+            hyf_distance[trie_op_ptr] = d;
+            hyf_num[trie_op_ptr] = n;
+            hyf_next[trie_op_ptr] = v;
+            trie_op_lang[trie_op_ptr] = cur_lang;
+            trie_op_hash[h] = trie_op_ptr;
+            trie_op_val[trie_op_ptr] = u;
+            return u;
+        }
+        if (hyf_distance[l] == d
+            &amp;&amp; hyf_num[l] == n
+            &amp;&amp; hyf_next[l] == v
+            &amp;&amp; trie_op_lang[l] == cur_lang)
+        {
+            return trie_op_val[l];
+        }
+        if (h &gt; -TRIE_OP_SIZE) {
+            decr(h);
+        }
+        else {
+            h = TRIE_OP_SIZE;
+        }
+    }
+}
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part43.html#section-948">948</a>, <a href="./part43.html#section-949">949</a>, <a href="./part43.html#section-953">953</a>, <a href="./part43.html#section-957">957</a>, <a href="./part43.html#section-959">959</a>, <a href="./part43.html#section-960">960</a>, and <a href="./part43.html#section-966">966</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-942">942</a>.</p>
+</div></div>
+<h1 id="section-945"><a class="header" href="#section-945">Section 945</a></h1>
+<p>After <em>new_trie_op</em> has compressed the necessary opcode information, plenty of information is available to unscramble the data into the final form needed by our hyphenation algorithm.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Sort the hyphenation op tables into proper order <a href="./part43.html#section-945">945</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">op_start[0] = -MIN_QUARTERWORD;
+for(j = 1; j &lt;= 255; j++) {
+    op_start[j] = op_start[j - 1] + trie_used[j - 1];
+}
+for(j = 1; j &lt;= trie_op_ptr; j++) {
+    // destination
+    trie_op_hash[j] = op_start[trie_op_lang[j]] + trie_op_val[j];
+}
+for(j = 1; j &lt;= trie_op_ptr; j++) {
+    while (trie_op_hash[j] &gt; j) {
+        k = trie_op_hash[j];
+        t = hyf_distance[k];
+        hyf_distance[k] = hyf_distance[j];
+        hyf_distance[j] = t;
+        t = hyf_num[k];
+        hyf_num[k] = hyf_num[j];
+        hyf_num[j] = t;
+        t = hyf_next[k];
+        hyf_next[k] = hyf_next[j];
+        hyf_next[j] = t;
+        trie_op_hash[j] = trie_op_hash[k];
+        trie_op_hash[k] = k;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-952">952</a>.</p>
+</div></div>
+<h1 id="section-946"><a class="header" href="#section-946">Section 946</a></h1>
+<p>Before we forget how to initialize the data structures that have been mentioned so far, let’s write down the code that gets them started.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">for(k = -TRIE_OP_SIZE; k &lt;= TRIE_OP_SIZE; k++) {
+    trie_op_hash[k] = 0;
+}
+for(k = 0; k &lt;= 255; k++) {
+    trie_used[k] = MIN_QUARTERWORD;
+}
+trie_op_ptr = 0;
+</code></pre>
+</div>
+<h1 id="section-947"><a class="header" href="#section-947">Section 947</a></h1>
+<p>The linked trie that is used to preprocess hyphenation patterns appears in several global arrays.
+Each node represents an instruction of the form “if you see character <em>c</em>, then perform operation <em>o</em>, move to the next character, and go to node <em>l</em>; otherwise go to node <em>r</em>”.
+The four quantities <em>c</em>, <em>o</em>, <em>l</em>, and <em>r</em> are stored in four arrays <em>trie_c</em>, <em>trie_o</em>, <em>trie_l</em>, and <em>trie_r</em>.
+The root of the trie is <em>trie_l[0]</em>, and the number of nodes is <em>trie_ptr</em>.
+Null trie pointers are represented by zero.
+To initialize the trie, we simply set <em>trie_l[0]</em> and <em>trie_ptr</em> to zero.
+We also set <em>trie_c[0]</em> to some arbitrary value, since the algorithm may access it.</p>
+<p>The algorithms maintain the condition</p>
+<div align="center">
+<p><em>trie_c[trie_r[z]]</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>trie_c[z]</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0em;"></span><span class="mspace" style="margin-right:2em;"></span></span></span></span> whenever <em>z</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>0</em> and <em>trie_r[z]</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>0</em>;</p>
+</div>
+<p>in other words, sibling nodes are ordered by their <em>c</em> fields.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define trie_root trie_l[0] // root of the linked trie
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#ifdef INIT
+// characters to match
+unsigned char trie_c[TRIE_SIZE + 1];
+
+// operations to perform
+quarterword trie_o[TRIE_SIZE + 1];
+
+// left subtrie links
+int trie_l[TRIE_SIZE + 1];
+
+// right subtrie links
+int trie_r[TRIE_SIZE + 1];
+
+// the number of nodes in the trie
+int trie_ptr; 
+
+// used to identify equivalent subtries
+int trie_hash[TRIE_SIZE + 1];
+#endif
+</code></pre>
+</div>
+<h1 id="section-948"><a class="header" href="#section-948">Section 948</a></h1>
+<p>Let us suppose that a linked trie has already been constructed.
+Experience shows that we can often reduce its size by recognizing common subtries; therefore another hash table is introduced for this purpose, somewhat similar to <em>trie_op_hash</em>.
+The new hash table will be initialized to zero.</p>
+<p>The function <em>trie_node(p)</em> returns <em>p</em> if <em>p</em> is distinct from other that it has seen, otherwise it returns the number of the first equivalent node that it has seen.</p>
+<p>Notice that we might make subtries equivalent even if they correspond to patterns for different languages, in which the trie ops might mean quite different things.
+That’s perfectly all right.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures for preprocessing hyphenation patterns <a href="./part43.html#section-944">944</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">// converts to a canonical form
+int trie_node(trie_pointer p) {
+    int h; // trial hash location
+    int q; // trial trie node
+    h = abs(trie_c[p] + 1009*trie_o[p] + 2718*trie_l[p] + 3142*trie_r[p]) % TRIE_SIZE;
+    while(true) {
+        q = trie_hash[h];
+        if (q == 0) {
+            trie_hash[h] = p;
+            return p;
+        }
+        if (trie_c[q] == trie_c[p]
+            &amp;&amp; trie_o[q] == trie_o[p]
+            &amp;&amp; trie_l[q] == trie_l[p]
+            &amp;&amp; trie_r[q] == trie_r[p])
+        {
+            return q;
+        }
+        if (h &gt; 0) {
+            decr(h);
+        }
+        else {
+            h = TRIE_SIZE;
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-949"><a class="header" href="#section-949">Section 949</a></h1>
+<p>A neat recursive procedure is now able to compress a trie by traversing it and applying <em>trie_node</em> to its nodes in “bottom up” fashion.
+We will compress the entire trie by clearing <em>trie_hash</em> to zero and then saying <em>‘trie_root</em> ← <em>compress_trie(trie_root)’</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures for preprocessing hyphenation patterns <a href="./part43.html#section-944">944</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int compress_trie(trie_pointer p) {
+    if (p == 0) {
+        return 0;
+    }
+    else {
+        trie_l[p] = compress_trie(trie_l[p]);
+        trie_r[p] = compress_trie(trie_r[p]);
+        return trie_node(p);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-950"><a class="header" href="#section-950">Section 950</a></h1>
+<p>The compressed trie will be packed into the <em>trie</em> array using a “top-down first-fit” procedure.
+This is a little tricky, so the reader should pay close attention: The <em>trie_hash</em> array is cleared to zero again and renamed <em>trie_ref</em> for this phase of the operation; later on, <em>trie_ref[p]</em> will be nonzero only if the linked trie node <em>p</em> is the smallest character in a family and if the characters <em>c</em> of that family have been allocated to locations <em>trie_ref[p] + c</em> in the <em>trie</em> array.
+Locations of <em>trie</em> that are in use will have <em>trie_link = 0</em>, while the unused holes in <em>trie</em> will be doubly linked with <em>trie_link</em> pointing to the next larger vacant location and <em>trie_back</em> pointing to the next smaller one.
+This double linking will have been carried out only as far as <em>trie_max</em>, where <em>trie_max</em> is the largest index of <em>trie</em> that will be needed.
+To save time at the low end of the trie, we maintain array entries <em>trie_min[c]</em> pointing to the smallest hole that is greater than <em>c</em>.
+Another array <em>trie_taken</em> tells whether or not a given location is equal to <em>trie_ref[p]</em> for some <em>p</em>; this array is used to ensure that distinct nodes in the compressed trie will have distinct <em>trie_ref</em> entries.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define trie_ref     trie_hash      // where linked trie families go into |trie|
+#define trie_back(X) hh_lh(trie[X]) // backward links in |trie| holes
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#ifdef INIT
+// does a family start here?
+bool trie_taken0[TRIE_SIZE];
+bool *trie_taken = trie_taken0 - 1;
+int trie_min[256];   // the first possible slot for each character
+int trie_max;        // largest location used in |trie|
+bool trie_not_ready; // is the trie still in linked form?
+#endif
+</code></pre>
+</div>
+<h1 id="section-951"><a class="header" href="#section-951">Section 951</a></h1>
+<p>Each time <code>\patterns</code> appears, it contributes further patterns to the future trie, which will be built only when hyphenation is attempted or when a format file is dumped.
+The boolean variable <em>trie_not_ready</em> will change to <em>false</em> when the trie is compressed; this will disable further patterns.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">trie_not_ready = true;
+trie_root = 0;
+trie_c[0] = 0;
+trie_ptr = 0;
+</code></pre>
+</div>
+<h1 id="section-952"><a class="header" href="#section-952">Section 952</a></h1>
+<p>Here is how the trie-compression data structures are initialized.
+If storage is tight, it would be possible to overlap <em>trie_op_hash</em>, <em>trie_op_lang</em>, and <em>trie_op_val</em> with <em>trie</em>, <em>trie_hash</em>, and <em>trie_taken</em>, because we finish with the former just before we need the latter.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Get ready to compress the trie <a href="./part43.html#section-952">952</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Sort the hyphenation op tables into proper order, 945 &gt;&gt;
+for(p = 0; p &lt;= TRIE_SIZE; p++) {
+    trie_hash[p] = 0;
+}
+trie_root = compress_trie(trie_root); // identify equivalent subtries
+for(p = 0; p &lt;= trie_ptr; p++) {
+    trie_ref[p] = 0;
+}
+for(p = 0; p &lt;= 255; p++) {
+    trie_min[p] = p + 1;
+}
+trie_link(0) = 1;
+trie_max = 0;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-966">966</a>.</p>
+</div></div>
+<h1 id="section-953"><a class="header" href="#section-953">Section 953</a></h1>
+<p>The <em>first_fit</em> procedure finds the smallest hole <em>z</em> in <em>trie</em> such that a trie family starting at a given node <em>p</em> will fit into vacant positions starting at <em>z</em>.
+If <em>c = trie_c[p]</em>, this means that location <em>z - c</em> must not already be taken by some other family, and that <em>z − c + c’</em> must be vacant for all characters <em>c’</em> in the family.
+The procedure sets <em>trie_ref[p]</em> to <em>z − c</em> when the first fit has been found.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures for preprocessing hyphenation patterns <a href="./part43.html#section-944">944</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">// packs a family into |trie|
+void first_fit(trie_pointer p) {
+    int h;        // candidate for |trie_ref[p]|
+    int z;        // runs through holes
+    int q;        // runs through the family starting at |p|
+    ASCII_code c; // smallest character in the family
+    int l, r;     // left and right neighbors
+    int ll;       // upper limit of |trie_min| updating
+    c = trie_c[p];
+    z = trie_min[c]; // get the first conceivably good hole
+    while(true) {
+        h = z - c;
+        // &lt;&lt; Ensure that |trie_max &gt;= h + 256|, 954 &gt;&gt;
+        if (trie_taken[h]) {
+            goto not_found;
+        }
+        // &lt;&lt; If all characters of the family fit relative to |h|, then |goto found|, otherwise |goto not_found|, 955 &gt;&gt;
+not_found:
+        z = trie_link(z); // move to the next hole
+    }
+found:
+    // &lt;&lt; Pack the family into |trie| relative to |h|, 956 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-954"><a class="header" href="#section-954">Section 954</a></h1>
+<p>By making sure that <em>trie_max</em> is at least <em>h + 256</em>, we can be sure that <em>trie_max</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>z</em>, since <em>h = z − c</em>.
+It follows that location <em>trie_max</em> will never be occupied in <em>trie</em>, and we will have <em>trie_max</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>trie_link(z)</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Ensure that <em>trie_max &gt;= h + 256</em> <a href="./part43.html#section-954">954</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (trie_max &lt; h + 256) {
+    if (TRIE_SIZE &lt;= h + 256) {
+        overflow("pattern memory", TRIE_SIZE);
+    }
+    do {
+        incr(trie_max);
+        trie_taken[trie_max] = false;
+        trie_link(trie_max) = trie_max + 1;
+        trie_back(trie_max) = trie_max - 1;
+    } while (trie_max != h + 256);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-953">953</a>.</p>
+</div></div>
+<h1 id="section-955"><a class="header" href="#section-955">Section 955</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If all characters of the family fit relative to <em>h</em>, then <em>goto found</em>, otherwise <em>goto not_found</em> <a href="./part43.html#section-955">955</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = trie_r[p];
+while (q &gt; 0) {
+    if (trie_link(h + trie_c[q]) == 0) {
+        goto not_found;
+    }
+    q = trie_r[q];
+}
+goto found;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-953">953</a>.</p>
+</div></div>
+<h1 id="section-956"><a class="header" href="#section-956">Section 956</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Pack the family into <em>trie</em> relative to <em>h</em> <a href="./part43.html#section-956">956</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">trie_taken[h] = true;
+trie_ref[p] = h;
+q = p;
+do {
+    z = h + trie_c[q];
+    l = trie_back(z);
+    r = trie_link(z);
+    trie_back(r) = l;
+    trie_link(l) = r;
+    trie_link(z) = 0;
+    if (l &lt; 256) {
+        if (z &lt; 256) {
+            ll = z;
+        }
+        else {
+            ll = 256;
+        }
+        do {
+            trie_min[l] = r;
+            incr(l);
+        } while (l != ll);
+    }
+    q = trie_r[q];
+} while (q != 0);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-953">953</a>.</p>
+</div></div>
+<h1 id="section-957"><a class="header" href="#section-957">Section 957</a></h1>
+<p>To pack the entire linked trie, we use the following recursive procedure.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures for preprocessing hyphenation patterns <a href="./part43.html#section-944">944</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">// pack subtries of a family
+void trie_pack(trie_pointer p) {
+    int q; // a local variable that need not be saved on recursive calls
+    do {
+        q = trie_l[p];
+        if (q &gt; 0 &amp;&amp; trie_ref[q] == 0) {
+            first_fit(q);
+            trie_pack(q);
+        }
+        p = trie_r[p];
+    } while (p != 0);
+}
+</code></pre>
+</div>
+<h1 id="section-958"><a class="header" href="#section-958">Section 958</a></h1>
+<p>When the whole trie has been allocated into the sequential table, we must go through it once again so that <em>trie</em> contains the correct information.
+Null pointers in the linked trie will be represented by the value 0, which properly implements an “empty” family.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Move the data into <em>trie</em> <a href="./part43.html#section-958">958</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">hh_rh(h) = 0;
+hh_b0(h) = MIN_QUARTERWORD;
+hh_b1(h) = MIN_QUARTERWORD; // |trie_link = 0|, |trie_op = MIN_QUARTERWORD|, |trie_char = 0|
+if (trie_root == 0) {
+    // no patterns were given
+    for(r = 0; r &lt;= 256; r++) {
+        trie[r] = h;
+    }
+    trie_max = 256;
+}
+else {
+    trie_fix(trie_root); // this fixes the non-holes in |trie|
+    r = 0; // now we will zero out all the holes
+    do {
+        s = trie_link(r);
+        trie[r] = h;
+        r = s;
+    } while (r &lt;= trie_max);
+}
+trie_char(0) = '?'; // make |trie_char(c) != c| for all |c|
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-966">966</a>.</p>
+</div></div>
+<h1 id="section-959"><a class="header" href="#section-959">Section 959</a></h1>
+<p>The fixing-up procedure is, of course, recursive.
+Since the linked trie usually has overlapping subtries, the same data may be moved several times; but that causes no harm, and at most as much work is done as it took to build the uncompressed trie.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures for preprocessing hyphenation patterns <a href="./part43.html#section-944">944</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">// moves |p| and its siblings into |trie|
+void trie_fix(trie_pointer p) {
+    int q;        // a local variable that need not be saved on recursive calls
+    ASCII_code c; // another one that need not be saved
+    int z;        // |trie| reference; this local variable must be saved
+    z = trie_ref[p];
+    do {
+        q = trie_l[p];
+        c = trie_c[p];
+        trie_link(z + c) = trie_ref[q];
+        trie_char(z + c) = c;
+        trie_op(z + c) = trie_o[p];
+        if (q &gt; 0) {
+            trie_fix(q);
+        }
+        p = trie_r[p];
+    } while (p != 0);
+}
+</code></pre>
+</div>
+<h1 id="section-960"><a class="header" href="#section-960">Section 960</a></h1>
+<p>Now let’s go back to the easier problem, of building the linked trie.
+When <code>INITEX</code> has scanned the ‘<code>\patterns</code>’ control sequence, it calls on <em>new_patterns</em> to do the right thing.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures for preprocessing hyphenation patterns <a href="./part43.html#section-944">944</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">// initializes the hyphenation pattern data
+void new_patterns() {
+    int k, l;          // indices into |hc| and |hyf|; not always in |small_number| range
+    bool digit_sensed; // should the next digit be treated as a letter?
+    quarterword v;     // trie op code
+    int p, q;          // nodes of trie traversed during insertion
+    bool first_child;  // is |p == trie_l[q]|?
+    ASCII_code c;      // character being inserted
+    
+    if (trie_not_ready) {
+        set_cur_lang;
+        scan_left_brace(); // a left brace must follow \patterns
+        // &lt;&lt; Enter all of the patterns into a linked trie, until coming to a right brace, 961 &gt;&gt;
+    }
+    else {
+        print_err("Too late for ");
+        print_esc("patterns");
+        help1("All patterns must be given before typesetting begins.");
+        error();
+        link(GARBAGE) = scan_toks(false, false);
+        flush_list(def_ref);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-961"><a class="header" href="#section-961">Section 961</a></h1>
+<p>Novices are not supposed to be using <code>\patterns</code>, so the error messages are terse.
+(Note that all error messages appear in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s string pool, even if they are used only by <code>INITEX</code>.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Enter all of the patterns into a linked trie, until coming to a right brace <a href="./part43.html#section-961">961</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">k = 0;
+hyf[0] = 0;
+digit_sensed = false;
+while(true) {
+    get_x_token();
+    switch (cur_cmd) {
+    case LETTER:
+    case OTHER_CHAR:
+        // &lt;&lt; Append a new letter or a hyphen level, 962 &gt;&gt;
+        break;
+    
+    case SPACER:
+    case RIGHT_BRACE:
+        if (k &gt; 0) {
+            // &lt;&lt; Insert a new pattern into the linked trie, 963 &gt;&gt;
+        }
+        if (cur_cmd == RIGHT_BRACE) {
+            goto done;
+        }
+        k = 0;
+        hyf[0] = 0;
+        digit_sensed = false;
+        break;
+  
+    default:
+        print_err("Bad ");
+        print_esc("patterns");
+        help1("(See Appendix H.)");
+        error();
+    }
+}
+done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-960">960</a>.</p>
+</div></div>
+<h1 id="section-962"><a class="header" href="#section-962">Section 962</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append a new letter or a hyphen level <a href="./part43.html#section-962">962</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (digit_sensed || cur_chr &lt; '0' || cur_chr &gt; '9') {
+    if (cur_chr == '.') {
+        cur_chr = 0; // edge-of-word delimiter
+    }
+    else {
+        cur_chr = lc_code(cur_chr);
+        if (cur_chr == 0) {
+            print_err("Nonletter");
+            help1("(See Appendix H.)");
+            error();
+        }
+    }
+    if (k &lt; 63) {
+        incr(k);
+        hc[k] = cur_chr;
+        hyf[k] = 0;
+        digit_sensed = false;
+    }
+}
+else if (k &lt; 63) {
+    hyf[k] = cur_chr - '0';
+    digit_sensed = true;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-961">961</a>.</p>
+</div></div>
+<h1 id="section-963"><a class="header" href="#section-963">Section 963</a></h1>
+<p>When the following code comes into play, the pattern <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> appears in <em>hc[1 .. k]</em>, and the corresponding sequence of numbers <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> appears in <em>hyf[0 .. k]</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert a new pattern into the linked trie <a href="./part43.html#section-963">963</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Compute the trie op code, |v|, and set |l = 0|, 965 &gt;&gt;
+q = 0;
+hc[0] = cur_lang;
+while (l &lt;= k) {
+    c = hc[l];
+    incr(l);
+    p = trie_l[q];
+    first_child = true;
+    while (p &gt; 0 &amp;&amp; c &gt; trie_c[p]) {
+        q = p;
+        p = trie_r[q];
+        first_child = false;
+    }
+    if (p == 0 || c &lt; trie_c[p]) {
+        // &lt;&lt; Insert a new trie node between |q| and |p|, and make |p| point to it, 964 &gt;&gt;
+    }
+    q = p; // now node |q| represents $p_1\ldots p_{l - 1}$
+}
+if (trie_o[q] != MIN_QUARTERWORD) {
+    print_err("Duplicate pattern");
+    help1("(See Appendix H.)");
+    error();
+}
+trie_o[q] = v;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-961">961</a>.</p>
+</div></div>
+<h1 id="section-964"><a class="header" href="#section-964">Section 964</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert a new trie node between <em>q</em> and <em>p</em>, and make <em>p</em> point to it <a href="./part43.html#section-964">964</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (trie_ptr == TRIE_SIZE) {
+    overflow("pattern memory", TRIE_SIZE);
+}
+incr(trie_ptr);
+trie_r[trie_ptr] = p;
+p = trie_ptr;
+trie_l[p] = 0;
+if (first_child) {
+    trie_l[q] = p;
+}
+else {
+    trie_r[q] = p;
+}
+trie_c[p] = c;
+trie_o[p] = MIN_QUARTERWORD;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-963">963</a>.</p>
+</div></div>
+<h1 id="section-965"><a class="header" href="#section-965">Section 965</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the trie op code, <em>v</em>, and set <em>l = 0</em> <a href="./part43.html#section-965">965</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (hc[1] == 0) {
+    hyf[0] = 0;
+}
+if (hc[k] == 0) {
+    hyf[k] = 0;
+}
+l = k;
+v = MIN_QUARTERWORD;
+while(true) {
+    if (hyf[l] != 0) {
+        v = new_trie_op(k - l, hyf[l], v);
+    }
+    if (l &gt; 0) {
+        decr(l);
+    }
+    else {
+        break; // goto done1
+    }
+}
+// done1:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part43.html#section-963">963</a>.</p>
+</div></div>
+<h1 id="section-966"><a class="header" href="#section-966">Section 966</a></h1>
+<p>Finally we put everything together: Here is how the trie gets to its final, efficient form.
+The following packing routine is rigged so that the root of the linked tree gets mapped into location 1 of <em>trie</em>, as required by the hyphenation algorithm.
+This happens because the first call of <em>first_fit</em> will “take” location 1.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures for preprocessing hyphenation patterns <a href="./part43.html#section-944">944</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void init_trie() {
+    int p;         // pointer for initialization
+    int j, k, t;   // all-purpose registers for initialization
+    int r, s;      // used to clean up the packed |trie|
+    memory_word h; // template used to zero out |trie|'s holes
+    
+    // &lt;&lt; Get ready to compress the trie, 952 &gt;&gt;
+    if (trie_root != 0) {
+        first_fit(trie_root);
+        trie_pack(trie_root);
+    }
+    // &lt;&lt; Move the data into |trie|, 958 &gt;&gt;
+    trie_not_ready = false;
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part42.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part44.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part42.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part44.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 207–210 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html" class="active">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-207-the-command-codes"><a class="header" href="#section-207-the-command-codes">Section 207: The command codes</a></h1>
+<p>Before we can go any further, we need to define symbolic names for the internal code numbers that represent the various commands obeyed by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.
+These codes are somewhat arbitrary, but not completely so.
+For example, the command codes for character types are fixed by the language, since a user says, e.g., ‘<code>\catcode `\$ = 3</code>’ make <code>$</code> a math delimiter, and the command code <em>MATH_SHIFT</em> is equal to 3.
+Some other codes have been made adjacent so that <strong>case</strong> statements in the program need not consider cases that are widely spaced, or so that <strong>case</strong> statements can be replaced by <strong>if</strong> statements.</p>
+<p>At any rate, here is the list, for future reference.
+First come the “catcode” commands, several of which share their numeric codes with ordinary commands when the catcode cannot emerge from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s scanning routine.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define ESCAPE        0  // escape delimiter (called \ in The TeXbook)
+#define RELAX         0  // do nothing (\relax)
+#define LEFT_BRACE    1  // beginning of a group ({)
+#define RIGHT_BRACE   2  // ending of a group (})
+#define MATH_SHIFT    3  // mathematics shift character ($)
+#define TAB_MARK      4  // alignment delimiter (&amp;, \span)
+#define CAR_RET       5  // end of line (CARRIAGE_RETURN, \cr, \crcr)
+#define OUT_PARAM     5  // output a macro parameter
+#define MAC_PARAM     6  // macro parameter symbol (#)
+#define SUP_MARK      7  // superscript (^)
+#define SUB_MARK      8  // subscript (_)
+#define IGNORE        9  // characters to ignore (^^@)
+#define ENDV          9  // end of &lt;v_j&gt; list in alignment template
+#define SPACER        10 // characters equivalent to blank space ( )
+#define LETTER        11 // characters regarded as letters (A..Z, a..z})
+#define OTHER_CHAR    12 // none of the special character types
+#define ACTIVE_CHAR   13 // characters that invoke macros (~)
+#define PAR_END       13 // end of paragraph (\par)
+#define MATCH         13 // match a macro parameter
+#define COMMENT       14 // characters that introduce comments (%)
+#define END_MATCH     14 // end of parameters to macro
+#define STOP          14 // end of job (\end, \dump)
+#define INVALID_CHAR  15 // characters that shouldn't appear (^^?)
+#define DELIM_NUM     15 // specify delimiter numerically (\delimiter)
+#define MAX_CHAR_CODE 15 // largest catcode for individual characters
+</code></pre>
+</div>
+<h1 id="section-208"><a class="header" href="#section-208">Section 208</a></h1>
+<p>Next are the ordinary run-of-the-mill command codes.
+Codes that are <em>MIN_INTERNAL</em> or more represent internal quantities that might be expanded by ‘<code>\the</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define CHAR_NUM                 16 // character specified numerically (\char)
+#define MATH_CHAR_NUM            17 // explicit math code (\mathchar)
+#define MARK                     18 // mark definition (\mark)
+#define XRAY                     19 // peek inside of TeX (\show, \showbox, etc.)
+#define MAKE_BOX                 20 // make a box (\box, \copy, \hbox, etc.)
+#define HMOVE                    21 // horizontal motion (\moveleft, \moveright)
+#define VMOVE                    22 // vertical motion (\raise, \lower)
+#define UN_HBOX                  23 // unglue a box (\unhbox, \unhcopy)
+#define UN_VBOX                  24 // unglue a box (\unvbox, \unvcopy)
+#define REMOVE_ITEM              25 // nullify last item (\unpenalty, \unkern, \unskip)
+#define HSKIP                    26 // horizontal glue (\hskip, \hfil, etc.)
+#define VSKIP                    27 // vertical glue (\vskip, \vfil, etc.)
+#define MSKIP                    28 // math glue (\mskip)
+#define KERN                     29 // fixed space (\kern)
+#define MKERN                    30 // math kern (\mkern)
+#define LEADER_SHIP              31 // use a box (\shipout, \leaders, etc.)
+#define HALIGN                   32 // horizontal table alignment (\halign)
+#define VALIGN                   33 // vertical table alignment (\valign)
+#define NO_ALIGN                 34 // temporary escape from alignment (\noalign)
+#define VRULE                    35 // vertical rule (\vrule)
+#define HRULE                    36 // horizontal rule (\hrule)
+#define INSERT                   37 // vlist inserted in box (\insert)
+#define VADJUST                  38 // vlist inserted in enclosing paragraph (\vadjust)
+#define IGNORE_SPACES            39 // gobble |spacer| tokens (\ignorespaces)
+#define AFTER_ASSIGNMENT         40 // save till assignment is done (\afterassignment)
+#define AFTER_GROUP              41 // save till group is done (\aftergroup)
+#define BREAK_PENALTY            42 // additional badness (\penalty)
+#define START_PAR                43 // begin paragraph (\indent, \noindent)
+#define ITAL_CORR                44 // italic correction (\/)
+#define ACCENT                   45 // attach accent in text (\accent)
+#define MATH_ACCENT              46 // attach accent in math (\mathaccent)
+#define DISCRETIONARY            47 // discretionary texts (\-, \discretionary)
+#define EQ_NO                    48 // equation number (\eqno, \leqno)
+#define LEFT_RIGHT               49 // variable delimiter (\left, \right)
+#define MATH_COMP                50 // component of formula (\mathbin, etc.)
+#define LIMIT_SWITCH             51 // diddle limit conventions (\displaylimits, etc.)
+#define ABOVE                    52 // generalized fraction (\above, \atop, etc.)
+#define MATH_STYLE               53 // style specification (\displaystyle, etc.)
+#define MATH_CHOICE              54 // choice specification (\mathchoice)
+#define NON_SCRIPT               55 // conditional math glue (\nonscript)
+#define VCENTER                  56 // vertically center a vbox (\vcenter)
+#define CASE_SHIFT               57 // force specific case (\lowercase, \uppercase)
+#define MESSAGE                  58 // send to user (\message, \errmessage)
+#define EXTENSION                59 // extensions to \TeX\ (\write, \special, etc.)
+#define IN_STREAM                60 // files for reading (\openin, \closein)
+#define BEGIN_GROUP              61 // begin local grouping (\begingroup)
+#define END_GROUP                62 // end local grouping (\endgroup)
+#define OMIT                     63 // omit alignment template (\omit)
+#define EX_SPACE                 64 // explicit space (\ )
+#define NO_BOUNDARY              65 // suppress boundary ligatures (\noboundary)
+#define RADICAL                  66 // square root and similar signs (\radical)
+#define END_CS_NAME              67 // end control sequence (\endcsname)
+#define MIN_INTERNAL             68 // the smallest code that can follow \the
+#define CHAR_GIVEN               68 // character code defined by \chardef
+#define MATH_GIVEN               69 // math code defined by \mathchardef
+#define LAST_ITEM                70 // most recent item (\lastpenalty, \lastkern, \lastskip)
+#define MAX_NON_PREFIXED_COMMAND 70 // largest command code that can't be \global
+</code></pre>
+</div>
+<h1 id="section-209"><a class="header" href="#section-209">Section 209</a></h1>
+<p>The next codes are special; they all relate to mode-independent assignment of values to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s internal registers or tables.
+Codes that are <em>MAX_INTERNAL</em> or less represent internal quantities that might be expanded by ‘<code>\the</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define TOKS_REGISTER     71  // token list register (\toks)
+#define ASSIGN_TOKS       72  // special token list (\output, \everypar, etc.)
+#define ASSIGN_INT        73  // user-defined integer (\tolerance, \day, etc.)
+#define ASSIGN_DIMEN      74  // user-defined length (\hsize, etc.)
+#define ASSIGN_GLUE       75  // user-defined glue (\baselineskip, etc.)
+#define ASSIGN_MU_GLUE    76  // user-defined muglue (\thinmuskip, etc.)
+#define ASSIGN_FONT_DIMEN 77  // user-defined font dimension (\fontdimen)
+#define ASSIGN_FONT_INT   78  // user-defined font integer (\hyphenchar, \skewchar)
+#define SET_AUX           79  // specify state info (\spacefactor, \prevdepth)
+#define SET_PREV_GRAF     80  // specify state info (\prevgraf)
+#define SET_PAGE_DIMEN    81  // specify state info (\pagegoal, etc.)
+#define SET_PAGE_INT      82  // specify state info (\deadcycles, \insertpenalties)
+#define SET_BOX_DIMEN     83  // change dimension of box (\wd, \ht, \dp)
+#define SET_SHAPE         84  // specify fancy paragraph shape (\parshape)
+#define DEF_CODE          85  // define a character code (\catcode, etc.)
+#define DEF_FAMILY        86  // declare math fonts (\textfont, etc.)
+#define SET_FONT          87  // set current font (font identifiers)
+#define DEF_FONT          88  // define a font file (\font)
+#define REGISTER          89  // internal register (\count, \dimen, etc.)
+#define MAX_INTERNAL      89  // the largest code that can follow \the
+#define ADVANCE           90  // advance a register or parameter (\advance)
+#define MULTIPLY          91  // multiply a register or parameter (\multiply)
+#define DIVIDE            92  // divide a register or parameter (\divide)
+#define PREFIX            93  // qualify a definition (\global, \long, \outer)
+#define LET               94  // assign a command code (\let, \futurelet)
+#define SHORTHAND_DEF     95  // code definition (\chardef, \countdef, etc.)
+#define READ_TO_CS        96  // read into a control sequence (\read)
+#define DEF               97  // macro definition (\def, \gdef, \xdef, \edef)
+#define SET_BOX           98  // set a box (\setbox)
+#define HYPH_DATA         99  // hyphenation data (\hyphenation, \patterns)
+#define SET_INTERACTION   100 // define level of interaction (\batchmode, etc.)
+#define MAX_COMMAND       100 // the largest command code seen at |big_switch|
+</code></pre>
+</div>
+<h1 id="section-210"><a class="header" href="#section-210">Section 210</a></h1>
+<p>The remaining command codes are extra special, since they cannot get through <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s scanner to the main control routine.
+They have been given values higher than <em>MAX_COMMAND</em> so that their special nature is easily discernible.
+The “expandable” commands come first.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define UNDEFINED_CS    (MAX_COMMAND + 1)  // initial state of most |eq_type| fields
+#define EXPAND_AFTER    (MAX_COMMAND + 2)  // special expansion (\expandafter)
+#define NO_EXPAND       (MAX_COMMAND + 3)  // special nonexpansion (\noexpand)
+#define INPUT           (MAX_COMMAND + 4)  // input a source file (\input, \endinput)
+#define IF_TEST         (MAX_COMMAND + 5)  // conditional text (\if, \ifcase, etc.)
+#define FI_OR_ELSE      (MAX_COMMAND + 6)  // delimiters for conditionals (\else, etc.)
+#define CS_NAME         (MAX_COMMAND + 7)  // make a control sequence from tokens (\csname)
+#define CONVERT         (MAX_COMMAND + 8)  // convert to text (\number, \string, etc.)
+#define THE             (MAX_COMMAND + 9)  // expand an internal quantity (\the)
+#define TOP_BOT_MARK    (MAX_COMMAND + 10) // inserted mark (\topmark, etc.)
+#define CALL            (MAX_COMMAND + 11) // non-long, non-outer control sequence
+#define LONG_CALL       (MAX_COMMAND + 12) // long, non-outer control sequence
+#define OUTER_CALL      (MAX_COMMAND + 13) // non-long, outer control sequence
+#define LONG_OUTER_CALL (MAX_COMMAND + 14) // long, outer control sequence
+#define END_TEMPLATE    (MAX_COMMAND + 15) // end of an alignment template
+#define DONT_EXPAND     (MAX_COMMAND + 16) // the following token was marked by \noexpand
+#define GLUE_REF        (MAX_COMMAND + 17) // the equivalent points to a glue specification
+#define SHAPE_REF       (MAX_COMMAND + 18) // the equivalent points to a parshape specification
+#define BOX_REF         (MAX_COMMAND + 19) // the equivalent points to a box node, or is |null|
+#define DATA            (MAX_COMMAND + 20) // the equivalent is simply a halfword number
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part14.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part16.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part14.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part16.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

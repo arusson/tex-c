@@ -1,0 +1,2177 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 1055–1135 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html" class="active">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-1055-building-boxes-and-lists"><a class="header" href="#section-1055-building-boxes-and-lists">Section 1055: Building boxes and lists</a></h1>
+<p>The most important parts of <em>main_control</em> are concerned with <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s chief mission of box-making.
+We need to control the activities that put entries on vlists and hlists, as well as the activities that convert those lists into boxes.
+All of the necessary machinery has already been developed; it remains for us to “push the buttons” at the right times.</p>
+<h1 id="section-1056"><a class="header" href="#section-1056">Section 1056</a></h1>
+<p>As an introduction to these routines, let’s consider one of the simplest cases:
+What happens when ‘<code>\hrule</code>’ occurs in vertical mode, or ‘<code>\vrule</code>’ in horizontal mode or math mode? The code in <em>main_control</em>
+is short, since the <em>scan_rule_spec</em> routine already does most of what is required; thus, there is no need for a special action procedure.</p>
+<p>Note that baselineskip calculations are disabled after a rule in vertical mode, by setting <em>prev_depth = IGNORE_DEPTH</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">case VMODE + HRULE:
+case HMODE + VRULE:
+case MMODE + VRULE:
+    tail_append(scan_rule_spec());
+    if (abs(mode) == VMODE) {
+        prev_depth = IGNORE_DEPTH;
+    }
+    else if (abs(mode) == HMODE) {
+        space_factor = 1000;
+    }
+    break;
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part47.html#section-1057">1057</a>, <a href="./part47.html#section-1063">1063</a>, <a href="./part47.html#section-1067">1067</a>, <a href="./part47.html#section-1073">1073</a>, <a href="./part47.html#section-1090">1090</a>, <a href="./part47.html#section-1092">1092</a>, <a href="./part47.html#section-1094">1094</a>, <a href="./part47.html#section-1097">1097</a>, <a href="./part47.html#section-1102">1102</a>, <a href="./part47.html#section-1104">1104</a>, <a href="./part47.html#section-1109">1109</a>, <a href="./part47.html#section-1112">1112</a>, <a href="./part47.html#section-1116">1116</a>, <a href="./part47.html#section-1122">1122</a>, <a href="./part47.html#section-1126">1126</a>, <a href="./part47.html#section-1130">1130</a>, <a href="./part47.html#section-1134">1134</a>, <a href="./part48.html#section-1137">1137</a>, <a href="./part48.html#section-1140">1140</a>, <a href="./part48.html#section-1150">1150</a>, <a href="./part48.html#section-1154">1154</a>, <a href="./part48.html#section-1158">1158</a>, <a href="./part48.html#section-1162">1162</a>, <a href="./part48.html#section-1164">1164</a>, <a href="./part48.html#section-1167">1167</a>, <a href="./part48.html#section-1171">1171</a>, <a href="./part48.html#section-1175">1175</a>, <a href="./part48.html#section-1180">1180</a>, <a href="./part48.html#section-1190">1190</a>, and <a href="./part48.html#section-1193">1193</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1045">1045</a>.</p>
+</div></div>
+<h1 id="section-1057"><a class="header" href="#section-1057">Section 1057</a></h1>
+<p>The processing of things like <code>\hskip</code> and <code>\vskip</code> is slightly more complicated.
+But the code in <em>main_control</em> is very short, since it simply calls on the action routine <em>append_glue</em>.
+Similarly, <code>\kern</code> activates <em>append_kern</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case VMODE + VSKIP:
+case HMODE + HSKIP:
+case MMODE + HSKIP:
+case MMODE + MSKIP:
+    append_glue();
+    break;
+
+any_mode(KERN):
+case MMODE + MKERN:
+    append_kern();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1058"><a class="header" href="#section-1058">Section 1058</a></h1>
+<p>The <em>HSKIP</em> and <em>VSKIP</em> command codes are used for control sequences like <code>\hss</code> and <code>\vfil</code> as well as for <code>\hskip</code> and <code>\vskip</code>.
+The difference is in the value of <em>cur_chr</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define FIL_CODE     0 // identifies \hfil and \vfil
+#define FILL_CODE    1 // identifies \hfill and \vfill
+#define SS_CODE      2 // identifies \hss and \vss
+#define FIL_NEG_CODE 3 // identifies \hfilneg and \vfilneg
+#define SKIP_CODE    4 // identifies \hskip and \vskip
+#define MSKIP_CODE   5 // identifies \mskip
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("hskip", HSKIP, SKIP_CODE);
+primitive("hfil", HSKIP, FIL_CODE);
+primitive("hfill", HSKIP, FILL_CODE);
+primitive("hss", HSKIP, SS_CODE);
+primitive("hfilneg", HSKIP, FIL_NEG_CODE);
+primitive("vskip", VSKIP, SKIP_CODE);
+primitive("vfil", VSKIP, FIL_CODE);
+primitive("vfill", VSKIP, FILL_CODE);
+primitive("vss", VSKIP, SS_CODE);
+primitive("vfilneg", VSKIP, FIL_NEG_CODE);
+primitive("mskip", MSKIP, MSKIP_CODE);
+primitive("kern", KERN, EXPLICIT);
+primitive("mkern", MKERN, MU_GLUE);
+</code></pre>
+</div>
+<h1 id="section-1059"><a class="header" href="#section-1059">Section 1059</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case HSKIP:
+    switch (chr_code) {
+    case SKIP_CODE:
+        print_esc("hskip");
+        break;
+    
+    case FIL_CODE:
+        print_esc("hfil");
+        break;
+  
+    case FILL_CODE:
+        print_esc("hfill");
+        break;
+
+    case SS_CODE:
+        print_esc("hss");
+        break;
+
+    default:
+        print_esc("hfilneg");
+    }
+    break;
+
+case VSKIP:
+    switch (chr_code) {
+    case SKIP_CODE:
+        print_esc("vskip");
+        break;
+    
+    case FIL_CODE:
+        print_esc("vfil");
+        break;
+    
+    case FILL_CODE:
+        print_esc("vfill");
+        break;
+    
+    case SS_CODE:
+        print_esc("vss");
+        break;
+    
+    default:
+        print_esc("vfilneg");
+    }
+    break;
+
+case MSKIP:
+    print_esc("mskip");
+    break;
+
+case KERN:
+    print_esc("kern");
+    break;
+
+case MKERN:
+    print_esc("mkern");
+    break;
+</code></pre>
+</div>
+<h1 id="section-1060"><a class="header" href="#section-1060">Section 1060</a></h1>
+<p>All the work relating to glue creation has been relegated to the following subroutine.
+It does not call <em>build_page</em>, because it is used in at least one place where that would be a mistake.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |boxes_and_lists.c|, 1382 &gt;&gt;
+
+void append_glue() {
+    small_number s; // modifier of skip command
+    s = cur_chr;
+    switch (s) {
+    case FIL_CODE:
+        cur_val = FIL_GLUE;
+        break;
+    
+    case FILL_CODE:
+        cur_val = FILL_GLUE;
+        break;
+    
+    case SS_CODE:
+        cur_val = SS_GLUE;
+        break;
+    
+    case FIL_NEG_CODE:
+        cur_val = FIL_NEG_GLUE;
+        break;
+    
+    case SKIP_CODE:
+        scan_glue(GLUE_VAL);
+        break;
+    
+    case MSKIP_CODE:
+        scan_glue(MU_VAL);
+    } // now |cur_val| points to the glue specification
+    tail_append(new_glue(cur_val));
+    if (s &gt;= SKIP_CODE) {
+        decr(glue_ref_count(cur_val));
+        if (s &gt; SKIP_CODE) {
+            subtype(tail) = MU_GLUE;
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1061"><a class="header" href="#section-1061">Section 1061</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void append_kern() {
+    quarterword s; // |subtype| of the kern node
+    s = cur_chr;
+    scan_dimen(s == MU_GLUE, false, false);
+    tail_append(new_kern(cur_val));
+    subtype(tail) = s;
+}
+</code></pre>
+</div>
+<h1 id="section-1062"><a class="header" href="#section-1062">Section 1062</a></h1>
+<p>Many of the actions related to box-making are triggered by the appearance of braces in the input.
+For example, when the user says ‘<code>\hbox to 100pt{&lt;hlist&gt;}</code>’ in vertical mode, the information about the box size (100pt, <em>EXACTLY</em>) is put onto <em>save_stack</em> with a level boundary word just above it, and <em>cur_group</em> ← <em>ADJUSTED_HBOX_GROUP</em>;
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> enters restricted horizontal mode to process the hlist.
+The right brace eventually causes <em>save_stack</em> to be restored to its former state, at which time the information about the box size (100pt, <em>EXACTLY</em>) is available once again; a box is packaged and we leave restricted horizontal mode, appending the new box to the current list of the enclosing mode (in this case to the current list of vertical mode), followed by any vertical adjustments that were removed from the box by <em>hpack</em>.</p>
+<p>The next few sections of the program are therefore concerned with the treatment of left and right curly braces.</p>
+<h1 id="section-1063"><a class="header" href="#section-1063">Section 1063</a></h1>
+<p>If a left brace occurs in the middle of a page or paragraph, it simply introduces a new level of grouping, and the matching right brace will not have such a drastic effect.
+Such grouping affects neither the mode nor the current list.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">non_math(LEFT_BRACE):
+    new_save_level(SIMPLE_GROUP);
+    break;
+
+any_mode(BEGIN_GROUP):
+    new_save_level(SEMI_SIMPLE_GROUP);
+    break;
+
+any_mode(END_GROUP):
+    if (cur_group == SEMI_SIMPLE_GROUP) {
+        unsave();
+    }
+    else {
+        off_save();
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1064"><a class="header" href="#section-1064">Section 1064</a></h1>
+<p>We have to deal with errors in which braces and such things are not properly nested.
+Sometimes the user makes an error of commission by inserting an extra symbol, but sometimes the user makes an error of omission.
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> can’t always tell one from the other, so it makes a guess and tries to avoid getting into a loop.</p>
+<p>The <em>off_save</em> routine is called when the current group code is wrong.
+It tries to insert something into the user’s input that will help clean off the top level.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void off_save() {
+    pointer p; // inserted token
+    if (cur_group == BOTTOM_LEVEL) {
+        // &lt;&lt; Drop current token and complain that it was unmatched, 1066 &gt;&gt;
+    }
+    else {
+        back_input();
+        p = get_avail();
+        link(TEMP_HEAD) = p;
+        print_err("Missing ");
+        // &lt;&lt; Prepare to insert a token that matches |cur_group|, and print what it is, 1065 &gt;&gt;
+        print(" inserted");
+        ins_list(link(TEMP_HEAD));
+        help5("I've inserted something that you may have forgotten.")
+            ("(See the &lt;inserted text&gt; above.)")
+            ("With luck, this will get me unwedged. But if you")
+            ("really didn't forget anything, try typing `2' now; then")
+            ("my insertion and my current dilemma will both disappear.");
+        error();
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1065"><a class="header" href="#section-1065">Section 1065</a></h1>
+<p>At this point, <em>link(TEMP_HEAD) = p</em>, a pointer to an empty one-word node.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Prepare to insert a token that matches <em>cur_group</em>, and print what it is <a href="./part47.html#section-1065">1065</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (cur_group) {
+case SEMI_SIMPLE_GROUP:
+    info(p) = CS_TOKEN_FLAG + FROZEN_END_GROUP;
+    print_esc("endgroup"); 
+    break;
+
+case MATH_SHIFT_GROUP:
+    info(p) = MATH_SHIFT_TOKEN + '$';
+    print_char('$');
+    break;
+
+case MATH_LEFT_GROUP:
+    info(p) = CS_TOKEN_FLAG + FROZEN_RIGHT;
+    link(p) = get_avail();
+    p = link(p);
+    info(p) = OTHER_TOKEN + '.';
+    print_esc("right.");
+    break;
+
+default:
+    info(p) = RIGHT_BRACE_TOKEN + '}';
+    print_char('}');
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1064">1064</a>.</p>
+</div></div>
+<h1 id="section-1066"><a class="header" href="#section-1066">Section 1066</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Drop current token and complain that it was unmatched <a href="./part47.html#section-1066">1066</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Extra ");
+print_cmd_chr(cur_cmd, cur_chr);
+help1("Things are pretty mixed up, but I think the worst is over.");
+error();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1064">1064</a>.</p>
+</div></div>
+<h1 id="section-1067"><a class="header" href="#section-1067">Section 1067</a></h1>
+<p>The routine for a <em>RIGHT_BRACE</em> character branches into many subcases, since a variety of things may happen, depending on <em>cur_group</em>.
+Some types of groups are not supposed to be ended by a right brace; error messages are given in hopes of pinpointing the problem.
+Most branches of this routine will be filled in later, when we are ready to understand them; meanwhile, we must prepare ourselves to deal with such errors.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(RIGHT_BRACE):
+    handle_right_brace();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1068"><a class="header" href="#section-1068">Section 1068</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void handle_right_brace() {
+    pointer p, q; // for short - term use
+    scaled d;     // holds |split_max_depth| in |insert_group|
+    int f;        // holds |floating_penalty| in |insert_group|
+    switch (cur_group) {
+    case SIMPLE_GROUP:
+        unsave();
+        break;
+    
+    case BOTTOM_LEVEL:
+        print_err("Too many }'s");
+        help2("You've closed more groups than you opened.")
+            ("Such booboos are generally harmless, so keep going.");
+        error();
+        break;
+    
+    case SEMI_SIMPLE_GROUP:
+    case MATH_SHIFT_GROUP:
+    case MATH_LEFT_GROUP:
+        extra_right_brace();
+        break;
+    
+    // &lt;&lt; Cases of |handle_right_brace| where a |RIGHT_BRACE| triggers a delayed action, 1085 &gt;&gt;
+
+    default:
+        confusion("rightbrace");
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1069"><a class="header" href="#section-1069">Section 1069</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare action procedures for use by <em>main_control</em> <a href="./part46.html#section-1043">1043</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void extra_right_brace() {
+    print_err("Extra }, or forgotten ");
+    switch (cur_group) {
+    case SEMI_SIMPLE_GROUP:
+        print_esc("endgroup");
+        break;
+    
+    case MATH_SHIFT_GROUP:
+        print_char('$');
+        break;
+
+    case MATH_LEFT_GROUP:
+        print_esc("right");
+    }
+    help5("I've deleted a group-closing symbol because it seems to be")
+        ("spurious, as in `$x}$'. But perhaps the } is legitimate and")
+        ("you forgot something else, as in `\\hbox{$x}'. In such cases")
+        ("the way to recover is to insert both the forgotten and the")
+        ("deleted material, e.g., by typing `I$}'.");
+    error();
+    incr(align_state);
+}
+</code></pre>
+</div>
+<h1 id="section-1070"><a class="header" href="#section-1070">Section 1070</a></h1>
+<p>Here is where we clear the parameters that are supposed to revert to their default values after every paragraph and when internal vertical mode is entered.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void normal_paragraph() {
+    if (looseness != 0) {
+        eq_word_define(INT_BASE + LOOSENESS_CODE, 0);
+    }
+    if (hang_indent != 0) {
+        eq_word_define(DIMEN_BASE + HANG_INDENT_CODE, 0);
+    }
+    if (hang_after != 1) {
+        eq_word_define(INT_BASE + HANG_AFTER_CODE, 1);
+    }
+    if (par_shape_ptr != null) {
+        eq_define(PAR_SHAPE_LOC, SHAPE_REF, null);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1071"><a class="header" href="#section-1071">Section 1071</a></h1>
+<p>Now let’s turn to the question of how <code>\hbox</code> is treated.
+We actually need to consider also a slightly larger context, since constructions like ‘<code>\setbox3=\hbox...</code>’ and ‘<code>\leaders\hbox...</code>’ and ‘<code>\lower3.8pt\hbox...</code>’ are supposed to invoke quite different actions after the box has been packaged.
+Conversely, constructions like ‘<code>\setbox3=</code>’ can be followed by a variety of different kinds of boxes, and we would like to encode such things in an efficient way.</p>
+<p>In other words, there are two problems: to represent the context of a box, and to represent its type.</p>
+<p>The first problem is solved by putting a “context code” on the <em>save_stack</em>, just below the two entries that give the dimensions produced by <em>scan_spec</em>.
+The context code is either a (signed) shift amount, or it is a large integer <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>BOX_FLAG</em>, where <em>BOX_FLAG</em> = <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">30</span></span></span></span></span></span></span></span></span></span></span></span>.
+Codes <em>BOX_FLAG</em> through <em>BOX_FLAG + 255</em> represent ‘<code>\setbox0</code>’ through ‘<code>\setbox255</code>’;
+codes <em>BOX_FLAG + 256</em> through <em>BOX_FLAG + 511</em> represent ‘<code>\global\setbox0</code>’ through ‘<code>\global\setbox255</code>’;
+code <em>BOX_FLAG + 512</em> represents ‘<code>\shipout</code>’;
+and codes <em>BOX_FLAG + 513</em> through <em>BOX_FLAG + 515</em> represent ‘<code>\leaders</code>’, ‘<code>\cleaders</code>’, and ‘<code>\xleaders</code>’.</p>
+<p>The second problem is solved by giving the command code <em>MAKE_BOX</em> to all control sequences that produce a box, and by using the following <em>chr_code</em> values to distinguish between them: <em>BOX_CODE</em>, <em>COPY_CODE</em>, <em>LAST_BOX_CODE</em>, <em>VSPLIT_CODE</em>, <em>VTOP_CODE</em>, <em>VTOP_CODE + VMODE</em>, and <em>VTOP_CODE + HMODE</em>, where the latter two are used to denote <code>\vbox</code> and <code>\hbox</code>, respectively.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define BOX_FLAG      0x40000000       // context code for '\setbox0'
+#define SHIP_OUT_FLAG (BOX_FLAG + 512) // context code for '\shipout'
+#define LEADER_FLAG   (BOX_FLAG + 513) // context code for '\leaders'
+#define BOX_CODE      0                // |chr_code| for '\box'
+#define COPY_CODE     1                // |chr_code| for '\copy'
+#define LAST_BOX_CODE 2                // |chr_code| for '\lastbox'
+#define VSPLIT_CODE   3                // |chr_code| for '\vsplit'
+#define VTOP_CODE     4                // |chr_code| for '\vtop'
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("moveleft", HMOVE, 1);
+primitive("moveright", HMOVE, 0);
+primitive("raise", VMOVE, 1);
+primitive("lower", VMOVE, 0);
+
+primitive("box", MAKE_BOX, BOX_CODE);
+primitive("copy", MAKE_BOX, COPY_CODE);
+primitive("lastbox", MAKE_BOX, LAST_BOX_CODE);
+primitive("vsplit", MAKE_BOX, VSPLIT_CODE);
+primitive("vtop", MAKE_BOX, VTOP_CODE);
+primitive("vbox", MAKE_BOX, VTOP_CODE + VMODE);
+primitive("hbox", MAKE_BOX, VTOP_CODE + HMODE);
+primitive("shipout", LEADER_SHIP, A_LEADERS - 1); // |SHIP_OUT_FLAG = LEADER_FLAG - 1|
+primitive("leaders", LEADER_SHIP, A_LEADERS);
+primitive("cleaders", LEADER_SHIP, C_LEADERS);
+primitive("xleaders", LEADER_SHIP, X_LEADERS);
+</code></pre>
+</div>
+<h1 id="section-1072"><a class="header" href="#section-1072">Section 1072</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case HMOVE:
+    if (chr_code == 1) {
+        print_esc("moveleft");
+    }
+    else {
+        print_esc("moveright");
+    }
+    break;
+
+case VMOVE:
+    if (chr_code == 1) {
+        print_esc("raise");
+    }
+    else {
+        print_esc("lower");
+    }
+    break;
+
+case MAKE_BOX:
+    switch (chr_code) {
+    case BOX_CODE:
+        print_esc("box");
+        break;
+  
+    case COPY_CODE:
+        print_esc("copy");
+        break;
+    
+    case LAST_BOX_CODE:
+        print_esc("lastbox");
+        break;
+  
+    case VSPLIT_CODE:
+        print_esc("vsplit");
+        break;
+  
+    case VTOP_CODE:
+        print_esc("vtop");
+        break;
+  
+    case VTOP_CODE + VMODE:
+        print_esc("vbox");
+        break;
+    
+    default:
+        print_esc("hbox");
+    }
+    break;
+
+case LEADER_SHIP:
+    if (chr_code == A_LEADERS) {
+        print_esc("leaders");
+    }
+    else if (chr_code == C_LEADERS) {
+        print_esc("cleaders");
+    }
+    else if (chr_code == X_LEADERS) {
+        print_esc("xleaders");
+    }
+    else {
+        print_esc("shipout");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1073"><a class="header" href="#section-1073">Section 1073</a></h1>
+<p>Constructions that require a box are started by calling <em>scan_box</em> with a specified context code.
+The <em>scan_box</em> routine verifies that a <em>MAKE_BOX</em> command comes next and then it calls <em>begin_box</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case VMODE + HMOVE:
+case HMODE + VMOVE:
+case MMODE + VMOVE:
+    t = cur_chr;
+    scan_normal_dimen;
+    if (t == 0) {
+        scan_box(cur_val);
+    }
+    else {
+        scan_box(-cur_val);
+    }
+    break;
+
+any_mode(LEADER_SHIP):
+    scan_box(LEADER_FLAG - A_LEADERS + cur_chr);
+    break;
+
+any_mode(MAKE_BOX):
+    begin_box(0);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1074"><a class="header" href="#section-1074">Section 1074</a></h1>
+<p>The global variable <em>cur_box</em> will point to a newly made box.
+If the box is void, we will have <em>cur_box = null</em>.
+Otherwise we will have <em>type(cur_box) = HLIST_NODE</em> or <em>VLIST_NODE</em> or <em>RULE_NODE</em>; the <em>RULE_NODE</em> case can occur only with leaders.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer cur_box; // box to be placed into its context
+</code></pre>
+</div>
+<h1 id="section-1075"><a class="header" href="#section-1075">Section 1075</a></h1>
+<p>The <em>box_end</em> procedure does the right thing with <em>cur_box</em>, if <em>box_context</em> represents the context as explained above.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void box_end(int box_context) {
+    pointer p; // |ORD_NOAD| for new box in math mode
+    if (box_context &lt; BOX_FLAG) {
+        // &lt;&lt; Append box |cur_box| to the current list, shifted by |box_context|, 1076 &gt;&gt;
+    }
+    else if (box_context &lt; SHIP_OUT_FLAG) {
+        // &lt;&lt; Store |cur_box| in a box register, 1077 &gt;&gt;
+    }
+    else if (cur_box != null) {
+        if (box_context &gt; SHIP_OUT_FLAG) {
+            // &lt;&lt; Append a new leader node that uses |cur_box|, 1078 &gt;&gt;
+        }
+        else {
+            ship_out(cur_box);
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1076"><a class="header" href="#section-1076">Section 1076</a></h1>
+<p>The global variable <em>adjust_tail</em> will be non-null if and only if the current box might include adjustments that should be appended to the current vertical list.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append box <em>cur_box</em> to the current list, shifted by <em>box_context</em> <a href="./part47.html#section-1076">1076</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_box != null) {
+    shift_amount(cur_box) = box_context;
+    if (abs(mode) == VMODE) {
+        append_to_vlist(cur_box);
+        if (adjust_tail != null) {
+            if (ADJUST_HEAD != adjust_tail) {
+                link(tail) = link(ADJUST_HEAD);
+                tail = adjust_tail;
+            }
+            adjust_tail = null;
+        }
+        if (mode &gt; 0) {
+            build_page();
+        }
+    }
+    else {
+        if (abs(mode) == HMODE) {
+            space_factor = 1000;
+        }
+        else {
+            p = new_noad();
+            math_type(nucleus(p)) = SUB_BOX;
+            info(nucleus(p)) = cur_box;
+            cur_box = p;
+        }
+        link(tail) = cur_box;
+        tail = cur_box;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1075">1075</a>.</p>
+</div></div>
+<h1 id="section-1077"><a class="header" href="#section-1077">Section 1077</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Store <em>cur_box</em> in a box register <a href="./part47.html#section-1077">1077</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (box_context &lt; BOX_FLAG + 256) {
+    eq_define(BOX_BASE - BOX_FLAG + box_context, BOX_REF, cur_box);
+}
+else {
+    geq_define(BOX_BASE - BOX_FLAG - 256 + box_context, BOX_REF, cur_box);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1075">1075</a>.</p>
+</div></div>
+<h1 id="section-1078"><a class="header" href="#section-1078">Section 1078</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append a new leader node that uses <em>cur_box</em> <a href="./part47.html#section-1078">1078</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Get the next non-blank non-relax non-call token, 404 &gt;&gt;
+if ((cur_cmd == HSKIP &amp;&amp; abs(mode) != VMODE)
+    || (cur_cmd == VSKIP &amp;&amp; abs(mode) == VMODE))
+{
+    append_glue();
+    subtype(tail) = box_context - (LEADER_FLAG - A_LEADERS);
+    leader_ptr(tail) = cur_box;
+}
+else {
+    print_err("Leaders not followed by proper glue");
+    help3("You should say `\\leaders &lt;box or rule&gt;&lt;hskip or vskip&gt;'.")
+        ("I found the &lt;box or rule&gt;, but there's no suitable")
+        ("&lt;hskip or vskip&gt;, so I'm ignoring these leaders.");
+    back_error();
+    flush_node_list(cur_box);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1075">1075</a>.</p>
+</div></div>
+<h1 id="section-1079"><a class="header" href="#section-1079">Section 1079</a></h1>
+<p>Now that we can see what eventually happens to boxes, we can consider the first steps in their creation.
+The <em>begin_box</em> routine is called when <em>box_context</em> is a context specification, <em>cur_chr</em> specifies the type of box desired, and <em>cur_cmd = MAKE_BOX</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void begin_box(int box_context) {
+    pointer p, q; // run through the current list
+    int m;        // the length of a replacement list
+    halfword k;   // 0 or |VMODE| or |HMODE|
+    eight_bits n; // a box number
+    
+    switch (cur_chr) {
+    case BOX_CODE:
+        scan_eight_bit_int();
+        cur_box = box(cur_val);
+        box(cur_val) = null; // the box becomes void, at the same level
+        break;
+    
+    case COPY_CODE:
+        scan_eight_bit_int();
+        cur_box = copy_node_list(box(cur_val));
+        break;
+    
+    case LAST_BOX_CODE:
+        // &lt;&lt; If the current list ends with a box node, delete it from the list and make |cur_box| point to it; otherwise set |cur_box = null|, 1080 &gt;&gt;
+        break;
+    
+    case VSPLIT_CODE:
+        // &lt;&lt; Split off part of a vertical box, make |cur_box| point to it, 1082 &gt;&gt;
+        break;
+    
+    default:
+        // &lt;&lt; Initiate the construction of an hbox or vbox, then |return|, 1083 &gt;&gt;
+    }
+    box_end(box_context); // in simple cases, we use the box immediately
+}
+</code></pre>
+</div>
+<h1 id="section-1080"><a class="header" href="#section-1080">Section 1080</a></h1>
+<p>Note that the condition <em>¬is_char_node(tail)</em> implies that <em>head</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>tail</em>, since <em>head</em> is a one-word node.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If the current list ends with a box node, delete it from the list and make <em>cur_box</em> point to it; otherwise set <em>cur_box = null</em> <a href="./part47.html#section-1080">1080</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">cur_box = null;
+if (abs(mode) == MMODE) {
+    you_cant();
+    help1("Sorry; this \\lastbox will be void.");
+    error();
+}
+else if (mode == VMODE &amp;&amp; head == tail) {
+    you_cant();
+    help2("Sorry...I usually can't take things from the current page.")
+        ("This \\lastbox will therefore be void.");
+    error();
+}
+else if (!is_char_node(tail)
+    &amp;&amp; (type(tail) == HLIST_NODE || type(tail) == VLIST_NODE))
+{
+    // &lt;&lt; Remove the last box, unless it's part of a discretionary, 1081 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1079">1079</a>.</p>
+</div></div>
+<h1 id="section-1081"><a class="header" href="#section-1081">Section 1081</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Remove the last box, unless it’s part of a discretionary <a href="./part47.html#section-1081">1081</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = head;
+do {
+    p = q;
+    if (!is_char_node(q) &amp;&amp; type(q) == DISC_NODE) {
+        for(m = 1; m &lt;= replace_count(q); m++) {
+            p = link(p);
+        }
+        if (p == tail) {
+            goto done;
+        }
+    }
+    q = link(p);
+} while (q != tail);
+cur_box = tail;
+shift_amount(cur_box) = 0;
+tail = p;
+link(p) = null;
+done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1080">1080</a>.</p>
+</div></div>
+<h1 id="section-1082"><a class="header" href="#section-1082">Section 1082</a></h1>
+<p>Here we deal with things like ‘<code>\vsplit 13 to 100pt</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Split off part of a vertical box, make <em>cur_box</em> point to it <a href="./part47.html#section-1082">1082</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_eight_bit_int();
+n = cur_val;
+if (!scan_keyword("to")) {
+    print_err("Missing `to' inserted");
+    help2("I'm working on `\\vsplit&lt;box number&gt; to &lt;dimen&gt;';")
+        ("will look for the &lt;dimen&gt; next.");
+    error();
+}
+scan_normal_dimen;
+cur_box = vsplit(n, cur_val);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1079">1079</a>.</p>
+</div></div>
+<h1 id="section-1083"><a class="header" href="#section-1083">Section 1083</a></h1>
+<p>Here is where we enter restricted horizontal mode or internal vertical mode, in order to make a box.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initiate the construction of an hbox or vbox, then <em>return</em> <a href="./part47.html#section-1083">1083</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">k = cur_chr - VTOP_CODE;
+saved(0) = box_context;
+if (k == HMODE) {
+    if (box_context &lt; BOX_FLAG &amp;&amp; abs(mode) == VMODE) {
+        scan_spec(ADJUSTED_HBOX_GROUP, true);
+    }
+    else {
+        scan_spec(HBOX_GROUP, true);
+    }
+}
+else {
+    if (k == VMODE) {
+        scan_spec(VBOX_GROUP, true);
+    }
+    else {
+        scan_spec(VTOP_GROUP, true);
+        k = VMODE;
+    }
+    normal_paragraph();
+}
+push_nest();
+mode = -k;
+if (k == VMODE) {
+    prev_depth = IGNORE_DEPTH;
+    if (every_vbox != null) {
+        begin_token_list(every_vbox, EVERY_VBOX_TEXT);
+    }
+}
+else {
+    space_factor = 1000;
+    if (every_hbox != null) {
+        begin_token_list(every_hbox, EVERY_HBOX_TEXT);
+    }
+}
+return;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1079">1079</a>.</p>
+</div></div>
+<h1 id="section-1084"><a class="header" href="#section-1084">Section 1084</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">// the next input should specify a box or perhaps a rule
+void scan_box(int box_context) {
+    // &lt;&lt; Get the next non-blank non-relax non-call token, 404 &gt;&gt;
+    if (cur_cmd == MAKE_BOX) {
+        begin_box(box_context);
+    }
+    else if (box_context &gt;= LEADER_FLAG
+        &amp;&amp; (cur_cmd == HRULE || cur_cmd == VRULE))
+    {
+        cur_box = scan_rule_spec();
+        box_end(box_context);
+    }
+    else {
+        print_err("A &lt;box&gt; was supposed to be here");
+        help3("I was expecting to see \\hbox or \\vbox or \\copy or \\box or")
+            ("something like that. So you might find something missing in")
+            ("your output. But keep trying; you can fix this later.");
+        back_error();
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1085"><a class="header" href="#section-1085">Section 1085</a></h1>
+<p>When the right brace occurs at the end of an <code>\hbox</code> or <code>\vbox</code> or <code>\vtop</code> construction, the <em>package</em> routine comes into action.
+We might also have to finish a paragraph that hasn’t ended.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>handle_right_brace</em> where a <em>RIGHT_BRACE</em> triggers a delayed action <a href="./part47.html#section-1085">1085</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">case HBOX_GROUP:
+    package(0);
+    break;
+
+case ADJUSTED_HBOX_GROUP:
+    adjust_tail = ADJUST_HEAD;
+    package(0);
+    break;
+
+case VBOX_GROUP:
+    end_graf();
+    package(0);
+    break;
+
+case VTOP_GROUP:
+    end_graf();
+    package(VTOP_CODE);
+    break;
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part47.html#section-1100">1100</a>, <a href="./part47.html#section-1118">1118</a>, <a href="./part47.html#section-1132">1132</a>, <a href="./part47.html#section-1133">1133</a>, <a href="./part48.html#section-1168">1168</a>, <a href="./part48.html#section-1173">1173</a>, and <a href="./part48.html#section-1186">1186</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1068">1068</a>.</p>
+</div></div>
+<h1 id="section-1086"><a class="header" href="#section-1086">Section 1086</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void package(small_number c) {
+    scaled h;  // height of box
+    pointer p; // first node in a box
+    scaled d;  // max depth
+    d = box_max_depth;
+    unsave();
+    save_ptr -= 3;
+    if (mode == -HMODE) {
+        cur_box = hpack(link(head), saved(2), saved(1));
+    }
+    else {
+        cur_box = vpackage(link(head), saved(2), saved(1), d);
+        if (c == VTOP_CODE) {
+            // &lt;&lt; Readjust the height and depth of |cur_box|, for \vtop, 1087 &gt;&gt;
+        }
+    }
+    pop_nest();
+    box_end(saved(0));
+}
+</code></pre>
+</div>
+<h1 id="section-1087"><a class="header" href="#section-1087">Section 1087</a></h1>
+<p>The height of a ‘<code>\vtop</code>’ box is inherited from the first item on its list, if that item is an <em>HLIST_NODE</em>, <em>VLIST_NODE</em>, or <em>RULE_NODE</em>;
+otherwise the <code>\vtop</code> height is zero.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Readjust the height and depth of <em>cur_box</em>, for \vtop <a href="./part47.html#section-1087">1087</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">h = 0;
+p = list_ptr(cur_box);
+if (p != null &amp;&amp; type(p) &lt;= RULE_NODE) {
+    h = height(p);
+}
+depth(cur_box) += (-h + height(cur_box));
+height(cur_box) = h;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1086">1086</a>.</p>
+</div></div>
+<h1 id="section-1088"><a class="header" href="#section-1088">Section 1088</a></h1>
+<p>A paragraph begins when horizontal-mode material occurs in vertical mode, or when the paragraph is explicitly started by ‘<code>\indent</code>’ or ‘<code>\noindent</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("indent", START_PAR, 1);
+primitive("noindent", START_PAR, 0);
+</code></pre>
+</div>
+<h1 id="section-1089"><a class="header" href="#section-1089">Section 1089</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case START_PAR:
+    if (chr_code == 0) {
+        print_esc("noindent");
+    }
+    else {
+        print_esc("indent");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1090"><a class="header" href="#section-1090">Section 1090</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case VMODE + START_PAR:
+    new_graf(cur_chr &gt; 0);
+    break;
+
+case VMODE + LETTER:
+case VMODE + OTHER_CHAR:
+case VMODE + CHAR_NUM:
+case VMODE + CHAR_GIVEN:
+case VMODE + MATH_SHIFT:
+case VMODE + UN_HBOX:
+case VMODE + VRULE:
+case VMODE + ACCENT:
+case VMODE + DISCRETIONARY:
+case VMODE + HSKIP:
+case VMODE + VALIGN:
+case VMODE + EX_SPACE:
+case VMODE + NO_BOUNDARY:
+    back_input();
+    new_graf(true);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1091"><a class="header" href="#section-1091">Section 1091</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">small_number norm_min(int h) {
+    if (h &lt;= 0) {
+        return 1;
+    }
+    if (h &gt;= 63) {
+        return 63;
+    }
+    return h;
+}
+
+void new_graf(bool indented) {
+    prev_graf = 0;
+    if (mode == VMODE || head != tail) {
+        tail_append(new_param_glue(PAR_SKIP_CODE));
+    }
+    push_nest();
+    mode = HMODE;
+    space_factor = 1000;
+    set_cur_lang;
+    clang = cur_lang;
+    prev_graf = (norm_min(left_hyphen_min)*64 + norm_min(right_hyphen_min))*0x10000 + cur_lang;
+    if (indented) {
+        tail = new_null_box();
+        link(head) = tail;
+        width(tail) = par_indent;    
+    }
+    if (every_par != null) {
+        begin_token_list(every_par, EVERY_PAR_TEXT);
+    }
+    if (nest_ptr == 1) {
+        build_page(); // put |par_skip| glue on current page
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1092"><a class="header" href="#section-1092">Section 1092</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case HMODE + START_PAR:
+case MMODE + START_PAR:
+    indent_in_hmode();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1093"><a class="header" href="#section-1093">Section 1093</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void indent_in_hmode() {
+    pointer p, q;
+    if (cur_chr &gt; 0) {
+        // \indent
+        p = new_null_box();
+        width(p) = par_indent;
+        if (abs(mode) == HMODE) {
+            space_factor = 1000;
+        }
+        else {
+            q = new_noad();
+            math_type(nucleus(q)) = SUB_BOX;
+            info(nucleus(q)) = p;
+            p = q;
+        }
+        tail_append(p);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1094"><a class="header" href="#section-1094">Section 1094</a></h1>
+<p>A paragraph ends when a <em>PAR_END</em> command is sensed, or when we are in horizontal mode when reaching the right brace of vertical-mode routines like <code>\vbox</code>, <code>\insert</code>, or <code>\output</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case VMODE + PAR_END:
+    normal_paragraph();
+    if (mode &gt; 0) {
+        build_page();
+    }
+    break;
+
+case HMODE + PAR_END:
+    if (align_state &lt; 0) {
+        off_save(); // this tries to recover from an alignment that didn't end properly
+    }
+    end_graf(); // this takes us to the enclosing mode, if |mode &gt; 0|
+    if (mode == VMODE) {
+        build_page();
+    }
+    break;
+
+case HMODE + STOP:
+case HMODE + VSKIP:
+case HMODE + HRULE:
+case HMODE + UN_VBOX:
+case HMODE + HALIGN:
+    head_for_vmode();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1095"><a class="header" href="#section-1095">Section 1095</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void head_for_vmode() {
+    if (mode &lt; 0) {
+        if (cur_cmd != HRULE) {
+            off_save();
+        }
+        else {
+            print_err("You can't use `");
+            print_esc("hrule");
+            print("' here except with leaders");
+            help2("To put a horizontal rule in an hbox or an alignment,")
+                ("you should use \\leaders or \\hrulefill (see The TeXbook).");
+            error();
+        }
+    }
+    else {
+        back_input();
+        cur_tok = par_token;
+        back_input();
+        token_type = INSERTED;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1096"><a class="header" href="#section-1096">Section 1096</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void end_graf() {
+    if (mode == HMODE) {
+        if (head == tail) {
+            pop_nest(); // null paragraphs are ignored
+        }
+        else {
+            line_break(widow_penalty);
+        }
+        normal_paragraph();
+        error_count = 0;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1097"><a class="header" href="#section-1097">Section 1097</a></h1>
+<p>Insertion and adjustment and mark nodes are constructed by the following pieces of the program.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(INSERT):
+case HMODE + VADJUST:
+case MMODE + VADJUST:
+    begin_insert_or_adjust();
+    break;
+
+any_mode(MARK):
+    make_mark();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1098"><a class="header" href="#section-1098">Section 1098</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Forbidden cases detected in <em>main_control</em> <a href="./part46.html#section-1048">1048</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case VMODE + VADJUST:
+</code></pre>
+</div>
+<h1 id="section-1099"><a class="header" href="#section-1099">Section 1099</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void begin_insert_or_adjust() {
+    if (cur_cmd == VADJUST) {
+        cur_val = 255;
+    }
+    else {
+        scan_eight_bit_int();
+        if (cur_val == 255) {
+            print_err("You can't ");
+            print_esc("insert");
+            print_int(255);
+            help1("I'm changing to \\insert0; box 255 is special.");
+            error();
+            cur_val = 0;
+        }
+    }
+    saved(0) = cur_val;
+    incr(save_ptr);
+    new_save_level(INSERT_GROUP);
+    scan_left_brace();
+    normal_paragraph();
+    push_nest();
+    mode = -VMODE;
+    prev_depth = IGNORE_DEPTH;
+}
+</code></pre>
+</div>
+<h1 id="section-1100"><a class="header" href="#section-1100">Section 1100</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>handle_right_brace</em> where a <em>RIGHT_BRACE</em> triggers a delayed action <a href="./part47.html#section-1085">1085</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case INSERT_GROUP:
+    end_graf();
+    q = split_top_skip;
+    add_glue_ref(q);
+    d = split_max_depth;
+    f = floating_penalty;
+    unsave();
+    decr(save_ptr);
+    // now |saved(0)| is the insertion number, or 255 for |vadjust|
+    p = vpack(link(head), NATURAL);
+    pop_nest();
+    if (saved(0) &lt; 255) {
+        tail_append(get_node(INS_NODE_SIZE));
+        type(tail) = INS_NODE;
+        subtype(tail) = saved(0);
+        height(tail) = height(p) + depth(p);
+        ins_ptr(tail) = list_ptr(p);
+        split_top_ptr(tail) = q;
+        depth(tail) = d;
+        float_cost(tail) = f;
+    }
+    else {
+        tail_append(get_node(SMALL_NODE_SIZE));
+        type(tail) = ADJUST_NODE;
+        subtype(tail) = 0; // the |subtype| is not used
+        adjust_ptr(tail) = list_ptr(p);
+        delete_glue_ref(q);
+    }
+    free_node(p, BOX_NODE_SIZE);
+    if (nest_ptr == 0) {
+        build_page();
+    }
+    break;
+
+case OUTPUT_GROUP:
+    // &lt;&lt; Resume the page builder after an output routine has come to an end, 1026 &gt;&gt;
+    break;
+</code></pre>
+</div>
+<h1 id="section-1101"><a class="header" href="#section-1101">Section 1101</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void make_mark() {
+    pointer p; // new node
+    p = scan_toks(false, true);
+    p = get_node(SMALL_NODE_SIZE);
+    type(p) = MARK_NODE;
+    subtype(p) = 0; // the |subtype| is not used
+    mark_ptr(p) = def_ref;
+    link(tail) = p;
+    tail = p;
+}
+</code></pre>
+</div>
+<h1 id="section-1102"><a class="header" href="#section-1102">Section 1102</a></h1>
+<p>Penalty nodes get into a list via the <em>BREAK_PENALTY</em> command.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(BREAK_PENALTY):
+    append_penalty();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1103"><a class="header" href="#section-1103">Section 1103</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void append_penalty() {
+    scan_int();
+    tail_append(new_penalty(cur_val));
+    if (mode == VMODE) {
+        build_page();
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1104"><a class="header" href="#section-1104">Section 1104</a></h1>
+<p>The <em>REMOVE_ITEM</em> command removes a penalty, kern, or glue node if it appears at the tail of the current list, using a brute-force linear scan.
+Like <code>\lastbox</code>, this command is not allowed in vertical mode (except internal vertical mode), since the current list in vertical mode is sent to the page builder.
+But if we happen to be able to implement it in vertical mode, we do.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(REMOVE_ITEM):
+    delete_last();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1105"><a class="header" href="#section-1105">Section 1105</a></h1>
+<p>When <em>delete_last</em> is called, <em>cur_chr</em> is the <em>type</em> of node that will be deleted, if present.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void delete_last() {
+    pointer p, q; // run through the current list
+    int m;        // the length of a replacement list
+    if (mode == VMODE &amp;&amp; tail == head) {
+        // &lt;&lt; Apologize for inability to do the operation now, unless \unskip follows non-glue, 1106 &gt;&gt;
+    }
+    else if (!is_char_node(tail) &amp;&amp; type(tail) == cur_chr) {
+        q = head;
+        do {
+            p = q;
+            if (!is_char_node(q) &amp;&amp; type(q) == DISC_NODE) {
+                for(m = 1; m &lt;= replace_count(q); m++) {
+                    p = link(p);
+                }
+                if (p == tail) {
+                    return;
+                }
+            }
+            q = link(p);
+        } while (q != tail);
+        link(p) = null;
+        flush_node_list(tail);
+        tail = p;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1106"><a class="header" href="#section-1106">Section 1106</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Apologize for inability to do the operation now, unless \unskip follows non-glue <a href="./part47.html#section-1106">1106</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_chr != GLUE_NODE || last_glue != MAX_HALFWORD) {
+    you_cant();
+    help2("Sorry...I usually can't take things from the current page.")
+        ("Try `I\\vskip-\\lastskip' instead.");
+    if (cur_chr == KERN_NODE) {
+        help_line[0] = "Try `I\\kern-\\lastkern' instead.";
+    }
+    else if (cur_chr != GLUE_NODE) {
+        help_line[0] = "Perhaps you can make the output routine do it.";
+    }
+    error();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1105">1105</a>.</p>
+</div></div>
+<h1 id="section-1107"><a class="header" href="#section-1107">Section 1107</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("unpenalty", REMOVE_ITEM, PENALTY_NODE);
+primitive("unkern", REMOVE_ITEM, KERN_NODE);
+primitive("unskip", REMOVE_ITEM, GLUE_NODE);
+primitive("unhbox", UN_HBOX, BOX_CODE);
+primitive("unhcopy", UN_HBOX, COPY_CODE);
+primitive("unvbox", UN_VBOX, BOX_CODE);
+primitive("unvcopy", UN_VBOX, COPY_CODE);
+</code></pre>
+</div>
+<h1 id="section-1108"><a class="header" href="#section-1108">Section 1108</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case REMOVE_ITEM:
+    if (chr_code == GLUE_NODE) {
+        print_esc("unskip");
+    }
+    else if (chr_code == KERN_NODE) {
+        print_esc("unkern");
+    }
+    else {
+        print_esc("unpenalty");
+    }
+    break;
+
+case UN_HBOX:
+    if (chr_code == COPY_CODE) {
+        print_esc("unhcopy");
+    }
+    else {
+        print_esc("unhbox");
+    }
+    break;
+
+case UN_VBOX:
+    if (chr_code == COPY_CODE) {
+        print_esc("unvcopy");
+    }
+    else {
+        print_esc("unvbox");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1109"><a class="header" href="#section-1109">Section 1109</a></h1>
+<p>The <em>UN_HBOX</em> and <em>UN_VBOX</em> commands unwrap one of the 256 current boxes.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case VMODE + UN_VBOX:
+case HMODE + UN_HBOX:
+case MMODE + UN_HBOX:
+    unpackage();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1110"><a class="header" href="#section-1110">Section 1110</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void unpackage() {
+    pointer p; // the box
+    int c;     // should we copy?
+    c = cur_chr;
+    scan_eight_bit_int();
+    p = box(cur_val);
+    if (p == null) {
+        return;
+    }
+    if (abs(mode) == MMODE
+        || (abs(mode) == VMODE &amp;&amp; type(p) != VLIST_NODE)
+        || (abs(mode) == HMODE &amp;&amp; type(p) != HLIST_NODE))
+    {
+        print_err("Incompatible list can't be unboxed");
+        help3("Sorry, Pandora. (You sneaky devil.)")
+            ("I refuse to unbox an \\hbox in vertical mode or vice versa.")
+            ("And I can't open any boxes in math mode.");
+        error();
+        return;
+    }
+    if (c == COPY_CODE) {
+        link(tail) = copy_node_list(list_ptr(p));
+    }
+    else {
+        link(tail) = list_ptr(p);
+        box(cur_val) = null;
+        free_node(p, BOX_NODE_SIZE);
+    }
+    while (link(tail) != null) {
+        tail = link(tail);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1111"><a class="header" href="#section-1111">Section 1111</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Forbidden cases detected in <em>main_control</em> <a href="./part46.html#section-1048">1048</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case VMODE + ITAL_CORR:
+</code></pre>
+</div>
+<h1 id="section-1112"><a class="header" href="#section-1112">Section 1112</a></h1>
+<p>Italic corrections are converted to kern nodes when the <em>ITAL_CORR</em> command follows a character.
+In math mode the same effect is achieved by appending a kern of zero here, since italic corrections are supplied later.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case HMODE + ITAL_CORR:
+    append_italic_correction();
+    break;
+
+case MMODE + ITAL_CORR:
+    tail_append(new_kern(0));
+    break;
+</code></pre>
+</div>
+<h1 id="section-1113"><a class="header" href="#section-1113">Section 1113</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void append_italic_correction() {
+    pointer p;              // |CHAR_NODE| at the tail of the current list
+    internal_font_number f; // the font in the |CHAR_NODE|
+    if (tail != head) {
+        if (is_char_node(tail)) {
+            p = tail;
+        }
+        else if (type(tail) == LIGATURE_NODE) {
+            p = lig_char(tail);
+        }
+        else {
+            return;
+        }
+        f = font(p);
+        tail_append(new_kern(char_italic(f, char_info(f, character(p)))));
+        subtype(tail) = EXPLICIT;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1114"><a class="header" href="#section-1114">Section 1114</a></h1>
+<p>Discretionary nodes are easy in the common case ‘<code>\-</code>’, but in the general case we must process three braces full of items.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("-", DISCRETIONARY, 1);
+primitive("discretionary", DISCRETIONARY, 0);
+</code></pre>
+</div>
+<h1 id="section-1115"><a class="header" href="#section-1115">Section 1115</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case DISCRETIONARY:
+    if (chr_code == 1) {
+        print_esc("-");
+    }
+    else {
+        print_esc("discretionary");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1116"><a class="header" href="#section-1116">Section 1116</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case HMODE + DISCRETIONARY:
+case MMODE + DISCRETIONARY:
+    append_discretionary();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1117"><a class="header" href="#section-1117">Section 1117</a></h1>
+<p>The space factor does not change when we append a discretionary node, but it starts out as 1000 in the subsidiary lists.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void append_discretionary() {
+    int c; // hyphen character
+    tail_append(new_disc());
+    if (cur_chr == 1) {
+        c = hyphen_char[cur_font];
+        if (c &gt;= 0 &amp;&amp; c &lt; 256) {
+            pre_break(tail) = new_character(cur_font, c);
+        }
+    }
+    else {
+        incr(save_ptr);
+        saved(-1) = 0;
+        new_save_level(DISC_GROUP);
+        scan_left_brace();
+        push_nest();
+        mode = -HMODE;
+        space_factor = 1000;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1118"><a class="header" href="#section-1118">Section 1118</a></h1>
+<p>The three discretionary lists are constructed somewhat as if they were hboxes.
+A subroutine called <em>build_discretionary</em> handles the transitions.
+(This is sort of fun.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>handle_right_brace</em> where a <em>RIGHT_BRACE</em> triggers a delayed action <a href="./part47.html#section-1085">1085</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case DISC_GROUP:
+    build_discretionary();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1119"><a class="header" href="#section-1119">Section 1119</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void build_discretionary() {
+    pointer p, q; // for link manipulation
+    int n;        // length of discretionary list
+    unsave();
+    // &lt;&lt; Prune the current list, if necessary, until it contains only |CHAR_NODE|, |KERN_NODE|, |HLIST_NODE|, |VLIST_NODE|, |RULE_NODE|, and |LIGATURE_NODE| items; set |n| to the length of the list, and set |q| to the list's tail, 1121 &gt;&gt;
+    p = link(head);
+    pop_nest();
+    switch (saved(-1)) {
+    case 0:
+        pre_break(tail) = p;
+        break;
+    
+    case 1:
+        post_break(tail) = p;
+        break;
+    
+    case 2:
+        // &lt;&lt; Attach list |p| to the current list, and record its length; then finish up and |return|, 1120 &gt;&gt;
+    } // there are no other cases
+    incr(saved(-1));
+    new_save_level(DISC_GROUP);
+    scan_left_brace();
+    push_nest();
+    mode = -HMODE;
+    space_factor = 1000;
+}
+</code></pre>
+</div>
+<h1 id="section-1120"><a class="header" href="#section-1120">Section 1120</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Attach list <em>p</em> to the current list, and record its length; then finish up and <em>return</em> <a href="./part47.html#section-1120">1120</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (n &gt; 0 &amp;&amp; abs(mode) == MMODE) {
+    print_err("Illegal math ");
+    print_esc("discretionary");
+    help2("Sorry: The third part of a discretionary break must be")
+        ("empty, in math formulas. I had to delete your third part.");
+    flush_node_list(p);
+    n = 0;
+    error();
+}
+else {
+    link(tail) = p;
+}
+if (n &lt;= MAX_QUARTERWORD) {
+    replace_count(tail) = n;
+}
+else {
+    print_err("Discretionary list is too long");
+    help2("Wow---I never thought anybody would tweak me here.")
+        ("You can't seriously need such a huge discretionary list?");
+    error();
+}
+if (n &gt; 0) {
+    tail = q;
+}
+decr(save_ptr);
+return;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1119">1119</a>.</p>
+</div></div>
+<h1 id="section-1121"><a class="header" href="#section-1121">Section 1121</a></h1>
+<p>During this loop, <em>p = link(q)</em> and there are <em>n</em> items preceding <em>p</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Prune the current list, if necessary, until it contains only <em>CHAR_NODE</em>, <em>KERN_NODE</em>, <em>HLIST_NODE</em>, <em>VLIST_NODE</em>, <em>RULE_NODE</em>, and <em>LIGATURE_NODE</em> items; set <em>n</em> to the length of the list, and set <em>q</em> to the list’s tail <a href="./part47.html#section-1121">1121</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = head;
+p = link(q);
+n = 0;
+while (p != null) {
+    if (!is_char_node(p)
+        &amp;&amp; type(p) &gt; RULE_NODE
+        &amp;&amp; type(p) != KERN_NODE
+        &amp;&amp; type(p) != LIGATURE_NODE)
+    {
+        print_err("Improper discretionary list");
+        help1("Discretionary lists must contain only boxes and kerns.");
+        error();
+        begin_diagnostic();
+        print_nl("The following discretionary sublist has been deleted:");
+        show_box(p);
+        end_diagnostic(true);
+        flush_node_list(p);
+        link(q) = null;
+        break; // goto done
+    }
+    q = p;
+    p = link(q);
+    incr(n);
+}
+// done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1119">1119</a>.</p>
+</div></div>
+<h1 id="section-1122"><a class="header" href="#section-1122">Section 1122</a></h1>
+<p>We need only one more thing to complete the horizontal mode routines, namely the <code>\accent</code> primitive.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case HMODE + ACCENT:
+    make_accent();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1123"><a class="header" href="#section-1123">Section 1123</a></h1>
+<p>The positioning of accents is straightforward but tedious.
+Given an accent of width <em>a</em>, designed for characters of height <em>x</em> and slant <em>s</em>;
+and given a character of width <em>w</em>, height <em>h</em>, and slant <em>t</em>:
+We will shift the accent down by <em>x − h</em>, and we will insert kern nodes that have the effect of centering the accent over the character and shifting the accent to the
+right by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> = <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>(<em>w</em> − <em>a</em>) + <em>h</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4445em;"></span><span class="mord">⋅</span></span></span></span> <em>t</em> − <em>x</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4445em;"></span><span class="mord">⋅</span></span></span></span> <em>s</em>.
+If either character is absent from the font, we will simply use the other, without shifting.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void make_accent() {
+    double s, t;              // amount of slant
+    pointer p, q, r;          // character, box, and kern nodes
+    internal_font_number f;   // relevant font
+    scaled a, h, x, w, delta; // heights and widths, as explained above
+    memory_word i;            // character information
+    
+    scan_char_num();
+    f = cur_font;
+    p = new_character(f, cur_val);
+    if (p != null) {
+        x = x_height(f);
+        s = slant(f) / 65536.0;
+        a = char_width(f, char_info(f, character(p)));
+        do_assignments();
+        // &lt;&lt; Create a character node |q| for the next character, but set |q = null| if problems arise, 1124 &gt;&gt;
+        if (q != null) {
+            // &lt;&lt; Append the accent with appropriate kerns, then set |p = q|, 1125 &gt;&gt;
+        }
+        link(tail) = p;
+        tail = p;
+        space_factor = 1000;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1124"><a class="header" href="#section-1124">Section 1124</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Create a character node <em>q</em> for the next character, but set <em>q = null</em> if problems arise <a href="./part47.html#section-1124">1124</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = null;
+f = cur_font;
+if (cur_cmd == LETTER
+    || cur_cmd == OTHER_CHAR
+    || cur_cmd == CHAR_GIVEN)
+{
+    q = new_character(f, cur_chr);
+}
+else if (cur_cmd == CHAR_NUM) {
+    scan_char_num();
+    q = new_character(f, cur_val);
+}
+else {
+    back_input();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1123">1123</a>.</p>
+</div></div>
+<h1 id="section-1125"><a class="header" href="#section-1125">Section 1125</a></h1>
+<p>The kern nodes appended here must be distinguished from other kerns, lest they be wiped away by the hyphenation algorithm or by a previous line break.</p>
+<p>The two kerns are computed with (machine-dependent) <em>real</em> arithmetic, but their sum is machine-independent; the net effect is machine-independent, because the user cannot remove these nodes nor access them via <code>\lastkern</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append the accent with appropriate kerns, then set <em>p = q</em> <a href="./part47.html#section-1125">1125</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">t = slant(f) / 65536.0;
+i = char_info(f, character(q));
+w = char_width(f, i);
+h = char_height(f, height_depth(i));
+if (h != x) {
+    // the accent must be shifted up or down
+    p = hpack(p, NATURAL);
+    shift_amount(p) = x - h;
+}
+delta = (scaled)round((w - a)/2.0 + h*t - x*s);
+r = new_kern(delta);
+subtype(r) = ACC_KERN;
+link(tail) = r;
+link(r) = p;
+tail = new_kern(-a - delta);
+subtype(tail) = ACC_KERN;
+link(p) = tail;
+p = q;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1123">1123</a>.</p>
+</div></div>
+<h1 id="section-1126"><a class="header" href="#section-1126">Section 1126</a></h1>
+<p>When ‘<code>\cr</code>’ or ‘<code>\span</code>’ or a tab mark comes through the scanner into <em>main_control</em>, it might be that the user has foolishly inserted one of them into something that has nothing to do with alignment.
+But it is far more likely that a left brace or right brace has been omitted, since <em>get_next</em> takes actions appropriate to alignment only when ‘<code>\cr</code>’ or ‘<code>\span</code>’ or tab marks occur with <em>align_state = 0</em>.
+The following program attempts to make an appropriate recovery.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(CAR_RET):
+any_mode(TAB_MARK):
+    align_error();
+    break;
+
+any_mode(NO_ALIGN):
+    no_align_error();
+    break;
+
+any_mode(OMIT):
+    omit_error();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1127"><a class="header" href="#section-1127">Section 1127</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">void align_error() {
+    if (abs(align_state) &gt; 2) {
+        // &lt;&lt; Express consternation over the fact that no alignment is in progress, 1128 &gt;&gt;
+    }
+    else {
+        back_input();
+        if (align_state &lt; 0) {
+            print_err("Missing { inserted");
+            incr(align_state);
+            cur_tok = LEFT_BRACE_TOKEN + '{';
+        }
+        else {
+            print_err("Missing } inserted");
+            decr(align_state);
+            cur_tok = RIGHT_BRACE_TOKEN + '}';
+        }
+        help3("I've put in what seems to be necessary to fix")
+            ("the current column of the current alignment.")
+            ("Try to go on, since this might almost work.");
+        ins_error();
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1128"><a class="header" href="#section-1128">Section 1128</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Express consternation over the fact that no alignment is in progress <a href="./part47.html#section-1128">1128</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Misplaced ");
+print_cmd_chr(cur_cmd, cur_chr);
+if (cur_tok == TAB_TOKEN + '&amp;') {
+    help6("I can't figure out why you would want to use a tab mark")
+        ("here. If you just want an ampersand, the remedy is")
+        ("simple: Just type `I\\&amp;' now. But if some right brace")
+        ("up above has ended a previous alignment prematurely,")
+        ("you're probably due for more error messages, and you")
+        ("might try typing `S' now just to see what is salvageable.");
+}
+else {
+    help5("I can't figure out why you would want to use a tab mark")
+        ("or \\cr or \\span just now. If something like a right brace")
+        ("up above has ended a previous alignment prematurely,")
+        ("you're probably due for more error messages, and you")
+        ("might try typing `S' now just to see what is salvageable.");
+}
+error();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part47.html#section-1127">1127</a>.</p>
+</div></div>
+<h1 id="section-1129"><a class="header" href="#section-1129">Section 1129</a></h1>
+<p>The help messages here contain a little white lie, since <code>\noalign</code> and <code>\omit</code> are allowed also after ‘<code>\noalign{...}</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare action procedures for use by <em>main_control</em> <a href="./part46.html#section-1043">1043</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void no_align_error() {
+    print_err("Misplaced ");
+    print_esc("noalign");
+    help2("I expect to see \\noalign only after the \\cr of")
+        ("an alignment. Proceed, and I'll ignore this case.");
+    error();
+}
+
+void omit_error() {
+    print_err("Misplaced ");
+    print_esc("omit");
+    help2("I expect to see \\omit only after tab marks or the \\cr of")
+        ("an alignment. Proceed, and I'll ignore this case.");
+    error();
+}
+</code></pre>
+</div>
+<h1 id="section-1130"><a class="header" href="#section-1130">Section 1130</a></h1>
+<p>We’ve now covered most of the abuses of <code>\halign</code> and <code>\valign</code>.
+Let’s take a look at what happens when they are used correctly.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case VMODE + HALIGN:
+case HMODE + VALIGN:
+    init_align();
+    break;
+
+case MMODE + HALIGN:
+    if (privileged()) {
+        if (cur_group == MATH_SHIFT_GROUP) {
+            init_align();
+        }
+        else {
+            off_save();
+        }
+    }
+    break;
+
+case VMODE + ENDV:
+case HMODE + ENDV:
+    do_endv();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1131"><a class="header" href="#section-1131">Section 1131</a></h1>
+<p>An <em>ALIGN_GROUP</em> code is supposed to remain on the <em>save_stack</em> during an entire alignment, until <em>fin_align</em> removes it.</p>
+<p>A devious user might force an <em>ENDV</em> command to occur just about anywhere;
+we must defeat such hacks.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">boxes_and_lists.c</div>
+<pre><code class="language-c">void do_endv() {
+    base_ptr = input_ptr;
+    input_stack[base_ptr] = cur_input;
+    while (input_stack[base_ptr].index_field != V_TEMPLATE
+        &amp;&amp; input_stack[base_ptr].loc_field == null
+        &amp;&amp; input_stack[base_ptr].state_field == TOKEN_LIST)
+    {
+        decr(base_ptr);
+    }
+    if (input_stack[base_ptr].index_field != V_TEMPLATE
+        || input_stack[base_ptr].loc_field != null
+        || input_stack[base_ptr].state_field != TOKEN_LIST)
+    {
+        fatal_error("(interwoven alignment preambles are not allowed)");
+    }
+    if (cur_group == ALIGN_GROUP) {
+        end_graf();
+        if (fin_col()) {
+            fin_row();
+        }
+    }
+    else {
+        off_save();
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1132"><a class="header" href="#section-1132">Section 1132</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>handle_right_brace</em> where a <em>RIGHT_BRACE</em> triggers a delayed action <a href="./part47.html#section-1085">1085</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case ALIGN_GROUP:
+    back_input();
+    cur_tok = CS_TOKEN_FLAG + FROZEN_CR;
+    print_err("Missing ");
+    print_esc("cr");
+    print(" inserted");
+    help1("I'm guessing that you meant to end an alignment here.");
+    ins_error();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1133"><a class="header" href="#section-1133">Section 1133</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>handle_right_brace</em> where a <em>RIGHT_BRACE</em> triggers a delayed action <a href="./part47.html#section-1085">1085</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case NO_ALIGN_GROUP:
+    end_graf();
+    unsave();
+    align_peek();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1134"><a class="header" href="#section-1134">Section 1134</a></h1>
+<p>Finally, <code>\endcsname</code> is not supposed to get through to <em>main_control</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that build boxes and lists <a href="./part47.html#section-1056">1056</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(END_CS_NAME):
+    cs_error();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1135"><a class="header" href="#section-1135">Section 1135</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare action procedures for use by <em>main_control</em> <a href="./part46.html#section-1043">1043</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void cs_error() {
+    print_err("Extra ");
+    print_esc("endcsname");
+    help1("I'm ignoring this, since I wasn't doing a \\csname.");
+    error();
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part46.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part48.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part46.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part48.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

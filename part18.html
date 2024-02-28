@@ -1,0 +1,745 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 256–267 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html" class="active">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-256-the-hash-table"><a class="header" href="#section-256-the-hash-table">Section 256: The hash table</a></h1>
+<p>Control sequences are stored and retrieved by means of a fairly standard hash table algorithm called the method of “coalescing lists” (cf. Algorithm 6.4C in <em>The Art of Computer Programming</em>).
+Once a control sequence enters the table, it is never removed, because there are complicated situations involving <code>\gdef</code> where the removal of a control sequence at the end of a group would be a mistake preventable only by the introduction of a complicated reference-count mechanism.</p>
+<p>The actual sequence of letters forming a control sequence identifier is stored in the <em>str_pool</em> array together with all the other strings.
+An auxiliary array <em>hash</em> consists of items with two halfword fields per word.
+The first of these, called <em>next(p)</em>, points to the next identifier belonging to the same coalesced list as the identifier corresponding to <em>p</em>;
+and the other, called <em>text(p)</em>, points to the <em>str_start</em> entry for <em>p</em>’s identifier.
+If position <em>p</em> of the hash table is empty, we have <em>text(p) = 0</em>;
+if position <em>p</em> is either empty or the end of a coalesced hash list, we have <em>next(p) = 0</em>.
+An auxiliary pointer variable called <em>hash_used</em> is maintained in such a way that all locations <em>p</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>hash_used</em> are nonempty.
+The global variable <em>cs_count</em> tells how many multiletter control sequences have been defined, if statistics are being kept.</p>
+<p>A global boolean variable called <em>no_new_control_sequence</em> is set to <em>true</em> during the time that new hash table entries are forbidden.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define next(X)         hh_lh(hash[(X)]) // link for coalesced lists
+#define text(X)         hh_rh(hash[(X)]) // string number for control sequence name
+#define hash_is_full    (hash_used == HASH_BASE) // test if all positions are occupied
+#define font_id_text(X) text(FONT_ID_BASE + (X)) // a frozen font identifier's name
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">memory_word hash0[UNDEFINED_CONTROL_SEQUENCE - HASH_BASE]; // the hash table
+memory_word *hash = hash0 - HASH_BASE;
+pointer hash_used;            // allocation pointer for |hash|
+bool no_new_control_sequence; // are new identifiers legal?
+int cs_count;                 // total number of known identifiers
+</code></pre>
+</div>
+<h1 id="section-257"><a class="header" href="#section-257">Section 257</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">no_new_control_sequence = true; // new identifiers are usually forbidden
+next(HASH_BASE) = 0;
+text(HASH_BASE) = 0;
+for(k = HASH_BASE + 1;  k &lt; UNDEFINED_CONTROL_SEQUENCE; k++) {
+    hash[k] = hash[HASH_BASE];
+}
+</code></pre>
+</div>
+<h1 id="section-258"><a class="header" href="#section-258">Section 258</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The <code>"notexpanded:"</code> string must be added in the string pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string("notexpanded:"); // NOTEXPANDED_STRING: 257
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define NOTEXPANDED_STRING 257
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">hash_used = FROZEN_CONTROL_SEQUENCE; // nothing is used
+cs_count = 0;
+eq_type(FROZEN_DONT_EXPAND) = DONT_EXPAND;
+text(FROZEN_DONT_EXPAND) = NOTEXPANDED_STRING;
+</code></pre>
+</div>
+<h1 id="section-259"><a class="header" href="#section-259">Section 259</a></h1>
+<p>Here is the subroutine that searches the hash table for an identifier that matches a given string of length <em>l</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>1</em> appearing in <em>buffer[j .. (j + l − 1)]</em>.
+If the identifier is found, the corresponding hash table address is returned.
+Otherwise, if the global variable <em>no_new_control_sequence</em> is <em>true</em>, the dummy address <em>UNDEFINED_CONTROL_SEQUENCE</em> is returned.
+Otherwise the identifier is inserted into the hash table and its location is returned.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">hash.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |hash.c|, 1382 &gt;&gt;
+
+// search the hash table
+pointer id_lookup(int j, int l) {
+    int h;     // hash code
+    int d;     // number of characters in incomplete current string
+    pointer p; // index in |hash| array
+    pointer k; // index in |buffer| array
+
+    // &lt;&lt; Compute the hash code |h|, 261 &gt;&gt;
+    p = h + HASH_BASE; // we start searching here; note that |0 &lt;= h &lt; HASH_PRIME|
+    while (true) {
+        if (text(p) &gt; 0
+            &amp;&amp; length(text(p)) == l
+            &amp;&amp; str_eq_buf(text(p), j))
+        {
+            break; // Goto found
+        }
+        if (next(p) == 0) {
+            if (no_new_control_sequence) {
+                p = UNDEFINED_CONTROL_SEQUENCE;
+            }
+            else {
+                // &lt;&lt; Insert a new control sequence after |p|, then make |p| point to it, 260 &gt;&gt;
+            }
+            break; // Goto found
+        }
+        p = next(p);
+    }
+    // found:
+    return p;
+}
+</code></pre>
+</div>
+<h1 id="section-260"><a class="header" href="#section-260">Section 260</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert a new control sequence after <em>p</em>, then make <em>p</em> point to it <a href="./part18.html#section-260">260</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (text(p) &gt; 0) {
+    do {
+        if (hash_is_full) {
+            overflow("hash size", HASH_SIZE);
+        }
+        decr(hash_used);
+    } while (text(hash_used) != 0); // search for an empty location in |hash|
+    next(p) = hash_used;
+    p = hash_used;
+}
+str_room(l);
+d = cur_length;
+while (pool_ptr &gt; str_start[str_ptr]) {
+    decr(pool_ptr);
+    str_pool[pool_ptr + l] = str_pool[pool_ptr];
+} // move current string up to make room for another
+for(k = j; k &lt; j + l; k++) {
+    append_char(buffer[k]);
+}
+text(p) = make_string();
+pool_ptr += d;
+#ifdef STAT
+incr(cs_count);
+#endif
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part18.html#section-259">259</a>.</p>
+</div></div>
+<h1 id="section-261"><a class="header" href="#section-261">Section 261</a></h1>
+<p>The value of <em>HASH_PRIME</em> should be roughly 85% of <em>HASH_SIZE</em>, and it should be a prime number.
+The theory of hashing tells us to expect fewer than two table probes, on the average, when the search is successful.
+[See J. S. Vitter, <em>Journal of the ACM</em> <strong>30</strong> (1983), 231–258.]</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the hash code <em>h</em> <a href="./part18.html#section-261">261</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">h = buffer[j];
+for(k = j + 1; k &lt; j + l; k++) {
+  h = (h + h + buffer[k]) % HASH_PRIME;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part18.html#section-259">259</a>.</p>
+</div></div>
+<h1 id="section-262"><a class="header" href="#section-262">Section 262</a></h1>
+<p>Single-character control sequences do not need to be looked up in a hash table, since we can use the character code itself as a direct address.
+The procedure <em>print_cs</em> prints the name of a control sequence, given a pointer to its address in <em>eqtb</em>.
+A space is printed after the name unless it is a single nonletter or an active character.
+This procedure might be invoked with invalid data, so it is “extra robust”.
+The  individual characters must be printed one at a time using <em>print</em>, since
+they may be unprintable.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">// prints a purported control sequence
+void print_cs(int p) {
+    if (p &lt; HASH_BASE) {
+        // single character
+        if (p &gt;= SINGLE_BASE) {
+            if (p == NULL_CS) {
+                print_esc("csname");
+                print_esc("endcsname");
+                print_char(' ');
+            }
+            else {
+                print_esc_strnumber(p - SINGLE_BASE);
+                if (cat_code(p - SINGLE_BASE) == LETTER) {
+                    print_char(' ');
+                }
+            }
+        }
+        else if (p &lt; ACTIVE_BASE) {
+            print_esc("IMPOSSIBLE.");
+        }
+        else {
+            print_strnumber(p - ACTIVE_BASE);
+        }
+    }
+    else if (p &gt;= UNDEFINED_CONTROL_SEQUENCE) {
+        print_esc("IMPOSSIBLE.");
+    }
+    else if (text(p) &lt; 0 || text(p) &gt;= str_ptr) {
+        print_esc("NONEXISTENT.");
+    }
+    else {
+        print_esc_strnumber(text(p));
+        print_char(' ');
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-263"><a class="header" href="#section-263">Section 263</a></h1>
+<p>Here is a similar procedure; it avoids the error checks, and it never prints a space after the control sequence.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">basic_printing.c</div>
+<pre><code class="language-c">// prints a control sequence
+void sprint_cs(pointer p) {
+    if (p &lt; HASH_BASE) {
+        if (p &lt; SINGLE_BASE) {
+            print_strnumber(p - ACTIVE_BASE);
+        }
+        else if (p &lt; NULL_CS) {
+            print_esc_strnumber(p - SINGLE_BASE);
+        }
+        else {
+            print_esc("csname");
+            print_esc("endcsname");
+        }
+    }
+    else {
+        print_esc_strnumber(text(p));
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-264"><a class="header" href="#section-264">Section 264</a></h1>
+<p>We need to put <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s “primitive” control sequences into the hash table, together with their command code (which will be the <em>eq_type</em>) and an operand (which will be the <em>equiv</em>).
+The <em>primitive</em> procedure does this, in a way that no <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> user can.
+The global value <em>cur_val</em> contains the new <em>eqtb</em> pointer after <em>primitive</em> has acted.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>id_lookup</em> inserts in <em>str_pool</em> the control sequence.
+Since <code>TEX.POOL</code> file is not used, it is the first and only insertion in the pool, so <em>flush_string</em> is not needed here.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">hash.c</div>
+<pre><code class="language-c">// We take a `char *` as input instead of a pool number
+#ifdef INIT
+void primitive(char *s, quarterword c, halfword o) {
+    int l = strlen(s);
+    if (l == 1) {
+        cur_val = s[0] + SINGLE_BASE;
+    }
+    else {
+        memcpy(buffer, s, l); // we move |s| into the (empty) |buffer|
+        cur_val = id_lookup(0, l); // |no_new_control_sequence| is |false|
+    }
+    eq_level(cur_val) = LEVEL_ONE;
+    eq_type(cur_val) = c;
+    equiv(cur_val) = o;
+}
+#endif
+</code></pre>
+</div>
+<h1 id="section-265"><a class="header" href="#section-265">Section 265</a></h1>
+<p>Many of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s primitives need no <em>equiv</em>, since they are identifiable by their <em>eq_type</em> alone.
+These primitives are loaded into the hash table as follows:</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive(" ", EX_SPACE, 0);
+primitive("/", ITAL_CORR, 0);
+primitive("accent", ACCENT, 0);
+primitive("advance", ADVANCE, 0);
+primitive("afterassignment", AFTER_ASSIGNMENT, 0);
+primitive("aftergroup", AFTER_GROUP, 0);
+primitive("begingroup", BEGIN_GROUP, 0);
+primitive("char", CHAR_NUM, 0);
+primitive("csname", CS_NAME, 0);
+primitive("delimiter", DELIM_NUM, 0);
+primitive("divide", DIVIDE, 0);
+primitive("endcsname", END_CS_NAME, 0);
+primitive("endgroup", END_GROUP, 0);
+text(FROZEN_END_GROUP) = str_ptr - 1; // "endgroup"
+eqtb[FROZEN_END_GROUP] = eqtb[cur_val];
+
+primitive("expandafter", EXPAND_AFTER, 0);
+primitive("font", DEF_FONT, 0);
+primitive("fontdimen", ASSIGN_FONT_DIMEN, 0);
+primitive("halign", HALIGN, 0);
+primitive("hrule", HRULE, 0);
+primitive("ignorespaces", IGNORE_SPACES, 0);
+primitive("insert", INSERT, 0);
+primitive("mark", MARK, 0);
+primitive("mathaccent", MATH_ACCENT, 0);
+primitive("mathchar", MATH_CHAR_NUM, 0);
+primitive("mathchoice", MATH_CHOICE, 0);
+primitive("multiply", MULTIPLY, 0);
+primitive("noalign", NO_ALIGN, 0);
+primitive("noboundary", NO_BOUNDARY, 0);
+primitive("noexpand", NO_EXPAND, 0);
+primitive("nonscript", NON_SCRIPT, 0);
+primitive("omit", OMIT, 0);
+primitive("parshape", SET_SHAPE, 0);
+primitive("penalty", BREAK_PENALTY, 0);
+primitive("prevgraf", SET_PREV_GRAF, 0);
+primitive("radical", RADICAL, 0);
+primitive("read", READ_TO_CS, 0);
+primitive("relax", RELAX, 256); // cf. |scan_file_name|
+text(FROZEN_RELAX) = str_ptr - 1; // "relax"
+eqtb[FROZEN_RELAX] = eqtb[cur_val];
+
+primitive("setbox", SET_BOX, 0);
+primitive("the", THE, 0);
+primitive("toks", TOKS_REGISTER, 0);
+primitive("vadjust", VADJUST, 0);
+primitive("valign", VALIGN, 0);
+primitive("vcenter", VCENTER, 0);
+primitive("vrule", VRULE, 0);
+</code></pre>
+</div>
+<h1 id="section-266"><a class="header" href="#section-266">Section 266</a></h1>
+<p>Each primitive has a corresponding inverse, so that it is possible to display the cryptic numeric contents of <em>eqtb</em> in symbolic form.
+Every call of <em>primitive</em> in this program is therefore accompanied by some straightforward code that forms part of the <em>print_cmd_chr</em> routine below.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case ACCENT:
+    print_esc("accent");
+    break;
+
+case ADVANCE:
+    print_esc("advance");
+    break;
+
+case AFTER_ASSIGNMENT:
+    print_esc("afterassignment");
+    break;
+
+case AFTER_GROUP:
+    print_esc("aftergroup");
+    break;
+
+case ASSIGN_FONT_DIMEN:
+    print_esc("fontdimen");
+    break;
+
+case BEGIN_GROUP:
+    print_esc("begingroup");
+    break;
+
+case BREAK_PENALTY:
+    print_esc("penalty");
+    break;
+
+case CHAR_NUM:
+    print_esc("char");
+    break;
+
+case CS_NAME:
+    print_esc("csname");
+    break;
+
+case DEF_FONT:
+    print_esc("font");
+    break;
+
+case DELIM_NUM:
+    print_esc("delimiter");
+    break;
+
+case DIVIDE:
+    print_esc("divide");
+    break;
+
+case END_CS_NAME:
+    print_esc("endcsname");
+    break;
+
+case END_GROUP:
+    print_esc("endgroup");
+    break;
+
+case EX_SPACE:
+    print_esc(" ");
+    break;
+
+case EXPAND_AFTER:
+    print_esc("expandafter");
+    break;
+
+case HALIGN:
+    print_esc("halign");
+    break;
+
+case HRULE:
+    print_esc("hrule");
+    break;
+
+case IGNORE_SPACES:
+    print_esc("ignorespaces");
+    break;
+
+case INSERT:
+    print_esc("insert");
+    break;
+
+case ITAL_CORR:
+    print_esc("/");
+    break;
+
+case MARK:
+    print_esc("mark");
+    break;
+
+case MATH_ACCENT:
+    print_esc("mathaccent");
+    break;
+
+case MATH_CHAR_NUM:
+    print_esc("mathchar");
+    break;
+
+case MATH_CHOICE:
+    print_esc("mathchoice");
+    break;
+
+case MULTIPLY:
+    print_esc("multiply");
+    break;
+
+case NO_ALIGN:
+    print_esc("noalign");
+    break;
+
+case NO_BOUNDARY:
+    print_esc("noboundary");
+    break;
+
+case NO_EXPAND:
+    print_esc("noexpand");
+    break;
+
+case NON_SCRIPT:
+    print_esc("nonscript");
+    break;
+
+case OMIT:
+    print_esc("omit");
+    break;
+
+case RADICAL:
+    print_esc("radical");
+    break;
+
+case READ_TO_CS:
+    print_esc("read");
+    break;
+
+case RELAX:
+    print_esc("relax");
+    break;
+
+case SET_BOX:
+    print_esc("setbox");
+    break;
+
+case SET_PREV_GRAF:
+    print_esc("prevgraf");
+    break;
+
+case SET_SHAPE:
+    print_esc("parshape");
+    break;
+
+case THE:
+    print_esc("the");
+    break;
+
+case TOKS_REGISTER:
+    print_esc("toks");
+    break;
+
+case VADJUST:
+    print_esc("vadjust");
+    break;
+
+case VALIGN:
+    print_esc("valign");
+    break;
+
+case VCENTER:
+    print_esc("vcenter");
+    break;
+
+case VRULE:
+    print_esc("vrule");
+    break;
+</code></pre>
+</div>
+<h1 id="section-267"><a class="header" href="#section-267">Section 267</a></h1>
+<p>We will deal with the other primitives later, at some point in the program where their <em>eq_type</em> and <em>equiv</em> values are more meaningful.
+For example, the primitives for math mode will be loaded when we consider the routines that deal with formulas.
+It is easy to find where each particular primitive was treated by looking in the index at the end;
+for example, the section where <code>"radical"</code> entered <em>eqtb</em> is listed under ‘<code>\radical</code>
+primitive’.
+(Primitives consisting of a single nonalphabetic character, like ‘<code>\/</code>’, are listed under ‘Single-character primitives’.)</p>
+<p>Meanwhile, this is a convenient place to catch up on something we were unable to do before the hash table was defined:</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print the font identifier for <em>font(p)</em> <a href="./part18.html#section-267">267</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_esc_strnumber(font_id_text(font(p)));
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part12.html#section-174">174</a>, and <a href="./part12.html#section-176">176</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part17.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part19.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part17.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part19.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,693 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 268–288 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html" class="active">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-268-saving-and-restoring-equivalents"><a class="header" href="#section-268-saving-and-restoring-equivalents">Section 268: Saving and restoring equivalents</a></h1>
+<p>The nested structure provided by ‘<code>{...}</code>’ groups in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> means that <em>eqtb</em> entries valid in outer groups should be saved and restored later if they are overridden inside the braces.
+When a new <em>eqtb</em> value is being assigned, the program therefore checks to see if the previous entry belongs to an outer level.
+In such a case, the old value is placed on the <em>save_stack</em> just before the new value enters <em>eqtb</em>.
+At the end of a grouping level, i.e., when the right brace is sensed, the <em>save_stack</em> is used to restore the outer values, and the inner ones are destroyed.</p>
+<p>Entries on the <em>save_stack</em> are of type <em>memory_word</em>.
+The top item on this stack is <em>save_stack[p]</em>, where <em>p = save_ptr − 1</em>;
+it contains three fields called <em>save_type</em>, <em>save_level</em>, and <em>save_index</em>, and it is interpreted in one of four ways:</p>
+<ol>
+<li>
+<p>If <em>save_type(p) = RESTORE_OLD_VALUE</em>, then <em>save_index(p)</em> is a location in <em>eqtb</em>
+whose current value should be destroyed at the end of the current group and replaced
+by <em>save_stack[p − 1]</em>.
+Furthermore if <em>save_index(p) &gt;= INT_BASE</em>, then <em>save_level(p)</em> should replace the
+corresponding entry in <em>xeq_level</em>.</p>
+</li>
+<li>
+<p>If <em>save_type(p) = RESTORE_ZERO</em>, then <em>save_index(p)</em> is a location in <em>eqtb</em> whose
+current value should be destroyed at the end of the current group, when it should be
+replaced by the value of <em>eqtb[UNDEFINED_CONTROL_SEQUENCE]</em>.</p>
+</li>
+<li>
+<p>If <em>save_type(p) = INSERT_TOKEN</em>, then <em>save_index(p)</em> is a token that should be
+inserted into <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s input when the current group ends.</p>
+</li>
+<li>
+<p>If <em>save_type(p) = LEVEL_BOUNDARY</em>, then <em>save_level(p)</em>
+is a code explaining what kind of group we were previously in, and
+<em>save_index(p)</em> points to the level boundary word at the bottom of
+the entries for that group.</p>
+</li>
+</ol>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define RESTORE_OLD_VALUE 0 // |save_type| when a value should be restored later
+#define RESTORE_ZERO      1 // |save_type| when an undefined entry should be restored
+#define INSERT_TOKEN      2 // |save_type| when a token is being saved for later use
+#define LEVEL_BOUNDARY    3 // |save_type| corresponding to beginning of group
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define save_type(X)  hh_b0(save_stack[(X)]) // classifies a |save_stack| entry
+#define save_level(X) hh_b1(save_stack[(X)]) // saved level for regions 5 and 6, or group code
+#define save_index(X) hh_rh(save_stack[(X)]) // |eqtb| location or token or |save_stack| location
+</code></pre>
+</div>
+<h1 id="section-269"><a class="header" href="#section-269">Section 269</a></h1>
+<p>Here are the group codes that are used to discriminate between different kinds of groups.
+They allow <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> to decide what special actions, if any, should be performed when a group ends.</p>
+<p>Some groups are not supposed to be ended by right braces.
+For example, the ‘<code>$</code>’ that begins a math formula causes a <em>MATH_SHIFT_GROUP</em> to be started, and this should be terminated by a matching ‘<code>$</code>’.
+Similarly, a group that starts with <code>\left</code> should end with <code>\right</code>, and one that starts with <code>\begingroup</code> should end with <code>\endgroup</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define BOTTOM_LEVEL        0    // group code for the outside world
+#define SIMPLE_GROUP        1    // group code for local structure only
+#define HBOX_GROUP          2    // code for '\hbox{...}'
+#define ADJUSTED_HBOX_GROUP 3    // code for '\hbox{...}' in vertical mode
+#define VBOX_GROUP          4    // code for '\vbox{...}'
+#define VTOP_GROUP          5    // code for '\vtop{...}'
+#define ALIGN_GROUP         6    // code for '\halign{...}', '\valign{...}'
+#define NO_ALIGN_GROUP      7    // code for '\noalign{...}'
+#define OUTPUT_GROUP        8    // code for output routine
+#define MATH_GROUP          9    // code for, e.g., `^{...}'
+#define DISC_GROUP          10   // code for '\discretionary{...}{...}{...}'
+#define INSERT_GROUP        11   // code for '\insert{...}', '\vadjust{...}'
+#define VCENTER_GROUP       12   // code for '\vcenter{...}'
+#define MATH_CHOICE_GROUP   13   // code for '\mathchoice{...}{...}{...}{...}'
+#define SEMI_SIMPLE_GROUP   14   // code for '\begingroup...\endgroup'
+#define MATH_SHIFT_GROUP    15   // code for '$...$'
+#define MATH_LEFT_GROUP     16   // code for '\left...\right'
+#define MAX_GROUP_CODE      16
+</code></pre>
+</div>
+<h1 id="section-270"><a class="header" href="#section-270">Section 270</a></h1>
+<p>The global variable <em>cur_group</em> keeps track of what sort of group we are acurrently in.
+Another global variable, <em>cur_boundary</em>, points to the topmost <em>LEVEL_BOUNDARY</em> word.
+And <em>cur_level</em> is the current depth of nesting.
+The routines are designed to preserve the condition that no entry in the <em>save_stack</em> or in <em>eqtb</em> ever has a level greater than <em>cur_level</em>.</p>
+<h1 id="section-271"><a class="header" href="#section-271">Section 271</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">memory_word save_stack[SAVE_SIZE + 1];
+int save_ptr;          // first unused entry on |save_stack|
+int max_save_stack;    // maximum usage of save stack
+quarterword cur_level; // current nesting level for groups
+int cur_group;         // current group type
+int cur_boundary;      // where the current level begins
+</code></pre>
+</div>
+<h1 id="section-272"><a class="header" href="#section-272">Section 272</a></h1>
+<p>At this time it might be a good idea for the reader to review the introduction to <em>eqtb</em> that was given above just before the long lists of parameter names.
+Recall that the “outer level” of the program is <em>LEVEL_ONE</em>, since undefined control sequences are assumed to be “defined” at <em>LEVEL_ZERO</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">save_ptr = 0;
+cur_level = LEVEL_ONE;
+cur_group = BOTTOM_LEVEL;
+cur_boundary = 0;
+max_save_stack = 0;
+</code></pre>
+</div>
+<h1 id="section-273"><a class="header" href="#section-273">Section 273</a></h1>
+<p>The following macro is used to test if there is room for up to six more entries on <em>save_stack</em>. By making a conservative test like this, we can get by with testing for overflow in only a few places.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define check_full_save_stack                     \
+    do {                                          \
+        if (save_ptr &gt; max_save_stack) {          \
+            max_save_stack = save_ptr;            \
+            if (max_save_stack &gt; SAVE_SIZE - 6) { \
+                overflow("save size", SAVE_SIZE); \
+            }                                     \
+        }                                         \
+    } while (0)
+</code></pre>
+</div>
+<h1 id="section-274"><a class="header" href="#section-274">Section 274</a></h1>
+<p>Procedure <em>new_save_level</em> is called when a group begins.
+The argument is a group identification code like <em>‘HBOX_GROUP’</em>.
+After calling this routine, it is safe to put five more entries on <em>save_stack</em>.</p>
+<p>In some cases integer-valued items are placed onto the <em>save_stack</em> just below a <em>LEVEL_BOUNDARY</em> word, because this is a convenient place to keep information that is supposed to “pop up” just when the group has finished.
+For example, when ‘<code>\hbox to 100pt{...}</code>’ is being treated, the 100pt dimension is stored on <em>save_stack</em> just before <em>new_save_level</em> is called.</p>
+<p>We use the notation <em>saved(k)</em> to stand for an integer item that appears in location <em>save_ptr + k</em> of the save stack.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define saved(X) save_stack[save_ptr + (X)].integer
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">stack.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |stack.c|, 1382 &gt;&gt;
+
+// begin a new level of grouping
+void new_save_level(int c) {
+    check_full_save_stack;
+    save_type(save_ptr) = LEVEL_BOUNDARY;
+    save_level(save_ptr) = cur_group;
+    save_index(save_ptr) = cur_boundary;
+    if (cur_level == MAX_QUARTERWORD) {
+        overflow("grouping levels", MAX_QUARTERWORD - MIN_QUARTERWORD);
+    } // quit if |(cur_level + 1)| is too big to be stored in |eqtb|
+    cur_boundary = save_ptr;
+    incr(cur_level);
+    incr(save_ptr);
+    cur_group = c;
+}
+</code></pre>
+</div>
+<h1 id="section-275"><a class="header" href="#section-275">Section 275</a></h1>
+<p>Just before an entry of <em>eqtb</em> is changed, the following procedure should be called to update the other data structures properly.
+It is important to keep in mind that reference counts in <em>mem</em> include references from within <em>save_stack</em>, so these counts must be handled carefully.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">stack.c</div>
+<pre><code class="language-c">// gets ready to forget |w|
+void eq_destroy(memory_word w) {
+    pointer q; // |equiv| field of |w|
+    switch(eq_type_field(w)) {
+    case CALL:
+    case LONG_CALL:
+    case OUTER_CALL:
+    case LONG_OUTER_CALL:
+        delete_token_ref(equiv_field(w));
+        break;
+
+    case GLUE_REF:
+        delete_glue_ref(equiv_field(w));
+        break;
+
+    case SHAPE_REF:
+        q = equiv_field(w); // we need to free a \parshape block
+        if (q != null) {
+            // such a block is |2n+1| words long, where |n=info(q)|
+            free_node(q, info(q) + info(q) + 1);
+        }
+        break;
+    
+    case BOX_REF:
+        flush_node_list(equiv_field(w));
+        break;
+    
+    default:
+        do_nothing;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-276"><a class="header" href="#section-276">Section 276</a></h1>
+<p>To save a value of <em>eqtb[p]</em> that was established at level <em>l</em>, we can use the following subroutine.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">stack.c</div>
+<pre><code class="language-c">// saves |eqtb[p]|
+void eq_save(pointer p, quarterword l) {
+    check_full_save_stack;
+    if (l == LEVEL_ZERO) {
+        save_type(save_ptr) = RESTORE_ZERO;
+    }
+    else {
+        save_stack[save_ptr] = eqtb[p];
+        incr(save_ptr);
+        save_type(save_ptr) = RESTORE_OLD_VALUE;
+    }
+    save_level(save_ptr) = l;
+    save_index(save_ptr) = p;
+    incr(save_ptr);
+}
+</code></pre>
+</div>
+<h1 id="section-277"><a class="header" href="#section-277">Section 277</a></h1>
+<p>The procedure <em>eq_define</em> defines an <em>eqtb</em> entry having specified <em>eq_type</em> and <em>equiv</em> fields, and saves the former value if appropriate.
+This procedure is used only for entries in the first four regions of <em>eqtb</em>, i.e., only for entries that have <em>eq_type</em> and <em>equiv</em> fields.
+After calling this routine, it is safe to put four more entries on <em>save_stack</em>, provided that there was room for four more entries before the call, since <em>eq_save</em> makes the necessary test.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">stack.c</div>
+<pre><code class="language-c">//  new data for |eqtb|
+void eq_define(pointer p, quarterword t, halfword e) {
+    if (eq_level(p) == cur_level) {
+        eq_destroy(eqtb[p]);
+    }
+    else if (cur_level &gt; LEVEL_ONE) {
+        eq_save(p, eq_level(p));
+    }
+    eq_level(p) = cur_level;
+    eq_type(p) = t;
+    equiv(p) = e;
+}
+</code></pre>
+</div>
+<h1 id="section-278"><a class="header" href="#section-278">Section 278</a></h1>
+<p>The counterpart of <em>eq_define</em> for the remaining (fullword) positions in
+<em>eqtb</em> is called <em>eq_word_define</em>.
+Since <em>xeq_level[p]</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>LEVEL_ONE</em> for all <em>p</em>, a <em>‘RESTORE_ZERO’</em> will never be used in this case.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">stack.c</div>
+<pre><code class="language-c">void eq_word_define(pointer p, int w) {
+    if (xeq_level[p] != cur_level) {
+        eq_save(p, xeq_level[p]);
+        xeq_level[p] = cur_level;
+    }
+    eqtb[p].integer = w;
+}
+</code></pre>
+</div>
+<h1 id="section-279"><a class="header" href="#section-279">Section 279</a></h1>
+<p>The <em>eq_define</em> and <em>eq_word_define</em> routines take care of local definitions.
+Global definitions are done in almost the same way, but there is no need to save old values, and the new value is associated with <em>LEVEL_ONE</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">stack.c</div>
+<pre><code class="language-c">// global |eq_define|
+void geq_define(pointer p, quarterword t, halfword e) {
+    eq_destroy(eqtb[p]);
+    eq_level(p) = LEVEL_ONE;
+    eq_type(p) = t;
+    equiv(p) = e;
+}
+
+// global |eq_word_define|
+void geq_word_define(pointer p, int w) {
+    eqtb[p].integer = w;
+    xeq_level[p] = LEVEL_ONE;
+}
+</code></pre>
+</div>
+<h1 id="section-280"><a class="header" href="#section-280">Section 280</a></h1>
+<p>Subroutine <em>save_for_after</em> puts a token on the stack for save-keeping.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">stack.c</div>
+<pre><code class="language-c">void save_for_after(halfword t) {
+    if (cur_level &gt; LEVEL_ONE) {
+        check_full_save_stack;
+        save_type(save_ptr) = INSERT_TOKEN;
+        save_level(save_ptr) = LEVEL_ZERO;
+        save_index(save_ptr) = t;
+        incr(save_ptr);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-281"><a class="header" href="#section-281">Section 281</a></h1>
+<p>The <em>unsave</em> routine goes the other way, taking items off of <em>save_stack</em>.
+This routine takes care of restoration when a level ends; everything belonging to the topmost group is cleared off of the save stack.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">stack.c</div>
+<pre><code class="language-c">// &lt;&lt; Declare the procedure called |restore_trace|, 284 &gt;&gt;
+
+// pops the top level off the save stack
+void unsave() {
+    pointer p;         // position to be restored
+    quarterword l = 0; // saved level, if in fullword regions of |eqtb|
+    halfword t;        // saved value of |cur_tok|
+    if (cur_level &gt; LEVEL_ONE) {
+        decr(cur_level);
+        // &lt;&lt; Clear off top level from |save_stack|, 282 &gt;&gt;
+    }
+    else {
+        // |unsave| is not used when |cur_group=bottom_level|
+        confusion("curlevel");
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-282"><a class="header" href="#section-282">Section 282</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Clear off top level from <em>save_stack</em> <a href="./part19.html#section-282">282</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while(true) {
+    decr(save_ptr);
+    if (save_type(save_ptr) == LEVEL_BOUNDARY) {
+        break; // Goto done
+    }
+    p = save_index(save_ptr);
+    if (save_type(save_ptr) == INSERT_TOKEN) {
+        // &lt;&lt; Insert token |p| into TeX's input, 326 &gt;&gt;
+    }
+    else {
+        if (save_type(save_ptr) == RESTORE_OLD_VALUE) {
+            l = save_level(save_ptr);
+            decr(save_ptr);
+        }
+        else {
+            save_stack[save_ptr] = eqtb[UNDEFINED_CONTROL_SEQUENCE];
+        }
+        // &lt;&lt; Store |save_stack[save_ptr]| in |eqtb[p]|, unless |eqtb[p]| holds a global value, 283 &gt;&gt;
+    }
+}
+// done:
+cur_group = save_level(save_ptr);
+cur_boundary = save_index(save_ptr);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part19.html#section-281">281</a>.</p>
+</div></div>
+<h1 id="section-283"><a class="header" href="#section-283">Section 283</a></h1>
+<p>A global definition, which sets the level to <em>LEVEL_ONE</em>, will not be undone by <em>unsave</em>.
+If at least one global definition of <em>eqtb[p]</em> has been carried out within the group that just ended, the last such definition will therefore survive.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Store <em>save_stack[save_ptr]</em> in <em>eqtb[p]</em>, unless <em>eqtb[p]</em> holds a global value <a href="./part19.html#section-283">283</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (p &lt; INT_BASE) {
+    if (eq_level(p) == LEVEL_ONE) {
+        eq_destroy(save_stack[save_ptr]); // destroy the saved value
+#ifdef STAT        
+        if (tracing_restores &gt; 0) {
+            restore_trace(p, "retaining");
+        }
+#endif
+    }
+    else {
+        eq_destroy(eqtb[p]); // destroy the current value
+        eqtb[p] = save_stack[save_ptr]; // restore the saved value
+#ifdef STAT
+        if (tracing_restores &gt; 0) {
+            restore_trace(p, "restoring");
+        }
+#endif
+    }
+}
+else if (xeq_level[p] != LEVEL_ONE) {
+    eqtb[p] = save_stack[save_ptr];
+    xeq_level[p] = l;
+#ifdef STAT
+    if (tracing_restores &gt; 0) {
+        restore_trace(p, "restoring");
+    }
+#endif
+}
+#ifdef STAT
+else {
+  if (tracing_restores &gt; 0) {
+    restore_trace(p, "retaining");
+  }
+}
+#endif
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part19.html#section-282">282</a>.</p>
+</div></div>
+<h1 id="section-284"><a class="header" href="#section-284">Section 284</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare the procedure called <em>restore_trace</em> <a href="./part19.html#section-284">284</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifdef STAT
+// |eqtb[p]| has just been restored or retained
+void restore_trace(pointer p, char *s) {
+    begin_diagnostic();
+    print_char('{');
+    print(s);
+    print_char(' ');
+    show_eqtb(p);
+    print_char('}');
+    end_diagnostic(false);
+}
+#endif
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part19.html#section-281">281</a>.</p>
+</div></div>
+<h1 id="section-285"><a class="header" href="#section-285">Section 285</a></h1>
+<p>When looking for possible pointers to a memory location, it is helpful to look for references from <em>eqtb</em> that might be waiting on the save stack.
+Of course, we might find spurious pointers too; but this routine is merely an aid when debugging, and at such times we are grateful for any scraps of information, even if they prove to be irrelevant.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Search <em>save_stack</em> for equivalents that point to <em>p</em> <a href="./part19.html#section-285">285</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (save_ptr &gt; 0) {
+    for(q = 0; q &lt; save_ptr; q++) {
+        if (equiv_field(save_stack[q]) == p) {
+            print_nl("SAVE(");
+            print_int(q);
+            print_char(')');
+        }
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part11.html#section-172">172</a>.</p>
+</div></div>
+<h1 id="section-286"><a class="header" href="#section-286">Section 286</a></h1>
+<p>Most of the parameters kept in <em>eqtb</em> can be changed freely, but there’s an exception:
+The magnification should not be used with two different values during any <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> job, since a single magnification is applied to entire run.
+The global variable <em>mag_set</em> is set to the current magnification whenever it becomes necessary to “freeze” it at a particular value.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int mag_set; // if nonzero, this magnification should be used henceforth
+</code></pre>
+</div>
+<h1 id="section-287"><a class="header" href="#section-287">Section 287</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">mag_set = 0;
+</code></pre>
+</div>
+<h1 id="section-288"><a class="header" href="#section-288">Section 288</a></h1>
+<p>The <em>prepare_mag</em> subroutine is called whenever <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> wants to use <em>mag</em> for magnification.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">stack.c</div>
+<pre><code class="language-c">void prepare_mag() {
+    if (mag_set &gt; 0 &amp;&amp; mag != mag_set) {
+        print_err("Incompatible magnification (");
+        print_int(mag);
+        print(");");
+        print_nl(" the previous value will be retained");
+        help2("I can handle only one magnification ratio per job. So I've")
+            ("reverted to the magnification you used earlier on this run.");
+        int_error(mag_set);
+        geq_word_define(INT_BASE + MAG_CODE, mag_set); // |mag = mag_set|
+    }
+    if (mag &lt;= 0 || mag &gt; 32768) {
+        print_err("Illegal magnification has been changed to 1000");
+        help1("The magnification ratio must be between 1 and 32768.");
+        int_error(mag);
+        geq_word_define(INT_BASE + MAG_CODE, 1000);
+    }
+    mag_set = mag;
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part18.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part20.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part18.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part20.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

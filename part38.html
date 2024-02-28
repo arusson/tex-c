@@ -1,0 +1,1529 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 813–861 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html" class="active">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-813-breaking-paragraphs-into-lines"><a class="header" href="#section-813-breaking-paragraphs-into-lines">Section 813: Breaking paragraphs into lines</a></h1>
+<p>We come now to what is probably the most interesting algorithm of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>:
+the mechanism for choosing the “best possible” breakpoints that yield the individual lines of a paragraph.
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s line-breaking algorithm takes a given horizontal list and converts it to a sequence of boxes that are appended to the current vertical list.
+In the course of doing this, it creates a special data structure containing three kinds of records that are not used elsewhere in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.
+Such nodes are created while a paragraph is being processed, and they are destroyed afterwards; thus, the other parts of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> do not need to know anything about how line-breaking is done.</p>
+<p>The method used here is based on an approach devised by Michael F. Plass and the author in 1977, subsequently generalized and improved by the same two people in 1980.
+A detailed discussion appears in <em>Software—Practice and Experience</em> <strong>11</strong> (1981), 1119–1184, where it is shown that the line-breaking problem can be regarded as a special case of the problem of computing the shortest path in an acyclic network.
+The cited paper includes numerous examples and describes the history of line breaking as it has been practiced by printers through the ages.
+The present implementation adds two new ideas to the algorithm of 1980: Memory space requirements are considerably reduced by using smaller records for inactive nodes than for active ones, and arithmetic overflow is avoided by using “delta distances” instead of keeping track of the total distance from the beginning of the paragraph to the current point.</p>
+<h1 id="section-814"><a class="header" href="#section-814">Section 814</a></h1>
+<p>The <em>line_break</em> procedure should be invoked only in horizontal mode; it leaves that mode and places its output into the current vlist of the enclosing vertical mode (or internal vertical mode).
+There is one explicit parameter:  <em>final_widow_penalty</em> is the amount of additional penalty to be inserted before the final line of the paragraph.</p>
+<p>There are also a number of implicit parameters: The hlist to be broken starts at <em>link(head)</em>, and it is nonempty.
+The value of <em>prev_graf</em> in the enclosing semantic level tells where the paragraph should begin in the sequence of line numbers, in case hanging indentation or <code>\parshape</code> is in use; <em>prev_graf</em> is zero unless this paragraph is being continued after a displayed formula.
+Other implicit parameters, such as the <em>par_shape_ptr</em> and various penalties to use for hyphenation, etc., appear in <em>eqtb</em>.</p>
+<p>After <em>line_break</em> has acted, it will have updated the current vlist and the value of <em>prev_graf</em>.
+Furthermore, the global variable <em>just_box</em> will point to the final box created by <em>line_break</em>, so that the width of this line can be ascertained when it is necessary to decide whether to use <em>above_display_skip</em> or <em>above_display_short_skip</em> before a displayed formula.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer just_box; // the |HLIST_NODE| for the last line of the new paragraph
+</code></pre>
+</div>
+<h1 id="section-815"><a class="header" href="#section-815">Section 815</a></h1>
+<p>Since <em>line_break</em> is a rather lengthy procedure—sort of a small world unto itself—we must build it up little by little, somewhat more cautiously than we have done with the simpler procedures of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.
+Here is the general outline.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">line_break.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |line_break.c|, 1382 &gt;&gt;
+
+// &lt;&lt; Declare subprocedures for |line_break|, 826 &gt;&gt;
+
+void line_break(int final_widow_penalty) {
+    // &lt;&lt; Local variables for line breaking, 862 &gt;&gt;
+    pack_begin_line = mode_line; // this is for over/underfull box messages
+
+    // &lt;&lt; Get ready to start line breaking, 816 &gt;&gt;
+
+    // &lt;&lt; Find optimal breakpoints, 863 &gt;&gt;
+    
+    // &lt;&lt; Break the paragraph at the chosen breakpoints, justify the resulting lines to the correct widths, and append them to the current vertical list, 876 &gt;&gt;
+    
+    // &lt;&lt; Clean up the memory by removing the break nodes, 865 &gt;&gt;
+    pack_begin_line = 0;
+}
+</code></pre>
+</div>
+<h1 id="section-816"><a class="header" href="#section-816">Section 816</a></h1>
+<p>The first task is to move the list from <em>head</em> to <em>TEMP_HEAD</em> and go into the enclosing semantic level.
+We also append the <code>\parfillskip</code> glue to the end of the paragraph, removing a space (or other glue node) if it was there, since spaces usually precede blank lines and instances of ‘<code>$$</code>’.
+The <em>par_fill_skip</em> is preceded by an infinite penalty, so it will never be considered as a potential breakpoint.</p>
+<p>This code assumes that a <em>GLUE_NODE</em> and a <em>PENALTY_NODE</em> occupy the same number of <em>mem</em> words.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Get ready to start line breaking <a href="./part38.html#section-816">816</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">link(TEMP_HEAD) = link(head);
+if (is_char_node(tail)) {
+    tail_append(new_penalty(INF_PENALTY));
+}
+else if (type(tail) != GLUE_NODE) {
+    tail_append(new_penalty(INF_PENALTY));
+}
+else {
+    type(tail) = PENALTY_NODE;
+    delete_glue_ref(glue_ptr(tail));
+    flush_node_list(leader_ptr(tail));
+    penalty(tail) = INF_PENALTY;
+}
+link(tail) = new_param_glue(PAR_FILL_SKIP_CODE);
+init_cur_lang = prev_graf % 0x10000;
+init_l_hyf = prev_graf / 0x400000;
+init_r_hyf = (prev_graf / 0x10000) % 64;
+pop_nest();
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part38.html#section-827">827</a>, <a href="./part38.html#section-834">834</a>, and <a href="./part38.html#section-848">848</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-815">815</a>.</p>
+</div></div>
+<h1 id="section-817"><a class="header" href="#section-817">Section 817</a></h1>
+<p>When looking for optimal line breaks, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> creates a “break node” for each break that is <em>feasible</em>, in the sense that there is a way to end a line at the given place without requiring any line to stretch more than a given tolerance.
+A break node is characterized by three things: the position of the break (which is a pointer to a <em>GLUE_NODE</em>, <em>MATH_NODE</em>, <em>PENALTY_NODE</em>, or <em>DISC_NODE</em>); the ordinal number of the line that will follow this breakpoint; and the fitness classification of the line that has just ended, i.e., <em>TIGHT_FIT</em>, <em>DECENT_FIT</em>, <em>LOOSE_FIT</em>, or <em>VERY_LOOSE_FIT</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define TIGHT_FIT      3 // fitness classification for lines shrinking 0.5 to 1.0 of their shrinkability
+#define LOOSE_FIT      1 // fitness classification for lines stretching 0.5 to 1.0 of their stretchability
+#define VERY_LOOSE_FIT 0 // fitness classification for lines stretching more than their stretchability
+#define DECENT_FIT     2 // fitness classification for all other lines
+</code></pre>
+</div>
+<h1 id="section-818"><a class="header" href="#section-818">Section 818</a></h1>
+<p>The algorithm essentially determines the best possible way to achieve each feasible combination of position, line, and fitness.
+Thus, it answers questions like, “What is the best way to break the opening part of the paragraph so that the fourth line is a tight line ending at such-and-such a place?”
+However, the fact that all lines are to be the same length after a certain point makes it possible to regard all sufficiently large line numbers as equivalent, when the looseness parameter is zero, and this makes it possible for the algorithm to save space and time.</p>
+<p>An “active node” and a “passive node” are created in <em>mem</em> for each feasible breakpoint that needs to be considered.
+Active nodes are three words long and passive nodes are two words long.
+We need active nodes only for breakpoints near the place in the paragraph that is currently being examined, so they are recycled within a comparatively short time after they are created.</p>
+<h1 id="section-819"><a class="header" href="#section-819">Section 819</a></h1>
+<p>An active node for a given breakpoint contains six fields:</p>
+<ul>
+<li><em>link</em> points to the next node in the list of active nodes;
+the last active node has <em>link = LAST_ACTIVE</em>.</li>
+<li><em>break_node</em> points to the passive node associated
+with this breakpoint.</li>
+<li><em>line_number</em> is the number of the line that follows
+this breakpoint.</li>
+<li><em>fitness</em> is the fitness classification of the line ending
+at this breakpoint.</li>
+<li><em>type</em> is either <em>HYPHENATED</em> or <em>UNHYPHENATED</em>, depending on whether
+this breakpoint is a <em>DISC_NODE</em>.</li>
+<li><em>total_demerits</em> is the minimum possible sum of demerits over all
+lines leading from the beginning of the paragraph to this breakpoint.</li>
+</ul>
+<p>The value of <em>link(ACTIVE)</em> points to the first active node on a linked list of all currently active nodes.
+This list is in order by <em>line_number</em>, except that nodes with <em>line_number</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>easy_line</em> may be in any order relative to each other.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define ACTIVE_NODE_SIZE 3      // number of words in active nodes
+#define UNHYPHENATED     0      // the |type| of a normal active break node
+#define HYPHENATED       1      // the |type| of an active node that breaks at a |DISC_NODE|
+#define LAST_ACTIVE      ACTIVE // the active list ends where it begins
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |breaker.h|, 1381 &gt;&gt;
+
+#define fitness           subtype              // |VERY_LOOSE_FIT .. TIGHT_FIT| on final line for this break
+#define break_node        rlink                // pointer to the corresponding passive node
+#define line_number       llink                // line that begins at this breakpoint
+#define total_demerits(X) mem[(X) + 2].integer // the quantity that TeX minimizes
+</code></pre>
+</div>
+<h1 id="section-820"><a class="header" href="#section-820">Section 820</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the special list heads and constant nodes <a href="./part37.html#section-790">790</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">type(LAST_ACTIVE) = HYPHENATED;
+line_number(LAST_ACTIVE) = MAX_HALFWORD;
+subtype(LAST_ACTIVE) = 0; // the |subtype| is never examined by the algorithm
+</code></pre>
+</div>
+<h1 id="section-821"><a class="header" href="#section-821">Section 821</a></h1>
+<p>The passive node for a given breakpoint contains only four fields:</p>
+<ul>
+<li>
+<p><em>link</em> points to the passive node created just before this one,
+if any, otherwise it is <em>null</em>.</p>
+</li>
+<li>
+<p><em>cur_break</em> points to the position of this breakpoint in the
+horizontal list for the paragraph being broken.</p>
+</li>
+<li>
+<p><em>prev_break</em> points to the passive node that should precede this
+one in an optimal path to this breakpoint.</p>
+</li>
+<li>
+<p><em>serial</em> is equal to <em>n</em> if this passive node is the <em>n</em>th
+one created during the current pass. (This field is used only when
+printing out detailed statistics about the line-breaking calculations.)</p>
+</li>
+</ul>
+<p>There is a global variable called <em>passive</em> that points to the most recently created passive node.
+Another global variable, <em>printed_node</em>, is used to help print out the paragraph when detailed information about the line-breaking computation is being displayed.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define PASSIVE_NODE_SIZE 2 // number of words in passive nodes
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define cur_break  rlink // in passive node, points to position of this breakpoint
+#define prev_break llink // points to passive node that should precede this one
+#define serial     info  // serial number for symbolic identification
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer passive;      // most recent node on passive list
+pointer printed_node; // most recent node that has been printed
+halfword pass_number; // the number of passive nodes allocated on this pass
+</code></pre>
+</div>
+<h1 id="section-822"><a class="header" href="#section-822">Section 822</a></h1>
+<p>The active list also contains “delta” nodes that help the algorithm compute the badness of individual lines.
+Such nodes appear only between two active nodes, and they have <em>type = DELTA_NODE</em>.
+If <em>p</em> and <em>r</em> are active nodes and if <em>q</em> is a delta node between them, so that <em>link(p) = q</em> and <em>link(q) = r</em>, then <em>q</em> tells the space difference between lines in the horizontal list that start after breakpoint <em>p</em> and lines that start after breakpoint <em>r</em>.
+In other words, if we know the length of the line that starts after <em>p</em> and ends at our current position, then the corresponding length of the line that starts after <em>r</em> is obtained by adding the amounts in node <em>q</em>.
+A delta node contains six scaled numbers, since it must record the net change in glue stretchability with respect to all orders of infinity.
+The natural width difference appears in <em>mem[q + 1].sc</em>; the stretch differences in units of pt, fil, fill, and filll appear in <em>mem[q + 2 .. q + 5].sc</em>; and the shrink difference appears in <em>mem[q + 6].sc</em>.
+The <em>subtype</em> field of a delta node is not used.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define DELTA_NODE_SIZE 7 // number of words in a delta node
+#define DELTA_NODE      2 // |type| field in a delta node
+</code></pre>
+</div>
+<h1 id="section-823"><a class="header" href="#section-823">Section 823</a></h1>
+<p>As the algorithm runs, it maintains a set of six delta-like registers for the length of the line following the first active breakpoint to the current position in the given hlist.
+When it makes a pass through the active list, it also maintains a similar set of six registers for the length following the active breakpoint of current interest.
+A third set holds the length of an empty line (namely, the sum of <code>\leftskip</code> and <code>\rightskip</code>); and a fourth set is used to create new delta nodes.</p>
+<p>When we pass a delta node we want to do operations like</p>
+<div align="center">
+<p><strong>for</strong> <em>k ← 1</em> <strong>to</strong> <em>6</em> <strong>do</strong> <em>cur_active_width[k]</em> ← <em>cur_active_width[k] + mem[q + k].sc</em>;</p>
+</div>
+<p>and we want to do this without the overhead of <strong>for</strong> loops.
+The <em>do_all_six</em> macro makes such six-tuples convenient.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define do_all_six(X) X(1); X(2); X(3); X(4); X(5); X(6)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">// distance from first active node to |cur_p|
+scaled active_width0[6];
+scaled *active_width = active_width0 - 1;
+
+// distance from current active node
+scaled cur_active_width0[6];
+scaled *cur_active_width = cur_active_width0 - 1;
+
+// length of an "empty" line
+scaled background0[6];
+scaled *background = background0 - 1;
+
+// length being computed after current break
+scaled break_width0[6];
+scaled *break_width = break_width0 - 1;
+</code></pre>
+</div>
+<h1 id="section-824"><a class="header" href="#section-824">Section 824</a></h1>
+<p>Let’s state the principles of the delta nodes more precisely and concisely, so that the following programs will be less obscure.
+For each legal breakpoint <em>p</em> in the paragraph, we define two quantities <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mclose">)</span></span></span></span> such that the length of material in a line from breakpoint <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span> to breakpoint <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span> is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mclose">)</span></span></span></span>, for some fixed <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span></span></span></span>.
+Intuitively, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mclose">)</span></span></span></span> are the total length of material from the beginning of the paragraph to a point “after” a break at <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span> and to a point “before” a break at <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span>; and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span></span></span></span> is the width of an empty line, namely the length contributed by <code>\leftskip</code> and <code>\rightskip</code>.</p>
+<p>Suppose, for example, that the paragraph consists entirely of alternating boxes and glue skips; let the boxes have widths <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and let the skips have widths <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, so that the paragraph can be represented by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.
+Let <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> be the legal breakpoint at <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>; then <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.
+To check this, note that the length of material from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, say, is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.</p>
+<p>The quantities <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span></span></span></span> involve glue stretchability and shrinkability as well as a natural width.
+If we were to compute <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mclose">)</span></span></span></span> for each <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span>, we would need multiple precision arithmetic, and the multiprecise numbers would have to be kept in the active nodes.
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> avoids this problem by working entirely with relative differences or “deltas”.
+Suppose, for example, that the active list contains <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, where the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span>’s are active breakpoints and the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>’s are delta nodes.
+Then <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.
+If the line breaking algorithm is currently positioned at some other breakpoint <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span>, the <em>active_width</em> array contains the value <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.
+If we are scanning through the list of active nodes and considering a tentative line that runs from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span>, say, the <em>cur_active_width</em> array will contain the value <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.
+Thus, when we move from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, we want to add <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> to <em>cur_active_width</em>; and this is just <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, which appears in the active list between <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.
+The <em>background</em> array contains <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span></span></span></span>.
+The <em>break_width</em> array will be used to calculate values of new delta nodes when the active list is being updated.</p>
+<h1 id="section-825"><a class="header" href="#section-825">Section 825</a></h1>
+<p>Glue nodes in a horizontal list that is being paragraphed are not supposed to include “infinite” shrinkability; that is why the algorithm maintains four registers for stretching but only one for shrinking.
+If the user tries to introduce infinite shrinkability, the shrinkability will be reset to finite and an error message will be issued.
+A boolean variable <em>no_shrink_error_yet</em> prevents this error message from appearing more than once per paragraph.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define check_shrinkage(X)                                     \
+    do {                                                       \
+        if (shrink_order((X)) != NORMAL &amp;&amp; shrink((X)) != 0) { \
+            (X) = finite_shrink((X));                          \
+        }                                                      \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">bool no_shrink_error_yet; // have we complained about infinite shrinkage?
+</code></pre>
+</div>
+<h1 id="section-826"><a class="header" href="#section-826">Section 826</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>line_break</em> <a href="./part38.html#section-826">826</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// recovers from infinite shrinkage
+pointer finite_shrink(pointer p) {
+    pointer q; // new glue specification
+    if (no_shrink_error_yet) {
+        no_shrink_error_yet = false;
+#ifdef STAT
+        if (tracing_paragraphs &gt; 0) {
+            end_diagnostic(true);
+        }
+#endif
+        print_err("Infinite glue shrinkage found in a paragraph");
+        help5("The paragraph just ended includes some glue that has")
+            ("infinite shrinkability, e.g., `\\hskip 0pt minus 1fil'.")
+            ("Such glue doesn't belong there---it allows a paragraph")
+            ("of any length to fit on one line. But it's safe to proceed,")
+            ("since the offensive shrinkability has been made finite.");
+        error();
+#ifdef STAT
+        if (tracing_paragraphs &gt; 0) {
+            begin_diagnostic();
+        }
+#endif
+    }
+    q = new_spec(p);
+    shrink_order(q) = NORMAL;
+    delete_glue_ref(p);
+    return q;
+}
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part38.html#section-829">829</a>, and <a href="./part39.html#section-877">877</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-815">815</a>.</p>
+</div></div>
+<h1 id="section-827"><a class="header" href="#section-827">Section 827</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Get ready to start line breaking <a href="./part38.html#section-816">816</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">no_shrink_error_yet = true;
+check_shrinkage(left_skip);
+check_shrinkage(right_skip);
+q = left_skip;
+r = right_skip;
+background[1] = width(q) + width(r);
+background[2] = 0;
+background[3] = 0;
+background[4] = 0;
+background[5] = 0;
+background[2 + stretch_order(q)] = stretch(q);
+background[2 + stretch_order(r)] += stretch(r);
+background[6] = shrink(q) + shrink(r);
+</code></pre>
+</div>
+<h1 id="section-828"><a class="header" href="#section-828">Section 828</a></h1>
+<p>A pointer variable <em>cur_p</em> runs through the given horizontal list as we look for breakpoints.
+This variable is global, since it is used both by <em>line_break</em> and by its subprocedure <em>try_break</em>.</p>
+<p>Another global variable called <em>threshold</em> is used to determine the feasibility of individual lines:
+Breakpoints are feasible if there is a way to reach them without creating lines whose badness exceeds <em>threshold</em>.
+(The badness is compared to <em>threshold</em> before penalties are added, so that penalty values do not affect the feasibility of breakpoints, except that no break is allowed when the penalty is 10000 or more.)
+If <em>threshold</em> is 10000 or more, all legal breaks are considered feasible, since the <em>badness</em> function specified above never returns a value greater than 10000.</p>
+<p>Up to three passes might be made through the paragraph in an attempt to find at least one set of feasible breakpoints.
+On the first pass, we have <em>threshold = pretolerance</em> and <em>second_pass = final_pass = false</em>.
+If this pass fails to find a feasible solution, <em>threshold</em> is set to <em>tolerance</em>, <em>second_pass</em> is set <em>true</em>, and an attempt is made to hyphenate as many words as possible.
+If that fails too, we add <em>emergency_stretch</em> to the background stretchability and set <em>final_pass = true</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer cur_p;    // the current breakpoint under consideration
+bool second_pass; // is this our second attempt to break this paragraph?
+bool final_pass;  // is this our final attempt to break this paragraph?
+int threshold;    // maximum badness on feasible lines
+</code></pre>
+</div>
+<h1 id="section-829"><a class="header" href="#section-829">Section 829</a></h1>
+<p>The heart of the line-breaking procedure is <em>‘try_break’</em>, a subroutine that tests if the current breakpoint <em>cur_p</em> is feasible, by running through the active list to see what lines of text can be made from active nodes to <em>cur_p</em>.
+If feasible breaks are possible, new break nodes are created.
+If <em>cur_p</em> is too far from an active node, that node is deactivated.</p>
+<p>The parameter <em>pi</em> to <em>try_break</em> is the penalty associated with a break at <em>cur_p</em>; we have <em>pi = EJECT_PENALTY</em> if the break is forced, and <em>pi = INF_PENALTY</em> if the break is illegal.</p>
+<p>The other parameter, <em>break_type</em>, is set to <em>HYPHENATED</em> or <em>UNHYPHENATED</em>, depending on whether or not the current break is at a <em>DISC_NODE</em>.
+The end of a paragraph is also regarded as <em>‘HYPHENATED’</em>; this case is distinguishable by the condition <em>cur_p = null</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define copy_to_cur_active(X) cur_active_width[(X)] = active_width[(X)]
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>line_break</em> <a href="./part38.html#section-826">826</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void try_break(int pi, small_number break_type) {
+    pointer r;      // runs through the active list
+    pointer prev_r; // stays a step behind |r|
+    halfword old_l; // maximum line number in current equivalence class of lines
+    bool no_break_yet; // have we found a feasible break at |cur_p|?
+    // &lt;&lt; Other local variables for |try_break|, 830 &gt;&gt;
+    
+    // &lt;&lt; Make sure that |pi| is in the proper range, 831 &gt;&gt;
+    no_break_yet = true;
+    prev_r = ACTIVE;
+    old_l = 0;
+    do_all_six(copy_to_cur_active);
+    while(true) {
+continue_lbl:
+        r = link(prev_r);
+        
+        // &lt;&lt; If node |r| is of type |DELTA_NODE|, update |cur_active_width|, set |prev_r| and |prev_prev_r|, then |goto continue|, 832 &gt;&gt;
+
+        // &lt;&lt; If a line number class has ended, create new active nodes for the best feasible breaks in that class; then |return| if |r = LAST_ACTIVE|, otherwise compute the new |line_width|, 835 &gt;&gt;
+        
+        // &lt;&lt; Consider the demerits for a line from |r| to |cur_p|; deactivate node |r| if it should no longer be active; then |goto continue| if a line from |r| to |cur_p| is infeasible, otherwise record a new feasible break, 851 &gt;&gt;
+    }
+end:
+#ifdef STAT
+    // &lt;&lt; Update the value of |printed_node| for symbolic displays, 858 &gt;&gt;
+#endif
+}
+</code></pre>
+</div>
+<h1 id="section-830"><a class="header" href="#section-830">Section 830</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Other local variables for <em>try_break</em> <a href="./part38.html#section-830">830</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">pointer prev_prev_r = null; // a step behind |prev_r|, if |type(prev_r) = DELTA_NODE|
+pointer s;                  // runs through nodes ahead of |cur_p|
+pointer q;                  // points to a new node being created
+pointer v;                  // points to a glue specification or a node ahead of |cur_p|
+int t;                      // node count, if |cur_p| is a discretionary node
+internal_font_number f;     // used in character width calculation
+halfword l;                 // line number of current active node
+bool node_r_stays_active;   // should node |r| remain in the active list?
+scaled line_width = 0;      // the current line will be justified to this width
+int fit_class;              // possible fitness class of test line
+halfword b;                 // badness of test line
+int d;                      // demerits of test line
+bool artificial_demerits;   // has |d| been forced to zero?
+#ifdef STAT
+pointer save_link;          // temporarily holds value of |link(cur_p)|
+#endif
+scaled shortfall;           // used in badness calculations
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-829">829</a>.</p>
+</div></div>
+<h1 id="section-831"><a class="header" href="#section-831">Section 831</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make sure that <em>pi</em> is in the proper range <a href="./part38.html#section-831">831</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (abs(pi) &gt;= INF_PENALTY) {
+    if (pi &gt; 0) {
+        goto end; // this breakpoint is inhibited by infinite penalty
+    }
+    else {
+        pi = EJECT_PENALTY; // this breakpoint will be forced
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-829">829</a>.</p>
+</div></div>
+<h1 id="section-832"><a class="header" href="#section-832">Section 832</a></h1>
+<p>The following code uses the fact that <em>type(LAST_ACTIVE)</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>DELTA_NODE</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define update_width(X) cur_active_width[(X)] += mem[r + (X)].sc
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If node <em>r</em> is of type <em>DELTA_NODE</em>, update <em>cur_active_width</em>, set <em>prev_r</em> and <em>prev_prev_r</em>, then <em>goto continue</em> <a href="./part38.html#section-832">832</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (type(r) == DELTA_NODE) {
+    do_all_six(update_width);
+    prev_prev_r = prev_r;
+    prev_r = r;
+    goto continue_lbl;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-829">829</a>.</p>
+</div></div>
+<h1 id="section-833"><a class="header" href="#section-833">Section 833</a></h1>
+<p>As we consider various ways to end a line at <em>cur_p</em>, in a given line number class, we keep track of the best total demerits known, in an array with one entry for each of the fitness classifications.
+For example, <em>minimal_demerits[TIGHT_FIT]</em> contains the fewest total demerits of feasible line breaks ending at <em>cur_p</em> with a <em>TIGHT_FIT</em> line; <em>best_place[TIGHT_FIT]</em> points to the passive node for the break before <em>cur_p</em> that achieves such an optimum; and <em>best_pl_line[TIGHT_FIT]</em> is the <em>line_number</em> field in the active node corresponding to <em>best_place[TIGHT_FIT]</em>.
+When no feasible break sequence is known, the <em>minimal_demerits</em> entries will be equal to <em>AWFUL_BAD</em>, which is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">30</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>.
+Another variable, <em>minimum_demerits</em>, keeps track of the smallest value in the <em>minimal_demerits</em> array.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define AWFUL_BAD 0x3fffffff // more than a billion demerits
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int minimal_demerits[4];  // best total demerits known for current line class and position, given the fitness
+int minimum_demerits;     // best total demerits known for current line class and position
+pointer best_place[4];    // how to achieve |minimal_demerits|
+halfword best_pl_line[4]; // corresponding line number
+</code></pre>
+</div>
+<h1 id="section-834"><a class="header" href="#section-834">Section 834</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Get ready to start line breaking <a href="./part38.html#section-816">816</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">minimum_demerits = AWFUL_BAD;
+minimal_demerits[TIGHT_FIT] = AWFUL_BAD;
+minimal_demerits[DECENT_FIT] = AWFUL_BAD;
+minimal_demerits[LOOSE_FIT] = AWFUL_BAD;
+minimal_demerits[VERY_LOOSE_FIT] = AWFUL_BAD;
+</code></pre>
+</div>
+<h1 id="section-835"><a class="header" href="#section-835">Section 835</a></h1>
+<p>The first part of the following code is part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop, so we don’t want to waste any time.
+The current active node, namely node <em>r</em>, contains the line number that will be considered next.
+At the end of the list we have arranged the data structure so that <em>r = LAST_ACTIVE</em> and <em>line_number(LAST_ACTIVE)</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>old_l</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If a line number class has ended, create new active nodes for the best feasible breaks in that class; then <em>return</em> if <em>r = LAST_ACTIVE</em>, otherwise compute the new <em>line_width</em> <a href="./part38.html#section-835">835</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">l = line_number(r);
+if (l &gt; old_l) {
+    // now we are no longer in the inner loop
+    if (minimum_demerits &lt; AWFUL_BAD
+        &amp;&amp; (old_l != easy_line || r == LAST_ACTIVE))
+    {
+        // &lt;&lt; Create new active nodes for the best feasible breaks just found, 836 &gt;&gt;
+    }
+    if (r == LAST_ACTIVE) {
+        goto end;
+    }
+    // &lt;&lt; Compute the new line width, 850 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-829">829</a>.</p>
+</div></div>
+<h1 id="section-836"><a class="header" href="#section-836">Section 836</a></h1>
+<p>It is not necessary to create new active nodes having <em>minimal_demerits</em> greater than
+<em>minimum_demerits + abs(adj_demerits)</em>, since such active nodes will never be chosen in the final paragraph breaks.
+This observation allows us to omit a substantial number of feasible breakpoints from further consideration.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Create new active nodes for the best feasible breaks just found <a href="./part38.html#section-836">836</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (no_break_yet) {
+    // &lt;&lt; Compute the values of |break_width|, 837 &gt;&gt;
+}
+// &lt;&lt; Insert a delta node to prepare for breaks at |cur_p|, 843 &gt;&gt;
+if (abs(adj_demerits) &gt;= AWFUL_BAD - minimum_demerits) {
+    minimum_demerits = AWFUL_BAD - 1;
+}
+else {
+    minimum_demerits += abs(adj_demerits);
+}
+for(fit_class = VERY_LOOSE_FIT; fit_class &lt;= TIGHT_FIT; fit_class++) {
+    if (minimal_demerits[fit_class] &lt;= minimum_demerits) {
+        // &lt;&lt; Insert a new active node from |best_place[fit_class]| to |cur_p|, 845 &gt;&gt;
+    }
+    minimal_demerits[fit_class] = AWFUL_BAD;
+}
+minimum_demerits = AWFUL_BAD;
+// &lt;&lt; Insert a delta node to prepare for the next active node, 844 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-835">835</a>.</p>
+</div></div>
+<h1 id="section-837"><a class="header" href="#section-837">Section 837</a></h1>
+<p>When we insert a new active node for a break at <em>cur_p</em>, suppose this new node is to be placed just before active node <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span>;
+then we essentially want to insert ‘<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>, <em>cur_p</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>’ before <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span>, where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span></span></span></span><em>cur_p</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span></span></span></span><em>cur_p</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span> in the notation explained above.
+The <em>cur_active_width</em> array now holds <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span></span></span></span><em>cur_p</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span>;
+so <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> can be obtained by subtracting <em>cur_active_width</em> from the quantity <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span></span></span></span><em>cur_p</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span></span></span></span><em>cur_p</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">)</span></span></span></span>.
+The latter quantity can be regarded as the length of a line “from <em>cur_p</em> to <em>cur_p</em>”;
+we call it the <em>break_width</em> at <em>cur_p</em>.</p>
+<p>The <em>break_width</em> is usually negative, since it consists of the background (which is normally zero) minus the width of nodes following <em>cur_p</em> that are eliminated after a break.
+If, for example, node <em>cur_p</em> is a glue node, the width of this glue is subtracted from the background; and we also look ahead to eliminate all subsequent glue and penalty and kern and math nodes, subtracting their widths as well.</p>
+<p>Kern nodes do not disappear at a line break unless they are <em>EXPLICIT</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define set_break_width_to_background(X) break_width[(X)] = background[(X)]
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the values of <em>break_width</em> <a href="./part38.html#section-837">837</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">no_break_yet = false;
+do_all_six(set_break_width_to_background);
+s = cur_p;
+if (break_type &gt; UNHYPHENATED &amp;&amp; cur_p != null) {
+    // &lt;&lt; Compute the discretionary |break_width| values, 840 &gt;&gt;
+}
+while (s != null) {
+    if (is_char_node(s)) {
+        goto done;
+    }
+    switch (type(s)) {
+    case GLUE_NODE:
+        // &lt;&lt; Subtract glue from |break_width|, 838 &gt;&gt;
+        break;
+    
+    case PENALTY_NODE:
+        do_nothing;
+        break;
+    
+    case MATH_NODE:
+        break_width[1] -= width(s);
+        break;
+    
+    case KERN_NODE:
+        if (subtype(s) != EXPLICIT) {
+            goto done;
+        }
+        else {
+            break_width[1] -= width(s);
+        }
+        break;
+    
+    default:
+        goto done;
+    }
+    s = link(s);
+}
+done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-836">836</a>.</p>
+</div></div>
+<h1 id="section-838"><a class="header" href="#section-838">Section 838</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Subtract glue from <em>break_width</em> <a href="./part38.html#section-838">838</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">v = glue_ptr(s);
+break_width[1] -= width(v);
+break_width[2 + stretch_order(v)] -= stretch(v);
+break_width[6] -= shrink(v);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-837">837</a>.</p>
+</div></div>
+<h1 id="section-839"><a class="header" href="#section-839">Section 839</a></h1>
+<p>When <em>cur_p</em> is a discretionary break, the length of a line “from <em>cur_p</em> to <em>cur_p</em>” has to be defined properly so that the other calculations work out.
+Suppose that the pre-break text at <em>cur_p</em> has length <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0197em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, the post-break text has length <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0197em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, and the replacement text has length <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span>.
+Suppose also that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span> is the node following the replacement text.
+Then length of a line from <em>cur_p</em> to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span> will be computed as <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span></span></span></span><em>cur_p</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">)</span></span></span></span>, where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mopen">(</span></span></span></span><em>cur_p</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0197em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span>.
+The actual length will be the background plus <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0197em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, so the length from <em>cur_p</em> to <em>cur_p</em> should be <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05556em;">γ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0197em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0197em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span>.
+If the post-break text of the discretionary is empty, a break may also discard <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span>;
+in that unusual case we subtract the length of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span> and any other nodes that will be discarded after the discretionary break.</p>
+<p>The value of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0197em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> need not be computed, since <em>line_break</em> will put it into the global variable <em>disc_width</em> before calling <em>try_break</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">scaled disc_width; // the length of discretionary material preceding a break
+</code></pre>
+</div>
+<h1 id="section-840"><a class="header" href="#section-840">Section 840</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the discretionary <em>break_width</em> values <a href="./part38.html#section-840">840</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">t = replace_count(cur_p);
+v = cur_p;
+s = post_break(cur_p);
+while (t &gt; 0) {
+    decr(t);
+    v = link(v);
+    // &lt;&lt; Subtract the width of node |v| from |break_width|, 841 &gt;&gt;
+}
+while (s != null) {
+    // &lt;&lt; Add the width of node |s| to |break_width|, 842 &gt;&gt;
+    s = link(s);
+}
+break_width[1] += disc_width;
+if (post_break(cur_p) == null) {
+    s = link(v); // nodes may be discardable after the break
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-837">837</a>.</p>
+</div></div>
+<h1 id="section-841"><a class="header" href="#section-841">Section 841</a></h1>
+<p>Replacement texts and discretionary texts are supposed to contain only character nodes, kern nodes, ligature nodes, and box or rule nodes.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Subtract the width of node <em>v</em> from <em>break_width</em> <a href="./part38.html#section-841">841</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_char_node(v)) {
+    f = font(v);
+    break_width[1] -= char_width(f, char_info(f, character(v)));
+}
+else {
+    switch (type(v)) {
+    case LIGATURE_NODE:
+        f = font(lig_char(v));
+        break_width[1] -= char_width(f, char_info(f, character(lig_char(v))));
+        break;
+    
+    case HLIST_NODE:
+    case VLIST_NODE:
+    case RULE_NODE:
+    case KERN_NODE:
+        break_width[1] -= width(v);
+        break;
+    
+    default:
+        confusion("disc1");
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-840">840</a>.</p>
+</div></div>
+<h1 id="section-842"><a class="header" href="#section-842">Section 842</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Add the width of node <em>s</em> to <em>break_width</em> <a href="./part38.html#section-842">842</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_char_node(s)) {
+    f = font(s);
+    break_width[1] += char_width(f, char_info(f, character(s)));
+}
+else {
+    switch (type(s)) {
+    case LIGATURE_NODE:
+        f = font(lig_char(s));
+        break_width[1] += char_width(f, char_info(f, character(lig_char(s))));
+        break;
+
+    case HLIST_NODE:
+    case VLIST_NODE:
+    case RULE_NODE:
+    case KERN_NODE:
+        break_width[1] += width(s);
+        break;
+    
+    default:
+        confusion("disc2");
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-840">840</a>.</p>
+</div></div>
+<h1 id="section-843"><a class="header" href="#section-843">Section 843</a></h1>
+<p>We use the fact that <em>type(ACTIVE)</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>DELTA_NODE</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define convert_to_break_width(X)   mem[prev_r + (X)].sc += (-cur_active_width[(X)] + break_width[(X)])
+#define store_break_width(X)        active_width[(X)] = break_width[(X)]
+#define new_delta_to_break_width(X) mem[q + (X)].sc = break_width[(X)] - cur_active_width[(X)]
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert a delta node to prepare for breaks at <em>cur_p</em> <a href="./part38.html#section-843">843</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (type(prev_r) == DELTA_NODE) {
+    // modify an existing delta node
+    do_all_six(convert_to_break_width);
+}
+else if (prev_r == ACTIVE) {
+    // no delta node needed at the beginning
+    do_all_six(store_break_width);
+}
+else {
+    q = get_node(DELTA_NODE_SIZE);
+    link(q) = r;
+    type(q) = DELTA_NODE;
+    subtype(q) = 0; // the |subtype| is not used
+    do_all_six(new_delta_to_break_width);
+    link(prev_r) = q;
+    prev_prev_r = prev_r;
+    prev_r = q;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-836">836</a>.</p>
+</div></div>
+<h1 id="section-844"><a class="header" href="#section-844">Section 844</a></h1>
+<p>When the following code is performed, we will have just inserted at least one active node before <em>r</em>, so <em>type(prev_r)</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>DELTA_NODE</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define new_delta_from_break_width(X) mem[q + (X)].sc = cur_active_width[(X)] - break_width[(X)]
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert a delta node to prepare for the next active node <a href="./part38.html#section-844">844</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (r != LAST_ACTIVE) {
+    q = get_node(DELTA_NODE_SIZE);
+    link(q) = r;
+    type(q) = DELTA_NODE;
+    subtype(q) = 0; // the |subtype| is not used
+    do_all_six(new_delta_from_break_width);
+    link(prev_r) = q;
+    prev_prev_r = prev_r;
+    prev_r = q;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-836">836</a>.</p>
+</div></div>
+<h1 id="section-845"><a class="header" href="#section-845">Section 845</a></h1>
+<p>When we create an active node, we also create the corresponding passive node.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert a new active node from <em>best_place[fit_class]</em> to <em>cur_p</em> <a href="./part38.html#section-845">845</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = get_node(PASSIVE_NODE_SIZE);
+link(q) = passive;
+passive = q;
+cur_break(q) = cur_p;
+#ifdef STAT
+incr(pass_number);
+serial(q) = pass_number;
+#endif
+prev_break(q) = best_place[fit_class];
+q = get_node(ACTIVE_NODE_SIZE);
+break_node(q) = passive;
+line_number(q) = best_pl_line[fit_class] + 1;
+fitness(q) = fit_class;
+type(q) = break_type;
+total_demerits(q) = minimal_demerits[fit_class];
+link(q) = r;
+link(prev_r) = q;
+prev_r = q;
+#ifdef STAT
+if (tracing_paragraphs &gt; 0) {
+    // &lt;&lt; Print a symbolic description of the new break node, 846 &gt;&gt;
+}
+#endif
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-836">836</a>.</p>
+</div></div>
+<h1 id="section-846"><a class="header" href="#section-846">Section 846</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print a symbolic description of the new break node <a href="./part38.html#section-846">846</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_nl("@@");
+print_int(serial(passive));
+print(": line ");
+print_int(line_number(q) - 1);
+print_char('.');
+print_int(fit_class);
+if (break_type == HYPHENATED) {
+    print_char('-');
+}
+print(" t=");
+print_int(total_demerits(q));
+print(" -&gt; @@");
+if (prev_break(passive) == null) {
+    print_char('0');
+}
+else {
+    print_int(serial(prev_break(passive)));
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-845">845</a>.</p>
+</div></div>
+<h1 id="section-847"><a class="header" href="#section-847">Section 847</a></h1>
+<p>The length of lines depends on whether the user has specified <code>\parshape</code> or <code>\hangindent</code>.
+If <em>par_shape_ptr</em> is not null, it points to a <em>(2n + 1)</em>-word record in <em>mem</em>, where the <em>info</em> in the first word contains the value of <em>n</em>, and the other <em>2n</em> words contain the left margins and line lengths for the first <em>n</em> lines of the paragraph; the specifications for line <em>n</em> apply to all subsequent lines.
+If <em>par_shape_ptr = null</em>, the shape of the paragraph depends on the value of <em>n = hang_after</em>;
+if <em>n</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>0</em>, hanging indentation takes place on lines <em>n + 1</em>, <em>n + 2</em>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span>, otherwise it takes place on lines 1, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span>, <em>|n|</em>.
+When hanging indentation is active, the left margin is <em>hang_indent</em>, if <em>hang_indent</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>0</em>, else it is 0;
+the line length is <em>hsize</em> − <span style="white-space: nowrap;"><em>|hang_indent|</em></span>.
+The normal setting is <em>par_shape_ptr = null</em>, <em>hang_after = 1</em>, and <em>hang_indent = 0</em>.
+Note that if <em>hang_indent = 0</em>, the value of <em>hang_after</em> is irrelevant.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">halfword easy_line;         // line numbers |&gt; easy_line| are equivalent in break nodes
+halfword last_special_line; // line numbers |&gt; last_special_line| all have the same width
+scaled first_width;         // the width of all lines |&lt;= last_special_line|, if no \parshape has been specified
+scaled second_width;        // the width of all lines |&gt; last_special_line|
+scaled first_indent;        // left margin to go with |first_width|
+scaled second_indent;       // left margin to go with |second_width|
+</code></pre>
+</div>
+<h1 id="section-848"><a class="header" href="#section-848">Section 848</a></h1>
+<p>We compute the values of <em>easy_line</em> and the other local variables relating to line length when the <em>line_break</em> procedure is initializing itself.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Get ready to start line breaking <a href="./part38.html#section-816">816</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">if (par_shape_ptr == null) {
+    if (hang_indent == 0) {
+        last_special_line = 0;
+        second_width = hsize;
+        second_indent = 0;
+    }
+    else {
+        // &lt;&lt; Set line length parameters in preparation for hanging indentation, 849 &gt;&gt;
+    }
+}
+else {
+    last_special_line = info(par_shape_ptr) - 1;
+    second_width = mem[par_shape_ptr + 2*(last_special_line + 1)].sc;
+    second_indent = mem[par_shape_ptr + 2*last_special_line + 1].sc;
+}
+if (looseness == 0) {
+    easy_line = last_special_line;
+}
+else {
+    easy_line = MAX_HALFWORD;
+}
+</code></pre>
+</div>
+<h1 id="section-849"><a class="header" href="#section-849">Section 849</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set line length parameters in preparation for hanging indentation <a href="./part38.html#section-849">849</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">last_special_line = abs(hang_after);
+if (hang_after &lt; 0) {
+    first_width = hsize - abs(hang_indent);
+    if (hang_indent &gt;= 0) {
+        first_indent = hang_indent;
+    }
+    else {
+        first_indent = 0;
+    }
+    second_width = hsize;
+    second_indent = 0;
+}
+else {
+    first_width = hsize;
+    first_indent = 0;
+    second_width = hsize - abs(hang_indent);
+    if (hang_indent &gt;= 0) {
+        second_indent = hang_indent;
+    }
+    else {
+        second_indent = 0;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-848">848</a>.</p>
+</div></div>
+<h1 id="section-850"><a class="header" href="#section-850">Section 850</a></h1>
+<p>When we come to the following code, we have just encountered the first active node <em>r</em> whose <em>line_number</em> field contains <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span>.
+Thus we want to compute the length of the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span>-th line of the current paragraph.
+Furthermore, we want to set <em>old_l</em> to the last number in the class of line numbers equivalent to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the new line width <a href="./part38.html#section-850">850</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (l &gt; easy_line) {
+    line_width = second_width;
+    old_l = MAX_HALFWORD - 1;
+}
+else {
+    old_l = l;
+    if (l &gt; last_special_line) {
+        line_width = second_width;
+    }
+    else if (par_shape_ptr == null) {
+        line_width = first_width;
+    }
+    else {
+        line_width = mem[par_shape_ptr + 2*l].sc;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-835">835</a>.</p>
+</div></div>
+<h1 id="section-851"><a class="header" href="#section-851">Section 851</a></h1>
+<p>The remaining part of <em>try_break</em> deals with the calculation of demerits for a break from <em>r</em> to <em>cur_p</em>.</p>
+<p>The first thing to do is calculate the badness, <em>b</em>.
+This value will always be between zero and <em>INF_BAD + 1</em>;
+the latter value occurs only in the case of lines from <em>r</em> to <em>cur_p</em> that cannot shrink enough to fit the necessary width.
+In such cases, node <em>r</em> will be deactivated.
+We also deactivate node <em>r</em> when a break at <em>cur_p</em> is forced, since future breaks must go through a forced break.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Consider the demerits for a line from <em>r</em> to <em>cur_p</em>; deactivate node <em>r</em> if it should no longer be active; then <em>goto continue</em> if a line from <em>r</em> to <em>cur_p</em> is infeasible, otherwise record a new feasible break <a href="./part38.html#section-851">851</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">artificial_demerits = false;
+shortfall = line_width - cur_active_width[1]; // we're this much too short
+if (shortfall &gt; 0) {
+    // &lt;&lt; Set the value of |b| to the badness for stretching the line, and compute the corresponding |fit_class|, 852 &gt;&gt;
+}
+else{
+    // &lt;&lt; Set the value of |b| to the badness for shrinking the line, and compute the corresponding |fit_class|, 853 &gt;&gt;
+}
+if (b &gt; INF_BAD || pi == EJECT_PENALTY) {
+    // &lt;&lt; Prepare to deactivate node |r|, and |goto deactivate| unless there is a reason to consider lines of text from |r| to |cur_p|, 854 &gt;&gt;
+}
+else {
+    prev_r = r;
+    if (b &gt; threshold) {
+        goto continue_lbl;
+    }
+    node_r_stays_active = true;
+}
+// &lt;&lt; Record a new feasible break, 855 &gt;&gt;
+if (node_r_stays_active) {
+    goto continue_lbl; // |prev_r| has been set to |r|
+}
+deactivate:
+// &lt;&lt; Deactivate node |r|, 860 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-829">829</a>.</p>
+</div></div>
+<h1 id="section-852"><a class="header" href="#section-852">Section 852</a></h1>
+<p>When a line must stretch, the available stretchability can be found in the subarray <em>cur_active_width[2 .. 5]</em>, in units of points, fil, fill, and filll.</p>
+<p>The present section is part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop, and it is most often performed when the badness is infinite;
+therefore it is worth while to make a quick test for large width excess and small stretchability, before calling the <em>badness</em> subroutine.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set the value of <em>b</em> to the badness for stretching the line, and compute the corresponding <em>fit_class</em> <a href="./part38.html#section-852">852</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_active_width[3] != 0
+    || cur_active_width[4] != 0
+    || cur_active_width[5] != 0)
+{
+    b = 0;
+    fit_class = DECENT_FIT; // infinite stretch
+}
+else if (shortfall &gt; 7230584 &amp;&amp; cur_active_width[2] &lt; 1663497) {
+    b = INF_BAD;
+    fit_class = VERY_LOOSE_FIT;
+}
+else {
+    b = badness(shortfall, cur_active_width[2]);
+    if (b &gt; 12) {
+        if (b &gt; 99) {
+            fit_class = VERY_LOOSE_FIT;
+        }
+        else {
+            fit_class = LOOSE_FIT;
+        }
+    }
+    else {
+        fit_class = DECENT_FIT;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-851">851</a>.</p>
+</div></div>
+<h1 id="section-853"><a class="header" href="#section-853">Section 853</a></h1>
+<p>Shrinkability is never infinite in a paragraph;
+we can shrink the line from <em>r</em> to <em>cur_p</em> by at most <em>cur_active_width[6]</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set the value of <em>b</em> to the badness for shrinking the line, and compute the corresponding <em>fit_class</em> <a href="./part38.html#section-853">853</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (-shortfall &gt; cur_active_width[6]) {
+    b = INF_BAD + 1;
+}
+else {
+    b = badness(-shortfall, cur_active_width[6]);
+}
+if (b &gt; 12) {
+    fit_class = TIGHT_FIT;
+}
+else {
+    fit_class = DECENT_FIT;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-851">851</a>.</p>
+</div></div>
+<h1 id="section-854"><a class="header" href="#section-854">Section 854</a></h1>
+<p>During the final pass, we dare not lose all active nodes, lest we lose touch with the line breaks already found.
+The code shown here makes sure that such a catastrophe does not happen, by permitting overfull boxes as a last resort.
+This particular part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> was a source of several subtle bugs before the correct program logic was finally discovered; readers who seek to “improve” <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> should therefore think thrice before daring to make any changes here.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Prepare to deactivate node <em>r</em>, and <em>goto deactivate</em> unless there is a reason to consider lines of text from <em>r</em> to <em>cur_p</em> <a href="./part38.html#section-854">854</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (final_pass
+    &amp;&amp; minimum_demerits == AWFUL_BAD
+    &amp;&amp; link(r) == LAST_ACTIVE
+    &amp;&amp; prev_r == ACTIVE)
+{
+    artificial_demerits = true; // set demerits zero, this break is forced
+}
+else if (b &gt; threshold) {
+    goto deactivate;
+}
+node_r_stays_active = false;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-851">851</a>.</p>
+</div></div>
+<h1 id="section-855"><a class="header" href="#section-855">Section 855</a></h1>
+<p>When we get to this part of the code, the line from <em>r</em> to <em>cur_p</em> is feasible, its badness is <em>b</em>, and its fitness classification is <em>fit_class</em>.
+We don’t want to make an active node for this break yet, but we will compute the total demerits and record them in the <em>minimal_demerits</em> array, if such a break is the current champion among all ways to get to <em>cur_p</em> in a given line-number class and fitness class.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Record a new feasible break <a href="./part38.html#section-855">855</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (artificial_demerits) {
+    d = 0;
+}
+else {
+    // &lt;&lt; Compute the demerits, |d|, from |r| to |cur_p|, 859 &gt;&gt;
+}
+#ifdef STAT
+if (tracing_paragraphs &gt; 0) {
+    // &lt;&lt; Print a symbolic description of this feasible break, 856 &gt;&gt;
+}
+#endif
+d += total_demerits(r); // this is the minimum total demerits from the beginning to |cur_p| via |r|
+if (d &lt;= minimal_demerits[fit_class]) {
+    minimal_demerits[fit_class] = d;
+    best_place[fit_class] = break_node(r);
+    best_pl_line[fit_class] = l;
+    if (d &lt; minimum_demerits) {
+        minimum_demerits = d;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-851">851</a>.</p>
+</div></div>
+<h1 id="section-856"><a class="header" href="#section-856">Section 856</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print a symbolic description of this feasible break <a href="./part38.html#section-856">856</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (printed_node != cur_p) {
+    // &lt;&lt; Print the list between |printed_node| and |cur_p|, then set |printed_node = cur_p|, 857 &gt;&gt;
+}
+print_nl("@");
+if (cur_p == null) {
+    print_esc("par");
+}
+else if (type(cur_p) != GLUE_NODE) {
+    if (type(cur_p) == PENALTY_NODE) {
+        print_esc("penalty");
+    }
+    else if (type(cur_p) == DISC_NODE) {
+        print_esc("discretionary");
+    }
+    else if (type(cur_p) == KERN_NODE) {
+        print_esc("kern");
+    }
+    else {
+        print_esc("math");
+    }
+}
+print(" via @@");
+if (break_node(r) == null) {
+    print_char('0');
+}
+else {
+    print_int(serial(break_node(r)));
+}
+print(" b=");
+if (b &gt; INF_BAD) {
+    print_char('*');
+}
+else {
+    print_int(b);
+}
+print(" p=");
+print_int(pi);
+print(" d=");
+if (artificial_demerits) {
+    print_char('*');
+}
+else {
+    print_int(d);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-855">855</a>.</p>
+</div></div>
+<h1 id="section-857"><a class="header" href="#section-857">Section 857</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print the list between <em>printed_node</em> and <em>cur_p</em>, then set <em>printed_node = cur_p</em> <a href="./part38.html#section-857">857</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_nl("");
+if (cur_p == null) {
+    short_display(link(printed_node));
+}
+else {
+    save_link = link(cur_p);
+    link(cur_p) = null;
+    print_nl("");
+    short_display(link(printed_node));
+    link(cur_p) = save_link;
+}
+printed_node = cur_p;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-856">856</a>.</p>
+</div></div>
+<h1 id="section-858"><a class="header" href="#section-858">Section 858</a></h1>
+<p>When the data for a discretionary break is being displayed, we will have printed the <em>pre_break</em> and <em>post_break</em> lists; we want to skip over the third list, so that the discretionary data will not appear twice.
+The following code is performed at the very end of <em>try_break</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Update the value of <em>printed_node</em> for symbolic displays <a href="./part38.html#section-858">858</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_p == printed_node
+    &amp;&amp; cur_p != null
+    &amp;&amp; type(cur_p) == DISC_NODE)
+{
+    t = replace_count(cur_p);
+    while (t &gt; 0) {
+        decr(t);
+        printed_node = link(printed_node);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-829">829</a>.</p>
+</div></div>
+<h1 id="section-859"><a class="header" href="#section-859">Section 859</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the demerits, <em>d</em>, from <em>r</em> to <em>cur_p</em> <a href="./part38.html#section-859">859</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">d = line_penalty + b;
+if (abs(d) &gt;= 10000) {
+    d = 100000000;
+}
+else {
+    d *= d;
+}
+if (pi != 0) {
+    if (pi &gt; 0) {
+        d += pi*pi;
+    }
+    else if (pi &gt; EJECT_PENALTY) {
+        d -= pi*pi;
+    }
+}
+if (break_type == HYPHENATED &amp;&amp; type(r) == HYPHENATED) {
+    if (cur_p != null) {
+        d += double_hyphen_demerits;
+    }
+    else {
+        d += final_hyphen_demerits;
+    }
+}
+if (abs(fit_class - fitness(r)) &gt; 1) {
+    d += adj_demerits;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-855">855</a>.</p>
+</div></div>
+<h1 id="section-860"><a class="header" href="#section-860">Section 860</a></h1>
+<p>When an active node disappears, we must delete an adjacent delta node if the active node was at the beginning or the end of the active list, or if it was surrounded by delta nodes.
+We also must preserve the property that <em>cur_active_width</em> represents the length of material from <em>link(prev_r)</em> to <em>cur_p</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define combine_two_deltas(X) mem[prev_r + (X)].sc += mem[r + (X)].sc
+#define downdate_width(X)     cur_active_width[(X)] -= mem[prev_r + (X)].sc
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Deactivate node <em>r</em> <a href="./part38.html#section-860">860</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">link(prev_r) = link(r);
+free_node(r, ACTIVE_NODE_SIZE);
+if (prev_r == ACTIVE) {
+    // &lt;&lt; Update the active widths, since the first active node has been deleted, 861 &gt;&gt;
+}
+else if (type(prev_r) == DELTA_NODE) {
+    r = link(prev_r);
+    if (r == LAST_ACTIVE) {
+        do_all_six(downdate_width);
+        link(prev_prev_r) = LAST_ACTIVE;
+        free_node(prev_r, DELTA_NODE_SIZE);
+        prev_r = prev_prev_r;
+    }
+    else if (type(r) == DELTA_NODE) {
+        do_all_six(update_width);
+        do_all_six(combine_two_deltas);
+        link(prev_r) = link(r);
+        free_node(r, DELTA_NODE_SIZE);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-851">851</a>.</p>
+</div></div>
+<h1 id="section-861"><a class="header" href="#section-861">Section 861</a></h1>
+<p>The following code uses the fact that <em>type(LAST_ACTIVE)</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>DELTA_NODE</em>.
+If the active list has just become empty, we do not need to update the <em>active_width</em> array, since it will be initialized when an active node is next inserted.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define update_active(X) active_width[(X)] += mem[r + (X)].sc
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Update the active widths, since the first active node has been deleted <a href="./part38.html#section-861">861</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = link(ACTIVE);
+if (type(r) == DELTA_NODE) {
+    do_all_six(update_active);
+    do_all_six(copy_to_cur_active);
+    link(ACTIVE) = link(r);
+    free_node(r, DELTA_NODE_SIZE);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part38.html#section-860">860</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part37.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part39.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part37.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part39.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,1101 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 336–401 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html" class="active">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-366-expanding-the-next-token"><a class="header" href="#section-366-expanding-the-next-token">Section 366: Expanding the next token</a></h1>
+<p>Only a dozen or so command codes <em>&gt; MAX_COMMAND</em> can possibly be returned by <em>get_next</em>;
+in increasing order, they are <em>UNDEFINED_CS</em>, <em>EXPAND_AFTER</em>, <em>NO_EXPAND</em>, <em>INPUT</em>, <em>IF_TEST</em>, <em>FI_OR_ELSE</em>, <em>CS_NAME</em>, <em>CONVERT</em>, <em>THE</em>, <em>TOP_BOT_MARK</em>, <em>CALL</em>, <em>LONG_CALL</em>, <em>OUTER_CALL</em>, <em>LONG_OUTER_CALL</em>, and <em>END_TEMPLATE</em>.</p>
+<p>The <em>expand</em> subroutine is used when <em>cur_cmd</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>MAX_COMMAND</em>.
+It removes a “call” or a conditional or one of the other special operations just listed.
+It follows that <em>expand</em> might invoke itself recursively.
+In all cases, <em>expand</em> destroys the current token, but it sets things up so that the next <em>get_next</em> will deliver the appropriate next token.
+The value of <em>cur_tok</em> need not be known when <em>expand</em> is called.</p>
+<p>Since several of the basic scanning routines communicate via global variables, their values are saved as local variables of <em>expand</em> so that recursive calls don’t invalidate them.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">expand_next_token.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |expand_next_token.c|, 1382 &gt;&gt;
+
+void expand() {
+    halfword t;      // token that is being ``expanded after''
+    pointer p, q, r; // for list manipulation
+    int j;           // index into |buffer|
+    int cv_backup;   // to save the global quantity |cur_val|
+    small_number cvl_backup, radix_backup, co_backup; // to save |cur_val_level|, etc.
+    pointer backup_backup; // to save |link(BACKUP_HEAD)|
+    small_number save_scanner_status; // temporary storage of |scanner_status|
+    
+    cv_backup = cur_val;
+    cvl_backup = cur_val_level;
+    radix_backup = radix;
+    co_backup = cur_order;
+    backup_backup = link(BACKUP_HEAD);
+    if (cur_cmd &lt; CALL) {
+        // &lt;&lt; Expand a nonmacro, 367 &gt;&gt;
+    }
+    else if (cur_cmd &lt; END_TEMPLATE) {
+        macro_call();
+    }
+    else {
+        // &lt;&lt; Insert a token containing |FROZEN_ENDV|, 375 &gt;&gt;
+    }
+    cur_val = cv_backup;
+    cur_val_level = cvl_backup;
+    radix = radix_backup;
+    cur_order = co_backup;
+    link(BACKUP_HEAD) = backup_backup;
+}
+</code></pre>
+</div>
+<h1 id="section-367"><a class="header" href="#section-367">Section 367</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Expand a nonmacro <a href="./part25.html#section-367">367</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (tracing_commands &gt; 1) {
+    show_cur_cmd_chr();
+}
+switch (cur_cmd) {
+case TOP_BOT_MARK:
+    // &lt;&lt; Insert the appropriate mark text into the scanner, 386 &gt;&gt;
+    break;
+
+case EXPAND_AFTER:
+    // &lt;&lt; Expand the token after the next token, 368 &gt;&gt;
+    break;
+
+case NO_EXPAND:
+    // &lt;&lt; Suppress expansion of the next token, 369 &gt;&gt;
+    break;
+
+case CS_NAME:
+    // &lt;&lt; Manufacture a control sequence name, 372 &gt;&gt;
+    break;
+
+case CONVERT:
+    conv_toks();
+    break; // this procedure is discussed in Part 27 below
+
+case THE:
+    ins_the_toks();
+    break; // this procedure is discussed in Part 27 below
+
+case IF_TEST:
+    conditional();
+    break; // this procedure is discussed in Part 28 below
+
+case FI_OR_ELSE:
+    // &lt;&lt; Terminate the current conditional and skip to \fi, 510 &gt;&gt;
+    break;
+
+case INPUT:
+    // &lt;&lt; Initiate or terminate input from a file, 378 &gt;&gt;
+    break;
+
+default:
+    // &lt;&lt; Complain about an undefined macro, 370 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-366">366</a>.</p>
+</div></div>
+<h1 id="section-368"><a class="header" href="#section-368">Section 368</a></h1>
+<p>It takes only a little shuffling to do what <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> calls <code>\expandafter</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Expand the token after the next token <a href="./part25.html#section-368">368</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">get_token();
+t = cur_tok;
+get_token();
+if (cur_cmd &gt; MAX_COMMAND) {
+    expand();
+}
+else {
+    back_input();
+}
+cur_tok = t;
+back_input();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-367">367</a>.</p>
+</div></div>
+<h1 id="section-369"><a class="header" href="#section-369">Section 369</a></h1>
+<p>The implementation of <code>\noexpand</code> is a bit trickier, because it is necessary to insert a special <em>‘DONT_EXPAND’</em> marker into <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s reading mechanism.
+This special marker is processed by <em>get_next</em>, but it does not slow down the inner loop.</p>
+<p>Since <code>\outer</code> macros might arise here, we must also clear the <em>scanner_status</em> temporarily.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Suppress expansion of the next token <a href="./part25.html#section-369">369</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">save_scanner_status = scanner_status;
+scanner_status = NORMAL;
+get_token();
+scanner_status = save_scanner_status;
+t = cur_tok;
+back_input(); // now |start| and |loc| point to the backed-up token |t|
+if (t &gt;= CS_TOKEN_FLAG) {
+    p = get_avail();
+    info(p) = CS_TOKEN_FLAG + FROZEN_DONT_EXPAND;
+    link(p) = loc;
+    start = p;
+    loc = p;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-367">367</a>.</p>
+</div></div>
+<h1 id="section-370"><a class="header" href="#section-370">Section 370</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Complain about an undefined macro <a href="./part25.html#section-370">370</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Undefined control sequence");
+help5("The control sequence at the end of the top line")
+    ("of your error message was never \\def'ed. If you have")
+    ("misspelled it (e.g., `\\hobx'), type `I' and the correct")
+    ("spelling (e.g., `I\\hbox'). Otherwise just continue,")
+    ("and I'll forget about whatever was undefined.");
+error();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-367">367</a>.</p>
+</div></div>
+<h1 id="section-371"><a class="header" href="#section-371">Section 371</a></h1>
+<p>The <em>expand</em> procedure and some other routines that construct token lists find it convenient to use the following macros, which are valid only if the variables <em>p</em> and <em>q</em> are reserved for token-list building.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define store_new_token(X) \
+    q = get_avail();       \
+    link(p) = q;           \
+    info(q) = (X);         \
+    p = q // |link(p)| is |null|
+
+#define fast_store_new_token(X) \
+    fast_get_avail(q);          \
+    link(p) = q;                \
+    info(q) = (X);              \
+    p = q // |link(p)| is |null|
+</code></pre>
+</div>
+<h1 id="section-372"><a class="header" href="#section-372">Section 372</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Manufacture a control sequence name <a href="./part25.html#section-372">372</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = get_avail();
+p = r; // head of the list of characters
+do {
+    get_x_token();
+    if (cur_cs == 0) {
+        store_new_token(cur_tok);
+    }
+} while (cur_cs == 0);
+if (cur_cmd != END_CS_NAME) {
+    // &lt;&lt; Complain about missing \endcsname, 373 &gt;&gt;
+}
+// &lt;&lt; Look up the characters of list |r| in the hash table, and set |cur_cs|, 374 &gt;&gt;
+flush_list(r);
+if (eq_type(cur_cs) == UNDEFINED_CS) {
+    eq_define(cur_cs, RELAX, 256); // N.B.: The |save_stack| might change
+} // the control sequence will now match '\relax'
+cur_tok = cur_cs + CS_TOKEN_FLAG;
+back_input();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-367">367</a>.</p>
+</div></div>
+<h1 id="section-373"><a class="header" href="#section-373">Section 373</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Complain about missing \endcsname <a href="./part25.html#section-373">373</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Missing ");
+print_esc("endcsname");
+print(" inserted");
+help2("The control sequence marked &lt;to be read again&gt; should")
+    ("not appear between \\csname and \\endcsname.");
+back_error();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-372">372</a>.</p>
+</div></div>
+<h1 id="section-374"><a class="header" href="#section-374">Section 374</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Look up the characters of list <em>r</em> in the hash table, and set <em>cur_cs</em> <a href="./part25.html#section-374">374</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">j = first;
+p = link(r);
+while (p != null) {
+    if (j &gt;= max_buf_stack) {
+        max_buf_stack = j + 1;
+        if (max_buf_stack == BUF_SIZE) {
+            overflow("buffer size", BUF_SIZE);
+        }
+    }
+    buffer[j] = info(p) % 256;
+    incr(j);
+    p = link(p);
+}
+if (j &gt; first + 1) {
+    no_new_control_sequence = false;
+    cur_cs = id_lookup(first, j - first);
+    no_new_control_sequence = true;
+}
+else if (j == first) {
+    cur_cs = NULL_CS; // the list is empty
+}
+else {
+    cur_cs = SINGLE_BASE + buffer[first]; // the list has length one
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-372">372</a>.</p>
+</div></div>
+<h1 id="section-375"><a class="header" href="#section-375">Section 375</a></h1>
+<p>An <em>END_TEMPLATE</em> command is effectively changed to an <em>ENDV</em> command by the following code.
+(The reason for this is discussed below; the <em>FROZEN_END_TEMPLATE</em> at the end of the template has passed the <em>check_outer_validity</em> test, so its mission of error detection has been accomplished.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert a token containing <em>FROZEN_ENDV</em> <a href="./part25.html#section-375">375</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">cur_tok = CS_TOKEN_FLAG + FROZEN_ENDV;
+back_input();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-366">366</a>.</p>
+</div></div>
+<h1 id="section-376"><a class="header" href="#section-376">Section 376</a></h1>
+<p>The processing of <code>\input</code> involves the <em>start_input</em> subroutine, which will be declared later; the processing of <code>\endinput</code> is trivial.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("input", INPUT, 0);
+primitive("endinput", INPUT, 1);
+</code></pre>
+</div>
+<h1 id="section-377"><a class="header" href="#section-377">Section 377</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case INPUT:
+    if (chr_code == 0) {
+        print_esc("input");
+    }
+    else {
+        print_esc("endinput");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-378"><a class="header" href="#section-378">Section 378</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initiate or terminate input from a file <a href="./part25.html#section-378">378</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_chr &gt; 0) {
+    force_eof = true;
+}
+else if (name_in_progress) {
+    insert_relax();
+}
+else {
+    start_input();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-367">367</a>.</p>
+</div></div>
+<h1 id="section-379"><a class="header" href="#section-379">Section 379</a></h1>
+<p>Sometimes the expansion looks too far ahead, so we want to insert a harmless <code>\relax</code> into the user’s input.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">expand_next_token.c</div>
+<pre><code class="language-c">void insert_relax() {
+    cur_tok = CS_TOKEN_FLAG + cur_cs;
+    back_input();
+    cur_tok = CS_TOKEN_FLAG + FROZEN_RELAX;
+    back_input();
+    token_type = INSERTED;
+}
+</code></pre>
+</div>
+<h1 id="section-380"><a class="header" href="#section-380">Section 380</a></h1>
+<p>Here is a recursive procedure that is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s usual way to get the next token of input.
+It has been slightly optimized to take account of common cases.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">expand_next_token.c</div>
+<pre><code class="language-c">// sets |cur_cmd|, |cur_chr|, |cur_tok|, and expands macros
+void get_x_token() {
+    // restart:
+    while(true) {
+        get_next();
+        if (cur_cmd &lt;= MAX_COMMAND) {
+            break; // Goto done
+        }
+        if (cur_cmd &gt;= CALL) {
+            if (cur_cmd &lt; END_TEMPLATE) {
+                macro_call();
+            }
+            else {
+                cur_cs = FROZEN_ENDV;
+                cur_cmd = ENDV;
+                break; // Goto done; |cur_chr = NULL_LIST|
+            }
+        }
+        else {
+            expand();
+        }
+        // Goto restart
+    }
+    // done:
+    if (cur_cs == 0) {
+        cur_tok = (cur_cmd * 256) + cur_chr;
+    }
+    else {
+        cur_tok = CS_TOKEN_FLAG + cur_cs;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-381"><a class="header" href="#section-381">Section 381</a></h1>
+<p>The <em>get_x_token</em> procedure is essentially equivalent to two consecutive procedure calls: <em>get_next</em>, <em>x_token</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">expand_next_token.c</div>
+<pre><code class="language-c">// |get_x_token| without the initial |get_next|
+void x_token() {
+    while (cur_cmd &gt; MAX_COMMAND) {
+        expand();
+        get_next();
+    }
+    if (cur_cs == 0) {
+        cur_tok = (cur_cmd * 256) + cur_chr;
+    }
+    else {
+        cur_tok = CS_TOKEN_FLAG + cur_cs;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-382"><a class="header" href="#section-382">Section 382</a></h1>
+<p>A control sequence that has been <code>\def</code>’ed by the user is expanded by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s <em>macro_call</em> procedure.</p>
+<p>Before we get into the details of <em>macro_call</em>, however, let’s consider the treatment of primitives like <code>\topmark</code>, since they are essentially macros without parameters.
+The token lists for such marks are kept in a global array of five pointers; we refer to the individual entries of this array by symbolic names <em>top_mark</em>, etc.
+The value of <em>top_mark</em> is either <em>null</em> or a pointer to the reference count of a token list.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define TOP_MARK_CODE         0 // the mark in effect at the previous page break
+#define FIRST_MARK_CODE       1 // the first mark between |top_mark| and |bot_mark|
+#define BOT_MARK_CODE         2 // the mark in effect at the current page break
+#define SPLIT_FIRST_MARK_CODE 3 // the first mark found by \vsplit
+#define SPLIT_BOT_MARK_CODE   4 // the last mark found by \vsplit
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define top_mark         cur_mark[TOP_MARK_CODE]
+#define first_mark       cur_mark[FIRST_MARK_CODE]
+#define bot_mark         cur_mark[BOT_MARK_CODE]
+#define split_first_mark cur_mark[SPLIT_FIRST_MARK_CODE]
+#define split_bot_mark   cur_mark[SPLIT_BOT_MARK_CODE]
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer cur_mark[SPLIT_BOT_MARK_CODE + 1]; // token lists for marks
+</code></pre>
+</div>
+<h1 id="section-383"><a class="header" href="#section-383">Section 383</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">top_mark = null;
+first_mark = null;
+bot_mark = null;
+split_first_mark = null;
+split_bot_mark = null;
+</code></pre>
+</div>
+<h1 id="section-384"><a class="header" href="#section-384">Section 384</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("topmark", TOP_BOT_MARK, TOP_MARK_CODE);
+primitive("firstmark", TOP_BOT_MARK, FIRST_MARK_CODE);
+primitive("botmark", TOP_BOT_MARK, BOT_MARK_CODE);
+primitive("splitfirstmark", TOP_BOT_MARK, SPLIT_FIRST_MARK_CODE);
+primitive("splitbotmark", TOP_BOT_MARK, SPLIT_BOT_MARK_CODE);
+</code></pre>
+</div>
+<h1 id="section-385"><a class="header" href="#section-385">Section 385</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case TOP_BOT_MARK:
+    switch (chr_code) {
+    case FIRST_MARK_CODE:
+        print_esc("firstmark");
+        break;
+    
+    case BOT_MARK_CODE:
+        print_esc("botmark");
+        break;
+    
+    case SPLIT_FIRST_MARK_CODE:
+        print_esc("splitfirstmark");
+        break;
+    
+    case SPLIT_BOT_MARK_CODE:
+        print_esc("splitbotmark");
+        break;
+    
+    default:
+        print_esc("topmark");
+    } 
+    break;
+</code></pre>
+</div>
+<h1 id="section-386"><a class="header" href="#section-386">Section 386</a></h1>
+<p>The following code is activated when <em>cur_cmd = TOP_BOT_MARK</em> and when <em>cur_chr</em> is a code like <em>TOP_MARK_CODE</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert the appropriate mark text into the scanner <a href="./part25.html#section-386">386</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_mark[cur_chr] != null) {
+    begin_token_list(cur_mark[cur_chr], MARK_TEXT);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-367">367</a>.</p>
+</div></div>
+<h1 id="section-387"><a class="header" href="#section-387">Section 387</a></h1>
+<p>Now let’s consider <em>MACRO_CALL</em> itself, which is invoked when <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is scanning a control sequence whose <em>cur_cmd</em> is either <em>CALL</em>, <em>LONG_CALL</em>, <em>OUTER_CALL</em>, or <em>LONG_OUTER_CALL</em>.
+The control sequence definition appears in the token list whose reference count is in location <em>cur_chr</em> of <em>mem</em>.</p>
+<p>The global variable <em>long_state</em> will be set to <em>CALL</em> or to <em>LONG_CALL</em>, depending on whether or not the control sequence disallows <code>\par</code> in its parameters.
+The <em>get_next</em> routine will set <em>long_state</em> to <em>OUTER_CALL</em> and emit <code>\par</code>, if a file ends or if an <code>\outer</code> control sequence occurs in the midst of an argument.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int long_state; // governs the acceptance of \par
+</code></pre>
+</div>
+<h1 id="section-388"><a class="header" href="#section-388">Section 388</a></h1>
+<p>The parameters, if any, must be scanned before the macro is expanded.
+Parameters are token lists without reference counts.
+They are placed on an auxiliary stack called <em>pstack</em> while they are being scanned, since the <em>param_stack</em> may be losing entries during the matching process.
+(Note that <em>param_stack</em> can’t be gaining entries, since <em>macro_call</em> is the only routine that puts anything onto <em>param_stack</em>, and it is not recursive.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer pstack[9]; // arguments supplied to a macro
+</code></pre>
+</div>
+<h1 id="section-389"><a class="header" href="#section-389">Section 389</a></h1>
+<p>After parameter scanning is complete, the parameters are moved to the <em>param_stack</em>.
+Then the macro body is fed to the scanner; in other words, <em>macro_call</em> places the defined text of the control sequence at the top of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s input stack, so that <em>get_next</em> will proceed to read it next.</p>
+<p>The global variable <em>cur_cs</em> contains the <em>eqtb</em> address of the control sequence being expanded, when <em>macro_call</em> begins.
+If this control sequence has not been declared <code>\long</code>, i.e., if its command code in the <em>eq_type</em> field is not <em>LONG_CALL</em> or <em>LONG_OUTER_CALL</em>, its parameters are not allowed to contain the control sequence <code>\par</code>.
+If an illegal <code>\par</code> appears, the macro call is aborted, and the <code>\par</code> will be rescanned.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">expand_next_token.c</div>
+<pre><code class="language-c">// invokes a user-defined control sequence
+void macro_call() {
+    pointer r;                 // current node in the macro's token list
+    pointer p = null;          // current node in parameter token list being built
+    pointer q;                 // new node being put into the token list
+    pointer s;                 // backup pointer for parameter matching
+    pointer t;                 // cycle pointer for backup recovery
+    pointer u, v;              // auxiliary pointers for backup recovery
+    pointer rbrace_ptr = null; // one step before the last |RIGHT_BRACE| token
+    small_number n;            // the number of parameters scanned
+    halfword unbalance;        // unmatched left braces in current parameter
+    halfword m = 0;            // the number of tokens or groups (usually)
+    pointer ref_count;         // start of the token list
+    small_number save_scanner_status; // |scanner_status| upon entry
+    pointer save_warning_index;       // |warning_index| upon entry
+    ASCII_code match_chr;             // character used in parameter
+    
+    save_scanner_status = scanner_status;
+    save_warning_index = warning_index;
+    warning_index = cur_cs;
+    ref_count = cur_chr;
+    r = link(ref_count);
+    n = 0;
+    if (tracing_macros &gt; 0) {
+        // &lt;&lt; Show the text of the macro being expanded, 401 &gt;&gt;
+    }
+    if (info(r) != END_MATCH_TOKEN) {
+        // &lt;&lt; Scan the parameters and make |link(r)| point to the macro body; but |return| if an illegal \par is detected, 391 &gt;&gt;
+    }
+    // &lt;&lt; Feed the macro body and its parameters to the scanner, 390 &gt;&gt;
+end:
+    scanner_status = save_scanner_status;
+    warning_index = save_warning_index;
+}
+</code></pre>
+</div>
+<h1 id="section-390"><a class="header" href="#section-390">Section 390</a></h1>
+<p>Before we put a new token list on the input stack, it is wise to clean off all token lists that have recently been depleted.
+Then a user macro that ends with a call to itself will not require unbounded stack space.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Feed the macro body and its parameters to the scanner <a href="./part25.html#section-390">390</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while (state == TOKEN_LIST
+    &amp;&amp; loc == null
+    &amp;&amp; token_type != V_TEMPLATE)
+{
+    end_token_list(); // conserve stack space
+}
+begin_token_list(ref_count, MACRO);
+name = warning_index;
+loc = link(r);
+if (n &gt; 0) {
+    if (param_ptr + n &gt; max_param_stack) {
+        max_param_stack = param_ptr + n;
+        if (max_param_stack &gt; PARAM_SIZE) {
+            overflow("parameter stack size", PARAM_SIZE);
+        }
+    }
+    for(m = 0; m &lt; n; m++) {
+        param_stack[param_ptr + m] = pstack[m];
+    }
+    param_ptr += n;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-389">389</a>.</p>
+</div></div>
+<h1 id="section-391"><a class="header" href="#section-391">Section 391</a></h1>
+<p>At this point, the reader will find it advisable to review the explanation of token list format that was presented earlier, since many aspects of that format are of importance chiefly in the <em>macro_call</em> routine.</p>
+<p>The token list might begin with a string of compulsory tokens before the first <em>MATCH</em> or <em>END_MATCH</em>.
+In that case the macro name is supposed to be followed by those tokens; the following program will set <em>s = null</em> to represent this restriction.
+Otherwise <em>s</em> will be set to the first token of a string that will delimit the next parameter.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan the parameters and make <em>link(r)</em> point to the macro body; but <em>return</em> if an illegal \par is detected <a href="./part25.html#section-391">391</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scanner_status = MATCHING;
+unbalance = 0;
+long_state = eq_type(cur_cs);
+if (long_state &gt;= OUTER_CALL) {
+    long_state -= 2;
+}
+do {
+    link(TEMP_HEAD) = null;
+    if (info(r) &gt; MATCH_TOKEN + 255 || info(r) &lt; MATCH_TOKEN) {
+        s = null;
+    }
+    else {
+        match_chr = info(r) - MATCH_TOKEN;
+        s = link(r);
+        r = s;
+        p = TEMP_HEAD;
+        m = 0;
+    }
+    // &lt;&lt; Scan a parameter until its delimiter string has been found; or, if |s = null|, simply scan the delimiter string, 392 &gt;&gt;
+    // now |info(r)| is a token whose command code is either |match| or |end_match|
+} while (info(r) != END_MATCH_TOKEN);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-389">389</a>.</p>
+</div></div>
+<h1 id="section-392"><a class="header" href="#section-392">Section 392</a></h1>
+<p>If <em>info(r)</em> is a <em>MATCH</em> or <em>END_MATCH</em> command, it cannot be equal to any token found by <em>get_token</em>.
+Therefore an undelimited parameter—i.e., a <em>MATCH</em> that is immediately followed by <em>MATCH</em> or <em>END_MATCH</em>—will always fail the test <em>‘cur_tok = info(r)’</em> in the following algorithm.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan a parameter until its delimiter string has been found; or, if <em>s = null</em>, simply scan the delimiter string <a href="./part25.html#section-392">392</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">continue_lbl:
+get_token(); // set |cur_tok| to the next token of input
+if (cur_tok == info(r)) {
+    // &lt;&lt; Advance |r|; |goto found| if the parameter delimiter has been fully matched, otherwise |goto continue_lbl|, 394 &gt;&gt;
+}
+// &lt;&lt; Contribute the recently matched tokens to the current parameter, and |goto continue| if a partial match is still in effect; but abort if |s = null|, 397 &gt;&gt;
+if (cur_tok == par_token &amp;&amp; long_state != LONG_CALL) {
+    // &lt;&lt; Report a runaway argument and abort, 396 &gt;&gt;
+}
+if (cur_tok &lt; RIGHT_BRACE_LIMIT) {
+    if (cur_tok &lt; LEFT_BRACE_LIMIT) {
+        // &lt;&lt; Contribute an entire group to the current parameter, 399 &gt;&gt;
+    }
+    else {
+        // &lt;&lt; Report an extra right brace and |goto continue|, 395 &gt;&gt;
+    }
+}
+else {
+    // &lt;&lt; Store the current token, but |goto continue_lbl| if it is a blank space that would become an undelimited parameter, 393 &gt;&gt;
+}
+incr(m);
+if (info(r) &gt; END_MATCH_TOKEN || info(r) &lt; MATCH_TOKEN) {
+    goto continue_lbl;
+}
+found:
+if (s != null) {
+    // &lt;&lt; Tidy up the parameter just scanned, and tuck it away, 400 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-391">391</a>.</p>
+</div></div>
+<h1 id="section-393"><a class="header" href="#section-393">Section 393</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Store the current token, but <em>goto continue_lbl</em> if it is a blank space that would become an undelimited parameter <a href="./part25.html#section-393">393</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_tok == SPACE_TOKEN
+    &amp;&amp; info(r) &lt;= END_MATCH_TOKEN
+    &amp;&amp; info(r) &gt;= MATCH_TOKEN)
+{
+    goto continue_lbl;
+}
+store_new_token(cur_tok);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-392">392</a>.</p>
+</div></div>
+<h1 id="section-394"><a class="header" href="#section-394">Section 394</a></h1>
+<p>A slightly subtle point arises here:
+When the parameter delimiter ends with ‘<code>#{</code>’, the token list will have a left brace both before and after the <em>END_MATCH</em>.
+Only one of these should affect the <em>align_state</em>, but both will be scanned, so we must make a correction.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Advance <em>r</em>; <em>goto found</em> if the parameter delimiter has been fully matched, otherwise <em>goto continue_lbl</em> <a href="./part25.html#section-394">394</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">r = link(r);
+if (info(r) &gt;= MATCH_TOKEN &amp;&amp; info(r) &lt;= END_MATCH_TOKEN) {
+    if (cur_tok &lt; LEFT_BRACE_LIMIT) {
+        decr(align_state);
+    }
+    goto found;
+}
+else {
+    goto continue_lbl;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-392">392</a>.</p>
+</div></div>
+<h1 id="section-395"><a class="header" href="#section-395">Section 395</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report an extra right brace and <em>goto continue</em> <a href="./part25.html#section-395">395</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">back_input();
+print_err("Argument of ");
+sprint_cs(warning_index);
+print(" has an extra }");
+help6("I've run across a `}' that doesn't seem to match anything.")
+    ("For example, `\\def\\a#1{...}' and `\\a}' would produce")
+    ("this error. If you simply proceed now, the `\\par' that")
+    ("I've just inserted will cause me to report a runaway")
+    ("argument that might be the root of the problem. But if")
+    ("your `}' was spurious, just type `2' and it will go away.");
+incr(align_state);
+long_state = CALL;
+cur_tok = par_token;
+ins_error();
+goto continue_lbl;
+// a white lie; the \par won't always trigger a runaway
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-392">392</a>.</p>
+</div></div>
+<h1 id="section-396"><a class="header" href="#section-396">Section 396</a></h1>
+<p>If <em>long_state = OUTER_CALL</em>, a runaway argument has already been reported.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report a runaway argument and abort <a href="./part25.html#section-396">396</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (long_state == CALL) {
+    runaway();
+    print_err("Paragraph ended before ");
+    sprint_cs(warning_index);
+    print(" was complete");
+    help3("I suspect you've forgotten a `}', causing me to apply this")
+        ("control sequence to too much text. How can we recover?")
+        ("My plan is to forget the whole thing and hope for the best.");
+    back_error();
+}
+pstack[n] = link(TEMP_HEAD);
+align_state -= unbalance;
+for(m = 0; m &lt;= n; m++) {
+    flush_list(pstack[m]);
+}
+goto end;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part25.html#section-392">392</a>, and <a href="./part25.html#section-399">399</a>.</p>
+</div></div>
+<h1 id="section-397"><a class="header" href="#section-397">Section 397</a></h1>
+<p>When the following code becomes active, we have matched tokens from <em>s</em> to the predecessor of <em>r</em>, and we have found that <em>cur_tok</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>info(r)</em>.
+An interesting situation now presents itself:
+If the parameter is to be delimited by a string such as ‘<code>ab</code>’, and if we have scanned ‘<code>aa</code>’, we want to contribute one ‘<code>a</code>’ to the current parameter and resume looking for a ‘<code>b</code>’.
+The program must account for such partial matches and for others that can be quite complex.
+But most of the time we have <em>s = r</em> and nothing needs to be done.</p>
+<p>Incidentally, it is possible for <code>\par</code> tokens to sneak in to certain parameters of non-<code>\long</code> macros.
+For example, consider a case like ‘<code>\def\a#1\par!{...}</code>’ where the first <code>\par</code> is not followed by an exclamation point.
+In such situations it does not seem appropriate to prohibit the <code>\par</code>, so <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> keeps quiet about this bending of the rules.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Contribute the recently matched tokens to the current parameter, and <em>goto continue</em> if a partial match is still in effect; but abort if <em>s = null</em> <a href="./part25.html#section-397">397</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (s != r) {
+    if (s == null) {
+        // &lt;&lt; Report an improper use of the macro and abort, 398 &gt;&gt;
+    }
+    else {
+        t = s;
+        do {
+            store_new_token(info(t));
+            incr(m);
+            u = link(t);
+            v = s;
+            while(true) {
+                if (u == r) {
+                    if (cur_tok != info(v)) {
+                        goto done;
+                    }
+                    else {
+                        r = link(v);
+                        goto continue_lbl;
+                    }
+                }
+                if (info(u) != info(v)) {
+                    goto done;
+                }
+                u = link(u);
+                v = link(v);
+            }
+done:
+            t = link(t);
+        } while (t != r);
+        r = s; // at this point, no tokens are recently matched
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-392">392</a>.</p>
+</div></div>
+<h1 id="section-398"><a class="header" href="#section-398">Section 398</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report an improper use of the macro and abort <a href="./part25.html#section-398">398</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Use of ");
+sprint_cs(warning_index);
+print(" doesn't match its definition");
+help4("If you say, e.g., `\\def\\a1{...}', then you must always")
+    ("put `1' after `\\a', since control sequence names are")
+    ("made up of letters only. The macro here has not been")
+    ("followed by the required stuff, so I'm ignoring it.");
+error();
+goto end;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-397">397</a>.</p>
+</div></div>
+<h1 id="section-399"><a class="header" href="#section-399">Section 399</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Contribute an entire group to the current parameter <a href="./part25.html#section-399">399</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">unbalance = 1;
+while(true) {
+    fast_store_new_token(cur_tok);
+    get_token();
+    if (cur_tok == par_token &amp;&amp; long_state != LONG_CALL) {
+        // &lt;&lt; Report a runaway argument and abort, 396 &gt;&gt;
+    }
+    if (cur_tok &lt; RIGHT_BRACE_LIMIT) {
+        if (cur_tok &lt; LEFT_BRACE_LIMIT) {
+            incr(unbalance);
+        }
+        else {
+            decr(unbalance);
+            if (unbalance == 0) {
+                goto done1;
+            }
+        }
+    }
+}
+done1:
+rbrace_ptr = p;
+store_new_token(cur_tok);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-392">392</a>.</p>
+</div></div>
+<h1 id="section-400"><a class="header" href="#section-400">Section 400</a></h1>
+<p>If the parameter consists of a single group enclosed in braces, we must strip off the enclosing braces.
+That’s why <em>rbrace_ptr</em> was introduced.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Tidy up the parameter just scanned, and tuck it away <a href="./part25.html#section-400">400</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (m == 1 &amp;&amp; info(p) &lt; RIGHT_BRACE_LIMIT) {
+    link(rbrace_ptr) = null;
+    free_avail(p);
+    p = link(TEMP_HEAD);
+    pstack[n] = link(p);
+    free_avail(p);
+}
+else {
+    pstack[n] = link(TEMP_HEAD);
+}
+incr(n);
+if (tracing_macros &gt; 0) {
+    begin_diagnostic();
+    print_nl_strnumber(match_chr);
+    print_int(n);
+    print("&lt;-");
+    show_token_list(pstack[n - 1], null, 1000);
+    end_diagnostic(false);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-392">392</a>.</p>
+</div></div>
+<h1 id="section-401"><a class="header" href="#section-401">Section 401</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show the text of the macro being expanded <a href="./part25.html#section-401">401</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">begin_diagnostic();
+print_ln();
+print_cs(warning_index);
+token_show(ref_count);
+end_diagnostic(false);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-389">389</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part24.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part26.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part24.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part26.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

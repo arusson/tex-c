@@ -1,0 +1,620 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 967–979 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html" class="active">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-967-breaking-vertical-lists-into-pages"><a class="header" href="#section-967-breaking-vertical-lists-into-pages">Section 967: Breaking vertical lists into pages</a></h1>
+<p>The <em>vsplit</em> procedure, which implements <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s <code>\vsplit</code> operation, is considerably simpler than <em>line_break</em> because it doesn’t have to worry about hyphenation, and because its mission is to discover a single break instead of an optimum sequence of breakpoints.
+But before we get into the details of <em>vsplit</em>, we need to consider a few more basic things.</p>
+<h1 id="section-968"><a class="header" href="#section-968">Section 968</a></h1>
+<p>A subroutine called <em>prune_page_top</em> takes a pointer to a vlist and returns a pointer to a modified vlist in which all glue, kern, and penalty nodes have been deleted before the first box or rule node.
+However, the first box or rule is actually preceded by a newly created glue node designed so that the topmost baseline will be at distance <em>split_top_skip</em> from the top, whenever this is possible without backspacing.</p>
+<p>In this routine and those that follow, we make use of the fact that a vertical list contains no character nodes, hence the <em>type</em> field exists for each node in the list.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">page_break.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |page_break.c|, 1382 &gt;&gt;
+
+// adjust top after page break
+pointer prune_page_top(pointer p) {
+    pointer prev_p; // lags one step behind |p|
+    pointer q;      // temporary variable for list manipulation
+    prev_p = TEMP_HEAD;
+    link(TEMP_HEAD) = p;
+    while (p != null) {
+        switch (type(p)) {
+        case HLIST_NODE:
+        case VLIST_NODE:
+        case RULE_NODE:
+            // &lt;&lt; Insert glue for |split_top_skip| and set |p = null|, 969 &gt;&gt;
+            break;
+        
+        case WHATSIT_NODE:
+        case MARK_NODE:
+        case INS_NODE:
+            prev_p = p;
+            p = link(prev_p);
+            break;
+        
+        case GLUE_NODE:
+        case KERN_NODE:
+        case PENALTY_NODE:
+            q = p;
+            p = link(q);
+            link(q) = null;
+            link(prev_p) = p;
+            flush_node_list(q);
+            break;
+        
+        default:
+            confusion("pruning");
+        }
+    }
+    return link(TEMP_HEAD);
+}
+</code></pre>
+</div>
+<h1 id="section-969"><a class="header" href="#section-969">Section 969</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert glue for <em>split_top_skip</em> and set <em>p = null</em> <a href="./part44.html#section-969">969</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = new_skip_param(SPLIT_TOP_SKIP_CODE);
+link(prev_p) = q;
+link(q) = p;
+// now |temp_ptr = glue_ptr(q)|
+if (width(temp_ptr) &gt; height(p)) {
+    width(temp_ptr) -= height(p);
+}
+else {
+    width(temp_ptr) = 0;
+}
+p = null;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part44.html#section-968">968</a>.</p>
+</div></div>
+<h1 id="section-970"><a class="header" href="#section-970">Section 970</a></h1>
+<p>The next subroutine finds the best place to break a given vertical list so as to obtain a box of height <em>h</em>, with maximum depth <em>d</em>.
+A pointer to the beginning of the vertical list is given, and a pointer to the optimum breakpoint is returned.
+The list is effectively followed by a forced break, i.e., a penalty node with the <em>EJECT_PENALTY</em>;
+if the best break occurs at this artificial node, the value <em>null</em> is returned.</p>
+<p>An array of six <em>scaled</em> distances is used to keep track of the height from the beginning of the list to the current place, just as in <em>line_break</em>.
+In fact, we use one of the same arrays, only changing its name to reflect its new significance.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define active_height      active_width           // new name for the six distance variables
+#define cur_height         active_height[1]       // the natural height
+#define set_height_zero(X) active_height[(X)] = 0 // initialize the height to zero
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">page_break.c</div>
+<pre><code class="language-c">// finds optimum page break
+pointer vert_break(pointer p, scaled h, scaled d) {
+    pointer prev_p;            // if |p| is a glue node, |type(prev_p)| determines whether |p| is a legal breakpoint
+    pointer q, r;              // glue specifications
+    int pi = 0;                // penalty value
+    int b;                     // badness at a trial breakpoint
+    int least_cost;            // the smallest badness plus penalties found so far
+    pointer best_place = null; // the most recent break that leads to |least_cost|
+    scaled prev_dp;            // depth of previous box in the list
+    small_number t;            // |type| of the node following a kern
+    
+    prev_p = p; // an initial glue node is not a legal breakpoint
+    least_cost = AWFUL_BAD;
+    do_all_six(set_height_zero);
+    prev_dp = 0;
+    while(true) {
+        // &lt;&lt; If node |p| is a legal breakpoint, check if this break is the best known, and |goto done| if |p| is null or if the page-so-far is already too full to accept more stuff, 972 &gt;&gt;
+        prev_p = p;
+        p = link(prev_p);
+    }
+done:
+    return best_place;
+}
+</code></pre>
+</div>
+<h1 id="section-971"><a class="header" href="#section-971">Section 971</a></h1>
+<p>A global variable <em>best_height_plus_depth</em> will be set to the natural size of the box that corresponds to the optimum breakpoint found by <em>vert_break</em>.
+(This value is used by the insertion-splitting algorithm of the page builder.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">scaled best_height_plus_depth; // height of the best box, without stretching or shrinking
+</code></pre>
+</div>
+<h1 id="section-972"><a class="header" href="#section-972">Section 972</a></h1>
+<p>A subtle point to be noted here is that the maximum depth <em>d</em> might be negative, so <em>cur_height</em> and <em>prev_dp</em> might need to be corrected even after a glue or kern node.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If node <em>p</em> is a legal breakpoint, check if this break is the best known, and <em>goto done</em> if <em>p</em> is null or if the page-so-far is already too full to accept more stuff <a href="./part44.html#section-972">972</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (p == null) {
+    pi = EJECT_PENALTY;
+}
+else {
+    // &lt;&lt; Use node |p| to update the current height and depth measurements; if this node is not a legal breakpoint, |goto not_found| or |update_heights|, otherwise set |pi| to the associated penalty at the break, 973 &gt;&gt;
+}
+// &lt;&lt; Check if node |p| is a new champion breakpoint; then |goto done| if |p| is a forced break or if the page-so-far is already too full, 974 &gt;&gt;
+if (type(p) &lt; GLUE_NODE || type(p) &gt; KERN_NODE) {
+    goto not_found;
+}
+
+update_heights:
+// &lt;&lt; Update the current height and depth measurements with respect to a glue or kern node |p|, 976 &gt;&gt;
+
+not_found:
+if (prev_dp &gt; d) {
+    cur_height += prev_dp - d;
+    prev_dp = d;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part44.html#section-970">970</a>.</p>
+</div></div>
+<h1 id="section-973"><a class="header" href="#section-973">Section 973</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Use node <em>p</em> to update the current height and depth measurements; if this node is not a legal breakpoint, <em>goto not_found</em> or <em>update_heights</em>, otherwise set <em>pi</em> to the associated penalty at the break <a href="./part44.html#section-973">973</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (type(p)) {
+case HLIST_NODE:
+case VLIST_NODE:
+case RULE_NODE: 
+    cur_height += prev_dp + height(p);
+    prev_dp = depth(p);
+    goto not_found;
+
+case WHATSIT_NODE:
+    // &lt;&lt; Process whatsit |p| in |vert_break| loop, |goto not_found|, 1365 &gt;&gt;
+
+case GLUE_NODE:
+    if (precedes_break(prev_p)) {
+        pi = 0;
+    }
+    else {
+        goto update_heights;
+    }
+    break;
+
+case KERN_NODE:
+    if (link(p) == null) {
+        t = PENALTY_NODE;
+    }
+    else {
+        t = type(link(p));
+    }
+    if (t == GLUE_NODE) {
+        pi = 0;
+    }
+    else {
+        goto update_heights;
+    }
+    break;
+
+case PENALTY_NODE:
+    pi = penalty(p);
+    break;
+
+case MARK_NODE:
+case INS_NODE:
+    goto not_found;
+
+default:
+    confusion("vertbreak");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part44.html#section-972">972</a>.</p>
+</div></div>
+<h1 id="section-974"><a class="header" href="#section-974">Section 974</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define DEPLORABLE 100000 // more than |INF_BAD|, but less than |AWFUL_BAD|
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Check if node <em>p</em> is a new champion breakpoint; then <em>goto done</em> if <em>p</em> is a forced break or if the page-so-far is already too full <a href="./part44.html#section-974">974</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (pi &lt; INF_PENALTY) {
+    // &lt;&lt; Compute the badness, |b|, using |AWFUL_BAD| if the box is too full, 975 &gt;&gt;
+    if (b &lt; AWFUL_BAD) {
+        if (pi &lt;= EJECT_PENALTY) {
+            b = pi;
+        }
+        else if (b &lt; INF_BAD) {
+            b += pi;
+        }
+        else {
+            b = DEPLORABLE;
+        }
+    }
+    if (b &lt;= least_cost) {
+        best_place = p;
+        least_cost = b;
+        best_height_plus_depth = cur_height + prev_dp;
+    }
+    if (b == AWFUL_BAD || pi &lt;= EJECT_PENALTY) {
+        goto done;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part44.html#section-972">972</a>.</p>
+</div></div>
+<h1 id="section-975"><a class="header" href="#section-975">Section 975</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the badness, <em>b</em>, using <em>AWFUL_BAD</em> if the box is too full <a href="./part44.html#section-975">975</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_height &lt; h) {
+    if (active_height[3] != 0
+      || active_height[4] != 0
+      || active_height[5] != 0)
+    {
+      b = 0;
+    }
+    else {
+      b = badness(h - cur_height, active_height[2]);
+    }
+}
+else if (cur_height - h &gt; active_height[6]) {
+    b = AWFUL_BAD;
+}
+else {
+    b = badness(cur_height - h, active_height[6]);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part44.html#section-974">974</a>.</p>
+</div></div>
+<h1 id="section-976"><a class="header" href="#section-976">Section 976</a></h1>
+<p>Vertical lists that are subject to the <em>vert_break</em> procedure should not contain infinite shrinkability, since that would permit any amount of information to “fit” on one page.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Update the current height and depth measurements with respect to a glue or kern node <em>p</em> <a href="./part44.html#section-976">976</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (type(p) == KERN_NODE) {
+    q = p;
+}
+else {
+    q = glue_ptr(p);
+    active_height[2 + stretch_order(q)] += stretch(q);
+    active_height[6] += shrink(q);
+    if (shrink_order(q) != NORMAL &amp;&amp; shrink(q) != 0) {
+        print_err("Infinite glue shrinkage found in box being split");
+        help4("The box you are \\vsplitting contains some infinitely")
+            ("shrinkable glue, e.g., `\\vss' or `\\vskip 0pt minus 1fil'.")
+            ("Such glue doesn't belong there; but you can safely proceed,")
+            ("since the offensive shrinkability has been made finite.");
+        error();
+        r = new_spec(q);
+        shrink_order(r) = NORMAL;
+        delete_glue_ref(q);
+        glue_ptr(p) = r;
+        q = r;
+    }
+}
+cur_height += prev_dp + width(q);
+prev_dp = 0;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part44.html#section-972">972</a>.</p>
+</div></div>
+<h1 id="section-977"><a class="header" href="#section-977">Section 977</a></h1>
+<p>Now we are ready to consider <em>vsplit</em> itself.
+Most of its work is accomplished by the two subroutines that we have just considered.</p>
+<p>Given the number of a vlist box <em>n</em>, and given a desired page height <em>h</em>, the <em>vsplit</em> function finds the best initial segment of the vlist and returns a box for a page of height <em>h</em>.
+The remainder of the vlist, if any, replaces the original box, after removing glue and penalties and adjusting for <em>split_top_skip</em>.
+Mark nodes in the split-off box are used to set the values of <em>split_first_mark</em> and <em>split_bot_mark</em>; we use the fact that <em>split_first_mark = null</em> if and only if <em>split_bot_mark = null</em>.</p>
+<p>The original box becomes “void” if and only if it has been entirely extracted.
+The extracted box is “void” if and only if the original box was void (or if it was, erroneously, an hlist box).</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">page_break.c</div>
+<pre><code class="language-c">// extracts a page of height |h| from box |n|
+pointer vsplit(eight_bits n, scaled h) {
+    pointer v; // the box to be split
+    pointer p; // runs through the vlist
+    pointer q; // points to where the break occurs
+    v = box(n);
+    if (split_first_mark != null) {
+        delete_token_ref(split_first_mark);
+        split_first_mark = null;
+        delete_token_ref(split_bot_mark);
+        split_bot_mark = null;
+    }
+    // &lt;&lt; Dispense with trivial cases of void or bad boxes, 978 &gt;&gt;
+    q = vert_break(list_ptr(v), h, split_max_depth);
+    // &lt;&lt; Look at all the marks in nodes before the break, and set the final link to |null| at the break, 979 &gt;&gt;
+    q = prune_page_top(q);
+    p = list_ptr(v);
+    free_node(v, BOX_NODE_SIZE);
+    if (q == null) {
+        box(n) = null; // the |eq_level| of the box stays the same
+    }
+    else {
+        box(n) = vpack(q, NATURAL);
+    }
+    return vpackage(p, h, EXACTLY, split_max_depth);
+}
+</code></pre>
+</div>
+<h1 id="section-978"><a class="header" href="#section-978">Section 978</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dispense with trivial cases of void or bad boxes <a href="./part44.html#section-978">978</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (v == null) {
+    return null;
+}
+if (type(v) != VLIST_NODE) {
+    print_err("");
+    print_esc("vsplit");
+    print(" needs a ");
+    print_esc("vbox");
+    help2("The box you are trying to split is an \\hbox.")
+        ("I can't split such a box, so I'll leave it alone.");
+    error();
+    return null;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part44.html#section-977">977</a>.</p>
+</div></div>
+<h1 id="section-979"><a class="header" href="#section-979">Section 979</a></h1>
+<p>It’s possible that the box begins with a penalty node that is the “best” break, so we must be careful to handle this special case correctly.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Look at all the marks in nodes before the break, and set the final link to <em>null</em> at the break <a href="./part44.html#section-979">979</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = list_ptr(v);
+if (p == q) {
+    list_ptr(v) = null;
+}
+else {
+    while(true) {
+        if (type(p) == MARK_NODE) {
+            if (split_first_mark == null) {
+                split_first_mark = mark_ptr(p);
+                split_bot_mark = split_first_mark;
+                token_ref_count(split_first_mark) += 2;
+            }
+            else {
+                delete_token_ref(split_bot_mark);
+                split_bot_mark = mark_ptr(p);
+                add_token_ref(split_bot_mark);
+            }
+        }
+        if (link(p) == q) {
+            link(p) = null;
+            break; // goto done
+        }
+        p = link(p);
+    }
+}
+// done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part44.html#section-977">977</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part43.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part45.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part43.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part45.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,893 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 173–198 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html" class="active">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-173-displaying-boxes"><a class="header" href="#section-173-displaying-boxes">Section 173: Displaying boxes</a></h1>
+<p>We can reinforce our knowledge of the data structures just introduced by considering two procedures that display a list in symbolic form.
+The first of these, called <em>short_display</em>, is used in “overfull box” messages to give the top-level description of a list.
+The other one, called <em>show_node_list</em>, prints a detailed description of exactly what is in the data structure.</p>
+<p>The philosophy of <em>short_display</em> is to ignore the fine points about exactly what is inside boxes, except that ligatures and discretionary breaks are expanded. As a result, <em>short_display</em> is a recursive procedure, but the recursion is never more than one level deep.</p>
+<p>A global variable <em>font_in_short_display</em> keeps track of the font code that is assumed to be present when <em>short_display</em> begins; deviations from this font will be printed.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int font_in_short_display; // an internal font number
+</code></pre>
+</div>
+<h1 id="section-174"><a class="header" href="#section-174">Section 174</a></h1>
+<p>Boxes, rules, inserts, whatsits, marks, and things in general that are sort of “complicated” are indicated only by printing ‘<code>[]</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">display_boxes.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |display_boxes.c|, 1382 &gt;&gt;
+
+// prints highlights of list |p|
+void short_display(int p) {
+    int n; // for replacement counts
+    while (p &gt; MEM_MIN) {
+        if (is_char_node(p)) {
+            if (p &lt;= mem_end) {
+                if (font(p) != font_in_short_display) {
+                    if (/* font(p) &lt; FONT_BASE || */ font(p) &gt; FONT_MAX) {
+                        // Comparison with |FONT_BASE| is useless
+                        // since |FONT_BASE = 0| and |font(p)| is in [0 .. 65535]
+                        print_char('*');
+                    }
+                    else {
+                        // &lt;&lt; Print the font identifier for |font(p)|, 267 &gt;&gt;
+                    }
+                    print_char(' ');
+                    font_in_short_display = font(p);
+                }
+                print_strnumber(character(p));
+            }
+        }
+        else {
+            // &lt;&lt; Print a short indication of the contents of node |p|, 175 &gt;&gt;
+        }
+        p = link(p);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-175"><a class="header" href="#section-175">Section 175</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print a short indication of the contents of node <em>p</em> <a href="./part12.html#section-175">175</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch(type(p)) {
+case HLIST_NODE:
+case VLIST_NODE:
+case INS_NODE:
+case WHATSIT_NODE:
+case MARK_NODE:
+case ADJUST_NODE:
+case UNSET_NODE:
+    print("[]");
+    break;
+
+case RULE_NODE:
+    print_char('|');
+    break;
+
+case GLUE_NODE:
+    if (glue_ptr(p) != ZERO_GLUE) {
+        print_char(' ');
+    }
+    break;
+
+case MATH_NODE:
+    print_char('$');
+    break;
+
+case LIGATURE_NODE:
+    short_display(lig_ptr(p));
+    break;
+
+case DISC_NODE:
+    short_display(pre_break(p));
+    short_display(post_break(p));
+    n = replace_count(p);
+    while (n &gt; 0) {
+        if (link(p) != null) {
+            p = link(p);
+        }
+        decr(n);
+    }
+    break;
+
+default:
+    do_nothing;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-174">174</a>.</p>
+</div></div>
+<h1 id="section-176"><a class="header" href="#section-176">Section 176</a></h1>
+<p>The <em>show_node_list</em> routine requires some auxiliary subroutines:
+one to print a font-and-character combination, one to print a token list without its reference count, and one to print a rule dimension.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">display_boxes.c</div>
+<pre><code class="language-c">// prints |CHAR_NODE| data
+void print_font_and_char(int p) {
+    if (p &gt; mem_end) {
+        print_esc("CLOBBERED.");
+    }
+    else {
+        if (/* font(p) &lt; FONT_BASE || */ font(p) &gt; FONT_MAX) {
+            // |FONT_BASE = 0| and |font(p)| is in [0 .. 65535]
+            print_char('*');
+        }
+        else {
+            // &lt;&lt; Print the font identifier for |font(p)|, 267 &gt;&gt;
+        }
+        print_char(' ');
+        print_strnumber(character(p));
+    }
+}
+
+// prints token list data in braces
+void print_mark(int p) {
+    print_char('{');
+    if (p &lt; hi_mem_min || p &gt; mem_end) {
+        print_esc("CLOBBERED.");
+    }
+    else {
+        show_token_list(link(p), null, MAX_PRINT_LINE - 10);
+    }
+    print_char('}');
+}
+
+// prints dimension in rule node
+void print_rule_dimen(scaled d) {
+    if (is_running(d)) {
+        print_char('*');
+    }
+    else {
+        print_scaled(d);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-177"><a class="header" href="#section-177">Section 177</a></h1>
+<p>Then there is a subroutine that prints glue stretch and shrink, possibly followed by the name of finite units:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">display_boxes.c</div>
+<pre><code class="language-c">// prints a glue component
+void print_glue(scaled d, int order, char *s) {
+    print_scaled(d);
+    if (order &lt; NORMAL || order &gt; FILLL) {
+        print("foul");
+    }
+    else if (order &gt; NORMAL) {
+        print("fil");
+        while (order &gt; FIL) {
+            print_char('l');
+            decr(order);
+        }
+    }
+    else if (strlen(s) != 0) {
+        print(s);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-178"><a class="header" href="#section-178">Section 178</a></h1>
+<p>The next subroutine prints a whole glue specification.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">display_boxes.c</div>
+<pre><code class="language-c">// prints a glue specification
+void print_spec(int p, char *s) {
+    if (p &lt; MEM_MIN || p &gt;= lo_mem_max) {
+        print_char('*');
+    }
+    else {
+        print_scaled(width(p));
+        if (strlen(s) != 0) {
+            print(s);
+        }
+        if (stretch(p) != 0) {
+            print(" plus ");
+            print_glue(stretch(p), stretch_order(p), s);
+        }
+        if (shrink(p) != 0) {
+            print(" minus ");
+            print_glue(shrink(p), shrink_order(p), s);
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-179"><a class="header" href="#section-179">Section 179</a></h1>
+<p>We also need to declare some procedures that appear later in this documentation.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Those are procedures for displaying the elements of mlists, and procedure <em>print_skip_param</em>.
+Originally:</p>
+<ul>
+<li>⟨ Declare procedures needed for displaying the elements of mlists, 691 ⟩;</li>
+<li>⟨ Declare the procedure called <em>print_skip_param</em>, 225 ⟩.</li>
+</ul>
+</blockquote>
+</div>
+<h1 id="section-180"><a class="header" href="#section-180">Section 180</a></h1>
+<p>Since boxes can be inside of boxes, <em>show_node_list</em> is inherently recursive, up to a given maximum number of levels.
+The history of nesting is indicated by the current string, which will be printed at the beginning of each line;
+the length of this string, namely <em>cur_length</em>, is the depth of nesting.</p>
+<p>Recursive calls on <em>show_node_list</em> therefore use the following pattern:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">// |str_room| need not be checked; see |show_box| below
+#define node_list_display(X) append_char('.'); show_node_list((X)); flush_char
+</code></pre>
+</div>
+<h1 id="section-181"><a class="header" href="#section-181">Section 181</a></h1>
+<p>A global variable called <em>depth_threshold</em> is used to record the maximum depth of nesting for which <em>show_node_list</em> will show information.
+If we have <em>depth_threshold = 0</em>, for example, only the top level information will be given and no sublists will be traversed.
+Another global variable, called <em>breadth_max</em>, tells the maximum number of items to show at each level;
+<em>breadth_max</em> had better be positive, or you won’t see anything.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int depth_threshold; // maximum nesting depth in box displays
+int breadth_max;    // maximum number of items shown at the same list level
+</code></pre>
+</div>
+<h1 id="section-182"><a class="header" href="#section-182">Section 182</a></h1>
+<p>Now we are ready for <em>show_node_list</em> itself.
+This procedure has been written to be “extra robust” in the sense that it should not crash or get into a loop even if the data structures have been messed up by bugs in the rest of the program.
+You can safely call its parent routine <em>show_box(p)</em> for arbitrary values of <em>p</em> when you are debugging <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.
+However, in the presence of bad data, the procedure may fetch a <em>memory_word</em> whose variant is different from the way it was stored;
+for example, it might try to read <em>mem[p].hh</em> when <em>mem[p]</em> contains a scaled integer, if <em>p</em> is a pointer that has been clobbered or chosen at random.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">display_boxes.c</div>
+<pre><code class="language-c">// prints a node list symbolically
+void show_node_list(int p) {
+    int n;    // the number of items already printed at this level
+    double g; // a glue ratio, as a floating point number
+    if (cur_length &gt; depth_threshold) {
+        if (p &gt; null) {
+            // indicate that there's been some truncation
+            print(" []");
+        }
+        return;
+    }
+    n = 0;
+    while (p &gt; MEM_MIN) {
+        // display the nesting history
+        print_ln();
+        print_current_string();
+        if (p &gt; mem_end) {
+            // pointer out of range
+            print("Bad link, display aborted.");
+            return;
+        }
+        incr(n);
+        if (n &gt; breadth_max) {
+            // time to stop
+            print("etc.");
+            return;
+        }
+        // &lt;&lt; Display node |p|, 183 &gt;&gt;
+        p = link(p);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-183"><a class="header" href="#section-183">Section 183</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display node <em>p</em> <a href="./part12.html#section-183">183</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_char_node(p)) {
+    print_font_and_char(p);
+}
+else {
+    switch(type(p)) {
+    case HLIST_NODE:
+    case VLIST_NODE:
+    case UNSET_NODE:
+        // &lt;&lt; Display box |p|, 184 &gt;&gt;
+        break;
+    
+    case RULE_NODE:
+        // &lt;&lt; Display rule |p|, 187 &gt;&gt;
+        break;
+    
+    case INS_NODE:
+        // &lt;&lt; Display insertion |p|, 188 &gt;&gt;
+        break;
+    
+    case WHATSIT_NODE:
+        // &lt;&lt; Display the whatsit node |p|, 1356 &gt;&gt;
+        break;
+    
+    case GLUE_NODE:
+        // &lt;&lt; Display glue |p|, 189 &gt;&gt;
+        break;
+    
+    case KERN_NODE:
+        // &lt;&lt; Display kern |p|, 191 &gt;&gt;
+        break;
+    
+    case MATH_NODE:
+        // &lt;&lt; Display math node |p|, 192 &gt;&gt;
+        break;
+    
+    case LIGATURE_NODE:
+        // &lt;&lt; Display ligature |p|, 193 &gt;&gt;
+        break;
+    
+    case PENALTY_NODE:
+        // &lt;&lt; Display penalty |p|, 194 &gt;&gt;
+        break;
+    
+    case DISC_NODE:
+        // &lt;&lt; Display discretionary |p|, 195 &gt;&gt;
+        break;
+    
+    case MARK_NODE:
+        // &lt;&lt; Display mark |p|, 196 &gt;&gt;
+        break;
+    
+    case ADJUST_NODE:
+        // &lt;&lt; Display adjustment |p|, 197 &gt;&gt;
+        break;
+    
+    // &lt;&lt; Cases of |show_node_list| that arise in mlists only, 690 &gt;&gt;
+
+    default:
+        print("Unknown node type!");
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-182">182</a>.</p>
+</div></div>
+<h1 id="section-184"><a class="header" href="#section-184">Section 184</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display box <em>p</em> <a href="./part12.html#section-184">184</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (type(p) == HLIST_NODE) {
+    print_esc("h");
+}
+else if (type(p) == VLIST_NODE) {
+    print_esc("v");
+}
+else {
+    print_esc("unset");
+}
+print("box(");
+print_scaled(height(p));
+print_char('+');
+print_scaled(depth(p));
+print(")x");
+print_scaled(width(p));
+if (type(p) == UNSET_NODE) {
+    // &lt;&lt; Display special fields of the unset node |p|, 185 &gt;&gt;
+}
+else {
+    // &lt;&lt; Display the value of |glue_set(p)|, 186 &gt;&gt;
+    if (shift_amount(p) != 0) {
+        print(", shifted ");
+        print_scaled(shift_amount(p));
+    }
+}
+node_list_display(list_ptr(p)); // recursive call
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-185"><a class="header" href="#section-185">Section 185</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display special fields of the unset node <em>p</em> <a href="./part12.html#section-185">185</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (span_count(p) != MIN_QUARTERWORD) {
+    print(" (");
+    print_int(span_count(p) + 1);
+    print(" columns)");
+}
+if (glue_stretch(p) != 0) {
+    print(", stretch ");
+    print_glue(glue_stretch(p), glue_order(p), "");
+}
+if (glue_shrink(p) != 0) {
+    print(", shrink ");
+    print_glue(glue_shrink(p), glue_sign(p), "");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-184">184</a>.</p>
+</div></div>
+<h1 id="section-186"><a class="header" href="#section-186">Section 186</a></h1>
+<p>The code will have to change in this place if <em>glue_ratio</em> is a structured type instead of an ordinary <em>real</em>.
+Note that this routine should avoid arithmetic errors even if the <em>glue_set</em> field holds an
+arbitrary random value.
+The following code assumes that a properly formed nonzero <em>real</em> number has absolute value <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">20</span></span></span></span></span></span></span></span></span></span></span></span> or more when it is regarded as an integer; this precaution was adequate to prevent floating point underflow on the author’s computer.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The precaution has been removed.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display the value of <em>glue_set(p)</em> <a href="./part12.html#section-186">186</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">g = glue_set(p);
+if (g != 0.0 &amp;&amp; glue_sign(p) != NORMAL) {
+    print(", glue set ");
+    if (glue_sign(p) == SHRINKING) {
+        print("- ");
+    }
+    /* if (abs(mem[p + GLUE_OFFSET].integer) &lt; 0x100000) {
+        print("?.?");
+    } */
+    if (abs(g) &gt; 20000.0) {
+        if (g &gt; 0.0) {
+            print_char('&gt;');
+        }
+        else {
+            print("&lt; -");
+        }
+        print_glue(20000*UNITY, glue_order(p), "");
+    }
+    else {
+        print_glue((scaled)round(UNITY*g), glue_order(p), "");
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-184">184</a>.</p>
+</div></div>
+<h1 id="section-187"><a class="header" href="#section-187">Section 187</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display rule <em>p</em> <a href="./part12.html#section-187">187</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_esc("rule(");
+print_rule_dimen(height(p));
+print_char('+');
+print_rule_dimen(depth(p));
+print(")x");
+print_rule_dimen(width(p));
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-188"><a class="header" href="#section-188">Section 188</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display insertion <em>p</em> <a href="./part12.html#section-188">188</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_esc("insert");
+print_int(subtype(p));
+print(", natural size ");
+print_scaled(height(p));
+print("; split(");
+print_spec(split_top_ptr(p), "");
+print_char(',');
+print_scaled(depth(p));
+print("); float cost ");
+print_int(float_cost(p));
+node_list_display(ins_ptr(p)); // recursive call
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-189"><a class="header" href="#section-189">Section 189</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display glue <em>p</em> <a href="./part12.html#section-189">189</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (subtype(p) &gt;= A_LEADERS) {
+    // &lt;&lt; Display leaders |p|, 190 &gt;&gt;
+}
+else {
+    print_esc("glue");
+    if (subtype(p) != NORMAL) {
+        print_char('(');
+        if (subtype(p) &lt; COND_MATH_GLUE) {
+            print_skip_param(subtype(p) - 1);
+        }
+        else if (subtype(p) == COND_MATH_GLUE) {
+            print_esc("nonscript");
+        }
+        else {
+            print_esc("mskip");
+        }
+        print_char(')');
+    }
+
+    if (subtype(p) != COND_MATH_GLUE) {
+        print_char(' ');
+        if (subtype(p) &lt; COND_MATH_GLUE) {
+            print_spec(glue_ptr(p), "");
+        }
+        else {
+            print_spec(glue_ptr(p), "mu");
+        }
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-190"><a class="header" href="#section-190">Section 190</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display leaders <em>p</em> <a href="./part12.html#section-190">190</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (subtype(p) == C_LEADERS) {
+    print_esc("cleaders ");
+}
+else if (subtype(p) == X_LEADERS) {
+    print_esc("xleaders ");
+}
+else {
+    print_esc("leaders ");
+}
+print_spec(glue_ptr(p), "");
+node_list_display(leader_ptr(p)); // recursive call
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-189">189</a>.</p>
+</div></div>
+<h1 id="section-191"><a class="header" href="#section-191">Section 191</a></h1>
+<p>An “explicit” kern value is indicated implicitly by an explicit space.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display kern <em>p</em> <a href="./part12.html#section-191">191</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (subtype(p) != MU_GLUE) {
+    print_esc("kern");
+    if (subtype(p) != NORMAL) {
+        print_char(' ');
+    }
+    print_scaled(width(p));
+    if (subtype(p) == ACC_KERN) {
+        print(" (for accent)");
+    }
+}
+else {
+    print_esc("mkern");
+    print_scaled(width(p));
+    print("mu");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-192"><a class="header" href="#section-192">Section 192</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display math node <em>p</em> <a href="./part12.html#section-192">192</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_esc("math");
+if (subtype(p) == BEFORE) {
+    print("on");
+}
+else {
+    print("off");
+}
+if (width(p) != 0) {
+    print(", surrounded ");
+    print_scaled(width(p));
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-193"><a class="header" href="#section-193">Section 193</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display ligature <em>p</em> <a href="./part12.html#section-193">193</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_font_and_char(lig_char(p));
+print(" (ligature ");
+if (subtype(p) &gt; 1) {
+    print_char('|');
+}
+font_in_short_display = font(lig_char(p));
+short_display(lig_ptr(p));
+if (odd(subtype(p))) {
+    print_char('|');
+}
+print_char(')');
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-194"><a class="header" href="#section-194">Section 194</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display penalty <em>p</em> <a href="./part12.html#section-194">194</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_esc("penalty ");
+print_int(penalty(p));
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-195"><a class="header" href="#section-195">Section 195</a></h1>
+<p>The <em>post_break</em> list of a discretionary node is indicated by a prefixed ‘<code>|</code>’ instead of the ‘<code>.</code>’ before the <em>pre_break</em> list.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display discretionary <em>p</em> <a href="./part12.html#section-195">195</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_esc("discretionary");
+if (replace_count(p) &gt; 0) {
+    print(" replacing ");
+    print_int(replace_count(p));
+}
+node_list_display(pre_break(p)); // recursive call
+append_char('|');
+show_node_list(post_break(p)); // recursive call
+flush_char;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-196"><a class="header" href="#section-196">Section 196</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display mark <em>p</em> <a href="./part12.html#section-196">196</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_esc("mark");
+print_mark(mark_ptr(p));
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-197"><a class="header" href="#section-197">Section 197</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display adjustment <em>p</em> <a href="./part12.html#section-197">197</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_esc("vadjust");
+node_list_display(adjust_ptr(p)); // recursive call
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-198"><a class="header" href="#section-198">Section 198</a></h1>
+<p>The recursive machinery is started by calling <em>show_box</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">display_boxes.c</div>
+<pre><code class="language-c">void show_box(pointer p) {
+    // &lt;&lt; Assign the values |depth_threshold = show_box_depth| and |breadth_max = show_box_breadth|, 236 &gt;&gt;
+    if (breadth_max &lt;= 0) {
+        breadth_max = 5;
+    }
+    if (pool_ptr + depth_threshold &gt;= POOL_SIZE) {
+        depth_threshold = POOL_SIZE - pool_ptr - 1;
+    } // now there's enough room for prefix string
+    show_node_list(p); // the show starts at |p|
+    print_ln();
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part11.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part13.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part11.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part13.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

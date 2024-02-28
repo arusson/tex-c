@@ -1,0 +1,1117 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 1299–1329 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html" class="active">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-1299-dumping-and-undumping-the-tables"><a class="header" href="#section-1299-dumping-and-undumping-the-tables">Section 1299: Dumping and undumping the tables</a></h1>
+<p>After <code>INITEX</code> has seen a collection of fonts and macros, it can write all the necessary information on an auxiliary file so that production versions of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> are able to initialize their memory at high speed.
+The present section of the program takes care of such output and input.
+We shall consider simultaneously the processes of storing and restoring, so that the inverse relation between them is clear.</p>
+<p>The global variable <em>format_ident</em> is a string that is printed right after the <em>BANNER</em> line when <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is ready to start.
+For <code>INITEX</code> this string says simply ‘<code> (INITEX)</code>’;
+for other versions of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> it says, for example, ‘<code> (preloaded format=plain 1982.11.19)</code>’, showing the year, month, and day that the format file was created.
+We have <em>format_ident = 0</em> before <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s tables are loaded.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">str_number format_ident;
+</code></pre>
+</div>
+<h1 id="section-1300"><a class="header" href="#section-1300">Section 1300</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">format_ident = 0;
+</code></pre>
+</div>
+<h1 id="section-1301"><a class="header" href="#section-1301">Section 1301</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String <code>" (INITEX)"</code> must be added to the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string(" (INITEX)"); // INITEX_IDENT_STRING: 270
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define INITEX_IDENT_STRING 270
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">format_ident = INITEX_IDENT_STRING; // " (INITEX)"
+</code></pre>
+</div>
+<h1 id="section-1302"><a class="header" href="#section-1302">Section 1302</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">dumping.c</div>
+<pre><code class="language-c">#ifdef INIT
+void store_fmt_file() {
+    int j, k, l;   // all-purpose indices
+    pointer p, q;  // all-purpose pointers
+    int x;         // something to dump
+    memory_word w; // four ASCII codes
+    // &lt;&lt; If dumping is not allowed, abort, 1304 &gt;&gt;
+    // &lt;&lt; Create the |format_ident|, open the format file, and inform the user that dumping has begun, 1328 &gt;&gt;
+    // &lt;&lt; Dump constants for consistency check, 1307 &gt;&gt;
+    // &lt;&lt; Dump the string pool, 1309 &gt;&gt;
+    // &lt;&lt; Dump the dynamic memory, 1311 &gt;&gt;
+    // &lt;&lt; Dump the table of equivalents, 1313 &gt;&gt;
+    // &lt;&lt; Dump the font information, 1320 &gt;&gt;
+    // &lt;&lt; Dump the hyphenation tables, 1324 &gt;&gt;
+    // &lt;&lt; Dump a couple more things and the closing check word, 1326 &gt;&gt;
+    // &lt;&lt; Close the format file, 1329 &gt;&gt;
+}
+#endif
+</code></pre>
+</div>
+<h1 id="section-1303"><a class="header" href="#section-1303">Section 1303</a></h1>
+<p>Corresponding to the procedure that dumps a format file, we have a function that reads one in.
+The function returns <em>false</em> if the dumped format is incompatible with the present <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> table sizes, etc.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">#define too_small(X)                            \
+    printf("---! Must increase the %s\n", (X)); \
+    goto bad_fmt
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">dumping.c</div>
+<pre><code class="language-c">bool load_fmt_file() {
+    int j, k;      // all-purpose indices
+    pointer p, q;  // all-purpose pointers
+    int x;         // something undumped
+    memory_word w; // four ASCII codes
+    // &lt;&lt; Undump constants for consistency check, 1308 &gt;&gt;
+    // &lt;&lt; Undump the string pool, 1310 &gt;&gt;
+    // &lt;&lt; Undump the dynamic memory, 1312 &gt;&gt;
+    // &lt;&lt; Undump the table of equivalents, 1314 &gt;&gt;
+    // &lt;&lt; Undump the font information, 1321 &gt;&gt;
+    // &lt;&lt; Undump the hyphenation tables, 1325 &gt;&gt;
+    // &lt;&lt; Undump a couple more things and the closing check word, 1327 &gt;&gt;
+    return true; // it worked!
+bad_fmt:
+    wterm_ln("(Fatal format file error; I'm stymied)");
+    return false;
+}
+</code></pre>
+</div>
+<h1 id="section-1304"><a class="header" href="#section-1304">Section 1304</a></h1>
+<p>The user is not allowed to dump a format file unless <em>save_ptr = 0</em>.
+This condition implies that <em>cur_level = LEVEL_ONE</em>, hence the <em>xeq_level</em> array is constant and it need not be dumped.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If dumping is not allowed, abort <a href="./part50.html#section-1304">1304</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (save_ptr != 0) {
+    print_err("You can't dump inside a group");
+    help1("`{...\\dump}' is a no-no.");
+    succumb();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1302">1302</a>.</p>
+</div></div>
+<h1 id="section-1305"><a class="header" href="#section-1305">Section 1305</a></h1>
+<p>Format files consist of <em>memory_word</em> items, and we use the following macros to dump words of different types:</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>A <em>memory_word</em> is 8 bytes long and an integer is 4 bytes in this implementation.</p>
+<p><em>dump_hh</em> and <em>dump_qqqq</em> are equivalents to <em>dump_wd</em> since those are the same in this implementation (based on a <code>union</code>, see section <a href="./part08.html#section-113">113</a>).</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">#define dump_wd(X)  fwrite(&amp;X, 8, 1, fmt_file)
+#define dump_int(X) putw((X), fmt_file)
+#define dump_hh     dump_wd
+#define dump_qqqq   dump_wd
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">word_file fmt_file; // for input or output of format information
+</code></pre>
+</div>
+<h1 id="section-1306"><a class="header" href="#section-1306">Section 1306</a></h1>
+<p>The inverse macros are slightly more complicated, since we need to check the range of the values we are reading in.
+We say <em>‘undump(a, b, x)’</em> to read an integer value <em>x</em> that is supposed to be in the range <em>a</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>x</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>b</em>.
+System error messages should be suppressed when undumping.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">#define undump_wd(X)  fread(&amp;X, 8, 1, fmt_file)
+#define undump_int(X) fread(&amp;X, 4, 1, fmt_file)
+#define undump_hh     undump_wd
+#define undump_qqqq   undump_wd
+
+#define undump(A, B, X)       \
+    undump_int(x);            \
+    if (x &lt; (A) || x &gt; (B)) { \
+        goto bad_fmt;         \
+    }                         \
+    (X) = x
+
+#define undump_size(A, B, S, X) \
+    undump_int(x);              \
+    if (x &lt; (A)) {              \
+        goto bad_fmt;           \
+    }                           \
+    if (x &gt; (B)) {              \
+        too_small(S);           \
+    }                           \
+    (X) = x
+</code></pre>
+</div>
+<h1 id="section-1307"><a class="header" href="#section-1307">Section 1307</a></h1>
+<p>The next few sections of the program should make it clear how we use the
+dump/undump macros.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump constants for consistency check <a href="./part50.html#section-1307">1307</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">dump_int(0);
+dump_int(MEM_BOT);
+dump_int(MEM_TOP);
+dump_int(EQTB_SIZE);
+dump_int(HASH_PRIME);
+dump_int(HYPH_SIZE);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1302">1302</a>.</p>
+</div></div>
+<h1 id="section-1308"><a class="header" href="#section-1308">Section 1308</a></h1>
+<p>Sections of a <code>WEB</code> program that are “commented out” still contribute strings to the string pool; therefore <code>INITEX</code> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will have the same strings.
+(And it is, of course, a good thing that they do.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Undump constants for consistency check <a href="./part50.html#section-1308">1308</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">undump_int(x);
+if (x != 0) {
+    goto bad_fmt; // check that strings are the same
+}
+undump_int(x);
+if (x != MEM_BOT) {
+    goto bad_fmt;
+}
+undump_int(x);
+if (x != MEM_TOP) {
+    goto bad_fmt;
+}
+undump_int(x);
+if (x != EQTB_SIZE) {
+    goto bad_fmt;
+}
+undump_int(x);
+if (x != HASH_PRIME) {
+    goto bad_fmt;
+}
+undump_int(x);
+if (x != HYPH_SIZE) {
+    goto bad_fmt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1303">1303</a>.</p>
+</div></div>
+<h1 id="section-1309"><a class="header" href="#section-1309">Section 1309</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">#define dump_four_ASCII           \
+    qqqq_b0(w) = str_pool[k];     \
+    qqqq_b1(w) = str_pool[k + 1]; \
+    qqqq_b2(w) = str_pool[k + 2]; \
+    qqqq_b3(w) = str_pool[k + 3]; \
+    dump_qqqq(w)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump the string pool <a href="./part50.html#section-1309">1309</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">dump_int(pool_ptr);
+dump_int(str_ptr);
+for(k = 0; k &lt;= str_ptr; k++) {
+    dump_int(str_start[k]);
+}
+k = 0;
+while (k + 4 &lt; pool_ptr) {
+    dump_four_ASCII;
+    k += 4;
+}
+k = pool_ptr - 4;
+dump_four_ASCII;
+print_ln();
+print_int(str_ptr);
+print(" strings of total length ");
+print_int(pool_ptr);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1302">1302</a>.</p>
+</div></div>
+<h1 id="section-1310"><a class="header" href="#section-1310">Section 1310</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">#define undump_four_ASCII         \
+    undump_qqqq(w);               \
+    str_pool[k] = qqqq_b0(w);     \
+    str_pool[k + 1] = qqqq_b1(w); \
+    str_pool[k + 2] = qqqq_b2(w); \
+    str_pool[k + 3] = qqqq_b3(w)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Undump the string pool <a href="./part50.html#section-1310">1310</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">undump_size(0, POOL_SIZE, "string pool size", pool_ptr);
+undump_size(0, MAX_STRINGS, "max strings", str_ptr);
+for(k = 0; k &lt;= str_ptr; k++) {
+    undump(0, pool_ptr, str_start[k]);
+}
+k = 0;
+while (k + 4 &lt; pool_ptr) {
+    undump_four_ASCII;
+    k += 4;
+}
+k = pool_ptr - 4;
+undump_four_ASCII;
+init_str_ptr = str_ptr;
+init_pool_ptr = pool_ptr;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1303">1303</a>.</p>
+</div></div>
+<h1 id="section-1311"><a class="header" href="#section-1311">Section 1311</a></h1>
+<p>By sorting the list of available spaces in the variable-size portion of <em>mem</em>, we are usually able to get by without having to dump very much of the dynamic memory.</p>
+<p>We recompute <em>var_used</em> and <em>dyn_used</em>, so that <code>INITEX</code> dumps valid information even when it has not been gathering statistics.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump the dynamic memory <a href="./part50.html#section-1311">1311</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">sort_avail();
+var_used = 0;
+dump_int(lo_mem_max);
+dump_int(rover);
+p = MEM_BOT;
+q = rover;
+x = 0;
+do {
+    for(k = p; k &lt;= q + 1; k++) {
+        dump_wd(mem[k]);
+    }
+    x =+ q + 2 - p;
+    var_used += q - p;
+    p = q + node_size(q);
+    q = rlink(q);
+} while (q != rover);
+var_used += lo_mem_max - p;
+dyn_used = mem_end + 1 - hi_mem_min;
+for(k = p; k &lt;= lo_mem_max; k++) {
+    dump_wd(mem[k]);
+}
+x += lo_mem_max + 1 - p;
+dump_int(hi_mem_min);
+dump_int(avail);
+for(k = hi_mem_min; k &lt;= mem_end; k++) {
+    dump_wd(mem[k]);
+}
+x += mem_end + 1 - hi_mem_min;
+p = avail;
+while (p != null) {
+    decr(dyn_used);
+    p = link(p);
+}
+dump_int(var_used);
+dump_int(dyn_used);
+print_ln();
+print_int(x);
+print(" memory locations dumped; current usage is ");
+print_int(var_used);
+print_char('&amp;');
+print_int(dyn_used);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1302">1302</a>.</p>
+</div></div>
+<h1 id="section-1312"><a class="header" href="#section-1312">Section 1312</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>A part of the code has been removed since the condition is never true in this implementation.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Undump the dynamic memory <a href="./part50.html#section-1312">1312</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">undump(LO_MEM_STAT_MAX + 1000, HI_MEM_STAT_MIN - 1, lo_mem_max);
+undump(LO_MEM_STAT_MAX + 1, lo_mem_max, rover);
+p = MEM_BOT;
+q = rover;
+do {
+    for(k = p; k &lt;= q + 1; k++) {
+        undump_wd(mem[k]);
+    }
+    p = q + node_size(q);
+    if (p &gt; lo_mem_max ||
+        (q &gt;= rlink(q) &amp;&amp; rlink(q) != rover))
+    {
+        goto bad_fmt;
+    }
+    q = rlink(q);
+} while (q != rover);
+for(k = p; k &lt;= lo_mem_max; k++) {
+    undump_wd(mem[k]);
+}
+/* This condition is never true in this implementation
+if (MEM_MIN &lt; MEM_BOT - 2) {
+    // make more low memory available
+    p = llink(rover);
+    q = MEM_MIN + 1;
+    link(MEM_MIN) = null;
+    info(MEM_MIN) = null; // we don't use the bottom word
+    rlink(p) = q;
+    llink(rover) = q;
+    rlink(q) = rover;
+    llink(q) = p;
+    link(q) = EMPTY_FLAG;
+    node_size(q) = MEM_BOT - q;
+} */
+undump(lo_mem_max + 1, HI_MEM_STAT_MIN, hi_mem_min);
+undump(null, MEM_TOP, avail);
+mem_end = MEM_TOP;
+for(k = hi_mem_min; k &lt;= mem_end; k++) {
+    undump_wd(mem[k]);
+}
+undump_int(var_used);
+undump_int(dyn_used);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1303">1303</a>.</p>
+</div></div>
+<h1 id="section-1313"><a class="header" href="#section-1313">Section 1313</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump the table of equivalents <a href="./part50.html#section-1313">1313</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Dump regions 1 to 4 of |eqtb|, 1315 &gt;&gt;
+// &lt;&lt; Dump regions 5 and 6 of |eqtb|, 1316 &gt;&gt;
+dump_int(par_loc);
+dump_int(write_loc);
+// &lt;&lt; Dump the hash table, 1318 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1302">1302</a>.</p>
+</div></div>
+<h1 id="section-1314"><a class="header" href="#section-1314">Section 1314</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Undump the table of equivalents <a href="./part50.html#section-1314">1314</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Undump regions 1 to 6 of |eqtb|, 1317 &gt;&gt;
+undump(HASH_BASE, FROZEN_CONTROL_SEQUENCE, par_loc);
+par_token = CS_TOKEN_FLAG + par_loc;
+undump(HASH_BASE, FROZEN_CONTROL_SEQUENCE, write_loc);
+// &lt;&lt; Undump the hash table, 1319 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1303">1303</a>.</p>
+</div></div>
+<h1 id="section-1315"><a class="header" href="#section-1315">Section 1315</a></h1>
+<p>The table of equivalents usually contains repeated information, so we dump it in compressed form: The sequence of <em>n + 2</em> values (<em>n</em>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, <em>m</em>) in the format file represents <em>n + m</em> consecutive entries of <em>eqtb</em>, with <em>m</em> extra copies of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, namely (<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>).</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump regions 1 to 4 of <em>eqtb</em> <a href="./part50.html#section-1315">1315</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">k = ACTIVE_BASE;
+do {
+    j = k;
+    while (j &lt; INT_BASE - 1) {
+        if (equiv(j) == equiv(j + 1)
+            &amp;&amp; eq_type(j) == eq_type(j + 1)
+            &amp;&amp; eq_level(j) == eq_level(j + 1))
+        {
+            goto found1;
+        }
+        incr(j);
+    }
+    l = INT_BASE;
+    goto done1; // |j = INT_BASE - 1|
+found1:
+    incr(j);
+    l = j;
+    while (j &lt; INT_BASE - 1) {
+        if (equiv(j) != equiv(j + 1)
+            || eq_type(j) != eq_type(j + 1)
+            || eq_level(j) != eq_level(j + 1))
+        {
+            goto done1;
+        }
+        incr(j);
+    }
+done1:
+    dump_int(l - k);
+    while (k &lt; l) {
+        dump_wd(eqtb[k]);
+        incr(k);
+    }
+    k = j + 1;
+    dump_int(k - l);
+} while (k != INT_BASE);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1313">1313</a>.</p>
+</div></div>
+<h1 id="section-1316"><a class="header" href="#section-1316">Section 1316</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump regions 5 and 6 of <em>eqtb</em> <a href="./part50.html#section-1316">1316</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">do {
+    j = k;
+    while (j &lt; EQTB_SIZE) {
+        if (eqtb[j].integer == eqtb[j + 1].integer) {
+            goto found2;
+        }
+        incr(j);
+    }
+    l = EQTB_SIZE + 1;
+    goto done2; // |j = EQTB_SIZE|
+found2:
+    incr(j);
+    l = j;
+    while (j &lt; EQTB_SIZE) {
+        if (eqtb[j].integer != eqtb[j + 1].integer) {
+            goto done2;
+        }
+        incr(j);
+    }
+done2:
+    dump_int(l - k);
+    while (k &lt; l) {
+        dump_wd(eqtb[k]);
+        incr(k);
+    }
+    k = j + 1;
+    dump_int(k - l);
+} while (k &lt;= EQTB_SIZE);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1313">1313</a>.</p>
+</div></div>
+<h1 id="section-1317"><a class="header" href="#section-1317">Section 1317</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Undump regions 1 to 6 of <em>eqtb</em> <a href="./part50.html#section-1317">1317</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">k = ACTIVE_BASE;
+do {
+    undump_int(x);
+    if (x &lt; 1 || k + x &gt; EQTB_SIZE + 1) {
+        goto bad_fmt;
+    }
+    for(j = k; j &lt;= k + x - 1; j++) {
+        undump_wd(eqtb[j]);
+    }
+    k += x;
+undump_int(x);
+if (x &lt; 0 || k + x &gt; EQTB_SIZE + 1) {
+    goto bad_fmt;
+}
+for(j = k; j &lt;= k + x - 1; j++) {
+    eqtb[j] = eqtb[k - 1];
+}
+k += x;
+} while (k &lt;= EQTB_SIZE);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1314">1314</a>.</p>
+</div></div>
+<h1 id="section-1318"><a class="header" href="#section-1318">Section 1318</a></h1>
+<p>A different scheme is used to compress the hash table, since its lower
+region is usually sparse.
+When <em>text(p)</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> 0 for <em>p</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>hash_used</em>, we output two words, <em>p</em> and <em>hash[p]</em>.
+The hash table is, of course, densely packed for <em>p</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>hash_used</em>, so the remaining entries are output in a block.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump the hash table <a href="./part50.html#section-1318">1318</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">dump_int(hash_used);
+cs_count = FROZEN_CONTROL_SEQUENCE - 1 - hash_used;
+for(p = HASH_BASE; p &lt;= hash_used; p++) {
+    if (text(p) != 0) {
+        dump_int(p);
+        dump_hh(hash[p]);
+        incr(cs_count);
+    }
+}
+for(p = hash_used + 1; p &lt;= UNDEFINED_CONTROL_SEQUENCE - 1; p++) {
+    dump_hh(hash[p]);
+}
+dump_int(cs_count);
+print_ln();
+print_int(cs_count);
+print(" multiletter control sequences");
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1313">1313</a>.</p>
+</div></div>
+<h1 id="section-1319"><a class="header" href="#section-1319">Section 1319</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Undump the hash table <a href="./part50.html#section-1319">1319</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">undump(HASH_BASE, FROZEN_CONTROL_SEQUENCE, hash_used);
+p = HASH_BASE - 1;
+do {
+    undump(p + 1, hash_used, p);
+    undump_hh(hash[p]);
+} while (p != hash_used);
+for(p = hash_used + 1; p &lt;= UNDEFINED_CONTROL_SEQUENCE - 1; p++) {
+    undump_hh(hash[p]);
+}
+undump_int(cs_count);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1314">1314</a>.</p>
+</div></div>
+<h1 id="section-1320"><a class="header" href="#section-1320">Section 1320</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump the font information <a href="./part50.html#section-1320">1320</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">dump_int(fmem_ptr);
+for(k = 0; k &lt;= fmem_ptr - 1; k++) {
+    dump_wd(font_info[k]);
+}
+dump_int(font_ptr);
+for(k = NULL_FONT; k &lt;= font_ptr; k++) {
+    // &lt;&lt; Dump the array info for internal font number |k|, 1322 &gt;&gt;
+}
+print_ln();
+print_int(fmem_ptr - 7);
+print(" words of font info for ");
+print_int(font_ptr - FONT_BASE);
+print(" preloaded font");
+if (font_ptr != FONT_BASE + 1) {
+    print_char('s');
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1302">1302</a>.</p>
+</div></div>
+<h1 id="section-1321"><a class="header" href="#section-1321">Section 1321</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Undump the font information <a href="./part50.html#section-1321">1321</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">undump_size(7, FONT_MEM_SIZE, "font mem size", fmem_ptr);
+for(k = 0; k &lt;= fmem_ptr - 1; k++) {
+    undump_wd(font_info[k]);
+}
+undump_size(FONT_BASE, FONT_MAX, "font max", font_ptr);
+for(k = NULL_FONT; k &lt;= font_ptr; k++) {
+    // &lt;&lt; Undump the array info for internal font number |k|, 1323 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1303">1303</a>.</p>
+</div></div>
+<h1 id="section-1322"><a class="header" href="#section-1322">Section 1322</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump the array info for internal font number <em>k</em> <a href="./part50.html#section-1322">1322</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">dump_qqqq(font_check[k]);
+dump_int(font_size[k]);
+dump_int(font_dsize[k]);
+dump_int(font_params[k]);
+dump_int(hyphen_char[k]);
+dump_int(skew_char[k]);
+dump_int(font_name[k]);
+dump_int(font_area[k]);
+dump_int(font_bc[k]);
+dump_int(font_ec[k]);
+dump_int(char_base[k]);
+dump_int(width_base[k]);
+dump_int(height_base[k]);
+dump_int(depth_base[k]);
+dump_int(italic_base[k]);
+dump_int(lig_kern_base[k]);
+dump_int(kern_base[k]);
+dump_int(exten_base[k]);
+dump_int(param_base[k]);
+dump_int(font_glue[k]);
+dump_int(bchar_label[k]);
+dump_int(font_bchar[k]);
+dump_int(font_false_bchar[k]);
+print_nl("\\font");
+print_esc_strnumber(font_id_text(k));
+print_char('=');
+print_file_name(font_name[k], font_area[k], EMPTY_STRING);
+if (font_size[k] != font_dsize[k]) {
+    print(" at ");
+    print_scaled(font_size[k]);
+    print("pt");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1320">1320</a>.</p>
+</div></div>
+<h1 id="section-1323"><a class="header" href="#section-1323">Section 1323</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Undump the array info for internal font number <em>k</em> <a href="./part50.html#section-1323">1323</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">undump_qqqq(font_check[k]);
+undump_int(font_size[k]);
+undump_int(font_dsize[k]);
+undump(MIN_HALFWORD, MAX_HALFWORD, font_params[k]);
+undump_int(hyphen_char[k]);
+undump_int(skew_char[k]);
+undump(0, str_ptr, font_name[k]);
+undump(0, str_ptr, font_area[k]);
+undump(0, 255, font_bc[k]);
+undump(0, 255, font_ec[k]);
+undump_int(char_base[k]);
+undump_int(width_base[k]);
+undump_int(height_base[k]);
+undump_int(depth_base[k]);
+undump_int(italic_base[k]);
+undump_int(lig_kern_base[k]);
+undump_int(kern_base[k]);
+undump_int(exten_base[k]);
+undump_int(param_base[k]);
+undump(MIN_HALFWORD, lo_mem_max, font_glue[k]);
+undump(0, fmem_ptr - 1, bchar_label[k]);
+undump(MIN_QUARTERWORD, NON_CHAR, font_bchar[k]);
+undump(MIN_QUARTERWORD, NON_CHAR, font_false_bchar[k]);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1321">1321</a>.</p>
+</div></div>
+<h1 id="section-1324"><a class="header" href="#section-1324">Section 1324</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump the hyphenation tables <a href="./part50.html#section-1324">1324</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">dump_int(hyph_count);
+for(k = 0; k &lt;= HYPH_SIZE; k++) {
+    if (hyph_word[k] != 0) {
+        dump_int(k);
+        dump_int(hyph_word[k]);
+        dump_int(hyph_list[k]);
+    }
+}
+print_ln();
+print_int(hyph_count);
+print(" hyphenation exception");
+if (hyph_count != 1) {
+    print_char('s');
+}
+if (trie_not_ready) {
+    init_trie();
+}
+dump_int(trie_max);
+for(k = 0; k &lt;= trie_max; k++) {
+    dump_hh(trie[k]);
+}
+dump_int(trie_op_ptr);
+for(k = 1; k &lt;= trie_op_ptr; k++) {
+    dump_int(hyf_distance[k]);
+    dump_int(hyf_num[k]);
+    dump_int(hyf_next[k]);
+}
+print_nl("Hyphenation trie of length ");
+print_int(trie_max);
+print(" has ");
+print_int(trie_op_ptr);
+print(" op");
+if (trie_op_ptr != 1) {
+    print_char('s');
+}
+print(" out of ");
+print_int(TRIE_OP_SIZE);
+for(k = 255; k&gt;= 0; k--) {
+    if (trie_used[k] &gt; MIN_QUARTERWORD) {
+        print_nl("  ");
+        print_int(trie_used[k]);
+        print(" for language ");
+        print_int(k);
+        dump_int(k);
+        dump_int(trie_used[k]);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1302">1302</a>.</p>
+</div></div>
+<h1 id="section-1325"><a class="header" href="#section-1325">Section 1325</a></h1>
+<p>Only “nonempty” parts of <em>op_start</em> need to be restored.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Undump the hyphenation tables <a href="./part50.html#section-1325">1325</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">undump(0, HYPH_SIZE, hyph_count);
+for(k = 1; k &lt;= hyph_count; k++) {
+    undump(0, HYPH_SIZE, j);
+    undump(0, str_ptr, hyph_word[j]);
+    undump(MIN_HALFWORD, MAX_HALFWORD, hyph_list[j]);
+}
+undump_size(0, TRIE_SIZE, "trie size", j);
+
+#ifdef INIT
+trie_max = j;
+#endif
+
+for(k = 0; k &lt;= j; k++) {
+    undump_hh(trie[k]);
+}
+undump_size(0, TRIE_OP_SIZE, "trie op size", j);
+
+#ifdef INIT
+trie_op_ptr = j;
+#endif
+
+for(k = 1; k &lt;= j; k++) {
+    undump(0, 63, hyf_distance[k]); // a |small_number|
+    undump(0, 63, hyf_num[k]);
+    undump(MIN_QUARTERWORD, MAX_QUARTERWORD, hyf_next[k]);
+}
+
+#ifdef INIT
+for(k = 0; k &lt;= 255; k++) {
+    trie_used[k] = MIN_QUARTERWORD;
+}
+#endif
+
+k = 256;
+while (j &gt; 0) {
+    undump(0, k - 1, k);
+    undump(1, j, x);
+
+#ifdef INIT
+    trie_used[k] = x;
+#endif
+
+    j -= x;
+    op_start[k] = j;
+}
+
+#ifdef INIT
+trie_not_ready = false;
+#endif
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1303">1303</a>.</p>
+</div></div>
+<h1 id="section-1326"><a class="header" href="#section-1326">Section 1326</a></h1>
+<p>We have already printed a lot of statistics, so we set <em>tracing_stats ← 0</em> to prevent them from appearing again.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Dump a couple more things and the closing check word <a href="./part50.html#section-1326">1326</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">dump_int(interaction);
+dump_int(format_ident);
+dump_int(69069);
+tracing_stats = 0;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1302">1302</a>.</p>
+</div></div>
+<h1 id="section-1327"><a class="header" href="#section-1327">Section 1327</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Undump a couple more things and the closing check word <a href="./part50.html#section-1327">1327</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">undump(BATCH_MODE, ERROR_STOP_MODE, interaction);
+undump(0, str_ptr, format_ident);
+undump_int(x);
+if (x != 69069) {
+    goto bad_fmt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1303">1303</a>.</p>
+</div></div>
+<h1 id="section-1328"><a class="header" href="#section-1328">Section 1328</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Create the <em>format_ident</em>, open the format file, and inform the user that dumping has begun <a href="./part50.html#section-1328">1328</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">selector = NEW_STRING;
+print(" (preloaded format=");
+print_strnumber(job_name);
+print_char(' ');
+print_int(year);
+print_char('.');
+print_int(month);
+print_char('.');
+print_int(day);
+print_char(')');
+if (interaction == BATCH_MODE) {
+    selector = LOG_ONLY;
+}
+else {
+    selector = TERM_AND_LOG;
+}
+str_room(1);
+format_ident = make_string();
+pack_job_name(FORMAT_EXTENSION);
+while (!w_open_out(&amp;fmt_file)) {
+    prompt_file_name("format file name", FORMAT_EXTENSION);
+}
+print_nl("Beginning to dump on file ");
+slow_print(make_name_string());
+flush_string;
+print_nl("");
+slow_print(format_ident);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1302">1302</a>.</p>
+</div></div>
+<h1 id="section-1329"><a class="header" href="#section-1329">Section 1329</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Close the format file <a href="./part50.html#section-1329">1329</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">w_close(fmt_file);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part50.html#section-1302">1302</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part49.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part51.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part49.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part51.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

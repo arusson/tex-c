@@ -1,0 +1,587 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 25–37 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html" class="active">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-25-input-and-output"><a class="header" href="#section-25-input-and-output">Section 25: Input and output</a></h1>
+<p>The bane of portability is the fact that different operating systems treat input and output quite differently, perhaps because computer scientists have not given sufficient attention to this problem.
+People have felt somehow that input and output are not part of “real” programming.
+Well, it is true that some kinds of programming are more fun than others.
+With existing input/output conventions being so diverse and so messy, the only sources of
+joy in such parts of the code are the rare occasions when one can find a way to make the program a little less bad than it might have been.
+We have two choices, either to attack I/O now and get it over with, or to postpone I/O until near the end. Neither prospect is very attractive, so let’s get it over with.</p>
+<p>The basic operations we need to do are (1) inputting and outputting of text, to or from a file or the user’s terminal; (2) inputting and outputting of eigh  bit bytes, to or from a file; (3)  instructing the operating system to initiate (“open”) or to terminate (“close”) input or output from a specified file; (4) testing whether the end of an input file has been reached.</p>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> needs to deal with two kinds of files.
+We shall use the term <em>alpha_file</em> for a file that contains textual data, and the term <em>byte_file</em> for a file that contains eight-bit binary information.
+These two types turn out to be the same on many computers, but sometimes there is a significant distinction, so we shall be careful to distinguish between them. Standard protocols for transferring such files from computer to computer, via high-speed networks, are now becoming available to more and more communities of users.</p>
+<p>The program actually makes use also of a third kind of file, called a <em>word_file</em>, when dumping and reloading base information for its own initialization.
+We shall define a word file later; but it will be possible for us to specify simple operations on word files before they are defined.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Types in the outer block <a href="./part02.html#section-18">18</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">typedef unsigned char eight_bits; // unsigned one-byte quantity
+typedef FILE* alpha_file;         // files that contain textual data
+typedef FILE* byte_file;          // files that contain binary data
+</code></pre>
+</div>
+<h1 id="section-26"><a class="header" href="#section-26">Section 26</a></h1>
+<p>Most of what we need to do with respect to input and output can be handled by the I/O facilities that are standard in Pascal, i.e., the routines called <em>get</em>, <em>put</em>, <em>eof</em>, and so on.
+But standard Pascal does not allow file variables to be associated with file names that are determined at run time, so it cannot be used to implement <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>; some sort of extension to Pascal’s ordinary <em>reset</em> and <em>rewrite</em> is crucial for our purposes.
+We shall assume that <em>name_of_file</em> is a variable of an appropriate type such that the Pascal run-time system being used to implement <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> can open a file whose external name is specified by
+<em>name_of_file</em>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Compared to the original code, <em>name_of_file</em> is indexed from 0.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">char name_of_file[FILE_NAME_SIZE + 1]; // extra byte for null byte
+int name_length; // this many characters are actually relevant in |name_of_file| (the rest are blank)
+</code></pre>
+</div>
+<h1 id="section-27"><a class="header" href="#section-27">Section 27</a></h1>
+<p>The Pascal-H compiler with which the present version of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> was prepared has extended the rules of Pascal in a very convenient way.
+To open file <em>f</em>, we can write</p>
+<div align="center">
+<div style="text-align: left; display:inline-block;">
+<p><em>reset</em>(<em>f</em>, <em>name</em>, <code>'/O'</code>) for input;<br>
+<em>rewrite</em>(<em>f</em>, <em>name</em>, <code>'/O'</code>) for output.</p>
+</div>
+</div>
+<p>The <em>‘name’</em> parameter, which is of type ‘<strong>packed array</strong>[<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⟨</span></span></span></span><em>any</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">⟩</span></span></span></span>] <strong>of</strong> <em>char</em>’, stands for the name of the external file that is being opened for input or output.
+Blank spaces that might appear in <em>‘name’</em> are ignored.</p>
+<p>The ‘<code>/O</code>’ parameter tells the operating system not to issue its own error messages if something goes wrong.
+If a file of the specified name cannot be found, or if such a file cannot be opened for some other reason (e.g., someone may already be trying to write the same file), we will have <em>erstat(f)</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> <em>0</em> after an unsuccessful <em>reset</em> or <em>rewrite</em>.
+This allows <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> to undertake appropriate corrective action.</p>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s file-opening procedures return <em>false</em> if no file identified by <em>name_of_file</em> could be opened.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>fopen</em> is used with the different arguments <em>r</em>, <em>w</em>, <em>rb</em> and <em>wb</em> depending the type of file manipulated.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">files.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |files.c|, 1382 &gt;&gt;
+
+// open a text file for input
+int a_open_in(alpha_file *f) {
+    *f = fopen(name_of_file, "r");
+    return *f != NULL;
+}
+
+// open a text file for output
+int a_open_out(alpha_file *f) {
+    *f = fopen(name_of_file, "w");
+    return *f != NULL;
+}
+
+// open a binary file for input
+int b_open_in(byte_file *f) {
+    *f = fopen(name_of_file, "rb");
+    return *f != NULL;
+}
+
+// open a binary file for output
+int b_open_out(byte_file *f) {
+    *f = fopen(name_of_file, "wb");
+    return *f != NULL;
+}
+
+// open a word file for input
+int w_open_in(word_file *f) {
+    *f = fopen(name_of_file, "rb");
+    return *f != NULL;
+}
+
+// open a word file for output
+int w_open_out(word_file *f) {
+    *f = fopen(name_of_file, "wb");
+    return *f != NULL;
+}
+</code></pre>
+</div>
+<h1 id="section-28"><a class="header" href="#section-28">Section 28</a></h1>
+<p>Files can be closed with the Pascal-H routine <em>‘close(f)’</em>, which should be used when all input or output with respect to <em>f</em> has been completed.
+This makes <em>f</em> available to be opened again, if desired; and if <em>f</em> was used for output, the <em>close</em> operation makes the corresponding external file appear on the user’s area, ready to be read.</p>
+<p>These procedures should not generate error messages if a file is being closed before it has been successfully opened.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>And <em>fclose</em> for all type of files.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">files.c</div>
+<pre><code class="language-c">// close a text file
+void a_close(alpha_file f) {
+    fclose(f);
+}
+
+// close a binary file
+void b_close(byte_file f) {
+    fclose(f);
+}
+
+// close a word file
+void w_close(word_file f) {
+    fclose(f);
+}
+</code></pre>
+</div>
+<h1 id="section-29"><a class="header" href="#section-29">Section 29</a></h1>
+<p>Binary input and output are done with Pascal’s ordinary <em>get</em> and <em>put</em> procedures, so we don’t have to make any other special arrangements for binary I/O.
+Text output is also easy to do with standard Pascal routines.
+The treatment of text input is more difficult, however, because of the necessary translation to <em>ASCII_code</em> values.
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s conventions should be efficient, and they should blend nicely with the user’s operating environment.</p>
+<h1 id="section-30"><a class="header" href="#section-30">Section 30</a></h1>
+<p>Input from text files is read one line at a time, using a routine called <em>input_ln</em>.
+This function is defined in terms of global variables called <em>buffer</em>, <em>first</em>, and <em>last</em> that will be described in detail later; for now, it suffices for us to know that <em>buffer</em> is an array of <em>ASCII_code</em> values, and that <em>first</em> and <em>last</em> are indices into this array representing the beginning and ending of a line of text.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">ASCII_code buffer[BUF_SIZE + 1]; // lines of character being read
+int first;                       // the first unused position in |buffer|
+int last;                        // end of the line just input to |buffer|
+int max_buf_stack;               // largest index used in |buffer|
+</code></pre>
+</div>
+<h1 id="section-31"><a class="header" href="#section-31">Section 31</a></h1>
+<p>The <em>input_ln</em> function brings the next line of input from the specified file into available positions of the buffer array and returns the value <em>true</em>, unless the file has already been entirely read, in which case it returns <em>false</em> and sets <em>last ← first</em>.
+In general, the <em>ASCII_code</em> numbers that represent the next line of the file are input into
+<em>buffer[first]</em>, <em>buffer[first + 1]</em>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span>, <em>buffer[last − 1]</em>;
+and the global variable <em>last</em> is set equal to <em>first</em> plus the length of the line.
+Trailing blanks are removed from the line; thus, either <em>last = first</em> (in which case the line was entirely blank) or <em>buffer[last − 1]</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span></span></span></span> ‘␣’.</p>
+<p>An overflow error is given, however, if the normal actions of <em>input_ln</em> would make <em>last</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>BUF_SIZE</em>;
+this is done so that other parts of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> can safely look at the contents of <em>buffer[last + 1]</em> without overstepping the bounds of the <em>buffer</em> array.
+Upon entry to <em>input_ln</em>, the condition <em>first &lt; BUF_SIZE</em> will always hold, so that there is always room for an “empty” line.</p>
+<p>The variable <em>max_buf_stack</em>, which is used to keep track of how large the <em>BUF_SIZE</em> parameter must be to accommodate the present job, is also kept up to date by <em>input_ln</em>.</p>
+<p>If the <em>bypass_eoln</em> parameter is <em>true</em>, <em>input_ln</em> will do a <em>get</em> before looking at the first character of the line; this skips over an <em>eoln</em> that was in <em>f↑</em>.
+The procedure does not do a <em>get</em> when it reaches the end of the line; therefore it can be used to acquire input from the user’s terminal as well as from ordinary text files.</p>
+<p>Standard Pascal says that a file should have <em>eoln</em> immediately before <em>eof</em>, but <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> needs only a weaker restriction:
+If <em>eof</em> occurs in the middle of a line, the system function <em>eoln</em> should return a <em>true</em> result (even though <em>f↑</em> will be undefined).</p>
+<p>Since the inner loop of <em>input_ln</em> is part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s “inner loop”—each character of input comes in at this place—it is wise to reduce system overhead by making use of special routines that read in an entire array of characters at once, if such routines are available.
+The following code uses standard Pascal to illustrate what needs to be done, but finer tuning is often possible at well-developed Pascal sites.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The <code>bypass_eoln</code> boolean has been removed.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">files.c</div>
+<pre><code class="language-c">// inputs the next line or returns |false|
+int input_ln(alpha_file f) {
+    int last_nonblank; // |last| with trailing blanks removed
+    int c;
+
+    last = first;
+    last_nonblank = first;
+    while ((c = fgetc(f)) != '\n' &amp;&amp; c != EOF) {
+        if (last &gt;= max_buf_stack) {
+            max_buf_stack = last + 1;
+            if (max_buf_stack == BUF_SIZE) {
+                // &lt;&lt; Report overflow of the input buffer, and abort, 35 &gt;&gt;
+            }
+        }
+        buffer[last] = XORD[c];
+        incr(last);
+        if (buffer[last - 1] != ' ') {
+            last_nonblank = last;
+        }
+    }
+    if (c == EOF &amp;&amp; last == first) {
+        return false;
+    }
+    last = last_nonblank;
+    return true;
+}
+</code></pre>
+</div>
+<h1 id="section-32"><a class="header" href="#section-32">Section 32</a></h1>
+<p>The user’s terminal acts essentially like other files of text, except that it is used both for input and for output.
+When the terminal is considered an input file, the file variable is called <em>term_in</em>, and when it is considered an output file the file variable is <em>term_out</em>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Terminal is not manipulated with <em>alpha_file</em>.</p>
+</blockquote>
+</div>
+<h1 id="section-33"><a class="header" href="#section-33">Section 33</a></h1>
+<p>Here is how to open the terminal files in Pascal-H.
+The ‘<code>/I</code>’ switch suppresses the first <em>get</em>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>See section <a href="./part03.html#section-32">32</a>.</p>
+</blockquote>
+</div>
+<h1 id="section-34"><a class="header" href="#section-34">Section 34</a></h1>
+<p>Sometimes it is necessary to synchronize the input/output mixture that happens on the user’s terminal, and three system-dependent procedures are used for this purpose.
+The first of these, <em>update_terminal</em>, is called when we want to make sure that everything we have output to the terminal so far has actually left the computer’s internal buffers and been sent.
+The second, <em>clear_terminal</em>, is called when we wish to cancel any input that the user may have typed ahead (since we are about to issue an unexpected error message).
+The third, <em>wake_up_terminal</em>, is supposed to revive the terminal if the user has disabled it by
+some instruction to the operating system.
+The following macros show how these operations can be specified in Pascal-H:</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>wake_up_terminal</em> is not used, and <em>clear_terminal</em> has not been considered important so it does nothing.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |io.h|, 1381 &gt;&gt;
+
+#define update_terminal fflush(stdout)
+#define clear_terminal do_nothing
+</code></pre>
+</div>
+<h1 id="section-35"><a class="header" href="#section-35">Section 35</a></h1>
+<p>We need a special routine to read the first line of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> input from the user’s terminal.
+This line is different because it is read before we have opened the transcript file; there is sort of a “chicken and egg” problem here.
+If the user types ‘<code>\input paper</code>’ on the first line, or if some macro invoked by that line does such an <code>\input</code>, the transcript file will be named ‘<code>paper.log</code>’; but if no <code>\input</code> commands are performed during the first line of terminal input, the transcript file will acquire its default name ‘<code>texput.log</code>’.
+(The transcript file will not contain error messages generated by the first line before the first <code>\input</code> command.)</p>
+<p>The first line is even more special if we are lucky enough to have an operating system that treats <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> differently from a run-of-the-mill Pascal object program.
+It’s nice to let the user start running a <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> job by typing a command line like ‘<code>tex paper</code>’;
+in such a case, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will operate as if the first line of input were ‘<code>paper</code>’, i.e., the first line will consist of the remainder of the command line, after the part that invoked <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.</p>
+<p>The first line is special also because it may be read before <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> has input a format file.
+In such cases, normal error messages cannot yet be given. The following code uses concepts that will be explained later.
+(If the Pascal compiler does not support non-local <strong>goto</strong>, the statement ‘<strong>goto</strong> <em>final_end</em>’ should be replaced by something that quietly terminates the program.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report overflow of the input buffer, and abort <a href="./part03.html#section-35">35</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (format_ident == 0) {
+    printf("Buffer size exceeded!\n");
+    exit(0); // Goto final_end
+}
+else {
+    cur_input.loc_field = first;
+    cur_input.limit_field = last - 1;
+    overflow("buffer size", BUF_SIZE);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part03.html#section-31">31</a>, and <a href="./part03.html#section-37">37</a>.</p>
+</div></div>
+<h1 id="section-36"><a class="header" href="#section-36">Section 36</a></h1>
+<p>Different systems have different ways to get started.
+But regardless of what conventions are adopted, the routine that initializes the terminal should satisfy the following specifications:</p>
+<ol>
+<li>
+<p>It should open file <em>term_in</em> for input from the terminal.
+(The file <em>term_out</em> will already be open for output to the terminal.)</p>
+</li>
+<li>
+<p>If the user has given a command line, this line should be considered the
+first line of terminal input. Otherwise the user should be prompted with
+‘<code>**</code>’, and the first line of input should be whatever is typed in response.</p>
+</li>
+<li>
+<p>The first line of input, which might or might not be a command line,
+should appear in locations <em>first</em> to <em>last − 1</em> of the <em>buffer</em> array.</p>
+</li>
+<li>
+<p>The global variable <em>loc</em> should be set so that the character
+to be read next by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is in <em>buffer[loc]</em>. This character should not
+be blank, and we should have <em>loc</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>last</em>.</p>
+</li>
+</ol>
+<p>(It may be necessary to prompt the user several times before a non-blank line comes in.
+The prompt is ‘<code>**</code>’ instead of the later ‘<code>*</code>’ because the meaning is slightly different: ‘<code>\input</code>’ need not be typed immediately after ‘<code>**</code>’.)</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">#define loc cur_input.loc_field // location of first unread character in buffer
+</code></pre>
+</div>
+<h1 id="section-37"><a class="header" href="#section-37">Section 37</a></h1>
+<p>The following program does the required initialization without retrieving a possible command line.
+It should be clear how to modify this routine to deal with command lines, if the system permits them.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>This procedure is adapted so the arguments of the command line are copied into <em>buffer</em> one by one (a single space is added between arguments).
+This copy is based on <em>input_ln</em>, and the code that follows issue the original loop of <em>init_terminal</em>:
+Then, <em>buffer[loc]</em> will point to the first nonblank character of the commande line (in case the user typed <code>tex " paper.tex"</code> for example), and <em>buffer[last − 1]</em> to the last nonblank character.
+In case the input filename has not been provided, then we fall back into the original code using the <em>input_ln</em> function with <em>stdin</em> as input (with interverted code to avoid a call to <em>input_ln</em> if the command line was not empty).</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">init_cleanup.c</div>
+<pre><code class="language-c">// gets the terminal input started
+bool init_terminal(int argc, char *argv[]) {
+    int last_nonblank; // |last| with trailing blanks removed
+    int i; // index into |argv|
+    int j; // indox into an argument of |argv|
+    int n; // length of an argument
+
+    // The code below does the same thing as |input_ln|
+    last = first;
+    last_nonblank = first;
+    for(i = 1; i &lt; argc; i++) {
+        n = strlen(argv[i]);
+        if (last &gt;= max_buf_stack) {
+            max_buf_stack = last + n + 1; // a single space is added between arguments
+            if (max_buf_stack &gt;= BUF_SIZE) {
+                // &lt;&lt; Report overflow of the input buffer, and abort, 35 &gt;&gt;
+            }
+        }
+        for(j = 0; j &lt; n; j++) {
+            buffer[last] = XORD[(int)argv[i][j]];
+            incr(last);
+            if (buffer[last - 1] != ' ') {
+                last_nonblank = last;
+            }
+        }
+        buffer[last] = ' ';
+        incr(last);
+    }
+    last = last_nonblank;
+    
+    // the (adapted) original loop
+    while (true) {
+        loc = first;
+        while (loc &lt; last &amp;&amp; buffer[loc] == ' ') {
+            incr(loc);
+        }
+        if (loc &lt; last) {
+            return true;
+        }
+        printf("Please type the name of your input file.\n");
+        printf("**");
+        update_terminal;
+        if (!input_ln(stdin)) {
+            // this should'nt happen
+            printf("\n!End of file on the terminal... why?");
+            return false;
+        }
+    }
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part02.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part04.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part02.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part04.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

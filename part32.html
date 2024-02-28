@@ -1,0 +1,1732 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 592–643 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html" class="active">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-592-shipping-pages-out"><a class="header" href="#section-592-shipping-pages-out">Section 592: Shipping pages out</a></h1>
+<p>After considering <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s eyes and stomach, we come now to the bowels.</p>
+<p>The <em>ship_out</em> procedure is given a pointer to a box; its mission is to describe that box in <code>DVI</code> form, outputting a “page” to <em>dvi_file</em>.
+The <code>DVI</code> coordinates <em>(h,v) = (0,0)</em> should correspond to the upper left corner of the box being shipped.</p>
+<p>Since boxes can be inside of boxes inside of boxes, the main work of <em>ship_out</em> is done by two mutually recursive routines, <em>hlist_out</em> and <em>vlist_out</em>, which traverse the hlists and vlists inside of horizontal and vertical boxes.</p>
+<p>As individual pages are being processed, we need to accumulate information about the entire set of pages, since  statistics must be reported in the postamble.
+The global variables <em>total_pages</em>, <em>max_v</em>, <em>max_h</em>, <em>max_push</em>, and <em>last_bop</em> are used to record this information.</p>
+<p>The variable <em>doing_leaders</em> is <em>true</em> while leaders are being output.
+The variable <em>dead_cycles</em> contains the number of times an output routine has been initiated since the last <em>ship_out</em>.</p>
+<p>A few additional global variables are also defined here for use in <em>vlist_out</em> and <em>hlist_out</em>.
+They could have been local variables, but that would waste stack space when boxes are deeply nested, since the values of these variables are not needed during recursive calls.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int total_pages;    // the number of pages that have been shipped out
+scaled max_v;       // maximum height-plus-depth of pages shipped so far
+scaled max_h;       // maximum width of pages shipped so far
+int max_push;       // deepest nesting of |PUSH| commands encountered so far
+int last_bop;       // location of previous |BOP| in the `DVI` output
+int dead_cycles;    // recent outputs that didn't ship anything out
+bool doing_leaders; // are we inside a leader box?
+
+quarterword c, f;                 // character and font in current |CHAR_NODE|
+scaled rule_ht, rule_dp, rule_wd; // size of current rule being output
+pointer g;                        // current glue specification
+int lq, lr;                       // quantities used in calculations for leaders
+</code></pre>
+</div>
+<h1 id="section-593"><a class="header" href="#section-593">Section 593</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">total_pages = 0;
+max_v = 0;
+max_h = 0;
+max_push = 0;
+last_bop = -1;
+doing_leaders = false;
+dead_cycles = 0;
+cur_s = -1;
+</code></pre>
+</div>
+<h1 id="section-594"><a class="header" href="#section-594">Section 594</a></h1>
+<p>The <code>DVI</code> bytes are output to a buffer instead of being written directly to the output file.
+This makes it possible to reduce the overhead of subroutine calls, thereby measurably speeding up the computation, since output of <code>DVI</code> bytes is part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop.
+And it has another advantage as well, since we can change instructions in the buffer in order to make the output more compact.
+For example, a <em>‘DOWN2’</em> command can be changed to a <em>‘Y2’</em>, thereby making a subsequent <em>‘Y0’</em> command possible, saving two bytes.</p>
+<p>The output buffer is divided into two parts of equal size; the bytes found in <em>dvi_buf[0 .. half_buf − 1]</em> constitute the first half, and those in <em>dvi_buf[half_buf .. DVI_BUF_SIZE − 1]</em> constitute the second.
+The global variable <em>dvi_ptr</em> points to the position that will receive the next output byte.
+When <em>dvi_ptr</em> reaches <em>dvi_limit</em>, which is always equal to one of the two values <em>half_buf</em> or <em>DVI_BUF_SIZE</em>, the half buffer that is about to be invaded next is sent to the output and <em>dvi_limit</em> is changed to its other value.
+Thus, there is always at least a half buffer’s worth of information present, except at the very beginning of the job.</p>
+<p>Bytes of the <code>DVI</code> file are numbered sequentially starting with 0;
+the next byte to be generated will be number <em>dvi_offset + dvi_ptr</em>.
+A byte is present in the buffer only if its number is  <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>dvi_gone</em>.</p>
+<h1 id="section-595"><a class="header" href="#section-595">Section 595</a></h1>
+<p>Some systems may find it more efficient to make <em>dvi_buf</em> a <strong>packed</strong> array, since output of four bytes at once may be facilitated.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">eight_bits dvi_buf[DVI_BUF_SIZE + 1]; // buffer for `DVI` output
+int half_buf;   // half of |DVI_BUF_SIZE|
+int dvi_limit;  // end of the current half buffer
+int dvi_ptr;    // the next available buffer address
+int dvi_offset; // |DVI_BUF_SIZE| times the number of times the output buffer has been fully emptied
+int dvi_gone;   // the number of bytes already output to |dvi_file|
+</code></pre>
+</div>
+<h1 id="section-596"><a class="header" href="#section-596">Section 596</a></h1>
+<p>Initially the buffer is all in one piece; we will output half of it only after it first fills up.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">half_buf = DVI_BUF_SIZE / 2;
+dvi_limit = DVI_BUF_SIZE;
+dvi_ptr = 0;
+dvi_offset = 0;
+dvi_gone = 0;
+</code></pre>
+</div>
+<h1 id="section-597"><a class="header" href="#section-597">Section 597</a></h1>
+<p>The actual output of <em>dvi_buf[a .. b]</em> to <em>dvi_file</em> is performed by calling <em>write_dvi(a, b)</em>.
+For best results, this procedure should be optimized to run as fast as possible on each particular system, since   is part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop.
+It is safe to assume that <em>a</em> and <em>b + 1</em> will both be multiples of 4 when <em>write_dvi(a, b)</em> is called; therefore it is possible on many machines to use efficient methods to pack four bytes per word and to output an array of words with one system call.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |dvi.c|, 1382 &gt;&gt;
+
+void write_dvi(int a, int b) {
+    int k;
+    for(k = a; k &lt;= b; k++) {
+        write_byte(dvi_file, dvi_buf[k]);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-598"><a class="header" href="#section-598">Section 598</a></h1>
+<p>To put a byte in the buffer without paying the cost of invoking a procedure
+each time, we use the macro <em>dvi_out</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.h</div>
+<pre><code class="language-c">#define dvi_out(X)                  \
+    do {                            \
+        dvi_buf[dvi_ptr] = (X);     \
+        incr(dvi_ptr);              \
+        if (dvi_ptr == dvi_limit) { \
+            dvi_swap();             \
+        }                           \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.c</div>
+<pre><code class="language-c">// outputs half of the buffer
+void dvi_swap() {
+    if (dvi_limit == DVI_BUF_SIZE) {
+        write_dvi(0, half_buf - 1);
+        dvi_limit = half_buf;
+        dvi_offset += DVI_BUF_SIZE;
+        dvi_ptr = 0;
+    }
+    else {
+        write_dvi(half_buf, DVI_BUF_SIZE - 1);
+        dvi_limit = DVI_BUF_SIZE;
+    }
+    dvi_gone += half_buf;
+}
+</code></pre>
+</div>
+<h1 id="section-599"><a class="header" href="#section-599">Section 599</a></h1>
+<p>Here is how we clean out the buffer when <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is all through; <em>dvi_ptr</em> will be a multiple of 4.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Empty the last bytes out of <em>dvi_buf</em> <a href="./part32.html#section-599">599</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (dvi_limit == half_buf) {
+    write_dvi(half_buf, DVI_BUF_SIZE - 1);
+}
+if (dvi_ptr &gt; 0) {
+    write_dvi(0, dvi_ptr - 1);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-642">642</a>.</p>
+</div></div>
+<h1 id="section-600"><a class="header" href="#section-600">Section 600</a></h1>
+<p>The <em>dvi_four</em> procedure outputs four bytes in two’s complement notation, without risking arithmetic overflow.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.c</div>
+<pre><code class="language-c">void dvi_four(int x) {
+    if (x &gt;= 0) {
+        dvi_out(x / 0x1000000);
+    }
+    else {
+        x += 0x40000000;
+        x += 0x40000000;
+        dvi_out(x / 0x1000000 + 128);
+    }
+    x %= 0x1000000;
+    dvi_out(x / 0x10000);
+    x %= 0x10000;
+    dvi_out(x / 256);
+    dvi_out(x % 256);
+}
+</code></pre>
+</div>
+<h1 id="section-601"><a class="header" href="#section-601">Section 601</a></h1>
+<p>A mild optimization of the output is performed by the <em>dvi_pop</em> routine, which issues a <em>POP</em> unless it is possible to cancel a <em>‘PUSH</em> <em>POP’</em> pair.
+The parameter to <em>dvi_pop</em> is the byte address following the old <em>PUSH</em> that matches the new <em>POP</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.c</div>
+<pre><code class="language-c">void dvi_pop(int l) {
+    if (l == dvi_offset + dvi_ptr &amp;&amp; dvi_ptr &gt; 0) {
+        decr(dvi_ptr);
+    }
+    else {
+        dvi_out(POP);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-602"><a class="header" href="#section-602">Section 602</a></h1>
+<p>Here’s a procedure that outputs a font definition.
+Since <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span><span class="mord">82</span></span></span></span> uses at most 256 different fonts per job, <em>FNT_DEF1</em> is always used as the command code.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.c</div>
+<pre><code class="language-c">void dvi_font_def(internal_font_number f) {
+    int k; // index into |str_pool|
+    dvi_out(FNT_DEF1);
+    dvi_out(f - FONT_BASE - 1);
+    dvi_out(qqqq_b0(font_check[f]));
+    dvi_out(qqqq_b1(font_check[f]));
+    dvi_out(qqqq_b2(font_check[f]));
+    dvi_out(qqqq_b3(font_check[f]));
+    dvi_four(font_size[f]);
+    dvi_four(font_dsize[f]);
+    dvi_out(length(font_area[f]));
+    dvi_out(length(font_name[f]));
+    // &lt;&lt; Output the font name whose internal number is |f|, 603 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-603"><a class="header" href="#section-603">Section 603</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output the font name whose internal number is <em>f</em> <a href="./part32.html#section-603">603</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">for(k = str_start[font_area[f]]; k &lt; str_start[font_area[f] + 1]; k++) {
+    dvi_out(str_pool[k]);
+}
+for(k = str_start[font_name[f]]; k &lt; str_start[font_name[f] + 1]; k++) {
+    dvi_out(str_pool[k]);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-602">602</a>.</p>
+</div></div>
+<h1 id="section-604"><a class="header" href="#section-604">Section 604</a></h1>
+<p>Versions of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> intended for small computers might well choose to omit the ideas in the next few parts of this program, since it is not really necessary to optimize the <code>DVI</code> code by making use of the <em>W0</em>, <em>X0</em>,
+<em>Y0</em>, and <em>Z0</em> commands.
+Furthermore, the algorithm that we are about to describe does not pretend to give an optimum reduction in the length of the <code>DVI</code> code; after all, speed is more important than compactness.
+But the method is surprisingly effective, and it takes comparatively little time.</p>
+<p>We can best understand the basic idea by first considering a simpler problem that has the same essential characteristics.
+Given a sequence of digits, say <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">9</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">9</span></span></span></span>, we want to assign subscripts <em>d</em>, <em>y</em>, or <em>z</em> to each digit so as to maximize the number of “<em>y</em>-hits” and “<em>z</em>-hits”;
+a <em>y</em>-hit is an instance of two appearances of the same digit with the subscript <em>y</em>, where no <em>y</em>’s intervene between the two appearances, and a <em>z</em>-hit is defined similarly.
+For example, the sequence above could be decorated with subscripts as follows:</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9305em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">4</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">5</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">9</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">6</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">5</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">5</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">8</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">9</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">.</span></span></span></span></span></p>
+<p>There are three <em>y</em>-hits <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord">5</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">5</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">5</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> and one <em>z</em>-hit <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>;
+there are no <em>d</em>-hits, since the two appearances of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">9</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> have <em>d</em>’s between them, but we don’t count <em>d</em>-hits so  it doesn’t matter how many there are.
+These subscripts are analogous to the <code>DVI</code> commands called <em>DOWN</em>, <em>Y</em>, and <em>Z</em>, and the digits are analogous to different amounts of vertical motion;
+a <em>y</em>-hit or <em>z</em>-hit corresponds to the opportunity to use the one-byte commands <em>Y0</em> or <em>Z0</em> in a <code>DVI</code> file.</p>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s method of assigning subscripts works like this: Append a new digit, say <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>, to the right of the sequence.
+Now look back through the sequence until one of the following things happens:
+(a) You see <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> or <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, and this was the first time you encountered a <em>y</em> or <em>z</em> subscript, respectively.
+Then assign <em>y</em> or <em>z</em> to the new <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>; you have scored a hit.
+(b) You see <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, and no <em>y</em>
+subscripts have been encountered so far during this search.
+Then change the previous <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> (this corresponds to changing a command in the output buffer), and assign <em>y</em> to the new <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>; it’s another hit.
+(c) You see <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, and a <em>y</em> subscript has been seen but not a <em>z</em>.
+Change the previous <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and assign <em>z</em> to the new <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>.
+(d) You encounter both <em>y</em> and <em>z</em> subscripts before encountering a suitable <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>, or you scan all the way to the front of the sequence.
+Assign <em>d</em> to the new <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>; this assignment may be changed later.</p>
+<p>The subscripts <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9305em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">4</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span></span></span></span> in the example above were, in fact, produced by this procedure, as the reader can verify.
+(Go ahead and try it.)</p>
+<h1 id="section-605"><a class="header" href="#section-605">Section 605</a></h1>
+<p>In order to implement such an idea, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> maintains a stack of pointers to the <em>DOWN</em>, <em>Y</em>, and <em>Z</em> commands that have been generated for the current page.
+And there is a similar stack for <em>RIGHT</em>, <em>W</em>, and <em>X</em> commands.
+These stacks are called the down stack and right stack, and their top elements are maintained in the variables <em>down_ptr</em> and <em>right_ptr</em>.</p>
+<p>Each entry in these stacks contains four fields:
+The <em>width</em> field is the amount of motion down or to the right; the <em>location</em> field is the byte number of the <code>DVI</code> command in question (including the appropriate <em>dvi_offset</em>); the <em>link</em> field points to the next item below this one on the stack; and the <em>info</em> field encodes the options for possible change in the <code>DVI</code> command.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define MOVEMENT_NODE_SIZE 3 // number of words per entry in the down and right stacks
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.h</div>
+<pre><code class="language-c">#define location(X) mem[(X) + 2].integer // `DVI` byte number for a movement command
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer down_ptr, right_ptr; // heads of the down and right stacks
+</code></pre>
+</div>
+<h1 id="section-606"><a class="header" href="#section-606">Section 606</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">down_ptr = null;
+right_ptr = null;
+</code></pre>
+</div>
+<h1 id="section-607"><a class="header" href="#section-607">Section 607</a></h1>
+<p>Here is a subroutine that produces a <code>DVI</code> command for some specified downward or rightward motion.
+It has two parameters: <em>w</em> is the amount
+of motion, and <em>o</em> is either <em>DOWN1</em> or <em>RIGHT1</em>.
+We use the fact that the command codes have convenient arithmetic properties: <em>Y1 − DOWN1 = W1 − RIGHT1</em> and <em>Z1 − DOWN1 = X1 − RIGHT1</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.c</div>
+<pre><code class="language-c">void movement(scaled w, eight_bits o) {
+    small_number mstate; // have we seen a |y| or |z|?
+    pointer p, q; // current and top nodes on the stack
+    int k; // index into |dvi_buf|, modulo |DVI_BUF_SIZE|
+
+    q = get_node(MOVEMENT_NODE_SIZE); // new node for the top of the stack
+    width(q) = w;
+    location(q) = dvi_offset + dvi_ptr;
+    if (o == DOWN1) {
+        link(q) = down_ptr;
+        down_ptr = q;
+    }
+    else {
+        link(q) = right_ptr;
+        right_ptr = q;
+    }
+    
+    // &lt;&lt; Look at the other stack entries until deciding what sort of DVI command to generate; |goto found| if node |p| is a "hit", 611 &gt;&gt;
+    
+    // &lt;&lt; Generate a |DOWN| or |RIGHT| command for |w| and |return|, 610 &gt;&gt;
+
+found:
+    // &lt;&lt; Generate a |Y0| or |Z0| command in order to reuse a previous appearance of |w|, 609 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-608"><a class="header" href="#section-608">Section 608</a></h1>
+<p>The <em>info</em> fields in the entries of the down stack or the right stack have six possible settings: <em>Y_HERE</em> or <em>Z_HERE</em> mean that the <code>DVI</code> command refers to <em>y</em> or <em>z</em>, respectively (or to <em>W</em> or <em>X</em>, in the case of horizontal motion); <em>YZ_OK</em> means that the <code>DVI</code> command is <em>DOWN</em> (or <em>RIGHT</em>) but can be changed to either <em>Y</em> or <em>Z</em> (or to either <em>W</em> or <em>X</em>); <em>Y_OK</em> means that it is <em>DOWN</em> and can be changed to <em>Y</em> but not <em>Z</em>; <em>Z_OK</em> is similar; and <em>D_FIXED</em> means it must stay <em>DOWN</em>.</p>
+<p>The four settings <em>YZ_OK</em>, <em>Y_OK</em>, <em>Z_OK</em>, <em>D_FIXED</em> would not need to be distinguished from each other if we were simply solving the digit-subscripting problem mentioned above.
+But in <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s case there is a complication because of the nested structure of <em>PUSH</em> and <em>POP</em> commands.
+Suppose we add parentheses to the digit-subscripting problem, redefining hits so that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> is a hit if all <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>’s between the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>’s are enclosed in properly nested parentheses, and if the parenthesis level of the right-hand <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> is deeper than or equal to that of the left-hand one.
+Thus, ‘(’ and ‘)’ correspond to <em>‘PUSH’</em> and <em>‘POP’</em>.
+Now if we want to assign a subscript to the final 1 in the sequence</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">7</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">8</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">8</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span></span></span></span></span></p>
+<p>we cannot change the previous <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9305em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>, since that would invalidate the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9305em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> hit.
+But we can change it to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">1</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, scoring a hit since the intervening <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7944em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">8</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>’s are enclosed in parentheses.</p>
+<p>The program below removes movement nodes that are introduced after a <em>PUSH</em>, before it outputs the corresponding <em>POP</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define Y_HERE  1 // |info| when the movement entry points to a |y| command
+#define Z_HERE  2 // |info| when the movement entry points to a |z| command
+#define YZ_OK   3 // |info| corresponding to an unconstrained |down| command
+#define Y_OK    4 // |info| corresponding to a |down| that can't become a |z|
+#define Z_OK    5 // |info| corresponding to a |down| that can't become a |y|
+#define D_FIXED 6 // |info| corresponding to a |down| that can't change
+</code></pre>
+</div>
+<h1 id="section-609"><a class="header" href="#section-609">Section 609</a></h1>
+<p>When the <em>movement</em> procedure gets to the label <em>found</em>, the value of <em>info(p)</em> will be either <em>Y_HERE</em> or <em>Z_HERE</em>.
+If it is, say, <em>Y_HERE</em>, the procedure generates a <em>Y0</em> command (or a <em>W0</em> command), and marks all <em>info</em> fields between <em>q</em> and <em>p</em> so that <em>Y</em> is not OK in that range.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Generate a <em>Y0</em> or <em>Z0</em> command in order to reuse a previous appearance of <em>w</em> <a href="./part32.html#section-609">609</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">info(q) = info(p);
+if (info(q) == Y_HERE) {
+    dvi_out(o + Y0 - DOWN1); // |Y0| or |W0|
+    while (link(q) != p) {
+        q = link(q);
+        switch (info(q)) {
+        case YZ_OK:
+            info(q) = Z_OK;
+            break;
+        
+        case Y_OK:
+            info(q) = D_FIXED;
+            break;
+        
+        default:
+            do_nothing;
+        }
+    }
+}
+else {
+    dvi_out(o + Z0 - DOWN1); // |Z0| or |X0|
+    while (link(q) != p) {
+        q = link(q);
+        switch (info(q)) {
+        case YZ_OK:
+            info(q) = Y_OK;
+            break;
+        
+        case Z_OK:
+            info(q) = D_FIXED;
+            break;
+        
+        default:
+            do_nothing;
+        }
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-607">607</a>.</p>
+</div></div>
+<h1 id="section-610"><a class="header" href="#section-610">Section 610</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Generate a <em>DOWN</em> or <em>RIGHT</em> command for <em>w</em> and <em>return</em> <a href="./part32.html#section-610">610</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">info(q) = YZ_OK;
+if (abs(w) &gt;= 0x800000) {
+    dvi_out(o + 3); // |DOWN4| or |RIGHT4|
+    dvi_four(w);
+    return;
+}
+if (abs(w) &gt;= 0x8000 ) {
+    dvi_out(o + 2); // |DOWN3| or |RIGHT3|
+    if (w &lt; 0) {
+        w += 0x1000000;
+    }
+    dvi_out(w / 0x10000);
+    w %= 0x10000;
+    goto label_2;
+}
+if (abs(w) &gt;= 128) {
+    dvi_out(o + 1); // |DOWN2| or |RIGHT2|
+    if (w &lt; 0) {
+        w += 0x10000;
+    }
+    goto label_2;
+}
+dvi_out(o); // |DOWN1| or |RIGHT1|
+if (w &lt; 0) {
+    w += 256;
+}
+goto label_1;
+label_2:
+dvi_out(w / 256);
+label_1:
+dvi_out(w % 256);
+return;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-607">607</a>.</p>
+</div></div>
+<h1 id="section-611"><a class="header" href="#section-611">Section 611</a></h1>
+<p>As we search through the stack, we are in one of three states, <em>Y_SEEN</em>, <em>Z_SEEN</em>, or <em>NONE_SEEN</em>, depending on whether we have encountered <em>Y_HERE</em> or <em>Z_HERE</em> nodes.
+These states are encoded as multiples of 6, so that they can be added to the <em>info</em> fields for quick decision-making.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define NONE_SEEN 0  // no |Y_HERE| or |Z_HERE| nodes have been encountered yet
+#define Y_SEEN    6  // we have seen |Y_HERE| but not |Z_HERE|
+#define Z_SEEN    12 // we have seen |Z_HERE| but not |Y_HERE|
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Look at the other stack entries until deciding what sort of DVI command to generate; <em>goto found</em> if node <em>p</em> is a “hit” <a href="./part32.html#section-611">611</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = link(q);
+mstate = NONE_SEEN;
+while (p != null) {
+    if (width(p) == w) {
+        // &lt;&lt; Consider a node with matching width; |goto found| if it's a hit, 612 &gt;&gt;
+    }
+    else {
+        switch (mstate + info(p)) {
+        case NONE_SEEN + Y_HERE:
+            mstate = Y_SEEN;
+            break;
+        
+        case NONE_SEEN + Z_HERE:
+            mstate = Z_SEEN;
+            break;
+        
+        case Y_SEEN + Z_HERE:
+        case Z_SEEN + Y_HERE:
+            goto not_found;
+        
+        default:
+            do_nothing;
+        }
+    }
+    p = link(p);
+}
+not_found:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-607">607</a>.</p>
+</div></div>
+<h1 id="section-612"><a class="header" href="#section-612">Section 612</a></h1>
+<p>We might find a valid hit in a <em>Y</em> or <em>Z</em> byte that is already gone from the buffer.
+But we can’t change bytes that are gone forever; “the moving finger writes, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span>”.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Consider a node with matching width; <em>goto found</em> if it’s a hit <a href="./part32.html#section-612">612</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (mstate + info(p)) {
+case NONE_SEEN + YZ_OK:
+case NONE_SEEN + Y_OK:
+case Z_SEEN + YZ_OK:
+case Z_SEEN + Y_OK:
+    if (location(p) &lt; dvi_gone) {
+        goto not_found;
+    }
+    else {
+        // &lt;&lt; Change buffered instruction to |y| or |w| and |goto found|, 613 &gt;&gt;
+    }
+    break;
+
+case NONE_SEEN + Z_OK:
+case Y_SEEN + YZ_OK:
+case Y_SEEN + Z_OK:
+    if (location(p) &lt; dvi_gone) {
+        goto not_found;
+    }
+    else {
+        // &lt;&lt; Change buffered instruction to |z| or |x| and |goto found|, 614 &gt;&gt;
+    }
+    break;
+
+case NONE_SEEN + Y_HERE:
+case NONE_SEEN + Z_HERE:
+case Y_SEEN + Z_HERE:
+case Z_SEEN + Y_HERE:
+    goto found;
+
+default:
+    do_nothing;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-611">611</a>.</p>
+</div></div>
+<h1 id="section-613"><a class="header" href="#section-613">Section 613</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Change buffered instruction to <em>y</em> or <em>w</em> and <em>goto found</em> <a href="./part32.html#section-613">613</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">k = location(p) - dvi_offset;
+if (k &lt; 0) {
+    k += DVI_BUF_SIZE;
+}
+dvi_buf[k] += Y1 - DOWN1;
+info(p) = Y_HERE;
+goto found;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-612">612</a>.</p>
+</div></div>
+<h1 id="section-614"><a class="header" href="#section-614">Section 614</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Change buffered instruction to <em>z</em> or <em>x</em> and <em>goto found</em> <a href="./part32.html#section-614">614</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">k = location(p) - dvi_offset;
+if (k &lt; 0) {
+    k += DVI_BUF_SIZE;
+}
+dvi_buf[k] += Z1 - DOWN1;
+info(p) = Z_HERE;
+goto found;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-612">612</a>.</p>
+</div></div>
+<h1 id="section-615"><a class="header" href="#section-615">Section 615</a></h1>
+<p>In case you are wondering when all the movement nodes are removed from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s memory, the answer is that they are recycled just before <em>hlist_out</em> and <em>vlist_out</em> finish outputting a box.
+This restores the down and right stacks to the state they were in before the box was output, except that some <em>info</em>’s may have become more restrictive.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.c</div>
+<pre><code class="language-c">// delete movement nodes with |location &gt;= l|
+void prune_movements(int l) {
+    pointer p; // node being deleted
+    while (down_ptr != null) {
+        if (location(down_ptr) &lt; l) {
+            break; // goto done
+        }
+        p = down_ptr;
+        down_ptr = link(p);
+        free_node(p, MOVEMENT_NODE_SIZE);
+    }
+    // done:
+    while (right_ptr != null) {
+        if (location(right_ptr) &lt; l) {
+            break; // return
+        }
+        p = right_ptr;
+        right_ptr = link(p);
+        free_node(p, MOVEMENT_NODE_SIZE);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-616"><a class="header" href="#section-616">Section 616</a></h1>
+<p>The actual distances by which we want to move might be computed as the sum of several separate movements.
+For example, there might be several glue nodes in succession, or we might want to move right by the width of some box plus some amount of glue.
+More importantly, the baselineskip distances are computed in terms of glue together with the depth and height of adjacent boxes, and we want the <code>DVI</code> file to lump these three quantities together into a single motion.</p>
+<p>Therefore, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> maintains two pairs of global variables: <em>dvi_h</em> and <em>dvi_v</em> are the <em>h</em> and <em>v</em> coordinates corresponding to the commands actually output to the <code>DVI</code> file, while <em>cur_h</em> and <em>cur_v</em> are the coordinates corresponding to the current state of the output routines.
+Coordinate changes will accumulate in <em>cur_h</em> and <em>cur_v</em> without being reflected in the output, until such a change becomes necessary or desirable; we can call the <em>movement</em> procedure whenever we want to make <em>dvi_h = cur_h</em> or <em>dvi_v = cur_v</em>.</p>
+<p>The current font reflected in the <code>DVI</code> output is called <em>dvi_f</em>;
+there is no need for a <em>‘cur_f’</em> variable.</p>
+<p>The depth of nesting of <em>hlist_out</em> and <em>vlist_out</em> is called <em>cur_s</em>;
+this is essentially the depth of <em>PUSH</em> commands in the <code>DVI</code> output.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.h</div>
+<pre><code class="language-c">#define synch_h                              \
+    do {                                     \
+        if (cur_h != dvi_h) {                \
+            movement(cur_h - dvi_h, RIGHT1); \
+            dvi_h = cur_h;                   \
+        }                                    \
+    } while (0)
+
+
+#define synch_v                             \
+    do {                                    \
+        if (cur_v != dvi_v) {               \
+            movement(cur_v - dvi_v, DOWN1); \
+            dvi_v = cur_v;                  \
+        }                                   \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">scaled dvi_h, dvi_v;        // a `DVI` reader program thinks we are here
+scaled cur_h, cur_v;        // TeX thinks we are here
+internal_font_number dvi_f; // the current font
+int cur_s;                  // current depth of output box nesting, initially -1
+</code></pre>
+</div>
+<h1 id="section-617"><a class="header" href="#section-617">Section 617</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize variables as <em>ship_out</em> begins <a href="./part32.html#section-617">617</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">dvi_h = 0;
+dvi_v = 0;
+cur_h = h_offset;
+dvi_f = NULL_FONT;
+ensure_dvi_open;
+if (total_pages == 0) {
+    dvi_out(PRE);
+    dvi_out(ID_BYTE); // output the preamble
+    dvi_four(25400000);
+    dvi_four(473628672); // conversion ratio for sp
+    prepare_mag();
+    dvi_four(mag); // magnification factor is frozen
+    old_setting = selector;
+    selector = NEW_STRING;
+    print(" TeX output ");
+    print_int(year);
+    print_char('.');
+    print_two(month);
+    print_char('.');
+    print_two(day);
+    print_char(':');
+    print_two(time_ / 60);
+    print_two(time_ % 60);
+    selector = old_setting;
+    dvi_out(cur_length);
+    for(s = str_start[str_ptr]; s &lt; pool_ptr; s++) {
+        dvi_out(str_pool[s]);
+    }
+    pool_ptr = str_start[str_ptr]; // flush the current string
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-640">640</a>.</p>
+</div></div>
+<h1 id="section-618"><a class="header" href="#section-618">Section 618</a></h1>
+<p>When <em>hlist_out</em> is called, its duty is to output the box represented by the <em>HLIST_NODE</em> pointed to by <em>temp_ptr</em>.
+The reference point of that box has coordinates <em>(cur_h, cur_v)</em>.</p>
+<p>Similarly, when <em>vlist_out</em> is called, its duty is to output the box represented by the <em>VLIST_NODE</em> pointed to by <em>temp_ptr</em>.
+The reference point of that box has coordinates <em>(cur_h, cur_v)</em>.</p>
+<h1 id="section-619"><a class="header" href="#section-619">Section 619</a></h1>
+<p>The recursive procedures <em>hlist_out</em> and <em>vlist_out</em> each have local variables <em>save_h</em> and <em>save_v</em> to hold the values of <em>dvi_h</em> and <em>dvi_v</em> just before entering a new level of recursion.
+In effect, the values of <em>save_h</em> and <em>save_v</em> on <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s run-time stack correspond to the values of <em>h</em> and <em>v</em>
+that a <code>DVI</code>-reading program will push onto its coordinate stack.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.c</div>
+<pre><code class="language-c">// &lt;&lt; Declare procedures needed in |hlist_out|, |vlist_out|, 1368 &gt;&gt;
+
+// output an |HLIST_NODE| box
+void hlist_out() {
+    scaled base_line;         // the baseline coordinate for this box
+    scaled left_edge;         // the left coordinate for this box
+    scaled save_h, save_v;    // what |dvi_h| and |dvi_v| should pop to
+    pointer this_box;         // pointer to containing box
+    int g_order;              // applicable order of infinity for glue
+    int g_sign;               // selects type of glue
+    pointer p;                // current position in the hlist
+    int save_loc;             // `DVI` byte location upon entry
+    pointer leader_box;       // the leader box being replicated
+    scaled leader_wd;         // width of leader box being replicated
+    scaled lx;                // extra space between leader boxes
+    bool outer_doing_leaders; // were we doing leaders?
+    scaled edge;              // left edge of sub-box, or right edge of leader space
+    double glue_temp;         // glue value before rounding
+    double cur_glue;          // glue seen so far
+    scaled cur_g;             // rounded equivalent of |cur_glue| times the glue ratio
+    
+    cur_g = 0;
+    cur_glue = 0.0;
+    this_box = temp_ptr;
+    g_order = glue_order(this_box);
+    g_sign = glue_sign(this_box);
+    p = list_ptr(this_box);
+    incr(cur_s);
+    if (cur_s &gt; 0) {
+        dvi_out(PUSH);
+    }
+    if (cur_s &gt; max_push) {
+        max_push = cur_s;
+    }
+    save_loc = dvi_offset + dvi_ptr;
+    base_line = cur_v;
+    left_edge = cur_h;
+    while (p != null) {
+        // &lt;&lt; Output node |p| for |hlist_out| and move to the next node, maintaining the condition |cur_v = base_line|, 620 &gt;&gt;
+    }
+    prune_movements(save_loc);
+    if (cur_s &gt; 0) {
+        dvi_pop(save_loc);
+    }
+    decr(cur_s);
+}
+</code></pre>
+</div>
+<h1 id="section-620"><a class="header" href="#section-620">Section 620</a></h1>
+<p>We ought to give special care to the efficiency of one part of <em>hlist_out</em>, since it belongs to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop.
+When a <em>CHAR_NODE</em> is encountered, we save a little time by processing several nodes in succession until reaching a non-<em>CHAR_NODE</em>.
+The program uses the fact that <em>SET_CHAR_0 = 0</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output node <em>p</em> for <em>hlist_out</em> and move to the next node, maintaining the condition <em>cur_v = base_line</em> <a href="./part32.html#section-620">620</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">reswitch:
+if (is_char_node(p)) {
+    synch_h;
+    synch_v;
+    do {
+        f = font(p);
+        c = character(p);
+        if (f != dvi_f) {
+            // &lt;&lt; Change font |dvi_f| to |f|, 621 &gt;&gt;
+        }
+        if (c &gt;= 128) {
+            dvi_out(SET1);
+        }
+        dvi_out(c);
+        cur_h += char_width(f, char_info(f, c));
+        p = link(p);
+  } while (is_char_node(p));
+  dvi_h = cur_h;
+}
+else {
+    // &lt;&lt; Output the non-|CHAR_NODE| |p| for |hlist_out| and move to the next node, 622 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-619">619</a>.</p>
+</div></div>
+<h1 id="section-621"><a class="header" href="#section-621">Section 621</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Change font <em>dvi_f</em> to <em>f</em> <a href="./part32.html#section-621">621</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (!font_used[f]) {
+    dvi_font_def(f);
+    font_used[f] = true;
+}
+if (f &lt;= 64 + FONT_BASE) {
+    dvi_out(f - FONT_BASE - 1 + FNT_NUM_0);
+}
+else {
+    dvi_out(FNT1);
+    dvi_out(f - FONT_BASE - 1);
+}
+dvi_f = f;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-620">620</a>.</p>
+</div></div>
+<h1 id="section-622"><a class="header" href="#section-622">Section 622</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output the non-<em>CHAR_NODE</em> <em>p</em> for <em>hlist_out</em> and move to the next node <a href="./part32.html#section-622">622</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (type(p)) {
+case HLIST_NODE:
+case VLIST_NODE:
+    // &lt;&lt; Output a box in an hlist, 623 &gt;&gt;
+    break;
+
+case RULE_NODE:
+    rule_ht = height(p);
+    rule_dp = depth(p);
+    rule_wd = width(p);
+    goto fin_rule;
+
+case WHATSIT_NODE:
+    // &lt;&lt; Output the whatsit node |p| in an hlist, 1367 &gt;&gt;
+    break;
+
+case GLUE_NODE:
+    // &lt;&lt; Move right or output leaders, 625 &gt;&gt;
+
+case KERN_NODE:
+case MATH_NODE:
+    cur_h += width(p);
+    break;
+
+case LIGATURE_NODE:
+    // &lt;&lt; Make node |p| look like a |CHAR_NODE| and |goto reswitch|, 652 &gt;&gt;
+
+default:
+    do_nothing;
+}
+goto next_p;
+
+fin_rule:
+// &lt;&lt; Output a rule in an hlist, 624 &gt;&gt;
+
+move_past:
+cur_h += rule_wd;
+
+next_p:
+p = link(p);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-620">620</a>.</p>
+</div></div>
+<h1 id="section-623"><a class="header" href="#section-623">Section 623</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output a box in an hlist <a href="./part32.html#section-623">623</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (list_ptr(p) == null) {
+    cur_h += width(p);
+}
+else {
+    save_h = dvi_h;
+    save_v = dvi_v;
+    cur_v = base_line + shift_amount(p); // shift the box down
+    temp_ptr = p;
+    edge = cur_h;
+    if (type(p) == VLIST_NODE) {
+        vlist_out();
+    }
+    else {
+        hlist_out();
+    }
+    dvi_h = save_h;
+    dvi_v = save_v;
+    cur_h = edge + width(p);
+    cur_v = base_line;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-622">622</a>.</p>
+</div></div>
+<h1 id="section-624"><a class="header" href="#section-624">Section 624</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output a rule in an hlist <a href="./part32.html#section-624">624</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_running(rule_ht)) {
+    rule_ht = height(this_box);
+}
+if (is_running(rule_dp)) {
+    rule_dp = depth(this_box);
+}
+rule_ht += rule_dp; // this is the rule thickness
+if (rule_ht &gt; 0 &amp;&amp; rule_wd &gt; 0) {
+    // we don't output empty rules
+    synch_h;
+    cur_v = base_line + rule_dp;
+    synch_v;
+    dvi_out(SET_RULE);
+    dvi_four(rule_ht);
+    dvi_four(rule_wd);
+    cur_v = base_line;
+    dvi_h += rule_wd;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-622">622</a>.</p>
+</div></div>
+<h1 id="section-625"><a class="header" href="#section-625">Section 625</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define BILLION 1000000000.0
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.h</div>
+<pre><code class="language-c">#define vet_glue(X)                      \
+    do {                                 \
+        glue_temp = (X);                 \
+        if (glue_temp &gt; BILLION) {       \
+            glue_temp = BILLION;         \
+        }                                \
+        else if (glue_temp &lt; -BILLION) { \
+            glue_temp = -BILLION;        \
+        }                                \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Move right or output leaders <a href="./part32.html#section-625">625</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">g = glue_ptr(p);
+rule_wd = width(g) - cur_g;
+if (g_sign != NORMAL) {
+    if (g_sign == STRETCHING) {
+        if (stretch_order(g) == g_order) {
+            cur_glue += stretch(g);
+            vet_glue(glue_set(this_box)*cur_glue);
+            cur_g = (scaled)round(glue_temp);
+        }
+    }
+    else if (shrink_order(g) == g_order) {
+        cur_glue -= shrink(g);
+        vet_glue(glue_set(this_box)*cur_glue);
+        cur_g = (scaled)round(glue_temp);
+    }
+}
+rule_wd += cur_g;
+if (subtype(p) &gt;= A_LEADERS) {
+    // &lt;&lt; Output leaders in an hlist, |goto fin_rule| if a rule or to |next_p| if done, 626 &gt;&gt;
+}
+goto move_past;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-622">622</a>.</p>
+</div></div>
+<h1 id="section-626"><a class="header" href="#section-626">Section 626</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output leaders in an hlist, <em>goto fin_rule</em> if a rule or to <em>next_p</em> if done <a href="./part32.html#section-626">626</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">leader_box = leader_ptr(p);
+if (type(leader_box) == RULE_NODE) {
+    rule_ht = height(leader_box);
+    rule_dp = depth(leader_box);
+    goto fin_rule;
+}
+leader_wd = width(leader_box);
+if (leader_wd &gt; 0 &amp;&amp; rule_wd &gt; 0) {
+    rule_wd += 10; // compensate for floating - point rounding
+    edge = cur_h + rule_wd;
+    lx = 0;
+    // &lt;&lt; Let |cur_h| be the position of the first box, and set |leader_wd + lx| to the spacing between corresponding parts of boxes, 627 &gt;&gt;
+    while (cur_h + leader_wd &lt;= edge) {
+        // &lt;&lt; Output a leader box at |cur_h|, then advance |cur_h| by |leader_wd + lx|, 628 &gt;&gt;
+    }
+    cur_h = edge - 10;
+    goto next_p;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-625">625</a>.</p>
+</div></div>
+<h1 id="section-627"><a class="header" href="#section-627">Section 627</a></h1>
+<p>The calculations related to leaders require a bit of care.
+First, in the case of <em>A_LEADERS</em> (aligned leaders), we want to move <em>cur_h</em> to <em>left_edge</em> plus the smallest multiple of <em>leader_wd</em> for which the result is not less than the current value of <em>cur_h</em>; i.e., <em>cur_h</em> should become
+<em>left_edge</em> + <em>leader_wd</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">×</span><span class="mopen">⌈</span></span></span></span>(<em>cur_h</em> − <em>left_edge</em>)/<em>leader_wd</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">⌉</span></span></span></span>.
+The program here should work in all cases even though some implementations of Pascal give nonstandard results for the <strong>div</strong> operation when <em>cur_h</em> is less than <em>left_edge</em>.</p>
+<p>In the case of <em>C_LEADERS</em> (centered leaders), we want to increase <em>cur_h</em> by half of the excess space not occupied by the leaders; and in the case of <em>X_LEADERS</em> (expanded leaders) we increase <em>cur_h</em> by <em>1</em><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">/</span></span></span></span><em>(q + 1)</em> of this excess space, where <em>q</em> is the number of times the leader box will be replicated.
+Slight inaccuracies in the division might accumulate; half of this rounding error is placed at each end of the leaders.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Let <em>cur_h</em> be the position of the first box, and set <em>leader_wd + lx</em> to the spacing between corresponding parts of boxes <a href="./part32.html#section-627">627</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (subtype(p) == A_LEADERS) {
+    save_h = cur_h;
+    cur_h = left_edge + leader_wd*((cur_h - left_edge) / leader_wd);
+    if (cur_h &lt; save_h) {
+        cur_h += leader_wd;
+    }
+}
+else {
+    lq = rule_wd / leader_wd; // the number of box copies
+    lr = rule_wd % leader_wd; // the remaining space
+    if (subtype(p) == C_LEADERS) {
+        cur_h += lr / 2;
+    }
+    else {
+        lx = lr / (lq + 1);
+        cur_h += (lr - (lq - 1) * lx) / 2;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-626">626</a>.</p>
+</div></div>
+<h1 id="section-628"><a class="header" href="#section-628">Section 628</a></h1>
+<p>The <em>‘synch’</em> operations here are intended to decrease the number of bytes needed to specify horizontal and vertical motion in the <code>DVI</code> output.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output a leader box at <em>cur_h</em>, then advance <em>cur_h</em> by <em>leader_wd + lx</em> <a href="./part32.html#section-628">628</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">cur_v = base_line + shift_amount(leader_box);
+synch_v;
+save_v = dvi_v;
+synch_h;
+save_h = dvi_h;
+temp_ptr = leader_box;
+outer_doing_leaders = doing_leaders;
+doing_leaders = true;
+if (type(leader_box) == VLIST_NODE) {
+    vlist_out();
+}
+else {
+    hlist_out();
+}
+doing_leaders = outer_doing_leaders;
+dvi_v = save_v;
+dvi_h = save_h;
+cur_v = base_line;
+cur_h = save_h + leader_wd + lx;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-626">626</a>.</p>
+</div></div>
+<h1 id="section-629"><a class="header" href="#section-629">Section 629</a></h1>
+<p>The <em>vlist_out</em> routine is similar to <em>hlist_out</em>, but a bit simpler.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.c</div>
+<pre><code class="language-c">// output a |VLIST_NODE| box
+void vlist_out() {
+    scaled left_edge;         // the left coordinate for this box
+    scaled top_edge;          // the top coordinate for this box
+    scaled save_h, save_v;    // what |dvi_h| and |dvi_v| should pop to
+    pointer this_box;         // pointer to containing box
+    int g_order;              // applicable order of infinity for glue
+    int g_sign;               // selects type of glue
+    pointer p;                // current position in the vlist
+    int save_loc;             // `DVI` byte location upon entry
+    pointer leader_box;       // the leader box being replicated
+    scaled leader_ht;         // height of leader box being replicated
+    scaled lx;                // extra space between leader boxes
+    bool outer_doing_leaders; // were we doing leaders?
+    scaled edge;              // bottom boundary of leader space
+    double glue_temp;         // glue value before rounding
+    double cur_glue;          // glue seen so far
+    scaled cur_g;             // rounded equivalent of |cur_glue| times the glue ratio
+    
+    cur_g = 0;
+    cur_glue = 0.0;
+    this_box = temp_ptr;
+    g_order = glue_order(this_box);
+    g_sign = glue_sign(this_box);
+    p = list_ptr(this_box);
+    incr(cur_s);
+    if (cur_s &gt; 0) {
+        dvi_out(PUSH);
+    }
+    if (cur_s &gt; max_push) {
+        max_push = cur_s;
+    }
+    save_loc = dvi_offset + dvi_ptr;
+    left_edge = cur_h;
+    cur_v -= height(this_box);
+    top_edge = cur_v;
+    while (p != null) {
+        // &lt;&lt; Output node |p| for |vlist_out| and move to the next node, maintaining the condition |cur_h = left_edge|, 630 &gt;&gt;
+    }
+    prune_movements(save_loc);
+    if (cur_s &gt; 0) {
+        dvi_pop(save_loc);
+    }
+    decr(cur_s);
+}
+</code></pre>
+</div>
+<h1 id="section-630"><a class="header" href="#section-630">Section 630</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output node <em>p</em> for <em>vlist_out</em> and move to the next node, maintaining the condition <em>cur_h = left_edge</em> <a href="./part32.html#section-630">630</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_char_node(p)) {
+    confusion("vlistout");
+}
+else {
+    // &lt;&lt; Output the non-|CHAR_NODE| |p| for |vlist_out|, 631 &gt;&gt;
+}
+next_p:
+p = link(p);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-629">629</a>.</p>
+</div></div>
+<h1 id="section-631"><a class="header" href="#section-631">Section 631</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output the non-<em>CHAR_NODE</em> <em>p</em> for <em>vlist_out</em> <a href="./part32.html#section-631">631</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (type(p)) {
+case HLIST_NODE:
+case VLIST_NODE:
+    // &lt;&lt; Output a box in a vlist, 632 &gt;&gt;
+    break;
+
+case RULE_NODE:
+    rule_ht = height(p);
+    rule_dp = depth(p);
+    rule_wd = width(p);
+    goto fin_rule;
+
+case WHATSIT_NODE:
+    // &lt;&lt; Output the whatsit node |p| in a vlist, 1366 &gt;&gt;
+    break;
+
+case GLUE_NODE:
+    // &lt;&lt; Move down or output leaders, 634 &gt;&gt;
+
+case KERN_NODE:
+    cur_v += width(p);
+    break;
+
+default:
+    do_nothing;
+}
+goto next_p;
+
+fin_rule:
+// &lt;&lt; Output a rule in a vlist, |goto next_p|, 633 &gt;&gt;
+
+move_past:
+cur_v += rule_ht;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-630">630</a>.</p>
+</div></div>
+<h1 id="section-632"><a class="header" href="#section-632">Section 632</a></h1>
+<p>The <em>synch_v</em> here allows the <code>DVI</code> output to use one-byte commands for adjusting <em>v</em> in most cases, since the baselineskip distance will usually be constant.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output a box in a vlist <a href="./part32.html#section-632">632</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (list_ptr(p) == null) {
+    cur_v += height(p) + depth(p);
+}
+else {
+    cur_v += height(p);
+    synch_v;
+    save_h = dvi_h;
+    save_v = dvi_v;
+    cur_h = left_edge + shift_amount(p); // shift the box right
+    temp_ptr = p;
+    if (type(p) == VLIST_NODE) {
+        vlist_out();
+    }
+    else {
+        hlist_out();
+    }
+    dvi_h = save_h;
+    dvi_v = save_v;
+    cur_v = save_v + depth(p);
+    cur_h = left_edge;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-631">631</a>.</p>
+</div></div>
+<h1 id="section-633"><a class="header" href="#section-633">Section 633</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output a rule in a vlist, <em>goto next_p</em> <a href="./part32.html#section-633">633</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_running(rule_wd)) {
+    rule_wd = width(this_box);
+}
+rule_ht += rule_dp; // this is the rule thickness
+cur_v += rule_ht;
+if (rule_ht &gt; 0 &amp;&amp; rule_wd &gt; 0) {
+    // we don't output empty rules
+    synch_h;
+    synch_v;
+    dvi_out(PUT_RULE);
+    dvi_four(rule_ht);
+    dvi_four(rule_wd);
+}
+goto next_p;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-631">631</a>.</p>
+</div></div>
+<h1 id="section-634"><a class="header" href="#section-634">Section 634</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Move down or output leaders <a href="./part32.html#section-634">634</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">g = glue_ptr(p);
+rule_ht = width(g) - cur_g;
+if (g_sign != NORMAL) {
+    if (g_sign == STRETCHING) {
+        if (stretch_order(g) == g_order) {
+            cur_glue += stretch(g);
+            vet_glue(glue_set(this_box)*cur_glue);
+            cur_g = (scaled)round(glue_temp);
+        }
+    }
+    else if (shrink_order(g) == g_order) {
+        cur_glue -= shrink(g);
+        vet_glue(glue_set(this_box)*cur_glue);
+        cur_g = (scaled)round(glue_temp);
+    }
+}
+rule_ht += cur_g;
+if (subtype(p) &gt;= A_LEADERS) {
+    // &lt;&lt; Output leaders in a vlist, |goto fin_rule| if a rule or to |next_p| if done, 635 &gt;&gt;
+}
+goto move_past;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-631">631</a>.</p>
+</div></div>
+<h1 id="section-635"><a class="header" href="#section-635">Section 635</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output leaders in a vlist, <em>goto fin_rule</em> if a rule or to <em>next_p</em> if done <a href="./part32.html#section-635">635</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">leader_box = leader_ptr(p);
+if (type(leader_box) == RULE_NODE) {
+    rule_wd = width(leader_box);
+    rule_dp = 0;
+    goto fin_rule;
+}
+leader_ht = height(leader_box) + depth(leader_box);
+if (leader_ht &gt; 0 &amp;&amp; rule_ht &gt; 0) {
+    rule_ht += 10; // compensate for floating - point rounding
+    edge = cur_v + rule_ht;
+    lx = 0;
+    // &lt;&lt; Let |cur_v| be the position of the first box, and set |leader_ht + lx| to the spacing between corresponding parts of boxes, 636 &gt;&gt;
+    while (cur_v + leader_ht &lt;= edge) {
+        // &lt;&lt; Output a leader box at |cur_v|, then advance |cur_v| by |leader_ht + lx|, 637 &gt;&gt;
+    }
+    cur_v = edge - 10;
+    goto next_p;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-634">634</a>.</p>
+</div></div>
+<h1 id="section-636"><a class="header" href="#section-636">Section 636</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Let <em>cur_v</em> be the position of the first box, and set <em>leader_ht + lx</em> to the spacing between corresponding parts of boxes <a href="./part32.html#section-636">636</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (subtype(p) == A_LEADERS) {
+    save_v = cur_v;
+    cur_v = top_edge + leader_ht*((cur_v - top_edge) / leader_ht);
+    if (cur_v &lt; save_v) {
+        cur_v += leader_ht;
+    }
+}
+else {
+    lq = rule_ht / leader_ht; // the number of box copies
+    lr = rule_ht % leader_ht; // the remaining space
+    if (subtype(p) == C_LEADERS) {
+        cur_v += lr / 2;
+    }
+    else {
+        lx = lr / (lq + 1);
+        cur_v += (lr - (lq - 1) * lx)/2;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-635">635</a>.</p>
+</div></div>
+<h1 id="section-637"><a class="header" href="#section-637">Section 637</a></h1>
+<p>When we reach this part of the program, <em>cur_v</em> indicates the top of a leader box, not its baseline.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output a leader box at <em>cur_v</em>, then advance <em>cur_v</em> by <em>leader_ht + lx</em> <a href="./part32.html#section-637">637</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">cur_h = left_edge + shift_amount(leader_box);
+synch_h;
+save_h = dvi_h;
+cur_v += height(leader_box);
+synch_v;
+save_v = dvi_v;
+temp_ptr = leader_box;
+outer_doing_leaders = doing_leaders;
+doing_leaders = true;
+if (type(leader_box) == VLIST_NODE) {
+    vlist_out();
+}
+else {
+    hlist_out();
+}
+doing_leaders = outer_doing_leaders;
+dvi_v = save_v;
+dvi_h = save_h;
+cur_h = left_edge;
+cur_v = save_v - height(leader_box) + leader_ht + lx;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-635">635</a>.</p>
+</div></div>
+<h1 id="section-638"><a class="header" href="#section-638">Section 638</a></h1>
+<p>The <em>hlist_out</em> and <em>vlist_out</em> procedures are now complete, so we are ready for the <em>ship_out</em> routine that gets them started in the first place.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">dvi.c</div>
+<pre><code class="language-c">// output the box |p|
+void ship_out(pointer p) {
+    int page_loc;    // location of the current |BOP|
+    int j, k;        // indices to first ten count registers
+    pool_pointer s;  // index into |str_pool|
+    int old_setting; // saved |selector| setting
+    
+    if (tracing_output &gt; 0) {
+        print_nl("");
+        print_ln();
+        print("Completed box being shipped out");
+    }
+    if (term_offset &gt; MAX_PRINT_LINE - 9) {
+        print_ln();
+    }
+    else if (term_offset &gt; 0 || file_offset &gt; 0) {
+        print_char(' ');
+    }
+    print_char('[');
+    j = 9;
+    while (count(j) == 0 &amp;&amp; j &gt; 0) {
+        decr(j);
+    }
+    for(k = 0; k &lt;= j; k++) {
+        print_int(count(k));
+        if (k &lt; j) {
+            print_char('.');
+        }
+    }
+    update_terminal;
+    if (tracing_output &gt; 0) {
+        print_char(']');
+        begin_diagnostic();
+        show_box(p);
+        end_diagnostic(true);
+    }
+    // &lt;&lt; Ship box |p| out, 640 &gt;&gt;
+    if (tracing_output &lt;= 0) {
+        print_char(']');
+    }
+    dead_cycles = 0;
+    update_terminal; // progress report
+    // &lt;&lt; Flush the box from memory, showing statistics if requested, 639 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-639"><a class="header" href="#section-639">Section 639</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Flush the box from memory, showing statistics if requested <a href="./part32.html#section-639">639</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">#ifdef STAT
+if (tracing_stats &gt; 1) {
+    print_nl("Memory usage before: ");
+    print_int(var_used);
+    print_char('&amp;');
+    print_int(dyn_used);
+    print_char(';');
+}
+#endif
+flush_node_list(p);
+#ifdef STAT
+if (tracing_stats &gt; 1) {
+    print(" after: ");
+    print_int(var_used);
+    print_char('&amp;');
+    print_int(dyn_used);
+    print("; still untouched: ");
+    print_int(hi_mem_min - lo_mem_max - 1);
+    print_ln();
+}
+#endif
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-638">638</a>.</p>
+</div></div>
+<h1 id="section-640"><a class="header" href="#section-640">Section 640</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Ship box <em>p</em> out <a href="./part32.html#section-640">640</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Update the values of |max_h| and |max_v|; but if the page is too large, |goto done|, 641 &gt;&gt;
+// &lt;&lt; Initialize variables as |ship_out| begins, 617 &gt;&gt;
+page_loc = dvi_offset + dvi_ptr;
+dvi_out(BOP);
+for(k = 0; k &lt;= 9; k++) {
+    dvi_four(count(k));
+}
+dvi_four(last_bop);
+last_bop = page_loc;
+cur_v = height(p) + v_offset;
+temp_ptr = p;
+if (type(p) == VLIST_NODE) {
+    vlist_out();
+}
+else {
+    hlist_out();
+}
+dvi_out(EOP);
+incr(total_pages);
+cur_s = -1;
+done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-638">638</a>.</p>
+</div></div>
+<h1 id="section-641"><a class="header" href="#section-641">Section 641</a></h1>
+<p>Sometimes the user will generate a huge page because other error messages are being ignored.
+Such pages are not output to the <code>dvi</code> file, since they may confuse the printing software.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Update the values of <em>max_h</em> and <em>max_v</em>; but if the page is too large, <em>goto done</em> <a href="./part32.html#section-641">641</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (height(p) &gt; MAX_DIMEN
+    || depth(p) &gt; MAX_DIMEN
+    || height(p) + depth(p) + v_offset &gt; MAX_DIMEN
+    || width(p) + h_offset &gt; MAX_DIMEN)
+{
+    print_err("Huge page cannot be shipped out");
+    help2("The page just created is more than 18 feet tall or")
+        ("more than 18 feet wide, so I suspect something went wrong.");
+    error();
+    if (tracing_output &lt;= 0) {
+        begin_diagnostic();
+        print_nl("The following box has been deleted:");
+        show_box(p);
+        end_diagnostic(true);
+    }
+    goto done;
+}
+if (height(p) + depth(p) + v_offset &gt; max_v) {
+    max_v = height(p) + depth(p) + v_offset;
+}
+if (width(p) + h_offset &gt; max_h) {
+    max_h = width(p) + h_offset;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-640">640</a>.</p>
+</div></div>
+<h1 id="section-642"><a class="header" href="#section-642">Section 642</a></h1>
+<p>At the end of the program, we must finish things off by writing the postamble.
+If <em>total_pages = 0</em>, the <code>DVI</code> file was never opened.
+If <em>total_pages</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>65536</em>, the <code>DVI</code> file will lie.
+And if <em>max_push</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>65536</em>, the user deserves whatever chaos might ensue.</p>
+<p>An integer variable <em>k</em> will be declared for use by this routine.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Finish the DVI file <a href="./part32.html#section-642">642</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while (cur_s &gt; -1) {
+    if (cur_s &gt; 0) {
+        dvi_out(POP);
+    }
+    else {
+        dvi_out(EOP);
+        incr(total_pages);
+    }
+    decr(cur_s);
+}
+if (total_pages == 0) {
+    print_nl("No pages of output.");
+}
+else {
+    dvi_out(POST); // beginning of the postamble
+    dvi_four(last_bop);
+    last_bop = dvi_offset + dvi_ptr - 5; // |POST| location
+    dvi_four(25400000);
+    dvi_four(473628672); // conversion ratio for sp
+    prepare_mag();
+    dvi_four(mag); // magnification factor
+    dvi_four(max_v);
+    dvi_four(max_h);
+    dvi_out(max_push / 256);
+    dvi_out(max_push % 256);
+    dvi_out((total_pages / 256) % 256);
+    dvi_out(total_pages % 256);
+    // &lt;&lt; Output the font definitions for all fonts that were used, 643 &gt;&gt;
+    dvi_out(POST_POST);
+    dvi_four(last_bop);
+    dvi_out(ID_BYTE);
+    k = 4 + ((DVI_BUF_SIZE - dvi_ptr) % 4); // the number of 223's
+    while (k &gt; 0) {
+        dvi_out(223);
+        decr(k);
+    }
+    // &lt;&lt; Empty the last bytes out of |dvi_buf|, 599 &gt;&gt;
+    print_nl("Output written on ");
+    slow_print(output_file_name);
+    print(" (");
+    print_int(total_pages);
+    print(" page");
+    if (total_pages != 1) {
+        print_char('s');
+    }
+    print(", ");
+    print_int(dvi_offset + dvi_ptr);
+    print(" bytes).");
+    b_close(dvi_file);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part51.html#section-1333">1333</a>.</p>
+</div></div>
+<h1 id="section-643"><a class="header" href="#section-643">Section 643</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output the font definitions for all fonts that were used <a href="./part32.html#section-643">643</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while (font_ptr &gt; FONT_BASE) {
+    if (font_used[font_ptr]) {
+        dvi_font_def(font_ptr);
+    }
+    decr(font_ptr);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-642">642</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part31.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part33.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part31.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part33.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

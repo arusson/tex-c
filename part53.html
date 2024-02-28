@@ -1,0 +1,1057 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 1340–1378 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html" class="active">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-1340-extensions"><a class="header" href="#section-1340-extensions">Section 1340: Extensions</a></h1>
+<p>The program above includes a bunch of “hooks” that allow further capabilities to be added without upsetting <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s basic structure.
+Most of these hooks are concerned with “whatsit” nodes, which are intended to be used for special purposes; whenever a new extension to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> involves a new kind of whatsit node, a corresponding change needs to be made to the routines below that deal with such nodes, but it will usually be unnecessary to make many changes to the other parts of this program.</p>
+<p>In order to demonstrate how extensions can be made, we shall treat ‘<code>\write</code>’, ‘<code>\openout</code>’, ‘<code>\closeout</code>’, ‘<code>\immediate</code>’, ‘<code>\special</code>’, and ‘<code>\setlanguage</code>’ as if they were extensions.
+These commands are actually primitives of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>, and they should appear in all implementations of the system; but let’s try to imagine that they aren’t.
+Then the program below illustrates how a person could add them.</p>
+<p>Sometimes, of course, an extension will require changes to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> itself;
+no system of hooks could be complete enough for all conceivable extensions.
+The features associated with ‘<code>\write</code>’ are almost all confined to the following paragraphs, but there are small parts of the <em>print_ln</em> and <em>print_char</em> procedures that were introduced specifically to <code>\write</code> characters.
+Furthermore one of the token lists recognized by the scanner is a <em>WRITE_TEXT</em>;
+and there are a few other miscellaneous places where we have already provided for some aspect of <code>\write</code>.
+The goal of a <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> extender should be to minimize alterations to the standard parts of the program, and to avoid them completely if possible.
+He or she should also be quite sure that there’s no easy way to accomplish the desired goals with the standard features that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> already has.
+“Think thrice before extending”, because that may save a lot of work, and it will also keep incompatible extensions of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> from proliferating.</p>
+<h1 id="section-1341"><a class="header" href="#section-1341">Section 1341</a></h1>
+<p>First let’s consider the format of whatsit nodes that are used to represent
+the data associated with <code>\write</code> and its relatives.
+Recall that a whatsit has <em>type = WHATSIT_NODE</em>, and the <em>subtype</em> is supposed to distinguish different kinds of whatsits.
+Each node occupies two or more words; the exact number is immaterial, as long as it is readily determined from the <em>subtype</em> or other data.</p>
+<p>We shall introduce five <em>subtype</em> values here, corresponding to the control sequences <code>\openout</code>, <code>\write</code>, <code>\closeout</code>, <code>\special</code>, and <code>\setlanguage</code>.
+The second word of I/O whatsits has a <em>write_stream</em> field that identifies the write-stream number (0 to 15, or 16 for out-of-range and positive, or 17 for out-of-range and negative).
+In the case of <code>\write</code> and <code>\special</code>, there is also a field that points to the reference count of a token list that should be sent.
+In the case of <code>\openout</code>, we need three words and three auxiliary subfields to hold the string numbers for name, area, and extension.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define WRITE_NODE_SIZE 2 // number of words in a write/whatsit node
+#define OPEN_NODE_SIZE  3 // number of words in an open/whatsit node
+#define OPEN_NODE       0 // |subtype| in whatsits that represent files to \openout
+#define WRITE_NODE      1 // |subtype| in whatsits that represent things to \write
+#define CLOSE_NODE      2 // |subtype| in whatsits that represent streams to \closeout
+#define SPECIAL_NODE    3 // |subtype| in whatsits that represent \special things
+#define LANGUAGE_NODE   4 // |subtype| in whatsits that change the current language
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">extensions.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |extensions.h|, 1381 &gt;&gt;
+
+#define what_lang(X)    link((X) + 1)    // language number, in the range |0 .. 255|
+#define what_lhm(X)     type((X) + 1)    // minimum left fragment, in the range |1 .. 63|
+#define what_rhm(X)     subtype((X) + 1) // minimum right fragment, in the range |1 .. 63|
+#define write_tokens(X) link((X) + 1)    // reference count of token list to write
+#define write_stream(X) info((X) + 1)    // stream number (0 to 17)
+#define open_name(X)    link((X) + 1)    // string number of file name to open
+#define open_area(X)    info((X) + 2)    // string number of file area for |open_name|
+#define open_ext(X)     link((X) + 2)    // string number of file extension for |open_name|
+</code></pre>
+</div>
+<h1 id="section-1342"><a class="header" href="#section-1342">Section 1342</a></h1>
+<p>The sixteen possible <code>\write</code> streams are represented by the <em>write_file</em>
+array.
+The <em>j</em>th file is open if and only if <em>write_open[j] = true</em>.
+The last two streams are special; <em>write_open[16]</em> represents a stream number greater than 15, while <em>write_open[17]</em> represents a negative stream number, and both of these variables are always <em>false</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">alpha_file write_file[16];
+bool write_open[18];
+</code></pre>
+</div>
+<h1 id="section-1343"><a class="header" href="#section-1343">Section 1343</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">for(k = 0; k &lt;= 17; k++) {
+    write_open[k] = false;
+}
+</code></pre>
+</div>
+<h1 id="section-1344"><a class="header" href="#section-1344">Section 1344</a></h1>
+<p>Extensions might introduce new command codes; but it’s best to use <em>EXTENSION</em> with a modifier, whenever possible, so that <em>main_control</em> stays the same.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define IMMEDIATE_CODE    4 // command modifier for \immediate
+#define SET_LANGUAGE_CODE 5 // command modifier for \setlanguage
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("openout", EXTENSION, OPEN_NODE);
+primitive("write", EXTENSION, WRITE_NODE);
+write_loc = cur_val;
+primitive("closeout", EXTENSION, CLOSE_NODE);
+primitive("special", EXTENSION, SPECIAL_NODE);
+primitive("immediate", EXTENSION, IMMEDIATE_CODE);
+primitive("setlanguage", EXTENSION, SET_LANGUAGE_CODE);
+</code></pre>
+</div>
+<h1 id="section-1345"><a class="header" href="#section-1345">Section 1345</a></h1>
+<p>The variable <em>write_loc</em> just introduced is used to provide an appropriate error message in case of “runaway” write texts.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer write_loc; // |eqtb| address of \write
+</code></pre>
+</div>
+<h1 id="section-1346"><a class="header" href="#section-1346">Section 1346</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case EXTENSION:
+    switch (chr_code) {
+    case OPEN_NODE:
+        print_esc("openout");
+        break;
+    
+    case WRITE_NODE:
+        print_esc("write");
+        break;
+    
+    case CLOSE_NODE:
+        print_esc("closeout");
+        break;
+    
+    case SPECIAL_NODE:
+        print_esc("special");
+        break;
+    
+    case IMMEDIATE_CODE:
+        print_esc("immediate");
+        break;
+    
+    case SET_LANGUAGE_CODE:
+        print_esc("setlanguage");
+        break;
+    
+    default:
+        print("[unknown extension!]");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1347"><a class="header" href="#section-1347">Section 1347</a></h1>
+<p>When an <em>EXTENSION</em> command occurs in <em>main_control</em>, in any mode, the <em>do_extension</em> routine is called.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that are for extensions to TeX <a href="./part53.html#section-1347">1347</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">any_mode(EXTENSION):
+    do_extension();
+    break;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1045">1045</a>.</p>
+</div></div>
+<h1 id="section-1348"><a class="header" href="#section-1348">Section 1348</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">extensions.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |extensions.c|, 1382 &gt;&gt;
+
+// &lt;&lt; Declare procedures needed in |do_extension|, 1349 &gt;&gt;
+
+void do_extension() {
+    int k; // all-purpose integer
+    pointer p; // all-purpose pointer
+    switch (cur_chr) {
+    case OPEN_NODE:
+        // &lt;&lt; Implement \openout, 1351 &gt;&gt;
+        break;
+    
+    case WRITE_NODE:
+        // &lt;&lt; Implement \write, 1352 &gt;&gt;
+        break;
+    
+    case CLOSE_NODE:
+        // &lt;&lt; Implement \closeout, 1353 &gt;&gt;
+        break;
+    
+    case SPECIAL_NODE:
+        // &lt;&lt; Implement \special, 1354 &gt;&gt;
+        break;
+    
+    case IMMEDIATE_CODE:
+        // &lt;&lt; Implement \immediate, 1375 &gt;&gt;
+        break;
+    
+    case SET_LANGUAGE_CODE:
+        // &lt;&lt; Implement \setlanguage, 1377 &gt;&gt;
+        break;
+    
+    default:
+        confusion("ext1");
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1349"><a class="header" href="#section-1349">Section 1349</a></h1>
+<p>Here is a subroutine that creates a whatsit node having a given <em>subtype</em> and a given number of words.
+It initializes only the first word of the whatsit, and appends it to the current list.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures needed in <em>do_extension</em> <a href="./part53.html#section-1349">1349</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">void new_whatsit(small_number s, small_number w) {
+    pointer p; // the new node
+    p = get_node(w);
+    type(p) = WHATSIT_NODE;
+    subtype(p) = s;
+    link(tail) = p;
+    tail = p;
+}
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also section <a href="./part53.html#section-1350">1350</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1348">1348</a>.</p>
+</div></div>
+<h1 id="section-1350"><a class="header" href="#section-1350">Section 1350</a></h1>
+<p>The next subroutine uses <em>cur_chr</em> to decide what sort of whatsit is involved, and also inserts a <em>write_stream</em> number.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures needed in <em>do_extension</em> <a href="./part53.html#section-1349">1349</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void new_write_whatsit(small_number w) {
+    new_whatsit(cur_chr, w);
+    if (w != WRITE_NODE_SIZE) {
+        scan_four_bit_int();
+    }
+    else {
+        scan_int();
+        if (cur_val &lt; 0) {
+            cur_val = 17;
+        }
+        else if (cur_val &gt; 15) {
+            cur_val = 16;
+        }
+    }
+    write_stream(tail) = cur_val;
+}
+</code></pre>
+</div>
+<h1 id="section-1351"><a class="header" href="#section-1351">Section 1351</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Implement \openout <a href="./part53.html#section-1351">1351</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">new_write_whatsit(OPEN_NODE_SIZE);
+scan_optional_equals();
+scan_file_name();
+open_name(tail) = cur_name;
+open_area(tail) = cur_area;
+open_ext(tail) = cur_ext;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1348">1348</a>.</p>
+</div></div>
+<h1 id="section-1352"><a class="header" href="#section-1352">Section 1352</a></h1>
+<p>When ‘<code>\write 12{...}</code>’ appears, we scan the token list ‘<code>{...}</code>’ without expanding its macros; the macros will be expanded later when this token list is rescanned.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Implement \write <a href="./part53.html#section-1352">1352</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">k = cur_cs;
+new_write_whatsit(WRITE_NODE_SIZE);
+cur_cs = k;
+p = scan_toks(false, false);
+write_tokens(tail) = def_ref;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1348">1348</a>.</p>
+</div></div>
+<h1 id="section-1353"><a class="header" href="#section-1353">Section 1353</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Implement \closeout <a href="./part53.html#section-1353">1353</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">new_write_whatsit(WRITE_NODE_SIZE);
+write_tokens(tail) = null;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1348">1348</a>.</p>
+</div></div>
+<h1 id="section-1354"><a class="header" href="#section-1354">Section 1354</a></h1>
+<p>When ‘<code>\special{...}</code>’ appears, we expand the macros in the token list as in <code>\xdef</code> and <code>\mark</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Implement \special <a href="./part53.html#section-1354">1354</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">new_whatsit(SPECIAL_NODE, WRITE_NODE_SIZE);
+write_stream(tail) = null;
+p = scan_toks(false, true);
+write_tokens(tail) = def_ref;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1348">1348</a>.</p>
+</div></div>
+<h1 id="section-1355"><a class="header" href="#section-1355">Section 1355</a></h1>
+<p>Each new type of node that appears in our data structure must be capable of being displayed, copied, destroyed, and so on.
+The routines that we need for write-oriented whatsits are somewhat like those for mark nodes;
+other extensions might, of course, involve more subtlety here.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">other_printing.c</div>
+<pre><code class="language-c">void print_write_whatsit(char *s, pointer p) {
+    print_esc(s);
+    if (write_stream(p) &lt; 16) {
+        print_int(write_stream(p));
+    }
+    else if (write_stream(p) == 16) {
+        print_char('*');
+    }
+    else {
+        print_char('-');
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1356"><a class="header" href="#section-1356">Section 1356</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display the whatsit node <em>p</em> <a href="./part53.html#section-1356">1356</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (subtype(p)) {
+case OPEN_NODE:
+    print_write_whatsit("openout", p);
+    print_char('=');
+    print_file_name(open_name(p), open_area(p), open_ext(p));
+    break;
+
+case WRITE_NODE:
+    print_write_whatsit("write", p);
+    print_mark(write_tokens(p));
+    break;
+
+case CLOSE_NODE:
+    print_write_whatsit("closeout", p);
+    break;
+
+case SPECIAL_NODE:
+    print_esc("special");
+    print_mark(write_tokens(p));
+    break;
+
+case LANGUAGE_NODE:
+    print_esc("setlanguage");
+    print_int(what_lang(p));
+    print(" (hyphenmin ");
+    print_int(what_lhm(p));
+    print_char(',');
+    print_int(what_rhm(p));
+    print_char(')');
+    break;
+
+default:
+    print("whatsit?");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part12.html#section-183">183</a>.</p>
+</div></div>
+<h1 id="section-1357"><a class="header" href="#section-1357">Section 1357</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make a partial copy of the whatsit node <em>p</em> and make <em>r</em> point to it; set <em>words</em> to the number of initial words not yet copied <a href="./part53.html#section-1357">1357</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (subtype(p)) {
+case OPEN_NODE:
+    r = get_node(OPEN_NODE_SIZE);
+    words = OPEN_NODE_SIZE;
+    break;
+
+case WRITE_NODE:
+case SPECIAL_NODE:
+    r = get_node(WRITE_NODE_SIZE);
+    add_token_ref(write_tokens(p));
+    words = WRITE_NODE_SIZE;
+    break;
+
+case CLOSE_NODE:
+case LANGUAGE_NODE:
+    r = get_node(SMALL_NODE_SIZE);
+    words = SMALL_NODE_SIZE;
+    break;
+
+default:
+    confusion("ext2");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part14.html#section-206">206</a>.</p>
+</div></div>
+<h1 id="section-1358"><a class="header" href="#section-1358">Section 1358</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Wipe out the whatsit node <em>p</em> and <em>goto done</em> <a href="./part53.html#section-1358">1358</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (subtype(p)) {
+case OPEN_NODE:
+    free_node(p, OPEN_NODE_SIZE);
+    break;
+
+case WRITE_NODE:
+case SPECIAL_NODE:
+    delete_token_ref(write_tokens(p));
+    free_node(p, WRITE_NODE_SIZE);
+    goto done;
+
+case CLOSE_NODE:
+case LANGUAGE_NODE:
+    free_node(p, SMALL_NODE_SIZE);
+    break;
+
+default:
+    confusion("ext3");
+}
+goto done;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part13.html#section-202">202</a>.</p>
+</div></div>
+<h1 id="section-1359"><a class="header" href="#section-1359">Section 1359</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Incorporate a whatsit node into a vbox <a href="./part53.html#section-1359">1359</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">do_nothing;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-669">669</a>.</p>
+</div></div>
+<h1 id="section-1360"><a class="header" href="#section-1360">Section 1360</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Incorporate a whatsit node into an hbox <a href="./part53.html#section-1360">1360</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">do_nothing;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-651">651</a>.</p>
+</div></div>
+<h1 id="section-1361"><a class="header" href="#section-1361">Section 1361</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Let <em>d</em> be the width of the whatsit <em>p</em> <a href="./part53.html#section-1361">1361</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">d = 0;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part48.html#section-1147">1147</a>.</p>
+</div></div>
+<h1 id="section-1362"><a class="header" href="#section-1362">Section 1362</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">extensions.h</div>
+<pre><code class="language-c">#define adv_past(X)                          \
+    do {                                     \
+        if (subtype((X)) == LANGUAGE_NODE) { \
+            cur_lang = what_lang((X));       \
+            l_hyf = what_lhm((X));           \
+            r_hyf = what_rhm((X));           \
+        }                                    \
+    } while(0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Advance past a whatsit node in the <em>line_break</em> loop <a href="./part53.html#section-1362">1362</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">adv_past(cur_p);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part39.html#section-866">866</a>.</p>
+</div></div>
+<h1 id="section-1363"><a class="header" href="#section-1363">Section 1363</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Advance past a whatsit node in the pre-hyphenation loop <a href="./part53.html#section-1363">1363</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">adv_past(s);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part40.html#section-896">896</a>.</p>
+</div></div>
+<h1 id="section-1364"><a class="header" href="#section-1364">Section 1364</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Prepare to move whatsit <em>p</em> to the current page, then <em>goto contribute</em> <a href="./part53.html#section-1364">1364</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">goto contribute;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part45.html#section-1000">1000</a>.</p>
+</div></div>
+<h1 id="section-1365"><a class="header" href="#section-1365">Section 1365</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Process whatsit <em>p</em> in <em>vert_break</em> loop, <em>goto not_found</em> <a href="./part53.html#section-1365">1365</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">goto not_found;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part44.html#section-973">973</a>.</p>
+</div></div>
+<h1 id="section-1366"><a class="header" href="#section-1366">Section 1366</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output the whatsit node <em>p</em> in a vlist <a href="./part53.html#section-1366">1366</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">out_what(p);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-631">631</a>.</p>
+</div></div>
+<h1 id="section-1367"><a class="header" href="#section-1367">Section 1367</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Output the whatsit node <em>p</em> in an hlist <a href="./part53.html#section-1367">1367</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">out_what(p);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-622">622</a>.</p>
+</div></div>
+<h1 id="section-1368"><a class="header" href="#section-1368">Section 1368</a></h1>
+<p>After all this preliminary shuffling, we come finally to the routines that actually send out the requested data.
+Let’s do <code>\special</code> first (it’s easier).</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures needed in <em>hlist_out</em>, <em>vlist_out</em> <a href="./part53.html#section-1368">1368</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">void special_out(pointer p) {
+    int old_setting; // holds print |selector|
+    int k;           // index into |str_pool|
+    synch_h;
+    synch_v;
+    old_setting = selector;
+    selector = NEW_STRING;
+    show_token_list(link(write_tokens(p)), null, POOL_SIZE - pool_ptr);
+    selector = old_setting;
+    str_room(1);
+    if (cur_length &lt; 256) {
+        dvi_out(XXX1);
+        dvi_out(cur_length);
+    }
+    else {
+        dvi_out(XXX4);
+        dvi_four(cur_length);
+    }
+    for(k = str_start[str_ptr]; k &lt;= pool_ptr - 1; k++) {
+        dvi_out(str_pool[k]);
+    }
+    pool_ptr = str_start[str_ptr]; // erase the string
+}
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part53.html#section-1370">1370</a>, and <a href="./part53.html#section-1373">1373</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part32.html#section-619">619</a>.</p>
+</div></div>
+<h1 id="section-1369"><a class="header" href="#section-1369">Section 1369</a></h1>
+<p>To write a token list, we must run it through <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s scanner, expanding macros and <code>\the</code> and <code>\number</code>, etc.
+This might cause runaways, if a delimited macro parameter isn’t matched, and runaways would be extremely confusing since we are calling on <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s scanner in the middle of a <code>\shipout</code> command.
+Therefore we will put a dummy control sequence as a “stopper”, right after the token list.
+This control sequence is artificially defined to be <code>\outer</code>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String <code>"endwrite"</code> must be added to the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string("endwrite"); // ENDWRITE_STRING: 271
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define ENDWRITE_STRING 271
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">text(END_WRITE) = ENDWRITE_STRING; // "endwrite"
+eq_level(END_WRITE) = LEVEL_ONE;
+eq_type(END_WRITE) = OUTER_CALL;
+equiv(END_WRITE) = null;
+</code></pre>
+</div>
+<h1 id="section-1370"><a class="header" href="#section-1370">Section 1370</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures needed in <em>hlist_out</em>, <em>vlist_out</em> <a href="./part53.html#section-1368">1368</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void write_out(pointer p) {
+    int old_setting; // holds print |selector|
+    int old_mode;    // saved |mode|
+    small_number j;  // write stream number
+    pointer q, r;    // temporary variables for list manipulation
+    
+    // &lt;&lt; Expand macros in the token list and make |link(def_ref)| point to the result, 1371 &gt;&gt;
+    old_setting = selector;
+    j = write_stream(p);
+    if (write_open[j]) {
+        selector = j;
+    }
+    else {
+        // write to the terminal if file isn't open
+        if (j == 17 &amp;&amp; selector == TERM_AND_LOG) {
+            selector = LOG_ONLY;
+        }
+        print_nl("");
+    }
+    token_show(def_ref);
+    print_ln();
+    flush_list(def_ref);
+    selector = old_setting;
+}
+</code></pre>
+</div>
+<h1 id="section-1371"><a class="header" href="#section-1371">Section 1371</a></h1>
+<p>The final line of this routine is slightly subtle; at least, the author didn’t think about it until getting burnt! There is a used-up token list on the stack, namely the one that contained <em>END_WRITE_TOKEN</em>.
+(We insert this artificial ‘<code>\endwrite</code>’ to prevent runaways, as explained above.)
+If it were not removed, and if there were numerous writes on a single page, the stack would overflow.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define END_WRITE_TOKEN (CS_TOKEN_FLAG + END_WRITE)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Expand macros in the token list and make <em>link(def_ref)</em> point to the result <a href="./part53.html#section-1371">1371</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = get_avail();
+info(q) = RIGHT_BRACE_TOKEN + '}';
+r = get_avail();
+link(q) = r;
+info(r) = END_WRITE_TOKEN;
+ins_list(q);
+begin_token_list(write_tokens(p), WRITE_TEXT);
+q = get_avail();
+info(q) = LEFT_BRACE_TOKEN + '{';
+ins_list(q);
+// now we're ready to scan '{&lt;token list&gt;} \endwrite'
+old_mode = mode;
+mode = 0; // disable \prevdepth, \spacefactor, \lastskip, \prevgraf
+cur_cs = write_loc;
+q = scan_toks(false, true); // expand macros, etc.
+get_token();
+if (cur_tok != END_WRITE_TOKEN) {
+    // &lt;&lt; Recover from an unbalanced write command, 1372 &gt;&gt;
+}
+mode = old_mode;
+end_token_list(); // conserve stack space
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1370">1370</a>.</p>
+</div></div>
+<h1 id="section-1372"><a class="header" href="#section-1372">Section 1372</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Recover from an unbalanced write command <a href="./part53.html#section-1372">1372</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("Unbalanced write command");
+help2("On this page there's a \\write with fewer real {'s than }'s.")
+    ("I can't handle that very well; good luck.");
+error();
+do {
+    get_token();
+} while (cur_tok != END_WRITE_TOKEN);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1371">1371</a>.</p>
+</div></div>
+<h1 id="section-1373"><a class="header" href="#section-1373">Section 1373</a></h1>
+<p>The <em>out_what</em> procedure takes care of outputting whatsit nodes for <em>vlist_out</em> and <em>hlist_out</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures needed in <em>hlist_out</em>, <em>vlist_out</em> <a href="./part53.html#section-1368">1368</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void out_what(pointer p) {
+    small_number j; // write stream number
+    switch (subtype(p)) {
+    case OPEN_NODE:
+    case WRITE_NODE:
+    case CLOSE_NODE:
+        // &lt;&lt; Do some work that has been queued up for \write, 1374 &gt;&gt;
+        break;
+    
+    case SPECIAL_NODE:
+        special_out(p);
+        break;
+    
+    case LANGUAGE_NODE:
+        do_nothing;
+        break;
+    
+    default:
+        confusion("ext4");
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1374"><a class="header" href="#section-1374">Section 1374</a></h1>
+<p>We don’t implement <code>\write</code> inside of leaders.
+(The reason is that the number of times a leader box appears might be different in different implementations, due to machine-dependent rounding in the glue calculations.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Do some work that has been queued up for \write <a href="./part53.html#section-1374">1374</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (!doing_leaders) {
+    j = write_stream(p);
+    if (subtype(p) == WRITE_NODE) {
+        write_out(p);
+    }
+    else {
+        if (write_open[j]) {
+            a_close(write_file[j]);
+        }
+        if (subtype(p) == CLOSE_NODE) {
+            write_open[j] = false;
+        }
+        else if (j &lt; 16) {
+            cur_name = open_name(p);
+            cur_area = open_area(p);
+            cur_ext = open_ext(p);
+            if (cur_ext == EMPTY_STRING) {
+                cur_ext = TEX_EXT; // ".tex"
+            }
+            pack_cur_name;
+            while (!a_open_out(&amp;write_file[j])) {
+                prompt_file_name("output file name", TEX_EXT);
+            }
+            write_open[j] = true;
+        }
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1373">1373</a>.</p>
+</div></div>
+<h1 id="section-1375"><a class="header" href="#section-1375">Section 1375</a></h1>
+<p>The presence of ‘<code>\immediate</code>’ causes the <em>do_extension</em> procedure to descend to one level of recursion.
+Nothing happens unless <code>\immediate</code> is followed by ‘<code>\openout</code>’, ‘<code>\write</code>’, or ‘<code>\closeout</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Implement \immediate <a href="./part53.html#section-1375">1375</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">get_x_token();
+if (cur_cmd == EXTENSION &amp;&amp; cur_chr &lt;= CLOSE_NODE) {
+    p = tail;
+    do_extension(); // append a whatsit node
+    out_what(tail); // do the action immediately
+    flush_node_list(tail);
+    tail = p;
+    link(p) = null;
+}
+else {
+    back_input();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1348">1348</a>.</p>
+</div></div>
+<h1 id="section-1376"><a class="header" href="#section-1376">Section 1376</a></h1>
+<p>The <code>\language</code> extension is somewhat different.
+We need a subroutine that comes into play when a character of a non-<em>clang</em> language is being appended to the current paragraph.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare action procedures for use by <em>main_control</em> <a href="./part46.html#section-1043">1043</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void fix_language() {
+    ASCII_code l; // the new current language
+    if (language &lt;= 0) {
+        l = 0;
+    }
+    else if (language &gt; 255) {
+        l = 0;
+    }
+    else {
+        l = language;
+    }
+    if (l != clang) {
+        new_whatsit(LANGUAGE_NODE, SMALL_NODE_SIZE);
+        what_lang(tail) = l;
+        clang = l;
+        what_lhm(tail) = norm_min(left_hyphen_min);
+        what_rhm(tail) = norm_min(right_hyphen_min);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1377"><a class="header" href="#section-1377">Section 1377</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Implement \setlanguage <a href="./part53.html#section-1377">1377</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (abs(mode) != HMODE) {
+    report_illegal_case();
+}
+else {
+    new_whatsit(LANGUAGE_NODE, SMALL_NODE_SIZE);
+    scan_int();
+    if (cur_val &lt;= 0) {
+        clang = 0;
+    }
+    else if (cur_val &gt; 255) {
+        clang = 0;
+    }
+    else {
+        clang = cur_val;
+    }
+    what_lang(tail) = clang;
+    what_lhm(tail) = norm_min(left_hyphen_min);
+    what_rhm(tail) = norm_min(right_hyphen_min);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part53.html#section-1348">1348</a>.</p>
+</div></div>
+<h1 id="section-1378"><a class="header" href="#section-1378">Section 1378</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Finish the extensions <a href="./part53.html#section-1378">1378</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">for(k = 0; k &lt;= 15; k++) {
+    if (write_open[k]) {
+        a_close(write_file[k]);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part51.html#section-1333">1333</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part52.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part54.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part52.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part54.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

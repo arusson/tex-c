@@ -1,0 +1,918 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 487–510 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html" class="active">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-487-conditional-processing"><a class="header" href="#section-487-conditional-processing">Section 487: Conditional processing</a></h1>
+<p>We consider now the way <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> handles various kinds of <code>\if</code> commands.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define IF_CHAR_CODE  0   // '\if' 
+#define IF_CAT_CODE   1   // '\ifcat' 
+#define IF_INT_CODE   2   // '\ifnum' 
+#define IF_DIM_CODE   3   // '\ifdim' 
+#define IF_ODD_CODE   4   // '\ifodd' 
+#define IF_VMODE_CODE 5   // '\ifvmode' 
+#define IF_HMODE_CODE 6   // '\ifhmode' 
+#define IF_MMODE_CODE 7   // '\ifmmode' 
+#define IF_INNER_CODE 8   // '\ifinner' 
+#define IF_VOID_CODE  9   // '\ifvoid' 
+#define IF_HBOX_CODE  10  // '\ifhbox' 
+#define IF_VBOX_CODE  11  // '\ifvbox' 
+#define IFX_CODE      12  // '\ifx' 
+#define IF_EOF_CODE   13  // '\ifeof' 
+#define IF_TRUE_CODE  14  // '\iftrue' 
+#define IF_FALSE_CODE 15  // '\iffalse' 
+#define IF_CASE_CODE  16  // '\ifcase' 
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("if", IF_TEST, IF_CHAR_CODE);
+primitive("ifcat", IF_TEST, IF_CAT_CODE);
+primitive("ifnum", IF_TEST, IF_INT_CODE);
+primitive("ifdim", IF_TEST, IF_DIM_CODE);
+primitive("ifodd", IF_TEST, IF_ODD_CODE);
+primitive("ifvmode", IF_TEST, IF_VMODE_CODE);
+primitive("ifhmode", IF_TEST, IF_HMODE_CODE);
+primitive("ifmmode", IF_TEST, IF_MMODE_CODE);
+primitive("ifinner", IF_TEST, IF_INNER_CODE);
+primitive("ifvoid", IF_TEST, IF_VOID_CODE);
+primitive("ifhbox", IF_TEST, IF_HBOX_CODE);
+primitive("ifvbox", IF_TEST, IF_VBOX_CODE);
+primitive("ifx", IF_TEST, IFX_CODE);
+primitive("ifeof", IF_TEST, IF_EOF_CODE);
+primitive("iftrue", IF_TEST, IF_TRUE_CODE);
+primitive("iffalse", IF_TEST, IF_FALSE_CODE);
+primitive("ifcase", IF_TEST, IF_CASE_CODE);
+</code></pre>
+</div>
+<h1 id="section-488"><a class="header" href="#section-488">Section 488</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case IF_TEST:
+    switch (chr_code) {
+    case IF_CAT_CODE:
+        print_esc("ifcat");
+        break;
+    
+    case IF_INT_CODE:
+        print_esc("ifnum");
+        break;
+    
+    case IF_DIM_CODE:
+        print_esc("ifdim");
+        break;
+    
+    case IF_ODD_CODE:
+        print_esc("ifodd");
+        break;
+    
+    case IF_VMODE_CODE:
+        print_esc("ifvmode");
+        break;
+    
+    case IF_HMODE_CODE:
+        print_esc("ifhmode");
+        break;
+    
+    case IF_MMODE_CODE:
+        print_esc("ifmmode");
+        break;
+    
+    case IF_INNER_CODE:
+        print_esc("ifinner");
+        break;
+    
+    case IF_VOID_CODE:
+        print_esc("ifvoid");
+        break;
+    
+    case IF_HBOX_CODE:
+        print_esc("ifhbox");
+        break;
+    
+    case IF_VBOX_CODE:
+        print_esc("ifvbox");
+        break;
+    
+    case IFX_CODE:
+        print_esc("ifx");
+        break;
+    
+    case IF_EOF_CODE:
+        print_esc("ifeof");
+        break;
+    
+    case IF_TRUE_CODE:
+        print_esc("iftrue");
+        break;
+    
+    case IF_FALSE_CODE:
+        print_esc("iffalse");
+        break;
+    
+    case IF_CASE_CODE:
+        print_esc("ifcase");
+        break;
+    
+    default:
+        print_esc("if");
+    } 
+    break;
+</code></pre>
+</div>
+<h1 id="section-489"><a class="header" href="#section-489">Section 489</a></h1>
+<p>Conditions can be inside conditions, and this nesting has a stack that is independent of the <em>save_stack</em>.</p>
+<p>Four global variables represent the top of the condition stack:
+<em>cond_ptr</em> points to pushed-down entries, if any;
+<em>if_limit</em> specifies the largest code of a <em>FI_OR_ELSE</em> command that is syntactically legal;
+<em>cur_if</em> is the name of the current type of conditional;
+and <em>if_line</em> is the line number at which it began.</p>
+<p>If no conditions are currently in progress, the condition stack has the special state <em>cond_ptr = null</em>, <em>if_limit = NORMAL</em>, <em>cur_if = 0</em>, <em>if_line = 0</em>.
+Otherwise <em>cond_ptr</em> points to a two-word node; the <em>type</em>, <em>subtype</em>, and <em>link</em> fields of the first word contain <em>if_limit</em>, <em>cur_if</em>, and <em>cond_ptr</em> at the next level, and the second word contains the corresponding <em>if_line</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define IF_NODE_SIZE 2 // number of words in stack entry for conditionals
+#define IF_CODE      1 // code for \if... being evaluated
+#define FI_CODE      2 // code for \f
+#define ELSE_CODE    3 // code for \else
+#define OR_CODE      4 // code for \or
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">conditional.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |conditional.h|, 1381 &gt;&gt;
+
+#define if_line_field(X) mem[(X) + 1].integer
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer cond_ptr;    // top of the condition stack
+int if_limit;        // upper bound on |fi_or_else| codes
+small_number cur_if; // type of conditional being worked on
+int if_line;         // line where that conditional began
+</code></pre>
+</div>
+<h1 id="section-490"><a class="header" href="#section-490">Section 490</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">cond_ptr = null;
+if_limit = NORMAL;
+cur_if = 0;
+if_line = 0;
+</code></pre>
+</div>
+<h1 id="section-491"><a class="header" href="#section-491">Section 491</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("fi", FI_OR_ELSE, FI_CODE);
+text(FROZEN_FI) = str_ptr - 1; // "fi"
+eqtb[FROZEN_FI] = eqtb[cur_val];
+primitive("or", FI_OR_ELSE, OR_CODE);
+primitive("else", FI_OR_ELSE, ELSE_CODE);
+</code></pre>
+</div>
+<h1 id="section-492"><a class="header" href="#section-492">Section 492</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case FI_OR_ELSE:
+    if (chr_code == FI_CODE) {
+        print_esc("fi");
+    }
+    else if (chr_code == OR_CODE) {
+        print_esc("or");
+    }
+    else {
+        print_esc("else");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-493"><a class="header" href="#section-493">Section 493</a></h1>
+<p>When we skip conditional text, we keep track of the line number where skipping began, for use in error messages.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int skip_line; // skipping began here
+</code></pre>
+</div>
+<h1 id="section-494"><a class="header" href="#section-494">Section 494</a></h1>
+<p>Here is a procedure that ignores text until coming to an <code>\or</code>, <code>\else</code>, or <code>\fi</code> at the current level of <code>\if ... \fi</code> nesting.
+After it has acted, <em>cur_chr</em> will indicate the token that was found, but <em>cur_tok</em> will not be set (because this makes the procedure run faster).</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">conditional.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |conditional.c|, 1382 &gt;&gt;
+
+void pass_text() {
+    int l; // level of \if ... \fi nesting
+    small_number save_scanner_status; // |scanner_status| upon entry
+    save_scanner_status = scanner_status;
+    scanner_status = SKIPPING;
+    l = 0;
+    skip_line = line;
+    while(true) {
+        get_next();
+        if (cur_cmd == FI_OR_ELSE) {
+            if (l == 0) {
+                break; // Goto done
+            }
+            if (cur_chr == FI_CODE) {
+                decr(l);
+            }
+        }
+        else if (cur_cmd == IF_TEST) {
+            incr(l);
+        }
+    }
+    // done:
+    scanner_status = save_scanner_status;
+}
+</code></pre>
+</div>
+<h1 id="section-495"><a class="header" href="#section-495">Section 495</a></h1>
+<p>When we begin to process a new <code>\if</code>, we set <em>if_limit ← IF_CODE</em>;
+then if <code>\or</code> or <code>\else</code> or <code>\fi</code> occurs before the current <code>\if</code> condition has been evaluated, <code>\relax</code> will be inserted.
+For example, a sequence of commands like ‘<code>\ifvoid1\else...\fi</code>’ would otherwise require something after the ‘<code>1</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Push the condition stack <a href="./part28.html#section-495">495</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = get_node(IF_NODE_SIZE);
+link(p) = cond_ptr;
+type(p) = if_limit;
+subtype(p) = cur_if;
+if_line_field(p) = if_line;
+cond_ptr = p;
+cur_if = cur_chr;
+if_limit = IF_CODE;
+if_line = line;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-498">498</a>.</p>
+</div></div>
+<h1 id="section-496"><a class="header" href="#section-496">Section 496</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Pop the condition stack <a href="./part28.html#section-496">496</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = cond_ptr;
+if_line = if_line_field(p);
+cur_if = subtype(p);
+if_limit = type(p);
+cond_ptr = link(p);
+free_node(p, IF_NODE_SIZE);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part28.html#section-498">498</a>, <a href="./part28.html#section-500">500</a>, <a href="./part28.html#section-509">509</a>, and <a href="./part28.html#section-510">510</a>.</p>
+</div></div>
+<h1 id="section-497"><a class="header" href="#section-497">Section 497</a></h1>
+<p>Here’s a procedure that changes the <em>if_limit</em> code corresponding to a given value of <em>cond_ptr</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">conditional.c</div>
+<pre><code class="language-c">void change_if_limit(small_number l, pointer p) {
+    pointer q;
+    if (p == cond_ptr) {
+        if_limit = l; // that's the easy case
+    }
+    else {
+        q = cond_ptr;
+        while(true) {
+            if (q == null) {
+                confusion("if");
+            }
+            if (link(q) == p) {
+                type(q) = l;
+                return;
+            }
+            q = link(q);
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-498"><a class="header" href="#section-498">Section 498</a></h1>
+<p>A condition is started when the <em>expand</em> procedure encounters an <em>IF_TEST</em> command; in that case <em>expand</em> reduces to <em>conditional</em>, which is a recursive procedure.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">conditional.c</div>
+<pre><code class="language-c">void conditional() {
+    bool b = false;  // is the condition true?
+    unsigned char r; // relation to be evaluated
+    int m, n;        // to be tested against the second operand
+    pointer p, q;    // for traversing token lists in \\ifx} tests
+    small_number save_scanner_status; // |scanner_status| upon entry
+    pointer save_cond_ptr;            // |cond_ptr| corresponding to this conditional
+    small_number this_if;             // type of this conditional
+
+    // &lt;&lt; Push the condition stack, 495 &gt;&gt;
+    save_cond_ptr = cond_ptr;
+    this_if = cur_chr;
+    // &lt;&lt; Either process \ifcase or set |b| to the value of a boolean condition, 501 &gt;&gt;
+    if (tracing_commands &gt; 1) {
+        // &lt;&lt; Display the value of |b|, 502 &gt;&gt;
+    }
+    if (b) {
+        change_if_limit(ELSE_CODE, save_cond_ptr);
+        return; // wait for \else} or \fi
+    }
+    // &lt;&lt; Skip to \else or \fi, then |goto common_ending|, 500 &gt;&gt;
+
+common_ending:
+    if (cur_chr == FI_CODE) {
+        // &lt;&lt; Pop the condition stack, 496 &gt;&gt;
+    }
+    else {
+        if_limit = FI_CODE; // wait for \fi
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-499"><a class="header" href="#section-499">Section 499</a></h1>
+<p>In a construction like ‘<code>\if\iftrue abc\else d\fi</code>’, the first <code>\else</code> that we come to after learning that the <code>\if</code> is false is not the <code>\else</code> we’re looking for.
+Hence the following curious logic is needed.</p>
+<h1 id="section-500"><a class="header" href="#section-500">Section 500</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Skip to \else or \fi, then <em>goto common_ending</em> <a href="./part28.html#section-500">500</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while(true){
+    pass_text();
+    if (cond_ptr == save_cond_ptr) {
+        if (cur_chr != OR_CODE) {
+            goto common_ending;
+        }
+        print_err("Extra ");
+        print_esc("or");
+        help1("I'm ignoring this; it doesn't match any \\if.");
+        error();
+    }
+    else if (cur_chr == FI_CODE) {
+        // &lt;&lt; Pop the condition stack, 496 &gt;&gt;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-498">498</a>.</p>
+</div></div>
+<h1 id="section-501"><a class="header" href="#section-501">Section 501</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Either process \ifcase or set <em>b</em> to the value of a boolean condition <a href="./part28.html#section-501">501</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (this_if) {
+case IF_CHAR_CODE:
+case IF_CAT_CODE:
+    // &lt;&lt; Test if two characters match, 506 &gt;&gt;
+    break;
+
+case IF_INT_CODE:
+case IF_DIM_CODE:
+    // &lt;&lt; Test relation between integers or dimensions, 503 &gt;&gt;
+    break;
+
+case IF_ODD_CODE:
+    // &lt;&lt; Test if an integer is odd, 504 &gt;&gt;
+    break;
+
+case IF_VMODE_CODE:
+    b = (abs(mode) == VMODE);
+    break;
+
+case IF_HMODE_CODE:
+    b = (abs(mode) == HMODE);
+    break;
+
+case IF_MMODE_CODE:
+    b = (abs(mode) == MMODE);
+    break;
+
+case IF_INNER_CODE:
+    b = (mode &lt; 0);
+    break;
+
+case IF_VOID_CODE:
+case IF_HBOX_CODE:
+case IF_VBOX_CODE:
+    // &lt;&lt; Test box register status, 505 &gt;&gt;
+    break;
+
+case IFX_CODE:
+    // &lt;&lt; Test if two tokens match, 507 &gt;&gt;
+    break;
+
+case IF_EOF_CODE:
+    scan_four_bit_int();
+    b = (read_open[cur_val] == CLOSED);
+    break;
+
+case IF_TRUE_CODE:
+    b = true;
+    break;
+
+case IF_FALSE_CODE:
+    b = false;
+    break;
+
+case IF_CASE_CODE:
+    // &lt;&lt; Select the appropriate case and |return| or |goto common_ending|, 509 &gt;&gt;
+} // there are no other cases
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-498">498</a>.</p>
+</div></div>
+<h1 id="section-502"><a class="header" href="#section-502">Section 502</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display the value of <em>b</em> <a href="./part28.html#section-502">502</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">begin_diagnostic();
+if (b) {
+    print("{true}");
+}
+else {
+    print("{false}");
+}
+end_diagnostic(false);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-498">498</a>.</p>
+</div></div>
+<h1 id="section-503"><a class="header" href="#section-503">Section 503</a></h1>
+<p>Here we use the fact that <code>'&lt;'</code>, <code>'='</code>, and <code>'&gt;'</code> are consecutive ASCII codes.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Test relation between integers or dimensions <a href="./part28.html#section-503">503</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (this_if == IF_INT_CODE) {
+    scan_int();
+}
+else {
+    scan_normal_dimen;
+}
+n = cur_val;
+// &lt;&lt; Get the next non-blank non-call token, 406 &gt;&gt;
+if (cur_tok &gt;= OTHER_TOKEN + '&lt;' &amp;&amp; cur_tok &lt;= OTHER_TOKEN + '&gt;') {
+    r = cur_tok - OTHER_TOKEN;
+}
+else {
+    print_err("Missing = inserted for ");
+    print_cmd_chr(IF_TEST, this_if);
+    help1("I was expecting to see `&lt;', `=', or `&gt;'. Didn't.");
+    back_error();
+    r = '=';
+}
+if (this_if == IF_INT_CODE) {
+    scan_int();
+}
+else {
+    scan_normal_dimen;
+}
+switch (r) {
+case '&lt;':
+    b = (n &lt; cur_val);
+    break;
+
+case '=':
+    b = (n == cur_val);
+    break;
+
+case '&gt;':
+    b = (n &gt; cur_val);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-501">501</a>.</p>
+</div></div>
+<h1 id="section-504"><a class="header" href="#section-504">Section 504</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Test if an integer is odd <a href="./part28.html#section-504">504</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_int();
+b = odd(cur_val);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-501">501</a>.</p>
+</div></div>
+<h1 id="section-505"><a class="header" href="#section-505">Section 505</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Test box register status <a href="./part28.html#section-505">505</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_eight_bit_int();
+p = box(cur_val);
+if (this_if == IF_VOID_CODE) {
+    b = (p == null);
+}
+else if (p == null) {
+    b = false;
+}
+else if (this_if == IF_HBOX_CODE) {
+    b = (type(p) == HLIST_NODE);
+}
+else {
+    b = (type(p) == VLIST_NODE);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-501">501</a>.</p>
+</div></div>
+<h1 id="section-506"><a class="header" href="#section-506">Section 506</a></h1>
+<p>An active character will be treated as category 13 following <code>\if\noexpand</code> or following <code>\ifcat\noexpand</code>.
+We use the fact that active characters have the smallest tokens, among all control sequences.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">parser.h</div>
+<pre><code class="language-c">#define get_x_token_or_active_char                           \
+    do {                                                     \
+        get_x_token();                                       \
+        if (cur_cmd == RELAX &amp;&amp; cur_chr == NO_EXPAND_FLAG) { \
+            cur_cmd = ACTIVE_CHAR;                           \
+            cur_chr = cur_tok - CS_TOKEN_FLAG - ACTIVE_BASE; \
+        }                                                    \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Test if two characters match <a href="./part28.html#section-506">506</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">get_x_token_or_active_char;
+if (cur_cmd &gt; ACTIVE_CHAR ||cur_chr &gt; 255) {
+    // not a character
+    m = RELAX;
+    n = 256;
+}
+else {
+    m = cur_cmd;
+    n = cur_chr;
+}
+get_x_token_or_active_char;
+if (cur_cmd &gt; ACTIVE_CHAR || cur_chr &gt; 255) {
+    cur_cmd = RELAX;
+    cur_chr = 256;
+}
+if (this_if == IF_CHAR_CODE) {
+    b = (n == cur_chr);
+}
+else {
+    b = (m == cur_cmd);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-501">501</a>.</p>
+</div></div>
+<h1 id="section-507"><a class="header" href="#section-507">Section 507</a></h1>
+<p>Note that ‘<code>\ifx</code>’ will declare two macros different if one is <em>long</em>
+or <em>outer</em> and the other isn’t, even though the texts of the macros are the same.</p>
+<p>We need to reset <em>scanner_status</em>, since <code>\outer</code> control sequences are allowed, but we might be scanning a macro definition or preamble.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Test if two tokens match <a href="./part28.html#section-507">507</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">save_scanner_status = scanner_status;
+scanner_status = NORMAL;
+get_next();
+n = cur_cs;
+p = cur_cmd;
+q = cur_chr;
+get_next();
+if (cur_cmd != p) {
+    b = false;
+}
+else if (cur_cmd &lt; CALL) {
+    b = (cur_chr == q);
+}
+else {
+    // &lt;&lt; Test if two macro texts match, 508 &gt;&gt;
+}
+scanner_status = save_scanner_status;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-501">501</a>.</p>
+</div></div>
+<h1 id="section-508"><a class="header" href="#section-508">Section 508</a></h1>
+<p>Note also that ‘<code>\ifx</code>’ decides that macros <code>\a</code> and <code>\b</code> are different in examples like this:</p>
+<div align="center">
+<p><code>\def\a{\c}</code> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0em;"></span><span class="mspace" style="margin-right:2em;"></span></span></span></span> <code>\def\c{}</code><br>
+<code>\def\b{\d}</code> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0em;"></span><span class="mspace" style="margin-right:2em;"></span></span></span></span> <code>\def\d{}</code></p>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Test if two macro texts match <a href="./part28.html#section-508">508</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = link(cur_chr);
+q = link(equiv(n)); // omit reference counts
+if (p == q) {
+    b = true;
+}
+else {
+    while (p != null &amp;&amp; q != null) {
+        if (info(p) != info(q)) {
+            p = null;
+        }
+        else {
+            p = link(p);
+            q = link(q);
+        }
+    }
+    b = (p == null &amp;&amp; q == null);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-507">507</a>.</p>
+</div></div>
+<h1 id="section-509"><a class="header" href="#section-509">Section 509</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Select the appropriate case and <em>return</em> or <em>goto common_ending</em> <a href="./part28.html#section-509">509</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_int();
+n = cur_val; // |n| is the number of cases to pass
+if (tracing_commands &gt; 1) {
+    begin_diagnostic();
+    print("{case ");
+    print_int(n);
+    print_char('}');
+    end_diagnostic(false);
+}
+while (n != 0) {
+    pass_text();
+    if (cond_ptr == save_cond_ptr) {
+        if (cur_chr == OR_CODE) {
+            decr(n);
+        }
+        else {
+            goto common_ending;
+        }
+    }
+    else if (cur_chr == FI_CODE) {
+        // &lt;&lt; Pop the condition stack, 496 &gt;&gt;
+    }
+}
+change_if_limit(OR_CODE, save_cond_ptr);
+return; // wait for \or, \else, or \fi
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part28.html#section-501">501</a>.</p>
+</div></div>
+<h1 id="section-510"><a class="header" href="#section-510">Section 510</a></h1>
+<p>The processing of conditionals is complete except for the following code, which is actually part of <em>expand</em>.
+It comes into play when <code>\or</code>, <code>\else</code>, or <code>\fi</code> is scanned.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Terminate the current conditional and skip to \fi <a href="./part28.html#section-510">510</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_chr &gt; if_limit) {
+    if (if_limit == IF_CODE) {
+        insert_relax(); // condition not yet evaluated
+    }
+    else {
+        print_err("Extra ");
+        print_cmd_chr(FI_OR_ELSE, cur_chr);
+        help1("I'm ignoring this; it doesn't match any \\if.");
+        error();
+    }
+}
+else {
+    while (cur_chr != FI_CODE) {
+        pass_text(); // skip to \fi
+    }
+    // &lt;&lt; Pop the condition stack, 496 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part25.html#section-367">367</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part27.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part29.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part27.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part29.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

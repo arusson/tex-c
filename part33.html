@@ -1,0 +1,1108 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 644–679 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html" class="active">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-644-packaging"><a class="header" href="#section-644-packaging">Section 644: Packaging</a></h1>
+<p>We’re essentially done with the parts of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> that are concerned with the input (<em>get_next</em>) and the output (<em>ship_out</em>).
+So it’s time to get heavily into the remaining part, which does the real work of typesetting.</p>
+<p>After lists are constructed, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> wraps them up and puts them into boxes.
+Two major subroutines are given the responsibility for this task: <em>hpack</em> applies to horizontal lists (hlists) and <em>vpack</em> applies to vertical lists (vlists).
+The main duty of <em>hpack</em> and <em>vpack</em> is to compute the dimensions of the resulting boxes, and to adjust the glue if one of those dimensions is pre-specified.
+The computed sizes normally enclose all of the material inside the new box; but some items may stick out if negative glue is used, if the box is overfull, or if a <code>\vbox</code> includes other boxes that have
+been shifted left.</p>
+<p>The subroutine call <em>hpack(p, w, m)</em> returns a pointer to an <em>HLIST_NODE</em> for a box containing the hlist that starts at <em>p</em>.
+Parameter <em>w</em> specifies a width; and parameter <em>m</em> is either <em>‘EXACTLY’</em> or <em>‘ADDITIONAL’</em>.
+Thus, <em>hpack(p, w, EXACTLY)</em> produces a box whose width is exactly <em>w</em>, while <em>hpack(p, w, ADDITIONAL)</em> yields a box whose width is the natural width plus <em>w</em>.
+It is convenient to define a macro called <em>‘NATURAL’</em> to cover the most common case, so that we can say <em>hpack(p, NATURAL)</em> to get a box that has the natural width of list <em>p</em>.</p>
+<p>Similarly, <em>vpack(p, w, m)</em> returns a pointer to a <em>VLIST_NODE</em> for a box containing the vlist that starts at <em>p</em>.
+In this case <em>w</em> represents a height instead of a width; the parameter <em>m</em> is interpreted as in <em>hpack</em>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>EXACTLY</em> AND <em>ADDITIONAL</em> are not in the file <code>constants.h</code>, and are kept alongside <em>NATURAL</em> in <code>builder.h</code>.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |builder.h|, 1381 &gt;&gt;
+
+#define EXACTLY    0             // a box dimension is pre-specified
+#define ADDITIONAL 1             // a box dimension is increased from the natural one
+#define NATURAL    0, ADDITIONAL // shorthand for parameters to |hpack| and |vpack|
+</code></pre>
+</div>
+<h1 id="section-645"><a class="header" href="#section-645">Section 645</a></h1>
+<p>The parameters to <em>hpack</em> and <em>vpack</em> correspond to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s primitives like ‘<code>\hbox to 300pt</code>’, ‘<code>\hbox spread 10pt</code>’;
+note that ‘<code>\hbox</code>’ with no dimension following it is equivalent to ‘<code>\hbox spread 0pt</code>’.
+The <em>scan_spec</em> subroutine scans such constructions in the user’s input, including the mandatory left brace that follows them, and it puts the specification onto <em>save_stack</em> so that the desired box can later be obtained by executing the following code:</p>
+<div align="center">
+<div style="text-align: left; display: inline-block;">
+<p><em>save_ptr</em> ← <em>save_ptr</em> − 2;<br>
+<em>hpack(p, saved(1), saved(0))</em>.</p>
+</div>
+</div>
+<p>Special care is necessary to ensure that the special <em>save_stack</em> codes are placed just below the new group code, because scanning can change <em>save_stack</em> when <code>\csname</code> appears.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">subroutines.c</div>
+<pre><code class="language-c">// scans a box specification and left brace
+void scan_spec(int c, bool three_codes) {
+    int s; // temporarily saved value
+    int spec_code;
+    if (three_codes) {
+        s = saved(0);
+    }
+    if (scan_keyword("to")) {
+        spec_code = EXACTLY;
+    }
+    else if (scan_keyword("spread")) {
+        spec_code = ADDITIONAL;
+    }
+    else {
+        spec_code = ADDITIONAL;
+        cur_val = 0;
+        goto found;
+    }
+    scan_normal_dimen;
+found:
+    if (three_codes) {
+        saved(0) = s;
+        incr(save_ptr);
+    }
+    saved(0) = spec_code;
+    saved(1) = cur_val;
+    save_ptr += 2;
+    new_save_level(c);
+    scan_left_brace();
+}
+</code></pre>
+</div>
+<h1 id="section-646"><a class="header" href="#section-646">Section 646</a></h1>
+<p>To figure out the glue setting, <em>hpack</em> and <em>vpack</em> determine how much stretchability and shrinkability are present, considering all four orders of infinity.
+The highest order of infinity that has a nonzero coefficient is then used as if no other orders were present.</p>
+<p>For example, suppose that the given list contains six glue nodes with the respective stretchabilities 3pt, 8fill, 5fil, 6pt, −3fil, −8fill.
+Then the total is essentially 2fil; and if a total additional space of 6pt is to be achieved by stretching, the actual amounts of stretch will be 0pt, 0pt, 15pt, 0pt, −9pt, and 0pt, since only ‘fil’ glue will be considered.
+(The ‘fill’ glue is therefore not really stretching infinitely with respect to ‘fil’; nobody would actually want that to happen.)</p>
+<p>The arrays <em>total_stretch</em> and <em>total_shrink</em> are used to determine how much glue of each kind is present.
+A global variable <em>last_badness</em> is used to implement <code>\badness</code>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">scaled total_stretch[4], total_shrink[4]; // glue found by |hpack| or |vpack|
+int last_badness; // badness of the most recently packaged box
+</code></pre>
+</div>
+<h1 id="section-647"><a class="header" href="#section-647">Section 647</a></h1>
+<p>If the global variable <em>adjust_tail</em> is non-null, the <em>hpack</em> routine also removes all occurrences of <em>INS_NODE</em>, <em>MARK_NODE</em>, and <em>ADJUST_NODE</em> items and appends the resulting material onto the list that ends at location <em>adjust_tail</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer adjust_tail; // tail of adjustment list
+</code></pre>
+</div>
+<h1 id="section-648"><a class="header" href="#section-648">Section 648</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">adjust_tail = null;
+last_badness = 0;
+</code></pre>
+</div>
+<h1 id="section-649"><a class="header" href="#section-649">Section 649</a></h1>
+<p>Here now is <em>hpack</em>, which contains few if any surprises.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">packaging.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |packaging.c|, 1382 &gt;&gt;
+
+pointer hpack(pointer p, scaled w, small_number m) {
+    pointer r;              // the box node that will be returned
+    pointer q;              // trails behind |p|
+    scaled h, d, x;         // height, depth, and natural width
+    scaled s;               // shift amount
+    pointer g;              // points to a glue specification
+    int o;                  // order of infinity
+    internal_font_number f; // the font in a |CHAR_NODE|
+    memory_word i;          // font information about a |CHAR_NODE|
+    eight_bits hd;          // height and depth indices for a character
+    
+    last_badness = 0;
+    r = get_node(BOX_NODE_SIZE);
+    type(r) = HLIST_NODE;
+    subtype(r) = MIN_QUARTERWORD;
+    shift_amount(r) = 0;
+    q = r + LIST_OFFSET;
+    link(q) = p;
+    h = 0;
+    // &lt;&lt; Clear dimensions to zero, 650 &gt;&gt;
+    while (p != null) {
+        // &lt;&lt; Examine node |p| in the hlist, taking account of its effect on the dimensions of the new box, or moving it to the adjustment list; then advance |p| to the next node, 651 &gt;&gt;
+    }
+    if (adjust_tail != null) {
+        link(adjust_tail) = null;
+    }
+    height(r) = h;
+    depth(r) = d;
+    // &lt;&lt; Determine the value of |width(r)| and the appropriate glue setting; then |return| or |goto common_ending|, 657 &gt;&gt;
+common_ending:
+    // &lt;&lt; Finish issuing a diagnostic message for an overfull or underfull hbox, 663 &gt;&gt;
+    return r;
+}
+</code></pre>
+</div>
+<h1 id="section-650"><a class="header" href="#section-650">Section 650</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Clear dimensions to zero <a href="./part33.html#section-650">650</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">d = 0;
+x = 0;
+total_stretch[NORMAL] = 0;
+total_shrink[NORMAL] = 0;
+total_stretch[FIL] = 0;
+total_shrink[FIL] = 0;
+total_stretch[FILL] = 0;
+total_shrink[FILL] = 0;
+total_stretch[FILLL] = 0;
+total_shrink[FILLL] = 0;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part33.html#section-649">649</a>, and <a href="./part33.html#section-668">668</a>.</p>
+</div></div>
+<h1 id="section-651"><a class="header" href="#section-651">Section 651</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Examine node <em>p</em> in the hlist, taking account of its effect on the dimensions of the new box, or moving it to the adjustment list; then advance <em>p</em> to the next node <a href="./part33.html#section-651">651</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">reswitch:
+while (is_char_node(p)) {
+    // &lt;&lt; Incorporate character dimensions into the dimensions of the hbox that will contain it, then move to the next node, 654 &gt;&gt;
+}
+if (p != null) {
+    switch (type(p)) {
+    case HLIST_NODE:
+    case VLIST_NODE:
+    case RULE_NODE:
+    case UNSET_NODE:
+        // &lt;&lt; Incorporate box dimensions into the dimensions of the hbox that will contain it, 653 &gt;&gt;
+        break;
+    
+    case INS_NODE:
+    case MARK_NODE:
+    case ADJUST_NODE:
+        if (adjust_tail != null) {
+            // &lt;&lt; Transfer node |p| to the adjustment list, 655 &gt;&gt;
+        }
+        break;
+    
+    case WHATSIT_NODE:
+        // &lt;&lt; Incorporate a whatsit node into an hbox, 1360 &gt;&gt;
+        break;
+    
+    case GLUE_NODE:
+        // &lt;&lt; Incorporate glue into the horizontal totals, 656 &gt;&gt;
+        break;
+    
+    case KERN_NODE:
+    case MATH_NODE:
+        x += width(p);
+        break;
+    
+    case LIGATURE_NODE:
+        // &lt;&lt; Make node |p| look like a |CHAR_NODE| and |goto reswitch|, 652 &gt;&gt;
+    
+    default:
+        do_nothing;
+    }
+    p = link(p);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-649">649</a>.</p>
+</div></div>
+<h1 id="section-652"><a class="header" href="#section-652">Section 652</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make node <em>p</em> look like a <em>CHAR_NODE</em> and <em>goto reswitch</em> <a href="./part33.html#section-652">652</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">mem[LIG_TRICK] = mem[lig_char(p)];
+link(LIG_TRICK) = link(p);
+p = LIG_TRICK;
+goto reswitch;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part32.html#section-622">622</a>, <a href="./part33.html#section-651">651</a>, and <a href="./part48.html#section-1147">1147</a>.</p>
+</div></div>
+<h1 id="section-653"><a class="header" href="#section-653">Section 653</a></h1>
+<p>The code here implicitly uses the fact that running dimensions are indicated by <em>NULL_FLAG</em>, which will be ignored in the calculations because it is a highly negative number.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Incorporate box dimensions into the dimensions of the hbox that will contain it <a href="./part33.html#section-653">653</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">x += width(p);
+if (type(p) &gt;= RULE_NODE) {
+    s = 0;
+}
+else {
+    s = shift_amount(p);
+}
+if (height(p) - s &gt; h) {
+    h = height(p) - s;
+}
+if (depth(p) + s &gt; d) {
+    d = depth(p) + s;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-651">651</a>.</p>
+</div></div>
+<h1 id="section-654"><a class="header" href="#section-654">Section 654</a></h1>
+<p>The following code is part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop; i.e., adding another character of text to the user’s input will cause each of these instructions to be exercised one more time.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Incorporate character dimensions into the dimensions of the hbox that will contain it, then move to the next node <a href="./part33.html#section-654">654</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">f = font(p);
+i = char_info(f, character(p));
+hd = height_depth(i);
+x += char_width(f, i);
+s = char_height(f, hd);
+if (s &gt; h) {
+    h = s;
+}
+s = char_depth(f, hd);
+if (s &gt; d) {
+    d = s;
+}
+p = link(p);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-651">651</a>.</p>
+</div></div>
+<h1 id="section-655"><a class="header" href="#section-655">Section 655</a></h1>
+<p>Although node <em>q</em> is not necessarily the immediate predecessor of node <em>p</em>, it always points to some node in the list preceding <em>p</em>.
+Thus, we can delete nodes by moving <em>q</em> when necessary.
+The algorithm takes linear time, and the extra computation does not intrude on the inner loop unless it is necessary to make a deletion.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Transfer node <em>p</em> to the adjustment list <a href="./part33.html#section-655">655</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">while (link(q) != p) {
+    q = link(q);
+}
+if (type(p) == ADJUST_NODE) {
+    link(adjust_tail) = adjust_ptr(p);
+    while (link(adjust_tail) != null) {
+        adjust_tail = link(adjust_tail);
+    }
+    p = link(p);
+    free_node(link(q), SMALL_NODE_SIZE);
+}
+else {
+    link(adjust_tail) = p;
+    adjust_tail = p;
+    p = link(p);
+}
+link(q) = p;
+p = q;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-651">651</a>.</p>
+</div></div>
+<h1 id="section-656"><a class="header" href="#section-656">Section 656</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Incorporate glue into the horizontal totals <a href="./part33.html#section-656">656</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">g = glue_ptr(p);
+x += width(g);
+o = stretch_order(g);
+total_stretch[o] += stretch(g);
+o = shrink_order(g);
+total_shrink[o] += shrink(g);
+if (subtype(p) &gt;= A_LEADERS) {
+    g = leader_ptr(p);
+    if (height(g) &gt; h) {
+        h = height(g);
+    }
+    if (depth(g) &gt; d) {
+        d = depth(g);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-651">651</a>.</p>
+</div></div>
+<h1 id="section-657"><a class="header" href="#section-657">Section 657</a></h1>
+<p>When we get to the present part of the program, <em>x</em> is the natural width of the box being packaged.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Determine the value of <em>width(r)</em> and the appropriate glue setting; then <em>return</em> or <em>goto common_ending</em> <a href="./part33.html#section-657">657</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (m == ADDITIONAL) {
+    w = x + w;
+}
+width(r) = w;
+x = w - x; // now |x| is the excess to be made up
+if (x == 0) {
+    glue_sign(r) = NORMAL;
+    glue_order(r) = NORMAL;
+    set_glue_ratio_zero(glue_set(r));
+    return r;
+}
+else if (x &gt; 0) {
+    // &lt;&lt; Determine horizontal glue stretch setting, then |return| or |goto common_ending|, 658 &gt;&gt;
+}
+else {
+    // &lt;&lt; Determine horizontal glue shrink setting, then |return| or |goto common_ending|, 664 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-649">649</a>.</p>
+</div></div>
+<h1 id="section-658"><a class="header" href="#section-658">Section 658</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Determine horizontal glue stretch setting, then <em>return</em> or <em>goto common_ending</em> <a href="./part33.html#section-658">658</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Determine the stretch order, 659 &gt;&gt;
+glue_order(r) = o;
+glue_sign(r) = STRETCHING;
+if (total_stretch[o] != 0) {
+    glue_set(r) = (double)x / total_stretch[o];
+}
+else {
+    glue_sign(r) = NORMAL;
+    set_glue_ratio_zero(glue_set(r)); // there's nothing to stretch
+}
+if (o == NORMAL &amp;&amp; list_ptr(r) != null) {
+    // &lt;&lt; Report an underfull hbox and |goto common_ending|, if this box is sufficiently bad, 660 &gt;&gt;
+}
+return r;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-657">657</a>.</p>
+</div></div>
+<h1 id="section-659"><a class="header" href="#section-659">Section 659</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Determine the stretch order <a href="./part33.html#section-659">659</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (total_stretch[FILLL] != 0) {
+    o = FILLL;
+}
+else if (total_stretch[FILL] != 0) {
+    o = FILL;
+}
+else if (total_stretch[FIL] != 0) {
+    o = FIL;
+}
+else {
+    o = NORMAL;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part33.html#section-658">658</a>, <a href="./part33.html#section-673">673</a>, and <a href="./part37.html#section-796">796</a>.</p>
+</div></div>
+<h1 id="section-660"><a class="header" href="#section-660">Section 660</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report an underfull hbox and <em>goto common_ending</em>, if this box is sufficiently bad <a href="./part33.html#section-660">660</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">last_badness = badness(x, total_stretch[NORMAL]);
+if (last_badness &gt; hbadness) {
+    print_ln();
+    if (last_badness &gt; 100) {
+        print_nl("Underfull");
+    }
+    else {
+        print_nl("Loose");
+    }
+    print(" \\hbox (badness ");
+    print_int(last_badness);
+    goto common_ending;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-658">658</a>.</p>
+</div></div>
+<h1 id="section-661"><a class="header" href="#section-661">Section 661</a></h1>
+<p>In order to provide a decent indication of where an overfull or underfull box originated, we use a global variable <em>pack_begin_line</em> that is set nonzero only when <em>hpack</em> is being called by the paragraph builder or the alignment finishing routine.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int pack_begin_line; // source file line where the current paragraph or alignment began; a negative value denotes alignment
+</code></pre>
+</div>
+<h1 id="section-662"><a class="header" href="#section-662">Section 662</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pack_begin_line = 0;
+</code></pre>
+</div>
+<h1 id="section-663"><a class="header" href="#section-663">Section 663</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Finish issuing a diagnostic message for an overfull or underfull hbox <a href="./part33.html#section-663">663</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (output_active) {
+    print(") has occurred while \\output is active");
+}
+else {
+    if (pack_begin_line != 0) {
+        if (pack_begin_line &gt; 0) {
+            print(") in paragraph at lines ");
+        }
+        else {
+            print(") in alignment at lines ");
+        }
+        print_int(abs(pack_begin_line));
+        print("--");
+    }
+    else {
+        print(") detected at line ");
+    }
+    print_int(line);
+}
+print_ln();
+font_in_short_display = NULL_FONT;
+short_display(list_ptr(r));
+print_ln();
+begin_diagnostic();
+show_box(r);
+end_diagnostic(true);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-649">649</a>.</p>
+</div></div>
+<h1 id="section-664"><a class="header" href="#section-664">Section 664</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Determine horizontal glue shrink setting, then <em>return</em> or <em>goto common_ending</em> <a href="./part33.html#section-664">664</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Determine the shrink order, 665 &gt;&gt;
+glue_order(r) = o;
+glue_sign(r) = SHRINKING;
+if (total_shrink[o] != 0) {
+    glue_set(r) = (double)(-x) / total_shrink[o];
+}
+else {
+    glue_sign(r) = NORMAL;
+    set_glue_ratio_zero(glue_set(r)); // there's nothing to shrink
+}
+if (total_shrink[o] &lt; -x
+    &amp;&amp; o == NORMAL
+    &amp;&amp; list_ptr(r) != null)
+{
+    last_badness = 1000000;
+    set_glue_ratio_one(glue_set(r)); // use the maximum shrinkage
+    // &lt;&lt; Report an overfull hbox and |goto common_ending|, if this box is sufficiently bad, 666 &gt;&gt;
+}
+else if (o == NORMAL &amp;&amp; list_ptr(r) != null) {
+    // &lt;&lt; Report a tight hbox and |goto common_ending|, if this box is sufficiently bad, 667 &gt;&gt;
+}
+return r;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-657">657</a>.</p>
+</div></div>
+<h1 id="section-665"><a class="header" href="#section-665">Section 665</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Determine the shrink order <a href="./part33.html#section-665">665</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (total_shrink[FILLL] != 0) {
+    o = FILLL;
+}
+else if (total_shrink[FILL] != 0) {
+    o = FILL;
+}
+else if (total_shrink[FIL] != 0) {
+    o = FIL;
+}
+else {
+    o = NORMAL;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in sections <a href="./part33.html#section-664">664</a>, <a href="./part33.html#section-676">676</a>, and <a href="./part37.html#section-796">796</a>.</p>
+</div></div>
+<h1 id="section-666"><a class="header" href="#section-666">Section 666</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report an overfull hbox and <em>goto common_ending</em>, if this box is sufficiently bad <a href="./part33.html#section-666">666</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (-x - total_shrink[NORMAL] &gt; hfuzz || hbadness &lt; 100) {
+    if (overfull_rule &gt; 0 &amp;&amp; -x - total_shrink[NORMAL] &gt; hfuzz) {
+        while (link(q) != null) {
+            q = link(q);
+        }
+        link(q) = new_rule();
+        width(link(q)) = overfull_rule;
+    }
+    print_ln();
+    print_nl("Overfull \\hbox (");
+    print_scaled(-x - total_shrink[NORMAL]);
+    print("pt too wide");
+    goto common_ending;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-664">664</a>.</p>
+</div></div>
+<h1 id="section-667"><a class="header" href="#section-667">Section 667</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report a tight hbox and <em>goto common_ending</em>, if this box is sufficiently bad <a href="./part33.html#section-667">667</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">last_badness = badness(-x, total_shrink[NORMAL]);
+if (last_badness &gt; hbadness) {
+    print_ln();
+    print_nl("Tight \\hbox (badness ");
+    print_int(last_badness);
+    goto common_ending;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-664">664</a>.</p>
+</div></div>
+<h1 id="section-668"><a class="header" href="#section-668">Section 668</a></h1>
+<p>The <em>vpack</em> subroutine is actually a special case of a slightly more general routine called <em>vpackage</em>, which has four parameters.
+The fourth parameter, which is <em>MAX_DIMEN</em> in the case of <em>vpack</em>, specifies the maximum depth of the page box that is constructed.
+The depth is first computed by the normal rules; if it exceeds this limit, the reference point is simply moved down until the limiting depth is attained.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">// special case of unconstrained depth
+#define vpack(...) vpackage(__VA_ARGS__, MAX_DIMEN) 
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">packaging.c</div>
+<pre><code class="language-c">pointer vpackage(pointer p, scaled h, small_number m, scaled l) {
+    pointer r;      // the box node that will be returned
+    scaled w, d, x; // width, depth, and natural height
+    scaled s;       // shift amount
+    pointer g;      // points to a glue specification
+    int o;          // order of infinity
+    
+    last_badness = 0;
+    r = get_node(BOX_NODE_SIZE);
+    type(r) = VLIST_NODE;
+    subtype(r) = MIN_QUARTERWORD;
+    shift_amount(r) = 0;
+    list_ptr(r) = p;
+    w = 0;
+    // &lt;&lt; Clear dimensions to zero, 650 &gt;&gt;
+    while (p != null) {
+        // &lt;&lt; Examine node |p| in the vlist, taking account of its effect on the dimensions of the new box; then advance |p| to the next node, 669 &gt;&gt;
+    }
+    width(r) = w;
+    if (d &gt; l) {
+        x = x + d - l;
+        depth(r) = l;
+    }
+    else {
+        depth(r) = d;
+    }
+    // &lt;&lt; Determine the value of |height(r)| and the appropriate glue setting; then |return| or |goto common_ending|, 672 &gt;&gt;
+
+common_ending:
+    // &lt;&lt; Finish issuing a diagnostic message for an overfull or underfull vbox, 675 &gt;&gt;
+    return r;
+}
+</code></pre>
+</div>
+<h1 id="section-669"><a class="header" href="#section-669">Section 669</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Examine node <em>p</em> in the vlist, taking account of its effect on the dimensions of the new box; then advance <em>p</em> to the next node <a href="./part33.html#section-669">669</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_char_node(p)) {
+    confusion("vpack");
+}
+else {
+    switch (type(p)) {
+    case HLIST_NODE:
+    case VLIST_NODE:
+    case RULE_NODE:
+    case UNSET_NODE:
+        // &lt;&lt; Incorporate box dimensions into the dimensions of the vbox that will contain it, 670 &gt;&gt;
+        break;
+    
+    case WHATSIT_NODE:
+        // &lt;&lt; Incorporate a whatsit node into a vbox, 1359 &gt;&gt;
+        break;
+    
+    case GLUE_NODE:
+        // &lt;&lt; Incorporate glue into the vertical totals, 671 &gt;&gt;
+        break;
+    
+    case KERN_NODE:
+        x += d + width(p);
+        d = 0;
+        break;
+    
+    default:
+        do_nothing;
+    }
+}
+p = link(p);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-668">668</a>.</p>
+</div></div>
+<h1 id="section-670"><a class="header" href="#section-670">Section 670</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Incorporate box dimensions into the dimensions of the vbox that will contain it <a href="./part33.html#section-670">670</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">x += d + height(p);
+d = depth(p);
+if (type(p) &gt;= RULE_NODE) {
+    s = 0;
+}
+else {
+    s = shift_amount(p);
+}
+if (width(p) + s &gt; w) {
+    w = width(p) + s;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-669">669</a>.</p>
+</div></div>
+<h1 id="section-671"><a class="header" href="#section-671">Section 671</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Incorporate glue into the vertical totals <a href="./part33.html#section-671">671</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">x += d;
+d = 0;
+g = glue_ptr(p);
+x += width(g);
+o = stretch_order(g);
+total_stretch[o] += stretch(g);
+o = shrink_order(g);
+total_shrink[o] += shrink(g);
+if (subtype(p) &gt;= A_LEADERS) {
+    g = leader_ptr(p);
+    if (width(g) &gt; w) {
+        w = width(g);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-669">669</a>.</p>
+</div></div>
+<h1 id="section-672"><a class="header" href="#section-672">Section 672</a></h1>
+<p>When we get to the present part of the program, <em>x</em> is the natural height of the box being packaged.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Determine the value of <em>height(r)</em> and the appropriate glue setting; then <em>return</em> or <em>goto common_ending</em> <a href="./part33.html#section-672">672</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (m == ADDITIONAL) {
+    h += x;
+}
+height(r) = h;
+x = h - x; // now |x| is the excess to be made up
+if (x == 0) {
+    glue_sign(r) = NORMAL;
+    glue_order(r) = NORMAL;
+    set_glue_ratio_zero(glue_set(r));
+    return r;
+}
+else if (x &gt; 0) {
+    // &lt;&lt; Determine vertical glue stretch setting, then |return| or |goto common_ending|, 673 &gt;&gt;
+}
+else {
+    // &lt;&lt; Determine vertical glue shrink setting, then |return| or |goto common_ending|, 676 &gt;&gt;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-668">668</a>.</p>
+</div></div>
+<h1 id="section-673"><a class="header" href="#section-673">Section 673</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Determine vertical glue stretch setting, then <em>return</em> or <em>goto common_ending</em> <a href="./part33.html#section-673">673</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Determine the stretch order, 659 &gt;&gt;
+glue_order(r) = o;
+glue_sign(r) = STRETCHING;
+if (total_stretch[o] != 0) {
+    glue_set(r) = (double)x / total_stretch[o];
+}
+else {
+    glue_sign(r) = NORMAL;
+    set_glue_ratio_zero(glue_set(r)); // there's nothing to stretch
+}
+if (o == NORMAL &amp;&amp; list_ptr(r) != null) {
+    // &lt;&lt; Report an underfull vbox and |goto common_ending|, if this box is sufficiently bad, 674 &gt;&gt;
+}
+return r;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-672">672</a>.</p>
+</div></div>
+<h1 id="section-674"><a class="header" href="#section-674">Section 674</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report an underfull vbox and <em>goto common_ending</em>, if this box is sufficiently bad <a href="./part33.html#section-674">674</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">last_badness = badness(x, total_stretch[NORMAL]);
+if (last_badness &gt; vbadness) {
+    print_ln();
+    if (last_badness &gt; 100) {
+        print_nl("Underfull");
+    }
+    else {
+        print_nl("Loose");
+    }
+    print(" \\vbox (badness ");
+    print_int(last_badness);
+    goto common_ending;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-673">673</a>.</p>
+</div></div>
+<h1 id="section-675"><a class="header" href="#section-675">Section 675</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Finish issuing a diagnostic message for an overfull or underfull vbox <a href="./part33.html#section-675">675</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (output_active) {
+    print(") has occurred while \\output is active");
+}
+else {
+    if (pack_begin_line != 0) {
+        // it's actually negative
+        print(") in alignment at lines ");
+        print_int(abs(pack_begin_line));
+        print("--");
+    }
+    else {
+        print(") detected at line ");
+    }
+    print_int(line);
+    print_ln();
+}
+begin_diagnostic();
+show_box(r);
+end_diagnostic(true);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-668">668</a>.</p>
+</div></div>
+<h1 id="section-676"><a class="header" href="#section-676">Section 676</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Determine vertical glue shrink setting, then <em>return</em> or <em>goto common_ending</em> <a href="./part33.html#section-676">676</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Determine the shrink order, 665 &gt;&gt;
+glue_order(r) = o;
+glue_sign(r) = SHRINKING;
+if (total_shrink[o] != 0) {
+    glue_set(r) = (double)(-x) / total_shrink[o];
+}
+else {
+    glue_sign(r) = NORMAL;
+    set_glue_ratio_zero(glue_set(r)); // there's nothing to shrink
+}
+if (total_shrink[o] &lt; -x
+    &amp;&amp; o == NORMAL
+    &amp;&amp; list_ptr(r) != null)
+{
+    last_badness = 1000000;
+    set_glue_ratio_one(glue_set(r)); // use the maximum shrinkage
+    // &lt;&lt; Report an overfull vbox and |goto common_ending|, if this box is sufficiently bad, 677 &gt;&gt;
+}
+else if (o == NORMAL &amp;&amp; list_ptr(r) != null) {
+    // &lt;&lt; Report a tight vbox and |goto common_ending|, if this box is sufficiently bad, 678 &gt;&gt;
+}
+return r;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-672">672</a>.</p>
+</div></div>
+<h1 id="section-677"><a class="header" href="#section-677">Section 677</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report an overfull vbox and <em>goto common_ending</em>, if this box is sufficiently bad <a href="./part33.html#section-677">677</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (-x - total_shrink[NORMAL] &gt; vfuzz || vbadness &lt; 100) {
+    print_ln();
+    print_nl("Overfull \\vbox (");
+    print_scaled(-x - total_shrink[NORMAL]);
+    print("pt too high");
+    goto common_ending;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-676">676</a>.</p>
+</div></div>
+<h1 id="section-678"><a class="header" href="#section-678">Section 678</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report a tight vbox and <em>goto common_ending</em>, if this box is sufficiently bad <a href="./part33.html#section-678">678</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">last_badness = badness(-x, total_shrink[NORMAL]);
+if (last_badness &gt; vbadness) {
+    print_ln();
+    print_nl("Tight \\vbox (badness ");
+    print_int(last_badness);
+    goto common_ending;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part33.html#section-676">676</a>.</p>
+</div></div>
+<h1 id="section-679"><a class="header" href="#section-679">Section 679</a></h1>
+<p>When a box is being appended to the current vertical list, the baselineskip calculation is handled by the <em>append_to_vlist</em> routine.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">packaging.c</div>
+<pre><code class="language-c">void append_to_vlist(pointer b) {
+    scaled d; // deficiency of space between baselines
+    pointer p; // a new glue node
+    if (prev_depth &gt; IGNORE_DEPTH) {
+        d = width(baseline_skip) - prev_depth - height(b);
+        if (d &lt; line_skip_limit) {
+            p = new_param_glue(LINE_SKIP_CODE);
+        }
+        else {
+            p = new_skip_param(BASELINE_SKIP_CODE);
+            width(temp_ptr) = d; // |temp_ptr = glue_ptr(p)|
+        }
+        link(tail) = p;
+        tail = p;
+    }
+    link(tail) = b;
+    tail = b;
+    prev_depth = depth(b);
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part32.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part34.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part32.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part34.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

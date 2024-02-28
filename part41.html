@@ -1,0 +1,887 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 900–918 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html" class="active">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-900-post-hyphenation"><a class="header" href="#section-900-post-hyphenation">Section 900: Post-hyphenation</a></h1>
+<p>If a hyphen may be inserted between <em>hc[j]</em> and <em>hc[j + 1]</em>, the hyphenation procedure will set <em>hyf[j]</em> to some small odd number.
+But before we look at <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s hyphenation procedure, which is independent of the rest of the line-breaking algorithm, let us consider what we will do with the hyphens it finds, since it is better to work on this part of the program before forgetting what <em>ha</em> and <em>hb</em>, etc., are all about.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">quarterword hyf[65]; // odd values indicate discretionary hyphens
+pointer init_list;   // list of punctuation characters preceding the word
+bool init_lig;       // does |init_list| represent a ligature?
+bool init_lft;       // if so, did the ligature involve a left boundary?
+</code></pre>
+</div>
+<h1 id="section-901"><a class="header" href="#section-901">Section 901</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Local variables for hyphenation <a href="./part41.html#section-901">901</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">int i, j, l;     // indices into |hc| or |hu|
+pointer q, r, s; // temporary registers for list manipulation
+halfword bchar;  // boundary character of hyphenated word, or |NON_CHAR|
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part41.html#section-912">912</a>, <a href="./part42.html#section-922">922</a>, and <a href="./part42.html#section-929">929</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part40.html#section-895">895</a>.</p>
+</div></div>
+<h1 id="section-902"><a class="header" href="#section-902">Section 902</a></h1>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will never insert a hyphen that has fewer than <code>\lefthyphenmin</code> letters before it or fewer than <code>\righthyphenmin</code> after it; hence, a short word has comparatively little chance of being hyphenated.
+If no hyphens have been found, we can save time by not having to make any changes to the paragraph.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If no hyphens were found, <em>return</em> <a href="./part41.html#section-902">902</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">for(j = l_hyf; j &lt;= hn - r_hyf; j++) {
+    if (odd(hyf[j])) {
+        goto found1;
+    }
+}
+return;
+found1:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part40.html#section-895">895</a>.</p>
+</div></div>
+<h1 id="section-903"><a class="header" href="#section-903">Section 903</a></h1>
+<p>If hyphens are in fact going to be inserted, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> first deletes the subsequence of nodes between <em>ha</em> and <em>hb</em>.
+An attempt is made to preserve the effect that implicit boundary characters and punctuation marks had on ligatures inside the hyphenated word, by storing a left boundary or preceding character in <em>hu[0]</em> and by storing a possible right boundary in <em>bchar</em>.
+We set <em>j ← 0</em> if <em>hu[0]</em> is to be part of the reconstruction; otherwise <em>j ← 1</em>.
+The variable <em>s</em> will point to the tail of the current hlist, and <em>q</em> will point to the node following <em>hb</em>, so that things can be hooked up after we reconstitute the hyphenated word.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Replace nodes <em>ha..hb</em> by a sequence of nodes that includes the discretionary hyphens <a href="./part41.html#section-903">903</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = link(hb);
+link(hb) = null;
+r = link(ha);
+link(ha) = null;
+bchar = hyf_bchar;
+if (is_char_node(ha)) {
+    if (font(ha) != hf) {
+        goto found2;
+    }
+    else {
+        init_list = ha;
+        init_lig = false;
+        hu[0] = character(ha);
+    }
+}
+else if (type(ha) == LIGATURE_NODE) {
+    if (font(lig_char(ha)) != hf) {
+        goto found2;
+    }
+    else {
+        init_list = lig_ptr(ha);
+        init_lig = true;
+        init_lft = (subtype(ha) &gt; 1);
+        hu[0] = character(lig_char(ha));
+        if (init_list == null &amp;&amp; init_lft) {
+            hu[0] = 256;
+            init_lig = false;
+        } // in this case a ligature will be reconstructed from scratch
+        free_node(ha, SMALL_NODE_SIZE);
+    }
+}
+else {
+    // no punctuation found; look for left boundary
+    if (!is_char_node(r) &amp;&amp; type(r) == LIGATURE_NODE &amp;&amp; subtype(r) &gt; 1) {
+        goto found2;
+    }
+    j = 1;
+    s = ha;
+    init_list = null;
+    goto common_ending;
+}
+s = cur_p; // we have |cur_p != ha| because |type(cur_p) = GLUE_NODE|
+while (link(s) != ha) {
+    s = link(s);
+}
+j = 0;
+goto common_ending;
+found2:
+s = ha;
+j = 0;
+hu[0] = 256;
+init_lig = false;
+init_list = null;
+common_ending:
+flush_node_list(r);
+// &lt;&lt; Reconstitute nodes for the hyphenated word, inserting discretionary hyphens, 913 &gt;&gt;
+flush_list(init_list);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part40.html#section-895">895</a>.</p>
+</div></div>
+<h1 id="section-904"><a class="header" href="#section-904">Section 904</a></h1>
+<p>We must now face the fact that the battle is not over, even though the hyphens have been found:
+The process of reconstituting a word can be nontrivial because ligatures might change when a hyphen is present.
+<em>The TeXbook</em> discusses the difficulties of the word “difficult”, and the discretionary material surrounding a hyphen can be considerably more complex than that.
+Suppose <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6111em;"></span><span class="mord"><span class="mord mathtt">abcdef</span></span></span></span></span> is a word in a font for which the only ligatures are <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6111em;"></span><span class="mord"><span class="mord mathtt">b</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="mord mathtt">c</span></span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6111em;"></span><span class="mord"><span class="mord mathtt">c</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="mord mathtt">d</span></span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6111em;"></span><span class="mord"><span class="mord mathtt">d</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="mord mathtt">e</span></span></span></span></span>, and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6111em;"></span><span class="mord"><span class="mord mathtt">e</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="mord mathtt">f</span></span></span></span></span>.
+If this word permits hyphenation between <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6111em;"></span><span class="mord"><span class="mord mathtt">b</span></span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord"><span class="mord mathtt">c</span></span></span></span></span>, the two patterns with and without hyphenation are <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathtt">a</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathtt">b</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathtt">c</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="mord mathtt">d</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathtt">e</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="mord mathtt">f</span></span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6111em;"></span><span class="mord"><span class="mord mathtt">a</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathtt">b</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="mord mathtt">c</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathtt">d</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="mord mathtt">e</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathtt">f</span></span></span></span></span>.
+Thus the insertion of a hyphen might cause effects to ripple arbitrarily far into the rest of the word.
+A further complication arises if additional hyphens appear together with such rippling, e.g., if the word in the example just given could also be hyphenated between <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord"><span class="mord mathtt">c</span></span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6111em;"></span><span class="mord"><span class="mord mathtt">d</span></span></span></span></span>; <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> avoids this by simply ignoring the additional hyphens in such weird cases.</p>
+<p>Still further complications arise in the presence of ligatures that do not delete the original characters.
+When punctuation precedes the word being hyphenated, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s method is not perfect under all possible scenarios, because punctuation marks and letters can propagate information back and forth.
+For example, suppose the original pre-hyphenation pair <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4653em;"></span><span class="mord"><span class="mord">∗</span><span class="mord mathtt">a</span></span></span></span></span> changes to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6875em;vertical-align:-0.2222em;"></span><span class="mord"><span class="mord">∗</span><span class="mord mathtt">y</span></span></span></span></span> via a <code>|=:</code> ligature, which changes to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6528em;vertical-align:-0.2222em;"></span><span class="mord"><span class="mord mathtt">xy</span></span></span></span></span> via a <code>=:|</code> ligature;
+if <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord"><span class="mord mathtt">x</span></span></span></span></span> and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6528em;vertical-align:-0.2222em;"></span><span class="mord"><span class="mord mathtt">y</span></span></span></span></span>, the reconstitution procedure isn’t smart enough to obtain <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6528em;vertical-align:-0.2222em;"></span><span class="mord"><span class="mord mathtt">xy</span></span></span></span></span> again.
+In such cases the font designer should include a ligature that goes from <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord"><span class="mord mathtt">xa</span></span></span></span></span> to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6528em;vertical-align:-0.2222em;"></span><span class="mord"><span class="mord mathtt">xy</span></span></span></span></span>.</p>
+<h1 id="section-905"><a class="header" href="#section-905">Section 905</a></h1>
+<p>The processing is facilitated by a subroutine called <em>reconstitute</em>.
+Given a string of characters <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, there is a smallest index <em>m</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>j</em> such that the “translation” of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> by ligatures and kerning has the form <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> followed by the translation of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is some nonempty sequence of character, ligature, and kern nodes.
+We call <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> a “cut prefix” of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.
+For example, if <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.2222em;"></span><span class="mord"><span class="mord mathtt">fly</span></span></span></span></span>, and if the font contains ‘ﬂ’ as a ligature and a kern between ‘fl’ and ‘y’, then <em>m = 2</em>, <em>t = 2</em>, and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> will be a ligature node for ‘ﬂ’ followed by an appropriate kern node <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.
+In the most common case, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> forms no ligature with <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> and we simply have <em>m = j</em>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>.
+If <em>m</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>n</em> we can repeat the procedure on <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> until the entire translation has been found.</p>
+<p>The <em>reconstitute</em> function returns the integer <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span> and puts the nodes <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> into a linked list starting at <em>link(HOLD_HEAD)</em>, getting the input <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> from the <em>hu</em> array.
+If <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">256</span></span></span></span>, we consider <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> to be an implicit left boundary character; in this case <em>j</em> must be strictly less than <em>n</em>.
+There is a parameter <em>bchar</em>, which is either 256 or an implicit right boundary character assumed to be present just following <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.
+(The value <em>hu[n + 1]</em> is never explicitly examined, but the algorithm imagines that <em>bchar</em> is there.)</p>
+<p>If there exists an index <em>k</em> in the range <em>j</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>k</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>m</em> such that <em>hyf[k]</em> is odd and such that the result of <em>reconstitute</em> would have been different if <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span> had been <em>hchar</em>, then <em>reconstitute</em> sets <em>hyphen_passed</em> to the smallest such <em>k</em>.
+Otherwise it sets <em>hyphen_passed</em> to zero.</p>
+<p>A special convention is used in the case <em>j = 0</em>: Then we assume that the translation of <em>hu[0]</em> appears in a special list of charnodes starting at <em>init_list</em>; moreover, if <em>init_lig</em> is <em>true</em>, then <em>hu[0]</em> will be a ligature character, involving a left boundary if <em>init_lft</em> is <em>true</em>.
+This facility is provided for cases when a hyphenated word is preceded by punctuation (like single or double quotes) that might affect the translation of the beginning of the word.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">small_number hyphen_passed; // first hyphen in a ligature, if any
+</code></pre>
+</div>
+<h1 id="section-906"><a class="header" href="#section-906">Section 906</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare the function called <em>reconstitute</em> <a href="./part41.html#section-906">906</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">small_number reconstitute(small_number j, small_number n, halfword bchar, halfword hchar) {
+    pointer p;          // temporary register for list manipulation
+    pointer t;          // a node being appended to
+    memory_word q;      // character information or a lig/kern instruction
+    halfword cur_rh;    // hyphen character for ligature testing
+    halfword test_char; // hyphen or other character for ligature testing
+    scaled w;           // amount of kerning
+    font_index k;       // position of current lig/kern instruction
+    
+    hyphen_passed = 0;
+    t = HOLD_HEAD;
+    w = 0;
+    link(HOLD_HEAD) = null;
+    // at this point |ligature_present = lft_hit = rt_hit = false|
+    // &lt;&lt; Set up data structures with the cursor following position |j|, 908 &gt;&gt;
+continue_lbl:
+    // &lt;&lt; If there's a ligature or kern at the cursor position, update the data structures, possibly advancing |j|; continue until the cursor moves, 909 &gt;&gt;
+    // &lt;&lt; Append a ligature and/or kern to the translation; |goto continue| if the stack of inserted ligatures is nonempty, 910 &gt;&gt;
+    return j;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part40.html#section-895">895</a>.</p>
+</div></div>
+<h1 id="section-907"><a class="header" href="#section-907">Section 907</a></h1>
+<p>The reconstitution procedure shares many of the global data structures by which <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> has processed the words before they were hyphenated.
+There is an implied “cursor” between characters <em>cur_l</em> and <em>cur_r</em>;
+these characters will be tested for possible ligature activity.
+If <em>ligature_present</em> then <em>cur_l</em> is a ligature character formed from the original characters following <em>cur_q</em> in the current translation list.
+There is a “ligature stack” between the cursor and character <em>j + 1</em>, consisting of pseudo-ligature nodes linked together by their <em>link</em> fields.
+This stack is normally empty unless a ligature command has created a new character that will need to be processed later.
+A pseudo-ligature is a special node having a <em>character</em> field that represents a potential ligature and a <em>lig_ptr</em> field that points to a <em>CHAR_NODE</em> or is <em>null</em>.
+We have</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.715em;vertical-align:-0.315em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">cur_r</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:4.32em;vertical-align:-1.91em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.35em;"><span style="top:-2.2em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-2.192em;"><span class="pstrut" style="height:3.15em;"></span><span style="height:0.316em;width:0.8889em;"><svg xmlns="http://www.w3.org/2000/svg" width='0.8889em' height='0.316em' style='width:0.8889em' viewBox='0 0 888.89 316' preserveAspectRatio='xMinYMin'><path d='M384 0 H504 V316 H384z M384 0 H504 V316 H384z'/></svg></span></span><span style="top:-3.15em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.292em;"><span class="pstrut" style="height:3.15em;"></span><span style="height:0.316em;width:0.8889em;"><svg xmlns="http://www.w3.org/2000/svg" width='0.8889em' height='0.316em' style='width:0.8889em' viewBox='0 0 888.89 316' preserveAspectRatio='xMinYMin'><path d='M384 0 H504 V316 H384z M384 0 H504 V316 H384z'/></svg></span></span><span style="top:-4.6em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.85em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">character</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">lig_stack</span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">qi</span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">hu</span></span></span></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span><span class="mclose">])</span><span class="mpunct">,</span></span></span><span style="top:-1.53em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">bchar</span></span></span></span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.91em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord textsf">if </span></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">lig_stack</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">null</span></span></span></span><span class="mpunct">;</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord textsf">if </span></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">lig_stack</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">null</span></span></span></span><span class="mord text"><span class="mord textsf"> and </span></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">n</span><span class="mpunct">;</span></span></span><span style="top:-1.53em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord textsf">if </span></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">lig_stack</span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord text"><span class="mord text"><span class="mord textsf textit sizing reset-size6 size5">null</span></span></span></span><span class="mord text"><span class="mord textsf"> and </span></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">n</span><span class="mord">.</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.91em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">halfword cur_l, cur_r; // characters before and after the cursor
+pointer cur_q;         // where a ligature should be detached
+pointer lig_stack;     // unfinished business to the right of the cursor
+bool ligature_present; // should a ligature node be made for |cur_l|?
+bool lft_hit, rt_hit;  // did we hit a ligature with a boundary character?
+</code></pre>
+</div>
+<h1 id="section-908"><a class="header" href="#section-908">Section 908</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define append_charnode_to_t(X) \
+    link(t) = get_avail();      \
+    t = link(t);                \
+    font(t) = hf;               \
+    character(t) = (X)
+
+#define set_cur_r              \
+    do {                       \
+        if (j &lt; n) {           \
+            cur_r = hu[j + 1]; \
+        }                      \
+        else {                 \
+            cur_r = bchar;     \
+        }                      \
+        if (odd(hyf[j])) {     \
+            cur_rh = hchar;    \
+        }                      \
+        else {                 \
+            cur_rh = NON_CHAR; \
+        }                      \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set up data structures with the cursor following position <em>j</em> <a href="./part41.html#section-908">908</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">cur_l = hu[j];
+cur_q = t;
+if (j == 0) {
+    ligature_present = init_lig;
+    p = init_list;
+    if (ligature_present) {
+        lft_hit = init_lft;
+    }
+    while (p &gt; null) {
+        append_charnode_to_t(character(p));
+        p = link(p);
+    }
+}
+else if (cur_l &lt; NON_CHAR) {
+    append_charnode_to_t(cur_l);
+}
+lig_stack = null;
+set_cur_r;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part41.html#section-906">906</a>.</p>
+</div></div>
+<h1 id="section-909"><a class="header" href="#section-909">Section 909</a></h1>
+<p>We may want to look at the lig/kern program twice, once for a hyphen and once for a normal letter.
+(The hyphen might appear after the letter in the program, so we’d better not try to look for both at once.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If there’s a ligature or kern at the cursor position, update the data structures, possibly advancing <em>j</em>; continue until the cursor moves <a href="./part41.html#section-909">909</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_l == NON_CHAR) {
+    k = bchar_label[hf];
+    if (k == NON_ADDRESS) {
+        goto done;
+    }
+    else {
+        q = font_info[k];
+    }
+}
+else {
+    q = char_info(hf, cur_l);
+    if (char_tag(q) != LIG_TAG) {
+        goto done;
+    }
+    k = lig_kern_start(hf, q);
+    q = font_info[k];
+    if (skip_byte(q) &gt; STOP_FLAG) {
+        k = lig_kern_restart(hf, q);
+        q = font_info[k];
+    }
+} // now |k| is the starting address of the lig/kern program
+if (cur_rh &lt; NON_CHAR) {
+    test_char = cur_rh;
+}
+else {
+    test_char = cur_r;
+}
+while(true) {
+    if (next_char(q) == test_char &amp;&amp; skip_byte(q) &lt;= STOP_FLAG) {
+        if (cur_rh &lt; NON_CHAR) {
+            hyphen_passed = j;
+            hchar = NON_CHAR;
+            cur_rh = NON_CHAR;
+            goto continue_lbl;
+        }
+        else {
+            if (hchar &lt; NON_CHAR &amp;&amp; odd(hyf[j])) {
+                hyphen_passed = j;
+                hchar = NON_CHAR;
+            }
+            if (op_byte(q) &lt; KERN_FLAG) {
+                // &lt;&lt; Carry out a ligature replacement, updating the cursor structure and possibly advancing |j|; |goto continue| if the cursor doesn't advance, otherwise |goto done|, 911 &gt;&gt;
+            }
+            w = char_kern(hf, q);
+            goto done; // this kern will be inserted below
+        }
+    }
+    if (skip_byte(q) &gt;= STOP_FLAG) {
+        if (cur_rh == NON_CHAR) {
+            goto done;
+        }
+        else {
+            cur_rh = NON_CHAR;
+            goto continue_lbl;
+        }
+    }
+    k += skip_byte(q) + 1;
+    q = font_info[k];
+}
+done:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part41.html#section-906">906</a>.</p>
+</div></div>
+<h1 id="section-910"><a class="header" href="#section-910">Section 910</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define wrap_lig(X)                                   \
+    do {                                              \
+        if (ligature_present) {                       \
+            p = new_ligature(hf, cur_l, link(cur_q)); \
+            if (lft_hit) {                            \
+                subtype(p) = 2;                       \
+                lft_hit = false;                      \
+            }                                         \
+            if ((X) &amp;&amp; lig_stack == null) {           \
+                incr(subtype(p));                     \
+                rt_hit = false;                       \
+            }                                         \
+            link(cur_q) = p;                          \
+            t = p;                                    \
+            ligature_present = false;                 \
+        }                                             \
+    } while (0)
+
+#define pop_lig_stack                                \
+    do {                                             \
+        if (lig_ptr(lig_stack) &gt; null) {             \
+            /* this is a charnode for |hu[j + 1]| */ \
+            link(t) = lig_ptr(lig_stack);            \
+            t = link(t);                             \
+            incr(j);                                 \
+        }                                            \
+        p = lig_stack;                               \
+        lig_stack = link(p);                         \
+        free_node(p, SMALL_NODE_SIZE);               \
+        if (lig_stack == null) {                     \
+            set_cur_r;                               \
+        }                                            \
+        else {                                       \
+            cur_r = character(lig_stack);            \
+        }                                            \
+    } while (0)
+// if |lig_stack| isn't |null| we have |cur_rh = NON_CHAR|
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append a ligature and/or kern to the translation; <em>goto continue</em> if the stack of inserted ligatures is nonempty <a href="./part41.html#section-910">910</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">wrap_lig(rt_hit);
+if (w != 0) {
+    link(t) = new_kern(w);
+    t = link(t);
+    w = 0;
+}
+if (lig_stack &gt; null) {
+    cur_q = t;
+    cur_l = character(lig_stack);
+    ligature_present = true;
+    pop_lig_stack;
+    goto continue_lbl;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part41.html#section-906">906</a>.</p>
+</div></div>
+<h1 id="section-911"><a class="header" href="#section-911">Section 911</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Carry out a ligature replacement, updating the cursor structure and possibly advancing <em>j</em>; <em>goto continue</em> if the cursor doesn’t advance, otherwise <em>goto done</em> <a href="./part41.html#section-911">911</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_l == NON_CHAR) {
+    lft_hit = true;
+}
+if (j == n &amp;&amp; lig_stack == null) {
+    rt_hit = true;
+}
+check_interrupt; // allow a way out in case there's an infinite ligature loop
+switch (op_byte(q)) {
+case 1:
+case 5:
+    cur_l = rem_byte(q); // =:|, =:|&gt;
+    ligature_present = true;
+    break;
+
+case 2:
+case 6:
+    cur_r = rem_byte(q); // |=:, |=:&gt;
+    if (lig_stack &gt; null) {
+        character(lig_stack) = cur_r;
+    }
+    else {
+        lig_stack = new_lig_item(cur_r);
+        if (j == n) {
+            bchar = NON_CHAR;
+        }
+        else {
+            p = get_avail();
+            lig_ptr(lig_stack) = p;
+            character(p) = hu[j + 1];
+            font(p) = hf;
+        }
+    }
+    break;
+
+case 3:
+    cur_r = rem_byte(q); // |=:|}
+    p = lig_stack;
+    lig_stack = new_lig_item(cur_r);
+    link(lig_stack) = p;
+    break;
+
+case 7:
+case 11:
+    wrap_lig(false); // |=:|&gt;, |=:|&gt;&gt;
+    cur_q = t;
+    cur_l = rem_byte(q);
+    ligature_present = true;
+    break;
+
+default:
+    cur_l = rem_byte(q);
+    ligature_present = true; // =:
+    if (lig_stack &gt; null) {
+        pop_lig_stack;
+    }
+    else if (j == n) {
+        goto done;
+    }
+    else {
+        append_charnode_to_t(cur_r);
+        incr(j);
+        set_cur_r;
+    }
+}
+if (op_byte(q) &gt; 4 &amp;&amp; op_byte(q) != 7) {
+    goto done;
+}
+goto continue_lbl;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part41.html#section-909">909</a>.</p>
+</div></div>
+<h1 id="section-912"><a class="header" href="#section-912">Section 912</a></h1>
+<p>Okay, we’re ready to insert the potential hyphenations that were found.
+When the following program is executed, we want to append the word <em>hu[1 .. hn]</em> after node <em>ha</em>, and node <em>q</em> should be appended to the result.
+During this process, the variable <em>i</em> will be a temporary index into <em>hu</em>; the variable <em>j</em> will be an index to our current position in <em>hu</em>; the variable <em>l</em> will be the counterpart of <em>j</em>, in a discretionary branch; the variable <em>r</em> will point to new nodes being created; and we need a few new local variables:</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Local variables for hyphenation <a href="./part41.html#section-901">901</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer major_tail, minor_tail; // the end of lists in the main and discretionary branches being reconstructed
+ASCII_code c = 0;               // character temporarily replaced by a hyphen
+int c_loc;                      // where that character came from
+int r_count;                    // replacement count for discretionary
+pointer hyf_node;               // the hyphen, if it exists
+</code></pre>
+</div>
+<h1 id="section-913"><a class="header" href="#section-913">Section 913</a></h1>
+<p>When the following code is performed, <em>hyf[0]</em> and <em>hyf[hn]</em> will be zero.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Reconstitute nodes for the hyphenated word, inserting discretionary hyphens <a href="./part41.html#section-913">913</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">do {
+    l = j;
+    j = reconstitute(j, hn, bchar, hyf_char) + 1;
+    if (hyphen_passed == 0) {
+        link(s) = link(HOLD_HEAD);
+        while (link(s) &gt; null) {
+            s = link(s);
+        }
+        if (odd(hyf[j - 1])) {
+            l = j;
+            hyphen_passed = j - 1;
+            link(HOLD_HEAD) = null;
+        }
+    }
+    if (hyphen_passed &gt; 0) {
+        // &lt;&lt; Create and append a discretionary node as an alternative to the unhyphenated word, and continue to develop both branches until they become equivalent, 914 &gt;&gt;
+    }
+} while (j &lt;= hn);
+link(s) = q;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part41.html#section-903">903</a>.</p>
+</div></div>
+<h1 id="section-914"><a class="header" href="#section-914">Section 914</a></h1>
+<p>In this repeat loop we will insert another discretionary if <em>hyf[j − 1]</em> is odd, when both branches of the previous discretionary end at position <em>j − 1</em>.
+Strictly speaking, we aren’t justified in doing this, because we don’t know that a hyphen after <em>j − 1</em> is truly independent of those branches.
+But in almost all applications we would rather not lose a potentially valuable hyphenation
+point.
+(Consider the word ‘difficult’, where the letter ‘c’ is in position <em>j</em>.)</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">breaker.h</div>
+<pre><code class="language-c">#define advance_major_tail major_tail = link(major_tail); incr(r_count)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Create and append a discretionary node as an alternative to the unhyphenated word, and continue to develop both branches until they become equivalent <a href="./part41.html#section-914">914</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">do {
+    r = get_node(SMALL_NODE_SIZE);
+    link(r) = link(HOLD_HEAD);
+    type(r) = DISC_NODE;
+    major_tail = r;
+    r_count = 0;
+    while (link(major_tail) &gt; null) {
+        advance_major_tail;
+    }
+    i = hyphen_passed;
+    hyf[i] = 0;
+    // &lt;&lt; Put the characters |hu[l..i]| and a hyphen into |pre_break(r)|, 915 &gt;&gt;
+    // &lt;&lt; Put the characters |hu[i + 1..]| into |post_break(r)|, appending to this list and to |major_tail| until synchronization has been achieved, 916 &gt;&gt;
+    // &lt;&lt; Move pointer |s| to the end of the current list, and set |replace_count(r)| appropriately, 918 &gt;&gt;
+    hyphen_passed = j - 1;
+    link(HOLD_HEAD) = null;
+} while (odd(hyf[j - 1]));
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part41.html#section-913">913</a>.</p>
+</div></div>
+<h1 id="section-915"><a class="header" href="#section-915">Section 915</a></h1>
+<p>The new hyphen might combine with the previous character via ligature or kern.
+At this point we have <em>l − 1</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>i</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>j</em> and <em>i</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>hn</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put the characters <em>hu[l..i]</em> and a hyphen into <em>pre_break(r)</em> <a href="./part41.html#section-915">915</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">minor_tail = null;
+pre_break(r) = null;
+hyf_node = new_character(hf, hyf_char);
+if (hyf_node != null) {
+    incr(i);
+    c = hu[i];
+    hu[i] = hyf_char;
+    free_avail(hyf_node);
+}
+while (l &lt;= i) {
+    l = reconstitute(l, i, font_bchar[hf], NON_CHAR) + 1;
+    if (link(HOLD_HEAD) &gt; null) {
+        if (minor_tail == null) {
+            pre_break(r) = link(HOLD_HEAD);
+        }
+        else {
+            link(minor_tail) = link(HOLD_HEAD);
+        }
+        minor_tail = link(HOLD_HEAD);
+        while (link(minor_tail) &gt; null) {
+            minor_tail = link(minor_tail);
+        }
+    }
+}
+if (hyf_node != null) {
+    hu[i] = c; // restore the character in the hyphen position
+    l = i;
+    decr(i);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part41.html#section-914">914</a>.</p>
+</div></div>
+<h1 id="section-916"><a class="header" href="#section-916">Section 916</a></h1>
+<p>The synchronization algorithm begins with <em>l = i + 1</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>j</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put the characters <em>hu[i + 1..]</em> into <em>post_break(r)</em>, appending to this list and to <em>major_tail</em> until synchronization has been achieved <a href="./part41.html#section-916">916</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">minor_tail = null;
+post_break(r) = null;
+c_loc = 0;
+if (bchar_label[hf] != NON_ADDRESS) {
+    // put left boundary at beginning of new line
+    decr(l);
+    c = hu[l];
+    c_loc = l;
+    hu[l] = 256;
+}
+while (l &lt; j) {
+    do {
+        l = reconstitute(l, hn, bchar, NON_CHAR) + 1;
+        if (c_loc &gt; 0) {
+            hu[c_loc] = c;
+            c_loc = 0;
+        }
+        if (link(HOLD_HEAD) &gt; null) {
+            if (minor_tail == null) {
+                post_break(r) = link(HOLD_HEAD);
+            }
+            else {
+                link(minor_tail) = link(HOLD_HEAD);
+            }
+            minor_tail = link(HOLD_HEAD);
+            while (link(minor_tail) &gt; null) {
+                minor_tail = link(minor_tail);
+            }
+        }
+    } while (l &lt; j);
+    while (l &gt; j) {
+        // &lt;&lt; Append characters of |hu[j..]| to |major_tail|, advancing |j|, 917 &gt;&gt;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part41.html#section-914">914</a>.</p>
+</div></div>
+<h1 id="section-917"><a class="header" href="#section-917">Section 917</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append characters of <em>hu[j..]</em> to <em>major_tail</em>, advancing <em>j</em> <a href="./part41.html#section-917">917</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">j = reconstitute(j, hn, bchar, NON_CHAR) + 1;
+link(major_tail) = link(HOLD_HEAD);
+while (link(major_tail) &gt; null) {
+    advance_major_tail;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part41.html#section-916">916</a>.</p>
+</div></div>
+<h1 id="section-918"><a class="header" href="#section-918">Section 918</a></h1>
+<p>Ligature insertion can cause a word to grow exponentially in size.
+Therefore we must test the size of <em>r_count</em> here, even though the hyphenated text was at most 63 characters long.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Move pointer <em>s</em> to the end of the current list, and set <em>replace_count(r)</em> appropriately <a href="./part41.html#section-918">918</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (r_count &gt; 127) {
+    // we have to forget the discretionary hyphen
+    link(s) = link(r);
+    link(r) = null;
+    flush_node_list(r);
+}
+else {
+    link(s) = r;
+    replace_count(r) = r_count;
+}
+s = major_tail;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part41.html#section-914">914</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part40.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part42.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part40.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part42.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

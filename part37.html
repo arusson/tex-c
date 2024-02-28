@@ -1,0 +1,1524 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 768–812 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html" class="active">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-768-alignment"><a class="header" href="#section-768-alignment">Section 768: Alignment</a></h1>
+<p>It’s sort of a miracle whenever <code>\halign</code> and <code>\valign</code> work, because they cut across so many of the control structures of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.</p>
+<p>Therefore the present page is probably not the best place for a beginner to start reading this program; it is better to master everything else first.</p>
+<p>Let us focus our thoughts on an example of what the input might be, in order to get some idea about how the alignment miracle happens.
+The example doesn’t do anything useful, but it is sufficiently general to indicate all of the special cases that must be dealt with; please do not be disturbed by its apparent complexity and meaninglessness.</p>
+<pre><code>\tabskip 2pt plus 3pt
+\halign to 300pt{u1#v1&amp;
+        \tabskip 1pt plus 1fil u2#v2&amp;
+        u3#v3\cr
+    a1&amp;\omit a2&amp;\vrule\cr
+    \noalign{\vskip 3pt}
+    b1\span b2\cr
+    \omit&amp;c2\span\omit\cr}
+</code></pre>
+<p>Here’s what happens:</p>
+<p>(0) When ‘<code>\halign to 300pt\{</code>’ is scanned, the <em>scan_spec</em> routine places the 300pt dimension onto the <em>save_stack</em>, and an <em>ALIGN_GROUP</em> code is placed above it.
+This will make it possible to complete the alignment when the matching ‘<code>}</code>’ is found.</p>
+<p>(1) The preamble is scanned next.
+Macros in the preamble are not expanded, except as part of a tabskip specification.
+For example, if <code>u2</code> had been a macro in the preamble above, it would have been expanded, since <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> must look for ‘<code>minus...</code>’ as part of the tabskip glue.
+A “preamble list” is constructed based on the user’s preamble; in our case it contains the following seven items:</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th></th></tr></thead><tbody>
+<tr><td><code>\glue 2pt plus 3pt</code></td><td>(the tabskip preceding column 1)</td></tr>
+<tr><td><code>\alignrecord, width</code> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span></td><td>(preamble info for column 1)</td></tr>
+<tr><td><code>\glue 2pt plus 3pt</code></td><td>(the tabskip between columns 1 and 2)</td></tr>
+<tr><td><code>\alignrecord, width</code> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span></td><td>(preamble info for column 2)</td></tr>
+<tr><td><code>\glue 1pt plus 1fil</code></td><td>(the tabskip between columns 2 and 3)</td></tr>
+<tr><td><code>\alignrecord, width</code> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span></td><td>(preamble info for column 3)</td></tr>
+<tr><td><code>\glue 1pt plus 1fil</code></td><td>(the tabskip following column 3)</td></tr>
+</tbody></table>
+</div>
+<p>These “alignrecord” entries have the same size as an <em>UNSET_NODE</em>, since they will later be converted into such nodes.
+However, at the moment they have no <em>type</em> or <em>subtype</em> fields; they have <em>info</em> fields instead, and these <em>info</em> fields are initially set to the value <em>END_SPAN</em>, for reasons explained below.
+Furthermore, the alignrecord nodes have no <em>height</em> or <em>depth</em> fields; these are renamed <em>u_part</em> and <em>v_part</em>, and they point to token lists for the templates of the alignment.
+For example, the <em>u_part</em> field in the first alignrecord points to the token list ‘<code>u1</code>’, i.e., the template preceding the ‘<code>#</code>’ for column 1.</p>
+<p>(2) <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> now looks at what follows the <code>\cr</code> that ended the preamble.
+It is not ‘<code>\noalign</code>’ or ‘<code>\omit</code>’, so this input is put back to be read again, and the template ‘<code>u1</code>’ is fed to the scanner.
+Just before reading ‘<code>u1</code>’, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> goes into restricted horizontal mode.
+Just after reading ‘<code>u1</code>’, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will see ‘<code>a1</code>’, and then (when the <code>&amp;</code> is sensed) <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will see ‘<code>v1</code>’.
+Then <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> scans an <em>ENDV</em> token, indicating the end of a column.
+At this point an <em>UNSET_NODE</em> is created, containing the contents of the current hlist (i.e., ‘<code>u1a1v1</code>’).
+The natural width of this unset node replaces the <em>width</em> field of the alignrecord for column 1; in general, the alignrecords will record the maximum natural width that has occurred so far in a given column.</p>
+<p>(3) Since ‘<code>\omit</code>’ follows the ‘<code>&amp;</code>’, the templates for column 2 are now bypassed.
+Again <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> goes into restricted horizontal mode and makes an <em>UNSET_NODE</em> from the resulting hlist; but this time the hlist contains simply ‘<code>a2</code>’.
+The natural width of the new unset box is remembered in the <em>width</em> field of the alignrecord for column 2.</p>
+<p>(4) A third <em>UNSET_NODE</em> is created for column 3, using essentially the mechanism that worked for column 1; this unset box contains ‘<code>u3\vrule v3</code>’.
+The vertical rule in this case has running dimensions that will later extend to the height and depth of the whole first row, since each <em>UNSET_NODE</em> in a row will eventually inherit the height and depth of its enclosing box.</p>
+<p>(5) The first row has now ended; it is made into a single unset box comprising the following seven items:</p>
+<pre><code>\glue 2pt plus 3pt
+\unsetbox for 1 column: u1a1v1
+\glue 2pt plus 3pt
+\unsetbox for 1 column: a2
+\glue 1pt plus 1fil
+\unsetbox for 1 column: u3\vrule v3
+\glue 1pt plus 1fil
+</code></pre>
+<p>The width of this unset row is unimportant, but it has the correct height and depth, so the correct baselineskip glue will be computed as the row is inserted into a vertical list.</p>
+<p>(6) Since ‘<code>\noalign</code>’ follows the current <code>\cr</code>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> appends additional material (in this case <code>\vskip 3pt</code>) to the vertical list.
+While processing this material, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will be in internal vertical mode, and <em>NO_ALIGN_GROUP</em> will be on <em>save_stack</em>.</p>
+<p>(7) The next row produces an unset box that looks like this:</p>
+<pre><code>\glue 2pt plus 3pt
+\unsetbox for 2 columns: u1b1v1u2b2v2
+\glue 1pt plus 1fil
+\unsetbox for 1 column: (empty)
+\glue 1pt plus 1fil
+</code></pre>
+<p>The natural width of the unset box that spans columns 1 and 2 is stored in a “span node,” which we will explain later; the <em>info</em> field of the alignrecord for column 1 now points to the new span node, and the <em>info</em> of the span node points to <em>END_SPAN</em>.</p>
+<p>(8) The final row produces the unset box</p>
+<pre><code>\glue 2pt plus 3pt
+\unsetbox for 1 column: (empty)
+\glue 2pt plus 3pt
+\unsetbox for 2 columns: u2c2v2
+\glue 1pt plus 1fil
+</code></pre>
+<p>A new span node is attached to the alignrecord for column 2.</p>
+<p>(9) The last step is to compute the true column widths and to change all the unset boxes to hboxes, appending the whole works to the vertical list that encloses the <code>\halign</code>.
+The rules for deciding on the final widths of each unset column box will be explained below.</p>
+<p>Note that as <code>\halign</code> is being processed, we fearlessly give up control to the rest of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.
+At critical junctures, an alignment routine is called upon to step in and do some little action, but most of the time these routines just lurk in the background.
+It’s something like post-hypnotic suggestion.</p>
+<h1 id="section-769"><a class="header" href="#section-769">Section 769</a></h1>
+<p>We have mentioned that alignrecords contain no <em>height</em> or <em>depth</em> fields.
+Their <em>glue_sign</em> and <em>glue_order</em> are pre-empted as well, since it is necessary to store information about what to do when a template ends.
+This information is called the <em>extra_info</em> field.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |alignment.h|, 1381 &gt;&gt;
+
+#define u_part(X)     mem[(X) + HEIGHT_OFFSET].integer // pointer to &lt;u_j&gt; token list
+#define v_part(X)     mem[(X) + DEPTH_OFFSET].integer  // pointer to &lt;v_j&gt; token list
+#define extra_info(X) info(X + LIST_OFFSET)            // info to remember during template
+</code></pre>
+</div>
+<h1 id="section-770"><a class="header" href="#section-770">Section 770</a></h1>
+<p>Alignments can occur within alignments, so a small stack is used to access the alignrecord information.
+At each level we have a <em>preamble</em> pointer, indicating the beginning of the preamble list; a <em>cur_align</em> pointer, indicating the current position in the preamble list; a <em>cur_span</em> pointer, indicating the value of <em>cur_align</em> at the beginning of a sequence of spanned columns; a <em>cur_loop</em> pointer, indicating the tabskip glue before an alignrecord that should be copied next if the current list is extended;
+and the <em>align_state</em> variable, which indicates the nesting of braces so that <code>\cr</code> and <code>\span</code> and tab marks are properly intercepted.
+There also are pointers <em>cur_head</em> and <em>cur_tail</em> to the head and tail of a list of adjustments being moved out from horizontal mode to vertical mode.</p>
+<p>The current values of these seven quantities appear in global variables;
+when they have to be pushed down, they are stored in 5-word nodes, and <em>align_ptr</em> points to the topmost such node.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define ALIGN_STACK_NODE_SIZE 5 // number of |mem| words to save alignment states
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.h</div>
+<pre><code class="language-c">#define preamble link(ALIGN_HEAD) // the current preamble list
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer cur_align;          // current position in preamble list
+pointer cur_span;           // start of currently spanned columns in preamble list
+pointer cur_loop;           // place to copy when extending a periodic preamble
+pointer align_ptr;          // most recently pushed-down alignment stack node
+pointer cur_head, cur_tail; // adjustment list pointers
+</code></pre>
+</div>
+<h1 id="section-771"><a class="header" href="#section-771">Section 771</a></h1>
+<p>The <em>align_state</em> and <em>preamble</em> variables are initialized elsewhere.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">align_ptr = null;
+cur_align = null;
+cur_span = null;
+cur_loop = null;
+cur_head = null;
+cur_tail = null;
+</code></pre>
+</div>
+<h1 id="section-772"><a class="header" href="#section-772">Section 772</a></h1>
+<p>Alignment stack maintenance is handled by a pair of trivial routines called <em>push_alignment</em> and <em>pop_alignment</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |alignment.c|, 1382 &gt;&gt;
+
+void push_alignment() {
+    pointer p; // the new alignment stack node
+    p = get_node(ALIGN_STACK_NODE_SIZE);
+    link(p) = align_ptr;
+    info(p) = cur_align;
+    llink(p) = preamble;
+    rlink(p) = cur_span;
+    mem[p + 2].integer = cur_loop;
+    mem[p + 3].integer = align_state;
+    info(p + 4) = cur_head;
+    link(p + 4) = cur_tail;
+    align_ptr = p;
+    cur_head = get_avail();
+}
+
+void pop_alignment() {
+    pointer p; // the top alignment stack node
+    free_avail(cur_head);
+    p = align_ptr;
+    cur_tail = link(p + 4);
+    cur_head = info(p + 4);
+    align_state = mem[p + 3].integer;
+    cur_loop = mem[p + 2].integer;
+    cur_span = rlink(p);
+    preamble = llink(p);
+    cur_align = info(p);
+    align_ptr = link(p);
+    free_node(p, ALIGN_STACK_NODE_SIZE);
+}
+</code></pre>
+</div>
+<h1 id="section-773"><a class="header" href="#section-773">Section 773</a></h1>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> has eight procedures that govern alignments: <em>init_align</em> and <em>fin_align</em> are used at the very beginning and the very end; <em>init_row</em> and <em>fin_row</em> are used at the beginning and end of individual rows; <em>init_span</em> is used at the beginning of a sequence of spanned columns (possibly involving only one column); <em>init_col</em> and <em>fin_col</em> are used at the beginning and
+end of individual columns; and <em>align_peek</em> is used after <code>\cr</code> to see whether the next item is <code>\noalign</code>.</p>
+<p>We shall consider these routines in the order they are first used during the course of a complete <code>\halign</code>, namely <em>init_align</em>, <em>align_peek</em>, <em>init_row</em>, <em>init_span</em>, <em>init_col</em>, <em>fin_col</em>, <em>fin_row</em>, <em>fin_align</em>.</p>
+<h1 id="section-774"><a class="header" href="#section-774">Section 774</a></h1>
+<p>When <code>\halign</code> or <code>\valign</code> has been scanned in an appropriate mode, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> calls <em>init_align</em>, whose task is to get everything off to a good start.
+This mostly involves scanning the preamble and putting its information into the preamble list.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.c</div>
+<pre><code class="language-c">// &lt;&lt; Declare the procedure called |get_preamble_token|, 782 &gt;&gt;
+
+void init_align() {
+    pointer save_cs_ptr; // |warning_index| value for error messages
+    pointer p;           // for short-term temporary use
+
+    save_cs_ptr = cur_cs; // \halign or \valign, usually
+    push_alignment();
+    align_state = -1000000; // enter a new alignment level
+
+    // &lt;&lt; Check for improper alignment in displayed math, 776 &gt;&gt;
+    
+    push_nest(); // enter a new semantic level
+    
+    // &lt;&lt; Change current mode to |-VMODE| for \halign, |-HMODE| for \valign, 775 &gt;&gt;
+    
+    scan_spec(ALIGN_GROUP, false);
+    
+    // &lt;&lt; Scan the preamble and record it in the |preamble| list, 777 &gt;&gt;
+    
+    new_save_level(ALIGN_GROUP);
+    if (every_cr != null) {
+        begin_token_list(every_cr, EVERY_CR_TEXT);
+    }
+    align_peek(); // look for \noalign or \omit
+}
+</code></pre>
+</div>
+<h1 id="section-775"><a class="header" href="#section-775">Section 775</a></h1>
+<p>In vertical modes, <em>prev_depth</em> already has the correct value.
+But if we are in <em>MMODE</em> (displayed formula mode), we reach out to the enclosing vertical mode for the <em>prev_depth</em> value that produces the correct baseline calculations.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Change current mode to <em>-VMODE</em> for \halign, <em>-HMODE</em> for \valign <a href="./part37.html#section-775">775</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (mode == MMODE) {
+    mode = -VMODE;
+    prev_depth = nest[nest_ptr - 2].aux_field.sc;
+}
+else if (mode &gt; 0) {
+    negate(mode);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-774">774</a>.</p>
+</div></div>
+<h1 id="section-776"><a class="header" href="#section-776">Section 776</a></h1>
+<p>When <code>\halign</code> is used as a displayed formula, there should be no other pieces of mlists present.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Check for improper alignment in displayed math <a href="./part37.html#section-776">776</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (mode == MMODE
+    &amp;&amp; (tail != head || incompleat_noad != null))
+{
+    print_err("Improper ");
+    print_esc("halign");
+    print(" inside $$'s");
+    help3("Displays can use special alignments (like \\eqalignno)")
+        ("only if nothing but the alignment itself is between $$'s.")
+        ("So I've deleted the formulas that preceded this alignment.");
+    error();
+    flush_math();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-774">774</a>.</p>
+</div></div>
+<h1 id="section-777"><a class="header" href="#section-777">Section 777</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan the preamble and record it in the <em>preamble</em> list <a href="./part37.html#section-777">777</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">preamble = null;
+cur_align = ALIGN_HEAD;
+cur_loop = null;
+scanner_status = ALIGNING;
+warning_index = save_cs_ptr;
+align_state = -1000000; // at this point, |cur_cmd = LEFT_BRACE|
+while(true) {
+    // &lt;&lt; Append the current tabskip glue to the preamble list, 778 &gt;&gt;
+    if (cur_cmd == CAR_RET) {
+        break; // goto done, \cr ends the preamble
+    }
+    // &lt;&lt; Scan preamble text until |cur_cmd| is |TAB_MARK| or |CAR_RET|, looking for changes in the tabskip glue; append an alignrecord to the preamble list, 779 &gt;&gt;
+}
+// done:
+scanner_status = NORMAL;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-774">774</a>.</p>
+</div></div>
+<h1 id="section-778"><a class="header" href="#section-778">Section 778</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append the current tabskip glue to the preamble list <a href="./part37.html#section-778">778</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">link(cur_align) = new_param_glue(TAB_SKIP_CODE);
+cur_align = link(cur_align);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-777">777</a>.</p>
+</div></div>
+<h1 id="section-779"><a class="header" href="#section-779">Section 779</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan preamble text until <em>cur_cmd</em> is <em>TAB_MARK</em> or <em>CAR_RET</em>, looking for changes in the tabskip glue; append an alignrecord to the preamble list <a href="./part37.html#section-779">779</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Scan the template &lt;u_j&gt;, putting the resulting token list in |HOLD_HEAD|, 783 &gt;&gt;
+link(cur_align) = new_null_box();
+cur_align = link(cur_align); // a new alignrecord
+info(cur_align) = END_SPAN;
+width(cur_align) = NULL_FLAG;
+u_part(cur_align) = link(HOLD_HEAD);
+// &lt;&lt; Scan the template &lt;v_j&gt;, putting the resulting token list in |HOLD_HEAD|, 784 &gt;&gt;
+v_part(cur_align) = link(HOLD_HEAD);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-777">777</a>.</p>
+</div></div>
+<h1 id="section-780"><a class="header" href="#section-780">Section 780</a></h1>
+<p>We enter ‘<code>\span</code>’ into <em>eqtb</em> with <em>TAB_MARK</em> as its command code, and with <em>SPAN_CODE</em> as the command modifier.
+This makes <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> interpret it essentially the same as an alignment delimiter like ‘<code>&amp;</code>’, yet it is
+recognizably different when we need to distinguish it from a normal delimiter.
+It also turns out to be useful to give a special <em>CR_CODE</em> to ‘<code>\cr</code>’, and an even larger <em>CR_CR_CODE</em> to ‘<code>\crcr</code>’.</p>
+<p>The end of a template is represented by two “frozen” control sequences called <code>\endtemplate</code>.
+The first has the command code <em>END_TEMPLATE</em>, which is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>OUTER_CALL</em>, so it will not easily disappear in the presence of errors.
+The <em>get_x_token</em> routine converts the first into the second, which has <em>ENDV</em> as its command code.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String <code>"endemplate"</code> is added to the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string("endtemplate"); // ENDTEMPLATE_STRING: 267
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define ENDTEMPLATE_STRING 267
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define SPAN_CODE          256           // distinct from any character
+#define CR_CODE            257           // distinct from |SPAN_CODE| and from any character
+#define CR_CR_CODE         (CR_CODE + 1) // this distinguishes \crcr from \cr
+#define END_TEMPLATE_TOKEN (CS_TOKEN_FLAG + FROZEN_END_TEMPLATE)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("span", TAB_MARK, SPAN_CODE);
+primitive("cr", CAR_RET, CR_CODE);
+text(FROZEN_CR) = str_ptr - 1; // "cr"
+eqtb[FROZEN_CR] = eqtb[cur_val];
+primitive("crcr", CAR_RET, CR_CR_CODE);
+text(FROZEN_END_TEMPLATE) = ENDTEMPLATE_STRING;
+text(FROZEN_ENDV) = ENDTEMPLATE_STRING;
+eq_type(FROZEN_ENDV) = ENDV;
+equiv(FROZEN_ENDV) = NULL_LIST;
+eq_level(FROZEN_ENDV) = LEVEL_ONE;
+eqtb[FROZEN_END_TEMPLATE] = eqtb[FROZEN_ENDV];
+eq_type(FROZEN_END_TEMPLATE) = END_TEMPLATE;
+</code></pre>
+</div>
+<h1 id="section-781"><a class="header" href="#section-781">Section 781</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case TAB_MARK:
+    if (chr_code == SPAN_CODE) {
+        print_esc("span");
+    }
+    else {
+        chr_cmd("alignment tab character ");
+    }
+    break;
+
+case CAR_RET:
+    if (chr_code == CR_CODE) {
+        print_esc("cr");
+    }
+    else {
+        print_esc("crcr");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-782"><a class="header" href="#section-782">Section 782</a></h1>
+<p>The preamble is copied directly, except that <code>\tabskip</code> causes a change to the tabskip glue, thereby possibly expanding macros that immediately follow it.
+An appearance of <code>\span</code> also causes such an expansion.</p>
+<p>Note that if the preamble contains ‘<code>\global\tabskip</code>’, the ‘<code>\global</code>’ token survives in the preamble and the ‘<code>\tabskip</code>’ defines new tabskip glue (locally).</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare the procedure called <em>get_preamble_token</em> <a href="./part37.html#section-782">782</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">void get_preamble_token() {
+restart:
+    get_token();
+    while (cur_chr == SPAN_CODE &amp;&amp; cur_cmd == TAB_MARK) {
+        get_token(); // this token will be expanded once
+        if (cur_cmd &gt; MAX_COMMAND) {
+            expand();
+            get_token();
+        }
+    }
+    if (cur_cmd == ENDV) {
+        fatal_error("(interwoven alignment preambles are not allowed)");
+    }
+    if (cur_cmd == ASSIGN_GLUE
+        &amp;&amp; cur_chr == GLUE_BASE + TAB_SKIP_CODE)
+    {
+        scan_optional_equals();
+        scan_glue(GLUE_VAL);
+        if (global_defs &gt; 0) {
+            geq_define(GLUE_BASE + TAB_SKIP_CODE, GLUE_REF, cur_val);
+        }
+        else {
+            eq_define(GLUE_BASE + TAB_SKIP_CODE, GLUE_REF, cur_val);
+        }
+        goto restart;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-774">774</a>.</p>
+</div></div>
+<h1 id="section-783"><a class="header" href="#section-783">Section 783</a></h1>
+<p>Spaces are eliminated from the beginning of a template.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan the template &lt;u_j&gt;, putting the resulting token list in <em>HOLD_HEAD</em> <a href="./part37.html#section-783">783</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = HOLD_HEAD;
+link(p) = null;
+while(true) {
+    get_preamble_token();
+    if (cur_cmd == MAC_PARAM) {
+        break; // goto done1
+    }
+    if (cur_cmd &lt;= CAR_RET
+        &amp;&amp; cur_cmd &gt;= TAB_MARK
+        &amp;&amp; align_state == -1000000)
+    {
+        if (p == HOLD_HEAD
+            &amp;&amp; cur_loop == null
+            &amp;&amp; cur_cmd == TAB_MARK)
+        {
+            cur_loop = cur_align;
+        }
+        else {
+            print_err("Missing # inserted in alignment preamble");
+            help3("There should be exactly one # between &amp;'s, when an")
+                ("\\halign or \\valign is being set up. In this case you had")
+                ("none, so I've put one in; maybe that will work.");
+            back_error();
+            break; // goto done1
+        }
+    }
+    else if (cur_cmd != SPACER || p != HOLD_HEAD) {
+        link(p) = get_avail();
+        p = link(p);
+        info(p) = cur_tok;
+    }
+}
+// done1:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-779">779</a>.</p>
+</div></div>
+<h1 id="section-784"><a class="header" href="#section-784">Section 784</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan the template &lt;v_j&gt;, putting the resulting token list in <em>HOLD_HEAD</em> <a href="./part37.html#section-784">784</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">p = HOLD_HEAD;
+link(p) = null;
+while(true) {
+    get_preamble_token();
+    if (cur_cmd &lt;= CAR_RET
+        &amp;&amp; cur_cmd &gt;= TAB_MARK
+        &amp;&amp; align_state == -1000000)
+    {
+        break; // goto done2
+    }
+    if (cur_cmd == MAC_PARAM) {
+        print_err("Only one # is allowed per tab");
+        help3("There should be exactly one # between &amp;'s, when an")
+            ("\\halign or \\valign is being set up. In this case you had")
+            ("more than one, so I'm ignoring all but the first.");
+        error();
+        continue;
+    }
+    link(p) = get_avail();
+    p = link(p);
+    info(p) = cur_tok;
+}
+// done2:
+link(p) = get_avail();
+p = link(p);
+info(p) = END_TEMPLATE_TOKEN; // put \endtemplate at the end
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-779">779</a>.</p>
+</div></div>
+<h1 id="section-785"><a class="header" href="#section-785">Section 785</a></h1>
+<p>The tricky part about alignments is getting the templates into the scanner at the right time, and recovering control when a row or column is finished.</p>
+<p>We usually begin a row after each <code>\cr</code> has been sensed, unless that <code>\cr</code> is followed by <code>\noalign</code> or by the right brace that terminates the alignment.
+The <em>align_peek</em> routine is used to look ahead and do the right thing; it either gets a new row started, or gets a <code>\noalign</code> started, or finishes off the alignment.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.c</div>
+<pre><code class="language-c">void align_peek() {
+restart:
+    align_state = 1000000;
+    // &lt;&lt; Get the next non-blank non-call token, 406 &gt;&gt;
+    if (cur_cmd == NO_ALIGN) {
+        scan_left_brace();
+        new_save_level(NO_ALIGN_GROUP);
+        if (mode == -VMODE) {
+            normal_paragraph();
+        }
+    }
+    else if (cur_cmd == RIGHT_BRACE) {
+        fin_align();
+    }
+    else if (cur_cmd == CAR_RET &amp;&amp; cur_chr == CR_CR_CODE) {
+        goto restart; // ignore \crcr
+    }
+    else {
+        init_row(); // start a new row
+        init_col(); // start a new column and replace what we peeked at
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-786"><a class="header" href="#section-786">Section 786</a></h1>
+<p>To start a row (i.e., a ‘row’ that rhymes with ‘dough’ but not with ‘bough’), we enter a new semantic level, copy the first tabskip glue, and change from internal vertical mode to restricted horizontal mode or vice versa.
+The <em>space_factor</em> and <em>prev_depth</em> are not used on this semantic level, but we clear them to zero just to be tidy.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.c</div>
+<pre><code class="language-c">void init_row() {
+    push_nest();
+    mode = (-HMODE - VMODE) - mode;
+    if (mode == -HMODE) {
+        space_factor = 0;
+    } 
+    else {
+        prev_depth = 0;
+    }
+    tail_append(new_glue(glue_ptr(preamble)));
+    subtype(tail) = TAB_SKIP_CODE + 1;
+    cur_align = link(preamble);
+    cur_tail = cur_head;
+    init_span(cur_align);
+}
+</code></pre>
+</div>
+<h1 id="section-787"><a class="header" href="#section-787">Section 787</a></h1>
+<p>The parameter to <em>init_span</em> is a pointer to the alignrecord where the next column or group of columns will begin.
+A new semantic level is entered, so that the columns will generate a list for subsequent packaging.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.c</div>
+<pre><code class="language-c">void init_span(pointer p) {
+    push_nest();
+    if (mode == -HMODE) {
+        space_factor = 1000;
+    }
+    else {
+        prev_depth = IGNORE_DEPTH;
+        normal_paragraph();
+    }
+    cur_span = p;
+}
+</code></pre>
+</div>
+<h1 id="section-788"><a class="header" href="#section-788">Section 788</a></h1>
+<p>When a column begins, we assume that <em>cur_cmd</em> is either <em>OMIT</em> or else the current token should be put back into the input until the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> template has been scanned.
+(Note that <em>cur_cmd</em> might be <em>TAB_MARK</em> or <em>CAR_RET</em>.)
+We also assume that <em>align_state</em> is approximately 1000000 at this time.
+We remain in the same mode, and start the template if it is called for.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.c</div>
+<pre><code class="language-c">void init_col() {
+    extra_info(cur_align) = cur_cmd;
+    if (cur_cmd == OMIT) {
+        align_state = 0;
+    }
+    else {
+        back_input();
+        begin_token_list(u_part(cur_align), U_TEMPLATE);
+    } // now |align_state = 1000000|
+}
+</code></pre>
+</div>
+<h1 id="section-789"><a class="header" href="#section-789">Section 789</a></h1>
+<p>The scanner sets <em>align_state</em> to zero when the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> template ends.
+When a subsequent <code>\cr</code> or <code>\span</code> or tab mark occurs with <em>align_state = 0</em>, the scanner activates the following code, which fires up the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> template.
+We need to remember the <em>cur_chr</em>, which is either <em>CR_CR_CODE</em>, <em>CR_CODE</em>, <em>SPAN_CODE</em>, or a character code, depending on how the column text has ended.</p>
+<p>This part of the program had better not be activated when the preamble to another alignment is being scanned, or when no alignment preamble is active.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert the &lt;v_j&gt; template and <em>goto restart</em> <a href="./part37.html#section-789">789</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (scanner_status == ALIGNING || cur_align == null) {
+    fatal_error("(interwoven alignment preambles are not allowed)");
+}
+cur_cmd = extra_info(cur_align);
+extra_info(cur_align) = cur_chr;
+if (cur_cmd == OMIT) {
+    begin_token_list(OMIT_TEMPLATE, V_TEMPLATE);
+}
+else {
+    begin_token_list(v_part(cur_align), V_TEMPLATE);
+}
+align_state = 1000000;
+goto restart;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part24.html#section-342">342</a>.</p>
+</div></div>
+<h1 id="section-790"><a class="header" href="#section-790">Section 790</a></h1>
+<p>The token list <em>OMIT_TEMPLATE</em> just referred to is a constant token list that contains the special control sequence <code>\endtemplate</code> only.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the special list heads and constant nodes <a href="./part37.html#section-790">790</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">info(OMIT_TEMPLATE) = END_TEMPLATE_TOKEN; // |link(OMIT_TEMPLATE) = null|
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part37.html#section-797">797</a>, <a href="./part38.html#section-820">820</a>, <a href="./part45.html#section-981">981</a>, and <a href="./part45.html#section-988">988</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part11.html#section-164">164</a>.</p>
+</div></div>
+<h1 id="section-791"><a class="header" href="#section-791">Section 791</a></h1>
+<p>When the <em>ENDV</em> command at the end of a <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> template comes through the
+scanner, things really start to happen; and it is the <em>fin_col</em> routine that makes them happen.
+This routine returns <em>true</em> if a row as well as a column has been finished.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.c</div>
+<pre><code class="language-c">bool fin_col() {
+    pointer p;    // the alignrecord after the current one
+    pointer q, r; // temporary pointers for list manipulation
+    pointer s;    // a new span node
+    pointer u;    // a new unset box
+    scaled w;     // natural width
+    int o;        // order of infinity
+    halfword n;   // span counter
+    
+    if (cur_align == null) {
+        confusion("endv");
+    }
+    q = link(cur_align);
+    if (q == null) {
+        confusion("endv");
+    }
+    
+    if (align_state &lt; 500000) {
+        fatal_error("(interwoven alignment preambles are not allowed)");
+    }
+    p = link(q);
+    // &lt;&lt; If the preamble list has been traversed, check that the row has ended, 792 &gt;&gt;
+    if (extra_info(cur_align) != SPAN_CODE) {
+        unsave();
+        new_save_level(ALIGN_GROUP);
+        // &lt;&lt; Package an unset box for the current column and record its width, 796 &gt;&gt;
+        // &lt;&lt; Copy the tabskip glue between columns, 795 &gt;&gt;
+        if (extra_info(cur_align) &gt;= CR_CODE) {
+            return true;
+        }
+        init_span(p);
+    }
+    align_state = 1000000;
+    // &lt;&lt; Get the next non-blank non-call token, 406 &gt;&gt;
+    cur_align = p;
+    init_col();
+    return false;
+}
+</code></pre>
+</div>
+<h1 id="section-792"><a class="header" href="#section-792">Section 792</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If the preamble list has been traversed, check that the row has ended <a href="./part37.html#section-792">792</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (p == null &amp;&amp; extra_info(cur_align) &lt; CR_CODE) {
+    if (cur_loop != null) {
+        // &lt;&lt; Lengthen the preamble periodically, 793 &gt;&gt;
+    }
+    else {
+        print_err("Extra alignment tab has been changed to ");
+        print_esc("cr");
+        help3("You have given more \\span or &amp; marks than there were")
+            ("in the preamble to the \\halign or \\valign now in progress.")
+            ("So I'll assume that you meant to type \\cr instead.");
+        extra_info(cur_align) = CR_CODE;
+        error();
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-791">791</a>.</p>
+</div></div>
+<h1 id="section-793"><a class="header" href="#section-793">Section 793</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Lengthen the preamble periodically <a href="./part37.html#section-793">793</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">link(q) = new_null_box();
+p = link(q); // a new alignrecord
+info(p) = END_SPAN;
+width(p) = NULL_FLAG;
+cur_loop = link(cur_loop);
+// &lt;&lt; Copy the templates from node |cur_loop| into node |p|, 794 &gt;&gt;
+cur_loop = link(cur_loop);
+link(p) = new_glue(glue_ptr(cur_loop));
+subtype(link(p)) = TAB_SKIP_CODE + 1;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-792">792</a>.</p>
+</div></div>
+<h1 id="section-794"><a class="header" href="#section-794">Section 794</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Copy the templates from node <em>cur_loop</em> into node <em>p</em> <a href="./part37.html#section-794">794</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = HOLD_HEAD;
+r = u_part(cur_loop);
+while (r != null) {
+    link(q) = get_avail();
+    q = link(q);
+    info(q) = info(r);
+    r = link(r);
+}
+link(q) = null;
+u_part(p) = link(HOLD_HEAD);
+q = HOLD_HEAD;
+r = v_part(cur_loop);
+while (r != null) {
+    link(q) = get_avail();
+    q = link(q);
+    info(q) = info(r);
+    r = link(r);
+}
+link(q) = null;
+v_part(p) = link(HOLD_HEAD);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-793">793</a>.</p>
+</div></div>
+<h1 id="section-795"><a class="header" href="#section-795">Section 795</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Copy the tabskip glue between columns <a href="./part37.html#section-795">795</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">tail_append(new_glue(glue_ptr(link(cur_align))));
+subtype(tail) = TAB_SKIP_CODE + 1;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-791">791</a>.</p>
+</div></div>
+<h1 id="section-796"><a class="header" href="#section-796">Section 796</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Package an unset box for the current column and record its width <a href="./part37.html#section-796">796</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (mode == -HMODE) {
+    adjust_tail = cur_tail;
+    u = hpack(link(head), NATURAL);
+    w = width(u);
+    cur_tail = adjust_tail;
+    adjust_tail = null;
+}
+else {
+    u = vpackage(link(head), NATURAL, 0);
+    w = height(u);
+}
+n = MIN_QUARTERWORD; // this represents a span count of 1
+if (cur_span != cur_align) {
+    // &lt;&lt; Update width entry for spanned columns, 798 &gt;&gt;
+}
+else if (w &gt; width(cur_align)) {
+    width(cur_align) = w;
+}
+type(u) = UNSET_NODE;
+span_count(u) = n;
+// &lt;&lt; Determine the stretch order, 659 &gt;&gt;
+glue_order(u) = o;
+glue_stretch(u) = total_stretch[o];
+// &lt;&lt; Determine the shrink order, 665 &gt;&gt;
+glue_sign(u) = o;
+glue_shrink(u) = total_shrink[o];
+pop_nest();
+link(tail) = u;
+tail = u;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-791">791</a>.</p>
+</div></div>
+<h1 id="section-797"><a class="header" href="#section-797">Section 797</a></h1>
+<p>A span node is a 2-word record containing <em>width</em>, <em>info</em>, and <em>link</em> fields.
+The <em>link</em> field is not really a link, it indicates the number of spanned columns; the <em>info</em> field points to a span node for the same starting column, having a greater extent of spanning, or to <em>END_SPAN</em>, which has the largest possible <em>link</em> field; the <em>width</em> field holds the largest natural width corresponding to a particular set of spanned columns.</p>
+<p>A list of the maximum widths so far, for spanned columns starting at a given column, begins with the <em>info</em> field of the alignrecord for that column.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define SPAN_NODE_SIZE 2 // number of |mem| words for a span node
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize the special list heads and constant nodes <a href="./part37.html#section-790">790</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">link(END_SPAN) = MAX_QUARTERWORD + 1;
+info(END_SPAN) = null;
+</code></pre>
+</div>
+<h1 id="section-798"><a class="header" href="#section-798">Section 798</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Update width entry for spanned columns <a href="./part37.html#section-798">798</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = cur_span;
+do {
+    incr(n);
+    q = link(link(q));
+} while (q != cur_align);
+if (n &gt; MAX_QUARTERWORD) {
+    confusion("256 spans"); // this can happen, but won't
+}
+q = cur_span;
+while (link(info(q)) &lt; n) {
+    q = info(q);
+}
+if (link(info(q)) &gt; n) {
+    s = get_node(SPAN_NODE_SIZE);
+    info(s) = info(q);
+    link(s) = n;
+    info(q) = s;
+    width(s) = w;
+}
+else if (width(info(q)) &lt; w) {
+    width(info(q)) = w;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-796">796</a>.</p>
+</div></div>
+<h1 id="section-799"><a class="header" href="#section-799">Section 799</a></h1>
+<p>At the end of a row, we append an unset box to the current vlist (for <code>\halign</code>) or the current hlist (for <code>\valign</code>).
+This unset box contains the unset boxes for the columns, separated by the tabskip glue.
+Everything will be set later.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.c</div>
+<pre><code class="language-c">void fin_row() {
+    pointer p; // the new unset box
+    if (mode == -HMODE) {
+        p = hpack(link(head), NATURAL);
+        pop_nest();
+        append_to_vlist(p);
+        if (cur_head != cur_tail) {
+            link(tail) = link(cur_head);
+            tail = cur_tail;
+        }
+    }
+    else {
+        p = vpack(link(head), NATURAL);
+        pop_nest();
+        link(tail) = p;
+        tail = p;
+        space_factor = 1000;
+    }
+    type(p) = UNSET_NODE;
+    glue_stretch(p) = 0;
+    if (every_cr != null) {
+        begin_token_list(every_cr, EVERY_CR_TEXT);
+    }
+    align_peek();
+} // note that |glue_shrink(p) = 0| since |glue_shrink = shift_amount|
+</code></pre>
+</div>
+<h1 id="section-800"><a class="header" href="#section-800">Section 800</a></h1>
+<p>Finally, we will reach the end of the alignment, and we can breathe a sigh of relief that memory hasn’t overflowed.
+All the unset boxes will now be set so that the columns line up, taking due account of spanned columns.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">alignment.c</div>
+<pre><code class="language-c">void fin_align() {
+    pointer p, q, r, s, u, v; // registers for the list operations
+    scaled t, w;              // width of column
+    scaled o;                 // shift offset for unset boxes
+    halfword n;               // matching span amount
+    scaled rule_save;         // temporary storage for |overfull_rule|
+    memory_word aux_save;     // temporary storage for |aux|
+    
+    if (cur_group != ALIGN_GROUP) {
+        confusion("align1");
+    }
+    unsave(); // that |ALIGN_GROUP| was for individual entries
+    if (cur_group != ALIGN_GROUP) {
+        confusion("align0");
+    }
+    unsave(); // that |ALIGN_GROUP| was for the whole alignment
+    if (nest[nest_ptr - 1].mode_field == MMODE) {
+        o = display_indent;
+    }
+    else {
+        o = 0;
+    }
+
+    // &lt;&lt; Go through the preamble list, determining the column widths and changing the alignrecords to dummy unset boxes, 801 &gt;&gt;
+
+    // &lt;&lt; Package the preamble list, to determine the actual tabskip glue amounts, and let |p| point to this prototype box, 804 &gt;&gt;
+
+    // &lt;&lt; Set the glue in all the unset boxes of the current list, 805 &gt;&gt;
+    
+    flush_node_list(p);
+    pop_alignment();
+    // &lt;&lt; Insert the current list into its environment, 812 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-801"><a class="header" href="#section-801">Section 801</a></h1>
+<p>It’s time now to dismantle the preamble list and to compute the column widths.
+Let <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">ij</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> be the maximum of the natural widths of all entries that span columns <em>i</em> through <em>j</em>, inclusive.
+The alignrecord for column <em>i</em> contains <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ii</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> in its <em>width</em> field, and there is also a linked list of the nonzero <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">ij</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> for increasing <em>j</em>, accessible via the <em>info</em> field;
+these span nodes contain the value <em>j - i + MIN_QUARTERWORD</em> in their <em>link</em> fields.
+The values of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ii</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> were initialized to <em>NULL_FLAG</em>, which we regard as <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span>.</p>
+<p>The final column widths are defined by the formula</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4306em;"><span style="top:-2.3723em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mrel mtight">≤</span><span class="mord mathnormal mtight">i</span><span class="mrel mtight">≤</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">max</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8638em;"><span></span></span></span></span></span><span class="mopen"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">ij</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.4882em;vertical-align:-1.4382em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8479em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">≤</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4382em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose"><span class="delimsizing size3">)</span></span><span class="mpunct">,</span></span></span></span></span></p>
+<p>where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is the natural width of the tabskip glue between columns <em>k</em> and <em>k + 1</em>.
+However, if <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">ij</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span> for all <em>i</em> in the range <em>1</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>i</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>j</em> (i.e., if every entry that involved column <em>j</em> also involved column <em>j + 1</em>), we let <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>, and we zero out the tabskip glue after column <em>j</em>.</p>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> computes these values by using the following scheme:
+First <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">11</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.
+Then replace <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, for all <em>j</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>1</em>.
+Then <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">22</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.
+Then replace <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7651em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> for all <em>j</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>2</em>; and so on.
+If any <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> turns out to be <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span>, its value is changed to zero and so is the next tabskip.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Go through the preamble list, determining the column widths and changing the alignrecords to dummy unset boxes <a href="./part37.html#section-801">801</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = link(preamble);
+do {
+    flush_list(u_part(q));
+    flush_list(v_part(q));
+    p = link(link(q));
+    if (width(q) == NULL_FLAG) {
+        // &lt;&lt; Nullify |width(q)| and the tabskip glue following this column, 802 &gt;&gt;
+    }
+    if (info(q) != END_SPAN) {
+        // &lt;&lt; Merge the widths in the span nodes of |q| with those of |p|, destroying the span nodes of |q|, 803 &gt;&gt;
+    }
+    type(q) = UNSET_NODE;
+    span_count(q) = MIN_QUARTERWORD;
+    height(q) = 0;
+    depth(q) = 0;
+    glue_order(q) = NORMAL;
+    glue_sign(q) = NORMAL;
+    glue_stretch(q) = 0;
+    glue_shrink(q) = 0;
+    q = p;
+} while (q != null);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-800">800</a>.</p>
+</div></div>
+<h1 id="section-802"><a class="header" href="#section-802">Section 802</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Nullify <em>width(q)</em> and the tabskip glue following this column <a href="./part37.html#section-802">802</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">width(q) = 0;
+r = link(q);
+s = glue_ptr(r);
+if (s != ZERO_GLUE) {
+    add_glue_ref(ZERO_GLUE);
+    delete_glue_ref(s);
+    glue_ptr(r) = ZERO_GLUE;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-801">801</a>.</p>
+</div></div>
+<h1 id="section-803"><a class="header" href="#section-803">Section 803</a></h1>
+<p>Merging of two span-node lists is a typical exercise in the manipulation of linearly linked data structures.
+The essential invariant in the following <strong>repeat</strong> loop is that we want to dispense with node <em>r</em>, in <em>q</em>’s list, and <em>u</em> is its successor; all nodes of <em>p</em>’s list up to and including <em>s</em> have been processed, and the successor of <em>s</em> matches <em>r</em> or precedes <em>r</em> or follows <em>r</em>, according as <em>link(r) = n</em> or <em>link(r)</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>n</em> or <em>link(r)</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>n</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Merge the widths in the span nodes of <em>q</em> with those of <em>p</em>, destroying the span nodes of <em>q</em> <a href="./part37.html#section-803">803</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">t = width(q) + width(glue_ptr(link(q)));
+r = info(q);
+s = END_SPAN;
+info(s) = p;
+n = MIN_QUARTERWORD + 1;
+do {
+    width(r) -= t;
+    u = info(r);
+    while (link(r) &gt; n) {
+        s = info(s);
+        n = link(info(s)) + 1;
+    }
+    if (link(r) &lt; n) {
+        info(r) = info(s);
+        info(s) = r;
+        decr(link(r));
+        s = r;
+    }
+    else {
+        if (width(r) &gt; width(info(s))) {
+            width(info(s)) = width(r);
+        }
+        free_node(r, SPAN_NODE_SIZE);
+    }
+    r = u;
+} while (r != END_SPAN);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-801">801</a>.</p>
+</div></div>
+<h1 id="section-804"><a class="header" href="#section-804">Section 804</a></h1>
+<p>Now the preamble list has been converted to a list of alternating unset boxes and tabskip glue, where the box widths are equal to the final column sizes.
+In case of <code>\valign</code>, we change the widths to heights, so that a correct error message will be produced if the alignment is overfull or underfull.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Package the preamble list, to determine the actual tabskip glue amounts, and let <em>p</em> point to this prototype box <a href="./part37.html#section-804">804</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">save_ptr -= 2;
+pack_begin_line = -mode_line;
+if (mode == -VMODE) {
+    rule_save = overfull_rule;
+    overfull_rule = 0; // prevent rule from being packaged
+    p = hpack(preamble, saved(1), saved(0));
+    overfull_rule = rule_save;
+}
+else {
+    q = link(preamble);
+    do {
+        height(q) = width(q);
+        width(q) = 0;
+        q = link(link(q));
+    } while (q != null);
+    p = vpack(preamble, saved(1), saved(0));
+    q = link(preamble);
+    do {
+        width(q) = height(q);
+        height(q) = 0;
+        q = link(link(q));
+    } while (q != null);
+}
+pack_begin_line = 0;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-800">800</a>.</p>
+</div></div>
+<h1 id="section-805"><a class="header" href="#section-805">Section 805</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set the glue in all the unset boxes of the current list <a href="./part37.html#section-805">805</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = link(head);
+s = head;
+while (q != null) {
+    if (!is_char_node(q)) {
+        if (type(q) == UNSET_NODE) {
+            // &lt;&lt; Set the unset box |q| and the unset boxes in it, 807 &gt;&gt;
+        }
+        else if (type(q) == RULE_NODE) {
+            // &lt;&lt; Make the running dimensions in rule |q| extend to the boundaries of the alignment, 806 &gt;&gt;
+        }
+    }
+    s = q;
+    q = link(q);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-800">800</a>.</p>
+</div></div>
+<h1 id="section-806"><a class="header" href="#section-806">Section 806</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make the running dimensions in rule <em>q</em> extend to the boundaries of the alignment <a href="./part37.html#section-806">806</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (is_running(width(q))) {
+    width(q) = width(p);
+}
+if (is_running(height(q))) {
+    height(q) = height(p);
+}
+if (is_running(depth(q))) {
+    depth(q) = depth(p);
+}
+if (o != 0) {
+    r = link(q);
+    link(q) = null;
+    q = hpack(q, NATURAL);
+    shift_amount(q) = o;
+    link(q) = r;
+    link(s) = q;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-805">805</a>.</p>
+</div></div>
+<h1 id="section-807"><a class="header" href="#section-807">Section 807</a></h1>
+<p>The unset box <em>q</em> represents a row that contains one or more unset boxes, depending on how soon <code>\cr</code> occurred in that row.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set the unset box <em>q</em> and the unset boxes in it <a href="./part37.html#section-807">807</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (mode == -VMODE) {
+    type(q) = HLIST_NODE;
+    width(q) = width(p);
+}
+else {
+    type(q) = VLIST_NODE;
+    height(q) = height(p);
+}
+glue_order(q) = glue_order(p);
+glue_sign(q) = glue_sign(p);
+glue_set(q) = glue_set(p);
+shift_amount(q) = o;
+r = link(list_ptr(q));
+s = link(list_ptr(p));
+do {
+    // &lt;&lt; Set the glue in node |r| and change it from an unset node, 808 &gt;&gt;
+    r = link(link(r));
+    s = link(link(s));
+} while (r != null);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-805">805</a>.</p>
+</div></div>
+<h1 id="section-808"><a class="header" href="#section-808">Section 808</a></h1>
+<p>A box made from spanned columns will be followed by tabskip glue nodes and by empty boxes as if there were no spanning.
+This permits perfect alignment of subsequent entries, and it prevents values that depend on floating point arithmetic from entering into the dimensions of any boxes.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set the glue in node <em>r</em> and change it from an unset node <a href="./part37.html#section-808">808</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">n = span_count(r);
+t = width(s);
+w = t;
+u = HOLD_HEAD;
+while (n &gt; MIN_QUARTERWORD) {
+    decr(n);
+    // &lt;&lt; Append tabskip glue and an empty box to list |u|, and update |s| and |t| as the prototype nodes are passed, 809 &gt;&gt;
+}
+if (mode == -VMODE) {
+    // &lt;&lt; Make the unset node |r| into an |HLIST_NODE| of width |w|, setting the glue as if the width were |t|, 810 &gt;&gt;
+}
+else {
+    // &lt;&lt; Make the unset node |r| into a |VLIST_NODE| of height |w|, setting the glue as if the height were |t|, 811 &gt;&gt;
+}
+shift_amount(r) = 0;
+if (u != HOLD_HEAD) {
+    // append blank boxes to account for spanned nodes
+    link(u) = link(r);
+    link(r) = link(HOLD_HEAD);
+    r = u;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-807">807</a>.</p>
+</div></div>
+<h1 id="section-809"><a class="header" href="#section-809">Section 809</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Append tabskip glue and an empty box to list <em>u</em>, and update <em>s</em> and <em>t</em> as the prototype nodes are passed <a href="./part37.html#section-809">809</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">s = link(s);
+v = glue_ptr(s);
+link(u) = new_glue(v);
+u = link(u);
+subtype(u) = TAB_SKIP_CODE + 1;
+t += width(v);
+if (glue_sign(p) == STRETCHING) {
+    if (stretch_order(v) == glue_order(p)) {
+        t += (scaled)round(glue_set(p)*stretch(v));
+    }
+}
+else if (glue_sign(p) == SHRINKING) {
+    if (shrink_order(v) == glue_order(p)) {
+        t -= (scaled)round(glue_set(p)*shrink(v));
+    }
+}
+s = link(s);
+link(u) = new_null_box();
+u = link(u);
+t += width(s);
+if (mode == -VMODE) {
+    width(u) = width(s);
+}
+else {
+    type(u) = VLIST_NODE;
+    height(u) = width(s);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-808">808</a>.</p>
+</div></div>
+<h1 id="section-810"><a class="header" href="#section-810">Section 810</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make the unset node <em>r</em> into an <em>HLIST_NODE</em> of width <em>w</em>, setting the glue as if the width were <em>t</em> <a href="./part37.html#section-810">810</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">height(r) = height(q);
+depth(r) = depth(q);
+if (t == width(r)) {
+    glue_sign(r) = NORMAL;
+    glue_order(r) = NORMAL;
+    set_glue_ratio_zero(glue_set(r));
+}
+else if (t &gt; width(r)) {
+    glue_sign(r) = STRETCHING;
+    if (glue_stretch(r) == 0) {
+        set_glue_ratio_zero(glue_set(r));
+    }
+    else {
+        glue_set(r) = (double)(t - width(r)) / glue_stretch(r);
+    }
+}
+else {
+    glue_order(r) = glue_sign(r);
+    glue_sign(r) = SHRINKING;
+    if (glue_shrink(r) == 0) {
+        set_glue_ratio_zero(glue_set(r));
+    }
+    else if (glue_order(r) == NORMAL &amp;&amp; width(r) - t &gt; glue_shrink(r)) {
+        set_glue_ratio_one(glue_set(r));
+    }
+    else {
+        glue_set(r) = (double)(width(r) - t) / glue_shrink(r);
+    }    
+}
+width(r) = w;
+type(r) = HLIST_NODE;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-808">808</a>.</p>
+</div></div>
+<h1 id="section-811"><a class="header" href="#section-811">Section 811</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make the unset node <em>r</em> into a <em>VLIST_NODE</em> of height <em>w</em>, setting the glue as if the height were <em>t</em> <a href="./part37.html#section-811">811</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">width(r) = width(q);
+if (t == height(r)) {
+    glue_sign(r) = NORMAL;
+    glue_order(r) = NORMAL;
+    set_glue_ratio_zero(glue_set(r));
+}
+else if (t &gt; height(r)) {
+    glue_sign(r) = STRETCHING;
+    if (glue_stretch(r) == 0) {
+        set_glue_ratio_zero(glue_set(r));
+    }
+    else {
+        glue_set(r) = (double)(t - height(r)) / glue_stretch(r);
+    }
+}
+else {
+    glue_order(r) = glue_sign(r);
+    glue_sign(r) = SHRINKING;
+    if (glue_shrink(r) == 0) {
+        set_glue_ratio_zero(glue_set(r));
+    }
+    else if (glue_order(r) == NORMAL &amp;&amp; height(r) - t &gt; glue_shrink(r)) {
+        set_glue_ratio_one(glue_set(r));
+    }
+    else {
+        glue_set(r) = (double)(height(r) - t) / glue_shrink(r);
+    }
+}
+height(r) = w;
+type(r) = VLIST_NODE;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-808">808</a>.</p>
+</div></div>
+<h1 id="section-812"><a class="header" href="#section-812">Section 812</a></h1>
+<p>We now have a completed alignment, in the list that starts at <em>head</em> and ends at <em>tail</em>.
+This list will be merged with the one that encloses it.
+(In case the enclosing mode is <em>MMODE</em>, for displayed formulas, we will need to insert glue before and after the display; that part of the program will be deferred until we’re more familiar with such operations.)</p>
+<p>In restricted horizontal mode, the <em>clang</em> part of <em>aux</em> is undefined;
+an over-cautious Pascal runtime system may complain about this.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert the current list into its environment <a href="./part37.html#section-812">812</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">aux_save = aux;
+p = link(head);
+q = tail;
+pop_nest();
+if (mode == MMODE) {
+    // &lt;&lt; Finish an alignment in a display, 1206 &gt;&gt;
+}
+else {
+    aux = aux_save;
+    link(tail) = p;
+    if (p != null) {
+        tail = q;
+    }
+    if (mode == VMODE) {
+        build_page();
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part37.html#section-800">800</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part36.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part38.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part36.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part38.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

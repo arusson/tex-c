@@ -1,0 +1,922 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 300–320 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html" class="active">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-300-input-stacks-and-states"><a class="header" href="#section-300-input-stacks-and-states">Section 300: Input stacks and states</a></h1>
+<p>This implementation of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> uses two different conventions for representing sequential stacks.</p>
+<ol>
+<li>
+<p>If there is frequent access to the top entry, and if the stack is essentially never empty, then the top entry is kept in a global variable (even better would be a machine register), and the other entries appear in the array <em>stack[0 .. (ptr − 1)]</em>.
+For example, the semantic stack described above is handled this way, and so is the input stack that we are about to study.</p>
+</li>
+<li>
+<p>If there is infrequent top access, the entire stack contents are in the array <em>stack[0 ..(ptr − 1)]</em>. For example, the <em>save_stack</em> is treated this way, as we have seen.</p>
+</li>
+</ol>
+<p>The state of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s input mechanism appears in the input stack, whose entries are records with six fields, called <em>state</em>, <em>index</em>, <em>start</em>, <em>loc</em>,
+<em>limit</em>, and <em>name</em>.
+This stack is maintained with convention (1), so it is declared in the following way:</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Types in the outer block <a href="./part02.html#section-18">18</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">typedef struct {
+    quarterword state_field;
+    quarterword index_field;
+    halfword start_field;
+    halfword loc_field;
+    halfword limit_field;
+    halfword name_field;
+} in_state_record;
+</code></pre>
+</div>
+<h1 id="section-301"><a class="header" href="#section-301">Section 301</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">in_state_record input_stack[STACK_SIZE + 1];
+int input_ptr;             // first unused location of |input_stack|
+int max_in_stack;          // largest value of |input_ptr| when pushing
+in_state_record cur_input; // the "top" input state, according to convention (1)
+</code></pre>
+</div>
+<h1 id="section-302"><a class="header" href="#section-302">Section 302</a></h1>
+<p>We’ve already defined the special variable <em>loc = cur_input.loc_field</em> in our discussion of basic input-output routines.
+The other components of <em>cur_input</em> are defined in the same way:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define state cur_input.state_field // current scanner state
+#define index cur_input.index_field // reference for buffer information
+#define start cur_input.start_field // starting position in |buffer|
+#define limit cur_input.limit_field // end of current line in |buffer|
+#define name  cur_input.name_field  // name of the current file
+</code></pre>
+</div>
+<h1 id="section-303"><a class="header" href="#section-303">Section 303</a></h1>
+<p>Let’s look more closely now at the control variables (<em>state</em>, <em>index</em>, <em>start</em>, <em>loc</em>, <em>limit</em>, <em>name</em>), assuming that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> is reading a line of characters that have been input from some file or from the user’s terminal.
+There is an array called <em>buffer</em> that acts as a stack of all lines of characters that are currently being read from files, including all lines on subsidiary levels of the input stack that are not yet completed.
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will return to the other lines when it is finished with the present input file.</p>
+<p>(Incidentally, on a machine with byte-oriented addressing, it might be appropriate to combine <em>buffer</em> with the <em>str_pool</em> array, letting the buffer entries grow downward from the top of the string pool and checking that these two tables don’t bump into each other.)</p>
+<p>The line we are currently working on begins in position <em>start</em> of the buffer;
+the next character we are about to read is <em>buffer[loc]</em>;
+and <em>limit</em> is the location of the last character present.
+If <em>loc</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>limit</em>, the line has been completely read.
+Usually <em>buffer[limit]</em> is the <em>end_line_char</em>, denoting the end of a line, but this is not true if the current line is an insertion that was entered on the user’s terminal in response to an error message.</p>
+<p>The <em>name</em> variable is a string number that designates the name of the current file, if we are reading a text file.
+It is zero if we are reading from the terminal; it is <em>n + 1</em> if we are reading from input stream <em>n</em>, where <em>0</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>n</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>16</em>.
+(Input stream 16 stands for an invalid stream number; in such cases the input is actually from the terminal, under control of the procedure <em>read_toks</em>.)</p>
+<p>The <em>state</em> variable has one of three values, when we are scanning such files:</p>
+<ol>
+<li><em>state = MID_LINE</em> is the normal state.</li>
+<li><em>state = SKIP_BLANKS</em> is like <em>MID_LINE</em>, but blanks are ignored.</li>
+<li><em>state = NEW_LINE</em> is the state at the beginning of a line.</li>
+</ol>
+<p>These state values are assigned numeric codes so that if we add the state code to the next character’s command code, we get distinct values.
+For example, <em>‘MID_LINE + SPACER’</em> stands for the case that a blank space character occurs in the middle of a line when it is not being ignored; after this case is processed, the next value of <em>state</em> will be <em>SKIP_BLANKS</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define MID_LINE    1                                   // |state| code when scanning a line of characters
+#define SKIP_BLANKS (2 + MAX_CHAR_CODE)                 // |state| code when ignoring blanks
+#define NEW_LINE    (3 + MAX_CHAR_CODE + MAX_CHAR_CODE) // |state| code at start of line
+</code></pre>
+</div>
+<h1 id="section-304"><a class="header" href="#section-304">Section 304</a></h1>
+<p>Additional information about the current line is available via the <em>index</em> variable, which counts how many lines of characters are present in the buffer below the current level.
+We have <em>index = 0</em> when reading from the terminal and prompting the user for each line; then if the user types, e.g., ‘<code>\input paper</code>’, we will have <em>index = 1</em> while reading the file <code>paper.tex</code>.
+However, it does not follow that <em>index</em> is the same as the input stack pointer, since many of the levels on the input stack may come from token lists.
+For example, the instruction ‘<code>\input paper</code>’ might occur in a token list.</p>
+<p>The global variable <em>in_open</em> is equal to the <em>index</em> value of the highest non-token-list level.
+Thus, the number of partially read lines in the buffer is <em>in_open + 1</em>, and we have <em>in_open = index</em> when we are not reading a token list.</p>
+<p>If we are not currently reading from the terminal, or from an input stream, we are reading from the file variable <em>input_file[index]</em>.
+We use the notation <em>terminal_input</em> as a convenient abbreviation for <em>name = 0</em>, and <em>cur_file</em> as an abbreviation for <em>input_file[index]</em>.</p>
+<p>The global variable <em>line</em> contains the line number in the topmost open file, for use in error messages.
+If we are not reading from the terminal, <em>line_stack[index]</em> holds the line number for the
+enclosing level, so that <em>line</em> can be restored when the current file has been read.
+Line numbers should never be negative, since the negative of the current line number is used to identify the user’s output routine in the <em>mode_line</em> field of the semantic nest entries.</p>
+<p>If more information about the input state is needed, it can be included in small arrays like those shown here.
+For example, the current page or segment number in the input file might be put into a variable <em>page</em>, maintained for enclosing levels in <em>‘page_stack:</em> <strong>array</strong> <em>[1 .. MAX_IN_OPEN]</em> <strong>of</strong> <em>integer’</em> by analogy with <em>line_stack</em>.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>input_file</em> and <em>line_stack</em> are indexed from 1, so pointer arithmetic again.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define terminal_input (name == 0)       // are we reading from the terminal?
+#define cur_file       input_file[index] // the current |alpha_file| variable
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int in_open;     // the number of lines in the buffer, less one
+int open_parens; // the number of open text files
+alpha_file input_file0[MAX_IN_OPEN];
+alpha_file *input_file = input_file0 - 1;
+int line; // current line number in the current source file
+int line_stack0[MAX_IN_OPEN];
+int *line_stack = line_stack0 - 1;
+</code></pre>
+</div>
+<h1 id="section-305"><a class="header" href="#section-305">Section 305</a></h1>
+<p>Users of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> sometimes forget to balance left and right braces properly, and one of the ways <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> tries to spot such errors is by considering an input file as broken into subfiles by control sequences that are declared to be <code>\outer</code>.</p>
+<p>A variable called <em>scanner_status</em> tells <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> whether or not to complain
+when a subfile ends.
+This variable has six possible values:</p>
+<ul>
+<li>
+<p><em>NORMAL</em>, means that a subfile can safely end here without incident.</p>
+</li>
+<li>
+<p><em>SKIPPING</em>, means that a subfile can safely end here, but not a file,
+because we’re reading past some conditional text that was not selected.</p>
+</li>
+<li>
+<p><em>DEFINING</em>, means that a subfile shouldn’t end now because
+a macro is being defined.</p>
+</li>
+<li>
+<p><em>MATCHING</em>, means that a subfile shouldn’t end now because
+a macro is being used and we are searching for the end of its arguments.</p>
+</li>
+<li>
+<p><em>ALIGNING</em>, means that a subfile shouldn’t end now because we are
+not finished with the preamble of an <code>\halign</code> or <code>\valign</code>.</p>
+</li>
+<li>
+<p><em>ABSORBING</em>, means that a subfile shouldn’t end now because we are
+reading a balanced token list for <code>\message</code>, <code>\write</code>, etc.</p>
+</li>
+</ul>
+<p>If the <em>scanner_status</em> is not <em>NORMAL</em>, the variable <em>warning_index</em> points to the <em>eqtb</em> location for the relevant control sequence name to print in an error message.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define SKIPPING  1 // |scanner_status| when passing conditional text
+#define DEFINING  2 // |scanner_status| when reading a macro definition
+#define MATCHING  3 // |scanner_status| when reading macro arguments
+#define ALIGNING  4 // |scanner_status| when reading an alignment preamble
+#define ABSORBING 5 // |scanner_status| when reading a balanced text
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int scanner_status;    // can a subfile end now?
+pointer warning_index; // identifier relevant to non-|NORMAL| scanner status
+pointer def_ref;       // reference count of token list being defined
+</code></pre>
+</div>
+<h1 id="section-306"><a class="header" href="#section-306">Section 306</a></h1>
+<p>Here is a procedure that uses <em>scanner_status</em> to print a warning message when a subfile has ended, and at certain other crucial times:</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">stack.c</div>
+<pre><code class="language-c">void runaway() {
+    pointer p = null; // head of runaway list
+    if (scanner_status &gt; SKIPPING) {
+        print_nl("Runaway ");
+        switch (scanner_status) {
+        case DEFINING:
+            print("definition");
+            p = def_ref;
+            break;
+        
+        case MATCHING:
+            print("argument");
+            p = TEMP_HEAD;
+            break;
+        
+        case ALIGNING:
+            print("preamble");
+            p = HOLD_HEAD;
+            break;
+        
+        case ABSORBING:
+            print("text");
+            p = def_ref;
+        } // there are no other cases
+        print_char('?');
+        print_ln();
+        show_token_list(link(p), null, ERROR_LINE - 10);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-307"><a class="header" href="#section-307">Section 307</a></h1>
+<p>However, all this discussion about input state really applies only to the
+case that we are inputting from a file.
+There is another important case, namely when we are currently getting input from a token list.
+In this case <em>state = TOKEN_LIST</em>, and the conventions about the other state variables
+are different:</p>
+<ul>
+<li>
+<p><em>loc</em> is a pointer to the current node in the token list, i.e.,
+the node that will be read next. If <em>loc = null</em>, the token list has been fully read.</p>
+</li>
+<li>
+<p><em>start</em> points to the first node of the token list; this node
+may or may not contain a reference count, depending on the type of token
+list involved.</p>
+</li>
+<li>
+<p><em>token_type</em>, which takes the place of <em>index</em> in the
+discussion above, is a code number that explains what kind of token list
+is being scanned.</p>
+</li>
+<li>
+<p><em>name</em> points to the <em>eqtb</em> address of the control sequence
+being expanded, if the current token list is a macro.</p>
+</li>
+<li>
+<p><em>param_start</em>, which takes the place of <em>limit</em>, tells where
+the parameters of the current macro begin in the <em>param_stack</em>, if the
+current token list is a macro.</p>
+</li>
+</ul>
+<p>The <em>token_type</em> can take several values, depending on where the current token list came from:</p>
+<ul>
+<li>
+<p><em>PARAMETER</em>, if a parameter is being scanned;</p>
+</li>
+<li>
+<p><em>U_TEMPLATE</em>, if the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> part of an alignment
+template is being scanned;</p>
+</li>
+<li>
+<p><em>V_TEMPLATE</em>, if the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> part of an alignment
+template is being scanned;</p>
+</li>
+<li>
+<p><em>BACKED_UP</em>, if the token list being scanned has been inserted as
+‘to be read again’;</p>
+</li>
+<li>
+<p><em>INSERTED</em>, if the token list being scanned has been inserted as
+the text expansion of a <code>\count</code> or similar variable;</p>
+</li>
+<li>
+<p><em>MACRO</em>, if a user-defined control sequence is being scanned;</p>
+</li>
+<li>
+<p><em>OUTPUT_TEXT</em>, if an <code>\output</code> routine is being scanned;</p>
+</li>
+<li>
+<p><em>EVERY_PAR_TEXT</em>, if the text of <code>\everypar</code> is being scanned;</p>
+</li>
+<li>
+<p><em>EVERY_MATH_TEXT</em>, if the text of <code>\everymath</code> is being scanned;</p>
+</li>
+<li>
+<p><em>EVERY_DISPLAY_TEXT</em>, if the text of <code>\everydisplay</code> is being scanned;</p>
+</li>
+<li>
+<p><em>EVERY_HBOX_TEXT</em>, if the text of <code>\everyhbox</code> is being scanned;</p>
+</li>
+<li>
+<p><em>EVERY_VBOX_TEXT</em>, if the text of <code>\everyvbox</code> is being scanned;</p>
+</li>
+<li>
+<p><em>EVERY_JOB_TEXT</em>, if the text of <code>\everyjob</code> is being scanned;</p>
+</li>
+<li>
+<p><em>EVERY_CR_TEXT</em>, if the text of <code>\everycr</code> is being scanned;</p>
+</li>
+<li>
+<p><em>MARK_TEXT</em>, if the text of a <code>\mark</code> is being scanned;</p>
+</li>
+<li>
+<p><em>WRITE_TEXT</em>, if the text of a <code>\write</code> is being scanned.</p>
+</li>
+</ul>
+<p>The codes for <em>OUTPUT_TEXT</em>, <em>EVERY_PAR_TEXT</em>, etc., are equal to a constant plus the corresponding codes for token list parameters <em>OUTPUT_ROUTINE_LOC</em>, <em>EVERY_PAR_LOC</em>, etc.
+The token list begins with a reference count if and only if <em>token_type</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>MACRO</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">datastructures.h</div>
+<pre><code class="language-c">#define token_type  index // type of current token list
+#define param_start limit // base of macro parameters in |param_stack|
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define TOKEN_LIST         0  // |state| code when scanning a token list
+#define PARAMETER          0  // |token_type| code for parameter
+#define U_TEMPLATE         1  // |token_type| code for &lt;u_j&gt; template
+#define V_TEMPLATE         2  // |token_type| code for &lt;v_j&gt; template
+#define BACKED_UP          3  // |token_type| code for text to be reread
+#define INSERTED           4  // |token_type| code for inserted texts
+#define MACRO              5  // |token_type| code for defined control sequences
+#define OUTPUT_TEXT        6  // |token_type| code for output routines
+#define EVERY_PAR_TEXT     7  // |token_type| code for \everypar
+#define EVERY_MATH_TEXT    8  // |token_type| code for \everymath
+#define EVERY_DISPLAY_TEXT 9  // |token_type| code for \everydisplay
+#define EVERY_HBOX_TEXT    10 // |token_type| code for \everyhbox
+#define EVERY_VBOX_TEXT    11 // |token_type| code for \everyvbox
+#define EVERY_JOB_TEXT     12 // |token_type| code for \everyjob
+#define EVERY_CR_TEXT      13 // |token_type| code for \everycr
+#define MARK_TEXT          14 // |token_type| code for \topmark, etc.
+#define WRITE_TEXT         15 // |token_type| code for \write
+</code></pre>
+</div>
+<h1 id="section-308"><a class="header" href="#section-308">Section 308</a></h1>
+<p>The <em>param_stack</em> is an auxiliary array used to hold pointers to the token lists for parameters at the current level and subsidiary levels of input.
+This stack is maintained with convention (2), and it grows at a different rate from the others.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">pointer param_stack[PARAM_SIZE + 1]; // token list pointers for parameters
+int param_ptr;                       // first unused entry in |param_stack|
+int max_param_stack;                 // largest value of |param_ptr|, will be |&lt;= PARAM_SIZE + 9|
+</code></pre>
+</div>
+<h1 id="section-309"><a class="header" href="#section-309">Section 309</a></h1>
+<p>The input routines must also interact with the processing of <code>halign</code> and <code>\valign</code>, since the appearance of tab marks and <code>\cr</code> in certain places is supposed to trigger the beginning of special <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> template text in the scanner.
+This magic is accomplished by an <em>align_state</em> variable that is increased by 1 when a ‘<code>{</code>’ is scanned and decreased by 1 when a ‘<code>}</code>’ is scanned.
+The <em>align_state</em> is nonzero during the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal">u</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> template, after which it is set to zero; the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mopen">⟨</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">⟩</span></span></span></span> template begins when a tab mark or <code>\cr</code> occurs at a time that <em>align_state = 0</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int align_state; // group level with respect to current alignment
+</code></pre>
+</div>
+<h1 id="section-310"><a class="header" href="#section-310">Section 310</a></h1>
+<p>Thus, the “current input state” can be very complicated indeed; there can be many levels and each level can arise in a variety of ways.
+The <em>show_context</em> procedure, which is used by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s error-reporting routine to print out the current input state on all levels down to the most recent line of characters from an input file, illustrates most of these conventions.
+The global variable <em>base_ptr</em> contains the lowest level that was displayed by this procedure.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int base_ptr; // shallowest level shown by |show_context|
+</code></pre>
+</div>
+<h1 id="section-311"><a class="header" href="#section-311">Section 311</a></h1>
+<p>The status at each level is indicated by printing two lines, where the first line indicates what was read so far and the second line shows what remains to be read.
+The context is cropped, if necessary, so that the first line contains at most <em>HALF_ERROR_LINE</em> characters, and the second contains at most <em>ERROR_LINE</em>.
+Non-current input levels whose <em>token_type</em> is <em>‘BACKED_UP’</em> are shown only if they have not been fully read.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">display_context.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |display_context.c|, 1382 &gt;&gt;
+
+// prints where the scanner is
+void show_context() {
+    int old_setting;  // saved |selector| setting
+    int nn;           // number of contexts shown so far, less one
+    bool bottom_line; // have we reached the final context to be shown?
+    // &lt;&lt; Local variables for formatting calculations, 315 &gt;&gt;
+    
+    base_ptr = input_ptr;
+    input_stack[base_ptr] = cur_input; // store current state
+    nn = -1;
+    bottom_line = false;
+    while(true) {
+        cur_input = input_stack[base_ptr]; // enter into the context
+        if (state != TOKEN_LIST
+            &amp;&amp; (name &gt; 17 || base_ptr == 0))
+        {
+            bottom_line = true;
+        }
+        if (base_ptr == input_ptr
+            || bottom_line
+            || nn &lt; error_context_lines)
+        {
+            // &lt;&lt; Display the current context, 312 &gt;&gt;
+        }
+        else if (nn == error_context_lines) {
+            print_nl("...");
+            incr(nn); // omitted if |error_context_lines &lt; 0|
+        }
+        if (bottom_line) {
+            break; // Goto done
+        }
+        decr(base_ptr);
+    }
+    // done:
+    cur_input = input_stack[input_ptr]; // restore original state
+}
+</code></pre>
+</div>
+<h1 id="section-312"><a class="header" href="#section-312">Section 312</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Display the current context <a href="./part22.html#section-312">312</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (base_ptr == input_ptr
+    || state != TOKEN_LIST
+    || token_type != BACKED_UP
+    || loc != null)
+{
+    // we omit backed-up token lists that have already been read
+    tally = 0; // get ready to count characters
+    old_setting = selector;
+    if (state != TOKEN_LIST) {
+        // &lt;&lt; Print location of current line, 313 &gt;&gt;
+        // &lt;&lt; Pseudoprint the line, 318 &gt;&gt;
+    }
+    else {
+        // &lt;&lt; Print type of token list, 314 &gt;&gt;
+        // &lt;&lt; Pseudoprint the token list, 319 &gt;&gt;
+    }
+    selector = old_setting; // stop pseudoprinting
+    // &lt;&lt; Print two lines using the tricky pseudoprinted information, 317 &gt;&gt;
+    incr(nn);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part22.html#section-311">311</a>.</p>
+</div></div>
+<h1 id="section-313"><a class="header" href="#section-313">Section 313</a></h1>
+<p>This routine should be changed, if necessary, to give the best possible indication of where the current line resides in the input file.
+For example, on some systems it is best to print both a page and line number.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print location of current line <a href="./part22.html#section-313">313</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (name &lt;= 17) {
+    if (terminal_input) {
+        if (base_ptr == 0) {
+            print_nl("&lt;*&gt;");
+        }
+        else {
+            print_nl("&lt;insert&gt; ");
+        }
+    }
+    else {
+        print_nl("&lt;read ");
+        if (name == 17) {
+            print_char('*');
+        }
+        else {
+            print_int(name - 1);
+        }
+        print_char('&gt;');
+    }
+}
+else {
+    print_nl("l.");
+    print_int(line);
+}
+print_char(' ');
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part22.html#section-312">312</a>.</p>
+</div></div>
+<h1 id="section-314"><a class="header" href="#section-314">Section 314</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print type of token list <a href="./part22.html#section-314">314</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">switch (token_type) {
+case PARAMETER:
+    print_nl("&lt;argument&gt; ");
+    break;
+
+case U_TEMPLATE:
+case V_TEMPLATE:
+    print_nl("&lt;template&gt; ");
+    break;
+
+case BACKED_UP:
+    if (loc == null) {
+        print_nl("&lt;recently read&gt; ");
+    }
+    else {
+        print_nl("&lt;to be read again&gt; ");
+    }
+    break;
+
+case INSERTED:
+    print_nl("&lt;inserted text&gt; ");
+    break;
+
+case MACRO:
+    print_ln();
+    print_cs(name);
+    break;
+
+case OUTPUT_TEXT:
+    print_nl("&lt;output&gt; ");
+    break;
+
+case EVERY_PAR_TEXT:
+    print_nl("&lt;everypar&gt; ");
+    break;
+
+case EVERY_MATH_TEXT:
+    print_nl("&lt;everymath&gt; ");
+    break;
+
+case EVERY_DISPLAY_TEXT:
+    print_nl("&lt;everydisplay&gt; ");
+    break;
+
+case EVERY_HBOX_TEXT:
+    print_nl("&lt;everyhbox&gt; ");
+    break;
+
+case EVERY_VBOX_TEXT:
+    print_nl("&lt;everyvbox&gt; ");
+    break;
+
+case EVERY_JOB_TEXT:
+    print_nl("&lt;everyjob&gt; ");
+    break;
+
+case EVERY_CR_TEXT:
+    print_nl("&lt;everycr&gt; ");
+    break;
+
+case MARK_TEXT:
+    print_nl("&lt;mark&gt; ");
+    break;
+
+case WRITE_TEXT:
+    print_nl("&lt;write&gt; ");
+    break;
+
+default:
+    print_nl("?"); // this should never happen
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part22.html#section-312">312</a>.</p>
+</div></div>
+<h1 id="section-315"><a class="header" href="#section-315">Section 315</a></h1>
+<p>Here it is necessary to explain a little trick.
+We don’t want to store a long string that corresponds to a token list, because that string might take up lots of memory; and we are printing during a time when an error message is being given, so we dare not do anything that might overflow one of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s tables.
+So ‘pseudoprinting’ is the answer:
+We enter a mode of printing that stores characters into a buffer of length <em>ERROR_LINE</em>, where character <em>k + 1</em> is placed into <em>trick_buf[k</em> <strong>mod</strong> <em>ERROR_LINE]</em> if <em>k</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>trick_count</em>, otherwise character <em>k</em> is dropped.
+Initially we set <em>tally ← 0</em> and <em>trick_count ← 1000000</em>;
+then when we reach the point where transition from line 1 to line 2 should occur, we set <em>first_count ← tally</em> and <em>trick_count ← max(ERROR_LINE, tally + 1 + ERROR_LINE − HALF_ERROR_LINE)</em>.
+At the end of the pseudoprinting, the values of <em>first_count</em>, <em>tally</em>, and <em>trick_count</em> give us all the information we need to print the two lines, and all of the necessary text is in <em>trick_buf</em>.</p>
+<p>Namely, let <em>l</em> be the length of the descriptive information that appears on the first line.
+The length of the context information gathered for that line is <em>k = first_count</em>, and the length of the context information gathered for line 2 is <em>m = min(tally, trick_count) − k</em>.
+If <em>l + k</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>h</em>, where <em>h = HALF_ERROR_LINE</em>, we print <em>trick_buf[0 .. k − 1]</em> after the descriptive information on line 1, and set <em>n ← l + k</em>; here <em>n</em> is the length of line 1.
+If <em>l + k</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>h</em>, some cropping is necessary, so we set <em>n ← h</em> and print ‘<code>...</code>’ followed by</p>
+<div align="center">
+<p><em>trick_buf[(l + k − h + 3) .. k − 1]</em></p>
+</div>
+<p>where subscripts of <em>trick_buf</em> are circular modulo <em>ERROR_LINE</em>.
+The second line consists of <em>n</em> spaces followed by <em>trick_buf[k .. (k + m − 1)]</em>, unless <em>n + m</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>ERROR_LINE</em>; in the latter case, further cropping is done.
+This is easier to program than to explain.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Local variables for formatting calculations <a href="./part22.html#section-315">315</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">int i;  // index into |buffer|
+int j;  // end of current line in |buffer|
+int l;  // length of descriptive information on line 1
+int m;  // context information gathered for line 2
+int n;  // length of line 1
+int p;  // starting or ending place in |trick_buf|
+int q;  // temporary index
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part22.html#section-311">311</a>.</p>
+</div></div>
+<h1 id="section-316"><a class="header" href="#section-316">Section 316</a></h1>
+<p>The following code sets up the print routines so that they will gather the desired information.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">io.h</div>
+<pre><code class="language-c">#define begin_pseudoprint  \
+    l = tally;             \
+    tally = 0;             \
+    selector = PSEUDO;     \
+    trick_count = 1000000
+
+#define set_trick_count                                         \
+    do {                                                        \
+        first_count = tally;                                    \
+        trick_count = tally + 1 + ERROR_LINE - HALF_ERROR_LINE; \
+        if (trick_count &lt; ERROR_LINE) {                         \
+            trick_count = ERROR_LINE;                           \
+        }                                                       \
+    } while (0)
+</code></pre>
+</div>
+<h1 id="section-317"><a class="header" href="#section-317">Section 317</a></h1>
+<p>And the following code uses the information after it has been gathered.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print two lines using the tricky pseudoprinted information <a href="./part22.html#section-317">317</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (trick_count == 1000000) {
+    // |set_trick_count| must be performed
+    set_trick_count;
+}
+if (tally &lt; trick_count) {
+    m = tally - first_count;
+}
+else {
+    // context on line 2
+    m = trick_count - first_count;
+}
+if (l + first_count &lt;= HALF_ERROR_LINE) {
+    p = 0;
+    n = l + first_count;
+}
+else {
+    print("...");
+    p = l + first_count - HALF_ERROR_LINE + 3;
+    n = HALF_ERROR_LINE;
+}
+for(q = p; q &lt; first_count; q++) {
+    print_char(trick_buf[q % ERROR_LINE]);
+}
+print_ln();
+for(q = 1; q &lt;= n; q++) {
+    print_char(' '); // print |n| spaces to begin line 2
+}
+if (m + n &lt;= ERROR_LINE) {
+    p = first_count + m;
+}
+else {
+    p = first_count + (ERROR_LINE - n - 3);
+}
+for(q = first_count; q &lt; p; q++) {
+    print_char(trick_buf[q % ERROR_LINE]);
+}
+if (m + n &gt; ERROR_LINE) {
+    print("...");
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part22.html#section-312">312</a>.</p>
+</div></div>
+<h1 id="section-318"><a class="header" href="#section-318">Section 318</a></h1>
+<p>But the trick is distracting us from our current goal, which is to understand the input state.
+So let’s concentrate on the data structures that are being pseudoprinted as we finish up the <em>show_context</em> procedure.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Pseudoprint the line <a href="./part22.html#section-318">318</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">begin_pseudoprint;
+if (buffer[limit] == end_line_char) {
+    j = limit;
+}
+else {
+    j = limit + 1; // determine the effective end of the line
+}
+if (j &gt; 0) {
+    for(i = start; i &lt; j; i++) {
+        if (i == loc) {
+            set_trick_count;
+        }
+        print_strnumber(buffer[i]);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part22.html#section-312">312</a>.</p>
+</div></div>
+<h1 id="section-319"><a class="header" href="#section-319">Section 319</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Pseudoprint the token list <a href="./part22.html#section-319">319</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">begin_pseudoprint;
+if (token_type &lt; MACRO) {
+    show_token_list(start, loc, 100000);
+}
+else {
+    show_token_list(link(start), loc, 100000); // avoid reference count
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part22.html#section-312">312</a>.</p>
+</div></div>
+<h1 id="section-320"><a class="header" href="#section-320">Section 320</a></h1>
+<p>Here is the missing piece of <em>show_token_list</em> that is activated when the token beginning line 2 is about to be shown:</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Do magic computation <a href="./part22.html#section-320">320</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">set_trick_count;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part20.html#section-292">292</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part21.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part23.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part21.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part23.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

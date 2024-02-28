@@ -1,0 +1,2287 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 1208–1298 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html" class="active">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-1208-mode-independent-processing"><a class="header" href="#section-1208-mode-independent-processing">Section 1208: Mode-independent processing</a></h1>
+<p>The long <em>main_control</em> procedure has now been fully specified, except for certain activities that are independent of the current mode.
+These activities do not change the current vlist or hlist or mlist; if they change anything, it is the value of a parameter or the meaning of a control sequence.</p>
+<p>Assignments to values in <em>eqtb</em> can be global or local.
+Furthermore, a control sequence can be defined to be ‘<code>\long</code>’ or ‘<code>\outer</code>’, and it might or might not be expanded.
+The prefixes ‘<code>\global</code>’, ‘<code>\long</code>’, and ‘<code>\outer</code>’ can occur in any order.
+Therefore we assign binary numeric codes, making it possible to accumulate the union of all specified prefixes by adding the corresponding codes.
+(Pascal’s <strong>set</strong> operations could also have been used.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("long", PREFIX, 1);
+primitive("outer", PREFIX, 2);
+primitive("global", PREFIX, 4);
+primitive("def", DEF, 0);
+primitive("gdef", DEF, 1);
+primitive("edef", DEF, 2);
+primitive("xdef", DEF, 3);
+</code></pre>
+</div>
+<h1 id="section-1209"><a class="header" href="#section-1209">Section 1209</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case PREFIX:
+    if (chr_code == 1) {
+        print_esc("long");
+    }
+    else if (chr_code == 2) {
+        print_esc("outer");
+    }
+    else {
+        print_esc("global");
+    }
+    break;
+
+case DEF:
+    if (chr_code == 0) {
+        print_esc("def");
+    }
+    else if (chr_code == 1) {
+        print_esc("gdef");
+    }
+    else if (chr_code == 2) {
+        print_esc("edef");
+    }
+    else {
+        print_esc("xdef");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1210"><a class="header" href="#section-1210">Section 1210</a></h1>
+<p>Every prefix, and every command code that might or might not be prefixed, calls the action procedure <em>prefixed_command</em>.
+This routine accumulates a sequence of prefixes until coming to a non-prefix, then it carries out the command.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that don’t depend on <em>mode</em> <a href="./part49.html#section-1210">1210</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">any_mode(TOKS_REGISTER):
+any_mode(ASSIGN_TOKS):
+any_mode(ASSIGN_INT):
+any_mode(ASSIGN_DIMEN):
+any_mode(ASSIGN_GLUE):
+any_mode(ASSIGN_MU_GLUE):
+any_mode(ASSIGN_FONT_DIMEN):
+any_mode(ASSIGN_FONT_INT):
+any_mode(SET_AUX):
+any_mode(SET_PREV_GRAF):
+any_mode(SET_PAGE_DIMEN):
+any_mode(SET_PAGE_INT):
+any_mode(SET_BOX_DIMEN):
+any_mode(SET_SHAPE):
+any_mode(DEF_CODE):
+any_mode(DEF_FAMILY):
+any_mode(SET_FONT):
+any_mode(DEF_FONT):
+any_mode(REGISTER):
+any_mode(ADVANCE):
+any_mode(MULTIPLY):
+any_mode(DIVIDE):
+any_mode(PREFIX):
+any_mode(LET):
+any_mode(SHORTHAND_DEF):
+any_mode(READ_TO_CS):
+any_mode(DEF):
+any_mode(SET_BOX):
+any_mode(HYPH_DATA):
+any_mode(SET_INTERACTION):
+    prefixed_command();
+    break;
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part49.html#section-1268">1268</a>, <a href="./part49.html#section-1271">1271</a>, <a href="./part49.html#section-1274">1274</a>, <a href="./part49.html#section-1276">1276</a>, <a href="./part49.html#section-1285">1285</a>, and <a href="./part49.html#section-1290">1290</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part46.html#section-1045">1045</a>.</p>
+</div></div>
+<h1 id="section-1211"><a class="header" href="#section-1211">Section 1211</a></h1>
+<p>If the user says, e.g., ‘<code>\global\global</code>’, the redundancy is silently accepted.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">independent.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |independent.c|, 1382 &gt;&gt;
+
+// &lt;&lt; Declare subprocedures for |prefixed_command|, 1215 &gt;&gt;
+
+void prefixed_command() {
+    small_number a;         // accumulated prefix codes so far
+    internal_font_number f; // identifies a font
+    halfword j;             // index into a \parshape specification
+    int k;                  // index into |font_info|
+    pointer p, q;           // for temporary short - term use
+    int n;                  // ditto
+    bool e;                 // should a definition be expanded? or was \let not done?
+    
+    a = 0;
+    while (cur_cmd == PREFIX) {
+        if (!odd(a / cur_chr)) {
+            a += cur_chr;
+        }
+        // &lt;&lt; Get the next non-blank non-relax non-call token, 404 &gt;&gt;
+        if (cur_cmd &lt;= MAX_NON_PREFIXED_COMMAND) {
+            // &lt;&lt; Discard erroneous prefixes and |return|, 1212 &gt;&gt;
+        }
+    }
+    // &lt;&lt; Discard the prefixes \long and \outer if they are irrelevant, 1213 &gt;&gt;
+    // &lt;&lt; Adjust for the setting of \globaldefs, 1214 &gt;&gt;
+    switch (cur_cmd) {
+    // &lt;&lt; Assignments, 1217 &gt;&gt;
+    
+    default:
+        confusion("prefix");
+    }
+done:
+    // &lt;&lt; Insert a token saved by \afterassignment, if any, 1269 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-1212"><a class="header" href="#section-1212">Section 1212</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Discard erroneous prefixes and <em>return</em> <a href="./part49.html#section-1212">1212</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("You can't use a prefix with `");
+print_cmd_chr(cur_cmd, cur_chr);
+print_char('\'');
+help1("I'll pretend you didn't say \\long or \\outer or \\global.");
+back_error();
+return;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1211">1211</a>.</p>
+</div></div>
+<h1 id="section-1213"><a class="header" href="#section-1213">Section 1213</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Discard the prefixes \long and \outer if they are irrelevant <a href="./part49.html#section-1213">1213</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_cmd != DEF &amp;&amp; a % 4 != 0) {
+    print_err("You can't use `");
+    print_esc("long");
+    print("' or `");
+    print_esc("outer");
+    print("' with `");
+    print_cmd_chr(cur_cmd, cur_chr);
+    print_char('\'');
+    help1("I'll pretend you didn't say \\long or \\outer here.");
+    error();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1211">1211</a>.</p>
+</div></div>
+<h1 id="section-1214"><a class="header" href="#section-1214">Section 1214</a></h1>
+<p>The previous routine does not have to adjust <em>a</em> so that <em>a</em> <strong>mod</strong> <em>4 = 0</em>, since the following routines test for the <code>\global</code> prefix as follows.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">builder.h</div>
+<pre><code class="language-c">#define global (a &gt;= 4)
+#define define(...)                  \
+    do {                             \
+        if (global) {                \
+            geq_define(__VA_ARGS__); \
+        }                            \
+        else {                       \
+            eq_define(__VA_ARGS__);  \
+        }                            \
+    } while (0)
+
+#define word_define(...)                  \
+    do {                                  \
+        if (global) {                     \
+            geq_word_define(__VA_ARGS__); \
+        }                                 \
+        else {                            \
+            eq_word_define(__VA_ARGS__);  \
+        }                                 \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Adjust for the setting of \globaldefs <a href="./part49.html#section-1214">1214</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (global_defs != 0) {
+    if (global_defs &lt; 0) {
+        if (global) {
+            a -= 4;
+        }
+    }
+    else if (!global) {
+        a += 4;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1211">1211</a>.</p>
+</div></div>
+<h1 id="section-1215"><a class="header" href="#section-1215">Section 1215</a></h1>
+<p>When a control sequence is to be defined, by <code>\def</code> or <code>\let</code> or something similar, the <em>get_r_token</em> routine will substitute a special control sequence for a token that is not redefinable.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>prefixed_command</em> <a href="./part49.html#section-1215">1215</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">void get_r_token() {
+restart:
+    do {
+        get_token();
+    } while (cur_tok == SPACE_TOKEN);
+    if (cur_cs == 0 || cur_cs &gt; FROZEN_CONTROL_SEQUENCE) {
+        print_err("Missing control sequence inserted");
+        help5("Please don't say `\\def cs{...}', say `\\def\\cs{...}'.")
+            ("I've inserted an inaccessible control sequence so that your")
+            ("definition will be completed without mixing me up too badly.")
+            ("You can recover graciously from this error, if you're")
+            ("careful; see exercise 27.2 in The TeXbook.");
+        if (cur_cs == 0) {
+            back_input();
+        }
+        cur_tok = CS_TOKEN_FLAG + FROZEN_PROTECTION;
+        ins_error();
+        goto restart;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part49.html#section-1229">1229</a>, <a href="./part49.html#section-1236">1236</a>, <a href="./part49.html#section-1243">1243</a>, <a href="./part49.html#section-1244">1244</a>, <a href="./part49.html#section-1245">1245</a>, <a href="./part49.html#section-1246">1246</a>, <a href="./part49.html#section-1247">1247</a>, <a href="./part49.html#section-1257">1257</a>, and <a href="./part49.html#section-1265">1265</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1211">1211</a>.</p>
+</div></div>
+<h1 id="section-1216"><a class="header" href="#section-1216">Section 1216</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String <code>"inaccessible"</code> must be added to the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string("inaccessible"); // INACCESSIBLE_STRING: 268
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define INACCESSIBLE_STRING 268
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">text(FROZEN_PROTECTION) = INACCESSIBLE_STRING;
+</code></pre>
+</div>
+<h1 id="section-1217"><a class="header" href="#section-1217">Section 1217</a></h1>
+<p>Here’s an example of the way many of the following routines operate.
+(Unfortunately, they aren’t all as simple as this.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">case SET_FONT:
+    define(CUR_FONT_LOC, DATA, cur_chr);
+    break;
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also sections <a href="./part49.html#section-1218">1218</a>, <a href="./part49.html#section-1221">1221</a>, <a href="./part49.html#section-1224">1224</a>, <a href="./part49.html#section-1225">1225</a>, <a href="./part49.html#section-1226">1226</a>, <a href="./part49.html#section-1228">1228</a>, <a href="./part49.html#section-1232">1232</a>, <a href="./part49.html#section-1234">1234</a>, <a href="./part49.html#section-1235">1235</a>, <a href="./part49.html#section-1241">1241</a>, <a href="./part49.html#section-1242">1242</a>, <a href="./part49.html#section-1248">1248</a>, <a href="./part49.html#section-1252">1252</a>, <a href="./part49.html#section-1253">1253</a>, <a href="./part49.html#section-1256">1256</a>, and <a href="./part49.html#section-1264">1264</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1211">1211</a>.</p>
+</div></div>
+<h1 id="section-1218"><a class="header" href="#section-1218">Section 1218</a></h1>
+<p>When a <em>DEF</em> command has been scanned, <em>cur_chr</em> is odd if the definition is supposed to be global, and <em>cur_chr</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>2</em> if the definition is supposed to be expanded.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case DEF:
+    if (odd(cur_chr)
+        &amp;&amp; !global
+        &amp;&amp; global_defs &gt;= 0)
+    {
+        a += 4;
+    }
+    e = (cur_chr &gt;= 2);
+    get_r_token();
+    p = cur_cs;
+    q = scan_toks(true, e);
+    define(p, CALL + (a % 4), def_ref);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1219"><a class="header" href="#section-1219">Section 1219</a></h1>
+<p>Both <code>\let</code> and <code>\futurelet</code> share the command code <em>LET</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("let", LET, NORMAL);
+primitive("futurelet", LET, NORMAL + 1);
+</code></pre>
+</div>
+<h1 id="section-1220"><a class="header" href="#section-1220">Section 1220</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case LET:
+    if (chr_code != NORMAL) {
+        print_esc("futurelet");
+    }
+    else {
+        print_esc("let");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1221"><a class="header" href="#section-1221">Section 1221</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case LET:
+    n = cur_chr;
+    get_r_token();
+    p = cur_cs;
+    if (n == NORMAL) {
+        do {
+            get_token();
+        } while (cur_cmd == SPACER);
+        if (cur_tok == OTHER_TOKEN + '=') {
+            get_token();
+            if (cur_cmd == SPACER) {
+                get_token();
+            }
+        }
+    }
+    else {
+        get_token();
+        q = cur_tok;
+        get_token();
+        back_input();
+        cur_tok = q;
+        back_input(); // look ahead, then back up
+    } // note that |back_input| doesn't affect |cur_cmd|, |cur_chr|
+    if (cur_cmd &gt;= CALL) {
+        add_token_ref(cur_chr);
+    }
+    define(p, cur_cmd, cur_chr);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1222"><a class="header" href="#section-1222">Section 1222</a></h1>
+<p>A <code>\chardef</code> creates a control sequence whose <em>cmd</em> is <em>CHAR_GIVEN</em>;
+a <code>\mathchardef</code> creates a control sequence whose <em>cmd</em> is <em>MATH_GIVEN</em>;
+and the corresponding <em>chr</em> is the character code or math code.
+A <code>\countdef</code> or <code>\dimendef</code> or <code>\skipdef</code> or <code>\muskipdef</code> creates a control sequence whose <em>cmd</em> is <em>ASSIGN_INT</em> or <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span> or <em>ASSIGN_MU_GLUE</em>, and the corresponding <em>chr</em> is the <em>eqtb</em> location of the internal register in question.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define CHAR_DEF_CODE      0 // |shorthand_def| for \chardef
+#define MATH_CHAR_DEF_CODE 1 // |shorthand_def| for \mathchardef
+#define COUNT_DEF_CODE     2 // |shorthand_def| for \countdef
+#define DIMEN_DEF_CODE     3 // |shorthand_def| for \dimendef
+#define SKIP_DEF_CODE      4 // |shorthand_def| for \skipdef
+#define MU_SKIP_DEF_CODE   5 // |shorthand_def| for \muskipdef
+#define TOKS_DEF_CODE      6 // |shorthand_def| for \toksdef
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("chardef", SHORTHAND_DEF, CHAR_DEF_CODE);
+primitive("mathchardef", SHORTHAND_DEF, MATH_CHAR_DEF_CODE);
+primitive("countdef", SHORTHAND_DEF, COUNT_DEF_CODE);
+primitive("dimendef", SHORTHAND_DEF, DIMEN_DEF_CODE);
+primitive("skipdef", SHORTHAND_DEF, SKIP_DEF_CODE);
+primitive("muskipdef", SHORTHAND_DEF, MU_SKIP_DEF_CODE);
+primitive("toksdef", SHORTHAND_DEF, TOKS_DEF_CODE);
+</code></pre>
+</div>
+<h1 id="section-1223"><a class="header" href="#section-1223">Section 1223</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case SHORTHAND_DEF:
+    switch (chr_code) {
+    case CHAR_DEF_CODE:
+        print_esc("chardef");
+        break;
+    
+    case MATH_CHAR_DEF_CODE:
+        print_esc("mathchardef");
+        break;
+    
+    case COUNT_DEF_CODE:
+        print_esc("countdef");
+        break;
+    
+    case DIMEN_DEF_CODE:
+        print_esc("dimendef");
+        break;
+    
+    case SKIP_DEF_CODE:
+        print_esc("skipdef");
+        break;
+    
+    case MU_SKIP_DEF_CODE:
+        print_esc("muskipdef");
+        break;
+    
+    default:
+        print_esc("toksdef");
+    }
+    break;
+
+case CHAR_GIVEN:
+    print_esc("char");
+    print_hex(chr_code); 
+    break;
+
+case MATH_GIVEN:
+    print_esc("mathchar");
+    print_hex(chr_code);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1224"><a class="header" href="#section-1224">Section 1224</a></h1>
+<p>We temporarily define <em>p</em> to be <em>RELAX</em>, so that an occurrence of <em>p</em> while scanning the definition will simply stop the scanning instead of producing an “undefined control sequence” error or expanding the previous meaning.
+This allows, for instance, ‘<code>\chardef\foo=123\foo</code>’.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case SHORTHAND_DEF:
+    n = cur_chr;
+    get_r_token();
+    p = cur_cs;
+    define(p, RELAX, 256);
+    scan_optional_equals();
+    switch (n) {
+    case CHAR_DEF_CODE:
+        scan_char_num();
+        define(p, CHAR_GIVEN, cur_val);
+        break;
+  
+    case MATH_CHAR_DEF_CODE:
+        scan_fifteen_bit_int();
+        define(p, MATH_GIVEN, cur_val);
+        break;
+  
+    default:
+        scan_eight_bit_int();
+        switch (n) {
+        case COUNT_DEF_CODE:
+            define(p, ASSIGN_INT, COUNT_BASE + cur_val);
+            break;
+        case DIMEN_DEF_CODE:
+            define(p, ASSIGN_DIMEN, SCALED_BASE + cur_val);
+            break;
+        case SKIP_DEF_CODE:
+            define(p, ASSIGN_GLUE, SKIP_BASE + cur_val);
+            break;
+        case MU_SKIP_DEF_CODE:
+            define(p, ASSIGN_MU_GLUE, MU_SKIP_BASE + cur_val);
+            break;
+        case TOKS_DEF_CODE:
+            define(p, ASSIGN_TOKS, TOKS_BASE + cur_val);
+        } // there are no other cases
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1225"><a class="header" href="#section-1225">Section 1225</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case READ_TO_CS:
+    scan_int();
+    n = cur_val;
+    if (!scan_keyword("to")) {
+        print_err("Missing `to' inserted");
+        help2("You should have said `\\read&lt;number&gt; to \\cs'.")
+            ("I'm going to look for the \\cs now.");
+        error();
+    }
+    get_r_token();
+    p = cur_cs;
+    read_toks(n, p);
+    define(p, CALL, cur_val);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1226"><a class="header" href="#section-1226">Section 1226</a></h1>
+<p>The token-list parameters, <code>\output</code> and <code>\everypar</code>, etc., receive their values in the following way.
+(For safety’s sake, we place an enclosing pair of braces around an <code>\output</code> list.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case TOKS_REGISTER:
+case ASSIGN_TOKS:
+    q = cur_cs;
+    if (cur_cmd == TOKS_REGISTER) {
+        scan_eight_bit_int();
+        p = TOKS_BASE + cur_val;
+    }
+    else {
+        p = cur_chr; // |p = EVERY_PAR_LOC| or |OUTPUT_ROUTINE_LOC| or...
+    }
+    scan_optional_equals();
+    // &lt;&lt; Get the next non-blank non-relax non-call token, 404 &gt;&gt;
+    if (cur_cmd != LEFT_BRACE) {
+        // &lt;&lt; If the right-hand side is a token parameter or token register, finish the assignment and |goto done|, 1227 &gt;&gt;
+    }
+    back_input();
+    cur_cs = q;
+    q = scan_toks(false, false);
+    if (link(def_ref) == null) {
+         // empty list: revert to the default
+        define(p, UNDEFINED_CS, null);
+        free_avail(def_ref);
+    }
+    else {
+        if (p == OUTPUT_ROUTINE_LOC) {
+            // enclose in curlies
+            link(q) = get_avail();
+            q = link(q);
+            info(q) = RIGHT_BRACE_TOKEN + '}';
+            q = get_avail();
+            info(q) = LEFT_BRACE_TOKEN + '{';
+            link(q) = link(def_ref);
+            link(def_ref) = q;
+        }
+        define(p, CALL, def_ref);
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1227"><a class="header" href="#section-1227">Section 1227</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If the right-hand side is a token parameter or token register, finish the assignment and <em>goto done</em> <a href="./part49.html#section-1227">1227</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_cmd == TOKS_REGISTER) {
+    scan_eight_bit_int();
+    cur_cmd = ASSIGN_TOKS;
+    cur_chr = TOKS_BASE + cur_val;
+}
+if (cur_cmd == ASSIGN_TOKS) {
+    q = equiv(cur_chr);
+    if (q == null) {
+        define(p, UNDEFINED_CS, null);
+    }
+    else {
+        add_token_ref(q);
+        define(p, CALL, q);
+    }
+    goto done;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1226">1226</a>.</p>
+</div></div>
+<h1 id="section-1228"><a class="header" href="#section-1228">Section 1228</a></h1>
+<p>Similar routines are used to assign values to the numeric parameters.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case ASSIGN_INT:
+    p = cur_chr;
+    scan_optional_equals();
+    scan_int();
+    word_define(p, cur_val);
+    break;
+
+case ASSIGN_DIMEN:
+    p = cur_chr;
+    scan_optional_equals();
+    scan_normal_dimen;
+    word_define(p, cur_val);
+    break;
+
+case ASSIGN_GLUE:
+case ASSIGN_MU_GLUE:
+    p = cur_chr;
+    n = cur_cmd;
+    scan_optional_equals();
+    if (n == ASSIGN_MU_GLUE) {
+        scan_glue(MU_VAL);
+    }
+    else {
+        scan_glue(GLUE_VAL);
+    }
+    trap_zero_glue();
+    define(p, GLUE_REF, cur_val);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1229"><a class="header" href="#section-1229">Section 1229</a></h1>
+<p>When a glue register or parameter becomes zero, it will always point to <em>ZERO_GLUE</em> because of the following procedure.
+(Exception: The tabskip glue isn’t trapped while preambles are being scanned.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>prefixed_command</em> <a href="./part49.html#section-1215">1215</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void trap_zero_glue() {
+    if (width(cur_val) == 0
+        &amp;&amp; stretch(cur_val) == 0
+        &amp;&amp; shrink(cur_val) == 0)
+    {
+        add_glue_ref(ZERO_GLUE);
+        delete_glue_ref(cur_val);
+        cur_val = ZERO_GLUE;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1230"><a class="header" href="#section-1230">Section 1230</a></h1>
+<p>The various character code tables are changed by the <em>DEF_CODE</em> commands, and the font families are declared by <em>DEF_FAMILY</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("catcode", DEF_CODE, CAT_CODE_BASE);
+primitive("mathcode", DEF_CODE, MATH_CODE_BASE);
+primitive("lccode", DEF_CODE, LC_CODE_BASE);
+primitive("uccode", DEF_CODE, UC_CODE_BASE);
+primitive("sfcode", DEF_CODE, SF_CODE_BASE);
+primitive("delcode", DEF_CODE, DEL_CODE_BASE);
+primitive("textfont", DEF_FAMILY, MATH_FONT_BASE);
+primitive("scriptfont", DEF_FAMILY, MATH_FONT_BASE + SCRIPT_SIZE);
+primitive("scriptscriptfont", DEF_FAMILY, MATH_FONT_BASE + SCRIPT_SCRIPT_SIZE);
+</code></pre>
+</div>
+<h1 id="section-1231"><a class="header" href="#section-1231">Section 1231</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case DEF_CODE:
+    if (chr_code == CAT_CODE_BASE) {
+        print_esc("catcode");
+    }
+    else if (chr_code == MATH_CODE_BASE) {
+        print_esc("mathcode");
+    }
+    else if (chr_code == LC_CODE_BASE) {
+        print_esc("lccode");
+    }
+    else if (chr_code == UC_CODE_BASE) {
+        print_esc("uccode");
+    }
+    else if (chr_code == SF_CODE_BASE) {
+        print_esc("sfcode");
+    }
+    else {
+        print_esc("delcode");
+    }
+    break;
+
+case DEF_FAMILY:
+    print_size(chr_code - MATH_FONT_BASE);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1232"><a class="header" href="#section-1232">Section 1232</a></h1>
+<p>The different types of code values have different legal ranges; the following program is careful to check each case properly.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case DEF_CODE:
+    // &lt;&lt; Let |n| be the largest legal code value, based on |cur_chr|, 1233 &gt;&gt;
+    p = cur_chr;
+    scan_char_num();
+    p += cur_val;
+    scan_optional_equals();
+    scan_int();
+    if ((cur_val &lt; 0 &amp;&amp; p &lt; DEL_CODE_BASE) || cur_val &gt; n) {
+        print_err("Invalid code (");
+        print_int(cur_val);
+        if (p &lt; DEL_CODE_BASE) {
+            print("), should be in the range 0..");
+        }
+        else {
+            print("), should be at most ");
+        }
+        print_int(n);
+        help1("I'm going to use 0 instead of that illegal code value.");
+        error();
+        cur_val = 0;
+    }
+    if (p &lt; MATH_CODE_BASE) {
+        define(p, DATA, cur_val);
+    }
+    else if (p &lt; DEL_CODE_BASE) {
+        define(p, DATA, hi(cur_val));
+    }
+    else {
+        word_define(p, cur_val);
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1233"><a class="header" href="#section-1233">Section 1233</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Let <em>n</em> be the largest legal code value, based on <em>cur_chr</em> <a href="./part49.html#section-1233">1233</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_chr == CAT_CODE_BASE) {
+    n = MAX_CHAR_CODE;
+}
+else if (cur_chr == MATH_CODE_BASE) {
+    n = 0x8000;
+}
+else if (cur_chr == SF_CODE_BASE) {
+    n = 0x7fff;
+}
+else if (cur_chr == DEL_CODE_BASE) {
+    n = 0xffffff;
+}
+else {
+    n = 255;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1232">1232</a>.</p>
+</div></div>
+<h1 id="section-1234"><a class="header" href="#section-1234">Section 1234</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case DEF_FAMILY:
+    p = cur_chr;
+    scan_four_bit_int();
+    p += cur_val;
+    scan_optional_equals();
+    scan_font_ident();
+    define(p, DATA, cur_val);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1235"><a class="header" href="#section-1235">Section 1235</a></h1>
+<p>Next we consider changes to <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s numeric registers.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case REGISTER:
+case ADVANCE:
+case MULTIPLY:
+case DIVIDE:
+    do_register_command(a);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1236"><a class="header" href="#section-1236">Section 1236</a></h1>
+<p>We use the fact that <em>REGISTER</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>ADVANCE</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>MULTIPLY</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>DIVIDE</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>prefixed_command</em> <a href="./part49.html#section-1215">1215</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void do_register_command(small_number a) {
+    pointer l, q, r, s; // for list manipulation
+    int p;              // type of register involved
+    l = null;
+    q = cur_cmd;
+    // &lt;&lt; Compute the register location |l| and its type |p|; but |return| if invalid, 1237 &gt;&gt;
+    if (q == REGISTER) {
+        scan_optional_equals();
+    }
+    else {
+        scan_keyword("by"); // do nothing, optional "by"
+    }
+    arith_error = false;
+    if (q &lt; MULTIPLY) {
+        // &lt;&lt; Compute result of |REGISTER| or |ADVANCE|, put it in |cur_val|, 1238 &gt;&gt;
+    }
+    else {
+        // &lt;&lt; Compute result of |MULTIPLY| or |DIVIDE|, put it in |cur_val|, 1240 &gt;&gt;
+    }
+    if (arith_error) {
+        print_err("Arithmetic overflow");
+        help2("I can't carry out that multiplication or division,")
+            ("since the result is out of range.");
+        if (p &gt;= GLUE_VAL) {
+            delete_glue_ref(cur_val);
+        }
+        error();
+        return;
+    }
+    if (p &lt; GLUE_VAL) {
+        word_define(l, cur_val);
+    }
+    else {
+        trap_zero_glue();
+        define(l, GLUE_REF, cur_val);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1237"><a class="header" href="#section-1237">Section 1237</a></h1>
+<p>Here we use the fact that the consecutive codes <em>INT_VAL .. MU_VAL</em> and <em>ASSIGN_INT .. ASSIGN_MU_GLUE</em> correspond to each other nicely.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the register location <em>l</em> and its type <em>p</em>; but <em>return</em> if invalid <a href="./part49.html#section-1237">1237</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (q != REGISTER) {
+    get_x_token();
+    if (cur_cmd &gt;= ASSIGN_INT &amp;&amp; cur_cmd &lt;= ASSIGN_MU_GLUE) {
+        l = cur_chr;
+        p = cur_cmd - ASSIGN_INT;
+        goto found;
+    }
+    if (cur_cmd != REGISTER) {
+        print_err("You can't use `");
+        print_cmd_chr(cur_cmd, cur_chr);
+        print("' after ");
+        print_cmd_chr(q, 0);
+        help1("I'm forgetting what you said and not changing anything.");
+        error();
+        return;
+    }
+}
+p = cur_chr;
+scan_eight_bit_int();
+switch (p) {
+case INT_VAL:
+    l = cur_val + COUNT_BASE;
+    break;
+
+case DIMEN_VAL:
+    l = cur_val + SCALED_BASE;
+    break;
+
+case GLUE_VAL:
+    l = cur_val + SKIP_BASE;
+    break;
+
+case MU_VAL:
+    l = cur_val + MU_SKIP_BASE;
+} // there are no other cases
+found:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1236">1236</a>.</p>
+</div></div>
+<h1 id="section-1238"><a class="header" href="#section-1238">Section 1238</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute result of <em>REGISTER</em> or <em>ADVANCE</em>, put it in <em>cur_val</em> <a href="./part49.html#section-1238">1238</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (p &lt; GLUE_VAL) {
+    if (p == INT_VAL) {
+        scan_int();
+    }
+    else {
+        scan_normal_dimen;
+    }
+    if (q == ADVANCE) {
+        cur_val += eqtb[l].integer;
+    }
+}
+else {
+    scan_glue(p);
+    if (q == ADVANCE) {
+        // &lt;&lt; Compute the sum of two glue specs, 1239 &gt;&gt;
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1236">1236</a>.</p>
+</div></div>
+<h1 id="section-1239"><a class="header" href="#section-1239">Section 1239</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute the sum of two glue specs <a href="./part49.html#section-1239">1239</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">q = new_spec(cur_val);
+r = equiv(l);
+delete_glue_ref(cur_val);
+width(q) += width(r);
+if (stretch(q) == 0) {
+    stretch_order(q) = NORMAL;
+}
+if (stretch_order(q) == stretch_order(r)) {
+    stretch(q) += stretch(r);
+}
+else if (stretch_order(q) &lt; stretch_order(r) &amp;&amp; stretch(r) != 0) {
+    stretch(q) = stretch(r);
+    stretch_order(q) = stretch_order(r);
+}
+if (shrink(q) == 0) {
+    shrink_order(q) = NORMAL;
+}
+if (shrink_order(q) == shrink_order(r)) {
+    shrink(q) += shrink(r);
+}
+else if (shrink_order(q) &lt; shrink_order(r) &amp;&amp; shrink(r) != 0) {
+    shrink(q) = shrink(r);
+    shrink_order(q) = shrink_order(r);
+}
+cur_val = q;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1238">1238</a>.</p>
+</div></div>
+<h1 id="section-1240"><a class="header" href="#section-1240">Section 1240</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Compute result of <em>MULTIPLY</em> or <em>DIVIDE</em>, put it in <em>cur_val</em> <a href="./part49.html#section-1240">1240</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_int();
+if (p &lt; GLUE_VAL) {
+    if (q == MULTIPLY) {
+        if (p == INT_VAL) {
+            cur_val = mult_integers(eqtb[l].integer, cur_val);
+        }
+        else {
+            cur_val = nx_plus_y(eqtb[l].integer, cur_val, 0);
+        }
+    }
+    else {
+        cur_val = x_over_n(eqtb[l].integer, cur_val);
+    }
+}
+else {
+    s = equiv(l);
+    r = new_spec(s);
+    if (q == MULTIPLY) {
+        width(r) = nx_plus_y(width(s), cur_val, 0);
+        stretch(r) = nx_plus_y(stretch(s), cur_val, 0);
+        shrink(r) = nx_plus_y(shrink(s), cur_val, 0);
+    }
+    else {
+        width(r) = x_over_n(width(s), cur_val);
+        stretch(r) = x_over_n(stretch(s), cur_val);
+        shrink(r) = x_over_n(shrink(s), cur_val);
+    }
+    cur_val = r;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1236">1236</a>.</p>
+</div></div>
+<h1 id="section-1241"><a class="header" href="#section-1241">Section 1241</a></h1>
+<p>The processing of boxes is somewhat different, because we may need to scan and create an entire box before we actually change the value of the old one.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case SET_BOX:
+    scan_eight_bit_int();
+    if (global) {
+        n = 256 + cur_val;
+    }
+    else {
+        n = cur_val;
+    }
+    scan_optional_equals();
+    if (set_box_allowed) {
+        scan_box(BOX_FLAG + n);
+    }
+    else {
+        print_err("Improper ");
+        print_esc("setbox");
+        help2("Sorry, \\setbox is not allowed after \\halign in a display,")
+            ("or between \\accent and an accented character.");
+        error();
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1242"><a class="header" href="#section-1242">Section 1242</a></h1>
+<p>The <em>space_factor</em> or <em>prev_depth</em> settings are changed when a <em>SET_AUX</em> command is sensed.
+Similarly, <em>prev_graf</em> is changed in the presence of <em>SET_PREV_GRAF</em>, and <em>dead_cycles</em> or <em>insert_penalties</em> in the presence of <em>SET_PAGE_INT</em>.
+These definitions are always global.</p>
+<p>When some dimension of a box register is changed, the change isn’t exactly global; but <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> does not look at the <code>\global</code> switch.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case SET_AUX:
+    alter_aux();
+    break;
+
+case SET_PREV_GRAF:
+    alter_prev_graf();
+    break;
+
+case SET_PAGE_DIMEN:
+    alter_page_so_far();
+    break;
+
+case SET_PAGE_INT:
+    alter_integer();
+    break;
+
+case SET_BOX_DIMEN:
+    alter_box_dimen();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1243"><a class="header" href="#section-1243">Section 1243</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>prefixed_command</em> <a href="./part49.html#section-1215">1215</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void alter_aux() {
+    halfword c; // |HMODE| or |VMODE|
+    if (cur_chr != abs(mode)) {
+        report_illegal_case();
+    }
+    else {
+        c = cur_chr;
+        scan_optional_equals();
+        if (c == VMODE) {
+            scan_normal_dimen;
+            prev_depth = cur_val;
+        }
+        else {
+            scan_int();
+            if (cur_val &lt;= 0 || cur_val &gt; 32767) {
+                print_err("Bad space factor");
+                help1("I allow only values in the range 1..32767 here.");
+                int_error(cur_val);
+            }
+            else {
+                space_factor = cur_val;
+            }
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1244"><a class="header" href="#section-1244">Section 1244</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>prefixed_command</em> <a href="./part49.html#section-1215">1215</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void alter_prev_graf() {
+    int p; // index into |nest|
+    nest[nest_ptr] = cur_list;
+    p = nest_ptr;
+    while (abs(nest[p].mode_field) != VMODE) {
+        decr(p);
+    }
+    scan_optional_equals();
+    scan_int();
+    if (cur_val &lt; 0) {
+        print_err("Bad ");
+        print_esc("prevgraf");
+        help1("I allow only nonnegative values here.");
+        int_error(cur_val);
+    }
+    else {
+        nest[p].pg_field = cur_val;
+        cur_list = nest[nest_ptr];
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1245"><a class="header" href="#section-1245">Section 1245</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>prefixed_command</em> <a href="./part49.html#section-1215">1215</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void alter_page_so_far() {
+    int c; // index into |page_so_far|
+    c = cur_chr;
+    scan_optional_equals();
+    scan_normal_dimen;
+    page_so_far[c] = cur_val;
+}
+</code></pre>
+</div>
+<h1 id="section-1246"><a class="header" href="#section-1246">Section 1246</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>prefixed_command</em> <a href="./part49.html#section-1215">1215</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void alter_integer() {
+    int c; // 0 for \deadcycles, 1 for \insertpenalties
+    c = cur_chr;
+    scan_optional_equals();
+    scan_int();
+    if (c == 0) {
+        dead_cycles = cur_val;
+    }
+    else {
+        insert_penalties = cur_val;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1247"><a class="header" href="#section-1247">Section 1247</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>prefixed_command</em> <a href="./part49.html#section-1215">1215</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void alter_box_dimen() {
+    small_number c; // |WIDTH_OFFSET| or |HEIGHT_OFFSET| or |DEPTH_OFFSET|
+    eight_bits b; // box number
+    c = cur_chr;
+    scan_eight_bit_int();
+    b = cur_val;
+    scan_optional_equals();
+    scan_normal_dimen;
+    if (box(b) != null) {
+        mem[box(b) + c].sc = cur_val;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1248"><a class="header" href="#section-1248">Section 1248</a></h1>
+<p>Paragraph shapes are set up in the obvious way.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case SET_SHAPE:
+    scan_optional_equals();
+    scan_int();
+    n = cur_val;
+    if (n &lt;= 0) {
+        p = null;
+    }
+    else {
+        p = get_node(2*n + 1);
+        info(p) = n;
+        for(j = 1; j &lt;= n; j++) {
+            scan_normal_dimen;
+            mem[p + 2*j - 1].sc = cur_val; // indentation
+            scan_normal_dimen;
+            mem[p + 2*j].sc = cur_val; // width
+        }
+    }
+    define(PAR_SHAPE_LOC, SHAPE_REF, p);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1249"><a class="header" href="#section-1249">Section 1249</a></h1>
+<p>Here’s something that isn’t quite so obvious.
+It guarantees that <em>info(par_shape_ptr)</em> can hold any positive <em>n</em> for which <em>get_node(2*n + 1)</em> doesn’t overflow the memory capacity.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Check the “constant” values for consistency <a href="./part01.html#section-14">14</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">if (2*MAX_HALFWORD &lt; MEM_TOP - MEM_MIN) {
+    bad = 41;
+}
+</code></pre>
+</div>
+<h1 id="section-1250"><a class="header" href="#section-1250">Section 1250</a></h1>
+<p>New hyphenation data is loaded by the <em>HYPH_DATA</em> command.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("hyphenation", HYPH_DATA, 0);
+primitive("patterns", HYPH_DATA, 1);
+</code></pre>
+</div>
+<h1 id="section-1251"><a class="header" href="#section-1251">Section 1251</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case HYPH_DATA:
+    if (chr_code == 1) {
+        print_esc("patterns");
+    }
+    else {
+        print_esc("hyphenation");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1252"><a class="header" href="#section-1252">Section 1252</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case HYPH_DATA:
+    if (cur_chr == 1) {
+#ifdef INIT
+        new_patterns();
+        goto done;
+#endif
+        print_err("Patterns can be loaded only by INITEX");
+        help0;
+        error();
+        do {
+            get_token();
+        } while (cur_cmd != RIGHT_BRACE); // flush the patterns
+        return;
+    }
+    else {
+        new_hyph_exceptions();
+        goto done;
+    }
+</code></pre>
+</div>
+<h1 id="section-1253"><a class="header" href="#section-1253">Section 1253</a></h1>
+<p>All of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s parameters are kept in <em>eqtb</em> except the font information, the interaction mode, and the hyphenation tables; these are strictly global.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case ASSIGN_FONT_DIMEN:
+    find_font_dimen(true);
+    k = cur_val;
+    scan_optional_equals();
+    scan_normal_dimen;
+    font_info[k].sc = cur_val;
+    break;
+
+case ASSIGN_FONT_INT:
+    n = cur_chr;
+    scan_font_ident();
+    f = cur_val;
+    scan_optional_equals();
+    scan_int();
+    if (n == 0) {
+        hyphen_char[f] = cur_val;
+    }
+    else {
+        skew_char[f] = cur_val;
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1254"><a class="header" href="#section-1254">Section 1254</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("hyphenchar", ASSIGN_FONT_INT, 0);
+primitive("skewchar", ASSIGN_FONT_INT, 1);
+</code></pre>
+</div>
+<h1 id="section-1255"><a class="header" href="#section-1255">Section 1255</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case ASSIGN_FONT_INT:
+    if (chr_code == 0) {
+        print_esc("hyphenchar");
+    }
+    else {
+        print_esc("skewchar");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1256"><a class="header" href="#section-1256">Section 1256</a></h1>
+<p>Here is where the information for a new font gets loaded.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case DEF_FONT:
+    new_font(a);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1257"><a class="header" href="#section-1257">Section 1257</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String <code>"FONT"</code> must be added to the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string("FONT"); // FONT_STRING: 269
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define FONT_STRING 269
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>prefixed_command</em> <a href="./part49.html#section-1215">1215</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void new_font(small_number a) {
+    pointer u;                   // user's font identifier
+    scaled s;                    // stated "at" size, or negative of scaled magnification
+    int f;                       // runs through existing fonts
+    str_number t;                // name for the frozen font identifier
+    int old_setting;             // holds |selector| setting
+    str_number flushable_string; // string not yet referenced
+    
+    if (job_name == 0) {
+        // avoid confusing `texput` with the font name
+        open_log_file();
+    }
+    get_r_token();
+    u = cur_cs;
+    if (u &gt;= HASH_BASE) {
+        t = text(u);
+    }
+    else if (u &gt;= SINGLE_BASE) {
+        if (u == NULL_CS) {
+            t = FONT_STRING; // "FONT"
+        }
+        else {
+            t = u - SINGLE_BASE;
+        }
+    }
+    else {
+        old_setting = selector;
+        selector = NEW_STRING;
+        print("FONT");
+        print_strnumber(u - ACTIVE_BASE);
+        selector = old_setting;
+        str_room(1);
+        t = make_string();
+    }
+    define(u, SET_FONT, NULL_FONT);
+    scan_optional_equals();
+    scan_file_name();
+    // &lt;&lt; Scan the font size specification, 1258 &gt;&gt;
+    // &lt;&lt; If this font has already been loaded, set |f| to the internal font number and |goto common_ending|, 1260 &gt;&gt;
+    f = read_font_info(u, cur_name, cur_area, s);
+common_ending:
+    equiv(u) = f;
+    eqtb[FONT_ID_BASE + f] = eqtb[u];
+    font_id_text(f) = t;
+}
+</code></pre>
+</div>
+<h1 id="section-1258"><a class="header" href="#section-1258">Section 1258</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Scan the font size specification <a href="./part49.html#section-1258">1258</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">name_in_progress = true; // this keeps |cur_name| from being changed
+if (scan_keyword("at")) {
+    // &lt;&lt; Put the (positive) 'at' size into |s|, 1259 &gt;&gt;
+}
+else if (scan_keyword("scaled")) {
+    scan_int();
+    s = -cur_val;
+    if (cur_val &lt;= 0 || cur_val &gt; 32768) {
+        print_err("Illegal magnification has been changed to 1000");
+        help1("The magnification ratio must be between 1 and 32768.");
+        int_error(cur_val);
+        s = -1000;
+    }
+}
+else {
+    s = -1000;
+}
+name_in_progress = false;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1257">1257</a>.</p>
+</div></div>
+<h1 id="section-1259"><a class="header" href="#section-1259">Section 1259</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put the (positive) ‘at’ size into <em>s</em> <a href="./part49.html#section-1259">1259</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_normal_dimen;
+s = cur_val;
+if (s &lt;= 0 || s &gt;= 0x8000000) {
+    print_err("Improper `at' size (");
+    print_scaled(s);
+    print("pt), replaced by 10pt");
+    help2("I can only handle fonts at positive sizes that are")
+        ("less than 2048pt, so I've changed what you said to 10pt.");
+    error();
+    s = 10*UNITY;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1258">1258</a>.</p>
+</div></div>
+<h1 id="section-1260"><a class="header" href="#section-1260">Section 1260</a></h1>
+<p>When the user gives a new identifier to a font that was previously loaded, the new name becomes the font identifier of record.
+Font names ‘<code>xyz</code>’ and ‘<code>XYZ</code>’ are considered to be different.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ If this font has already been loaded, set <em>f</em> to the internal font number and <em>goto common_ending</em> <a href="./part49.html#section-1260">1260</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">flushable_string = str_ptr - 1;
+for(f = FONT_BASE + 1; f &lt;= font_ptr; f++) {
+    if (str_eq_str(font_name[f], cur_name)
+        &amp;&amp; str_eq_str(font_area[f], cur_area))
+    {
+        if (cur_name == flushable_string) {
+            flush_string;
+            cur_name = font_name[f];
+        }
+        if (s &gt; 0) {
+            if (s == font_size[f]) {
+                goto common_ending;
+            }
+        }
+        else if (font_size[f] == xn_over_d(font_dsize[f], -s, 1000)) {
+            goto common_ending;
+        }
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1257">1257</a>.</p>
+</div></div>
+<h1 id="section-1261"><a class="header" href="#section-1261">Section 1261</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case SET_FONT:
+    print("select font ");
+    slow_print(font_name[chr_code]);
+    if (font_size[chr_code] != font_dsize[chr_code]) {
+        print(" at ");
+        print_scaled(font_size[chr_code]);
+        print("pt");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1262"><a class="header" href="#section-1262">Section 1262</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("batchmode", SET_INTERACTION, BATCH_MODE);
+primitive("nonstopmode", SET_INTERACTION, NONSTOP_MODE);
+primitive("scrollmode", SET_INTERACTION, SCROLL_MODE);
+primitive("errorstopmode", SET_INTERACTION, ERROR_STOP_MODE);
+</code></pre>
+</div>
+<h1 id="section-1263"><a class="header" href="#section-1263">Section 1263</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case SET_INTERACTION:
+    switch (chr_code) {
+    case BATCH_MODE:
+        print_esc("batchmode");
+        break;
+  
+    case NONSTOP_MODE:
+        print_esc("nonstopmode");
+        break;
+    
+    case SCROLL_MODE:
+        print_esc("scrollmode");
+        break;
+    
+    default:
+        print_esc("errorstopmode");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1264"><a class="header" href="#section-1264">Section 1264</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Assignments <a href="./part49.html#section-1217">1217</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case SET_INTERACTION:
+    new_interaction();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1265"><a class="header" href="#section-1265">Section 1265</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare subprocedures for <em>prefixed_command</em> <a href="./part49.html#section-1215">1215</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">void new_interaction() {
+    print_ln();
+    interaction = cur_chr;
+    // &lt;&lt; Initialize the print |selector| based on |interaction|, 75 &gt;&gt;
+    if (log_opened) {
+        selector += 2;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1266"><a class="header" href="#section-1266">Section 1266</a></h1>
+<p>The <code>\afterassignment</code> command puts a token into the global variable <em>after_token</em>.
+This global variable is examined just after every assignment has been performed.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">halfword after_token; // zero, or a saved token
+</code></pre>
+</div>
+<h1 id="section-1267"><a class="header" href="#section-1267">Section 1267</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">after_token = 0;
+</code></pre>
+</div>
+<h1 id="section-1268"><a class="header" href="#section-1268">Section 1268</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that don’t depend on <em>mode</em> <a href="./part49.html#section-1210">1210</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(AFTER_ASSIGNMENT):
+    get_token();
+    after_token = cur_tok;
+    break;
+</code></pre>
+</div>
+<h1 id="section-1269"><a class="header" href="#section-1269">Section 1269</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Insert a token saved by \afterassignment, if any <a href="./part49.html#section-1269">1269</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (after_token != 0) {
+    cur_tok = after_token;
+    back_input();
+    after_token = 0;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1211">1211</a>.</p>
+</div></div>
+<h1 id="section-1270"><a class="header" href="#section-1270">Section 1270</a></h1>
+<p>Here is a procedure that might be called ‘Get the next non-blank non-relax non-call non-assignment token’.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">independent.c</div>
+<pre><code class="language-c">void do_assignments() {
+    while(true) {
+        // &lt;&lt; Get the next non-blank non-relax non-call token, 404 &gt;&gt;
+        if (cur_cmd &lt;= MAX_NON_PREFIXED_COMMAND) {
+            return;
+        }
+        set_box_allowed = false;
+        prefixed_command();
+        set_box_allowed = true;
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1271"><a class="header" href="#section-1271">Section 1271</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that don’t depend on <em>mode</em> <a href="./part49.html#section-1210">1210</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(AFTER_GROUP):
+    get_token();
+    save_for_after(cur_tok);
+    break;
+</code></pre>
+</div>
+<h1 id="section-1272"><a class="header" href="#section-1272">Section 1272</a></h1>
+<p>Files for <code>\read</code> are opened and closed by the <em>IN_STREAM</em> command.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("openin", IN_STREAM, 1);
+primitive("closein", IN_STREAM, 0);
+</code></pre>
+</div>
+<h1 id="section-1273"><a class="header" href="#section-1273">Section 1273</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case IN_STREAM:
+    if (chr_code == 0) {
+        print_esc("closein");
+    }
+    else {
+        print_esc("openin");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1274"><a class="header" href="#section-1274">Section 1274</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that don’t depend on <em>mode</em> <a href="./part49.html#section-1210">1210</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(IN_STREAM):
+    open_or_close_in();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1275"><a class="header" href="#section-1275">Section 1275</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">independent.c</div>
+<pre><code class="language-c">void open_or_close_in() {
+    int c; // 1 for \openin, 0 for \closein
+    int n; // stream number
+    c = cur_chr;
+    scan_four_bit_int();
+    n = cur_val;
+    if (read_open[n] != CLOSED) {
+        a_close(read_file[n]);
+        read_open[n] = CLOSED;
+    }
+    if (c != 0) {
+        scan_optional_equals();
+        scan_file_name();
+        if (cur_ext == EMPTY_STRING) {
+            cur_ext = TEX_EXT; // ".tex"
+        }
+        pack_cur_name;
+        if (a_open_in(&amp;read_file[n])) {
+            read_open[n] = JUST_OPEN;
+        }
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-1276"><a class="header" href="#section-1276">Section 1276</a></h1>
+<p>The user can issue messages to the terminal, regardless of the current mode.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that don’t depend on <em>mode</em> <a href="./part49.html#section-1210">1210</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(MESSAGE):
+    issue_message();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1277"><a class="header" href="#section-1277">Section 1277</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("message", MESSAGE, 0);
+primitive("errmessage", MESSAGE, 1);
+</code></pre>
+</div>
+<h1 id="section-1278"><a class="header" href="#section-1278">Section 1278</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case MESSAGE:
+    if (chr_code == 0) {
+        print_esc("message");
+    }
+    else {
+        print_esc("errmessage");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1279"><a class="header" href="#section-1279">Section 1279</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">independent.c</div>
+<pre><code class="language-c">void issue_message() {
+    int old_setting; // holds |selector| setting
+    int c;           // identifies \message and \errmessage
+    str_number s;    // the message
+    
+    c = cur_chr;
+    link(GARBAGE) = scan_toks(false, true);
+    old_setting = selector;
+    selector = NEW_STRING;
+    token_show(def_ref);
+    selector = old_setting;
+    flush_list(def_ref);
+    str_room(1);
+    s = make_string();
+    if (c == 0) {
+        // &lt;&lt; Print string |s| on the terminal, 1280 &gt;&gt;
+    }
+    else {
+        // &lt;&lt; Print string |s| as an error message, 1283 &gt;&gt;
+    }
+    flush_string;
+}
+</code></pre>
+</div>
+<h1 id="section-1280"><a class="header" href="#section-1280">Section 1280</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print string <em>s</em> on the terminal <a href="./part49.html#section-1280">1280</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (term_offset + length(s) &gt; MAX_PRINT_LINE - 2) {
+    print_ln();
+}
+else if (term_offset &gt; 0 || file_offset &gt; 0 ) {
+    print_char(' ');
+}
+slow_print(s);
+update_terminal;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1279">1279</a>.</p>
+</div></div>
+<h1 id="section-1281"><a class="header" href="#section-1281">Section 1281</a></h1>
+<p>If <code>\errmessage</code> occurs often in <em>SCROLL_MODE</em>, without user-defined <code>\errhelp</code>, we don’t want to give a long help message each time.
+So we give a verbose explanation only once.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">bool long_help_seen; // has the long \errmessage help been used?
+</code></pre>
+</div>
+<h1 id="section-1282"><a class="header" href="#section-1282">Section 1282</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">long_help_seen = false;
+</code></pre>
+</div>
+<h1 id="section-1283"><a class="header" href="#section-1283">Section 1283</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Print string <em>s</em> as an error message <a href="./part49.html#section-1283">1283</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">print_err("");
+slow_print(s);
+if (err_help != null) {
+    use_err_help = true;
+}
+else if (long_help_seen) {
+    help1("(That was another \\errmessage.)");
+}
+else {
+    if (interaction &lt; ERROR_STOP_MODE) {
+        long_help_seen = true;
+    }
+    help4("This error message was generated by an \\errmessage")
+        ("command, so I can't give any explicit help.")
+        ("Pretend that you're Hercule Poirot: Examine all clues,")
+        ("and deduce the truth by order and method.");
+}
+error();
+use_err_help = false;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1279">1279</a>.</p>
+</div></div>
+<h1 id="section-1284"><a class="header" href="#section-1284">Section 1284</a></h1>
+<p>The <em>error</em> routine calls on <em>give_err_help</em> if help is requested from the <em>err_help</em> parameter.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">error.c</div>
+<pre><code class="language-c">void give_err_help() {
+    token_show(err_help);
+}
+</code></pre>
+</div>
+<h1 id="section-1285"><a class="header" href="#section-1285">Section 1285</a></h1>
+<p>The <code>\uppercase</code> and <code>\lowercase</code> commands are implemented by building a token list and then changing the cases of the letters in it.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that don’t depend on <em>mode</em> <a href="./part49.html#section-1210">1210</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(CASE_SHIFT):
+    shift_case();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1286"><a class="header" href="#section-1286">Section 1286</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("lowercase", CASE_SHIFT, LC_CODE_BASE);
+primitive("uppercase", CASE_SHIFT, UC_CODE_BASE);
+</code></pre>
+</div>
+<h1 id="section-1287"><a class="header" href="#section-1287">Section 1287</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case CASE_SHIFT:
+    if (chr_code == LC_CODE_BASE) {
+        print_esc("lowercase");
+    }
+    else {
+        print_esc("uppercase");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1288"><a class="header" href="#section-1288">Section 1288</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">independent.c</div>
+<pre><code class="language-c">void shift_case() {
+    pointer b;    // |lc_code_base| or |uc_code_base|
+    pointer p;    // runs through the token list
+    halfword t;   // token
+    eight_bits c; // character code
+    
+    b = cur_chr;
+    p = scan_toks(false, false);
+    p = link(def_ref);
+    while (p != null) {
+        // &lt;&lt; Change the case of the token in |p|, if a change is appropriate, 1289 &gt;&gt;
+        p = link(p);
+    }
+    back_list(link(def_ref));
+    free_avail(def_ref); // omit reference count
+}
+</code></pre>
+</div>
+<h1 id="section-1289"><a class="header" href="#section-1289">Section 1289</a></h1>
+<p>When the case of a <em>chr_code</em> changes, we don’t change the <em>cmd</em>.
+We also change active characters, using the fact that <em>CS_TOKEN_FLAG + ACTIVE_BASE</em> is a multiple of 256.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Change the case of the token in <em>p</em>, if a change is appropriate <a href="./part49.html#section-1289">1289</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">t = info(p);
+if (t &lt; CS_TOKEN_FLAG + SINGLE_BASE) {
+    c = t % 256;
+    if (equiv(b + c) != 0) {
+        info(p) = t - c + equiv(b + c);
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1288">1288</a>.</p>
+</div></div>
+<h1 id="section-1290"><a class="header" href="#section-1290">Section 1290</a></h1>
+<p>We come finally to the last pieces missing from <em>main_control</em>, namely the’<code>\show</code>’ commands that are useful when debugging.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>main_control</em> that don’t depend on <em>mode</em> <a href="./part49.html#section-1210">1210</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">any_mode(XRAY):
+    show_whatever();
+    break;
+</code></pre>
+</div>
+<h1 id="section-1291"><a class="header" href="#section-1291">Section 1291</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define SHOW_CODE       0 // \show 
+#define SHOW_BOX_CODE   1 // \showbox 
+#define SHOW_THE_CODE   2 // \showthe 
+#define SHOW_LISTS_CODE 3 // \showlists 
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("show", XRAY, SHOW_CODE);
+primitive("showbox", XRAY, SHOW_BOX_CODE);
+primitive("showthe", XRAY, SHOW_THE_CODE);
+primitive("showlists", XRAY, SHOW_LISTS_CODE);
+</code></pre>
+</div>
+<h1 id="section-1292"><a class="header" href="#section-1292">Section 1292</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case XRAY:
+    switch (chr_code) {
+    case SHOW_BOX_CODE:
+        print_esc("showbox");
+        break;
+    
+    case SHOW_THE_CODE:
+        print_esc("showthe");
+        break;
+    
+    case SHOW_LISTS_CODE:
+        print_esc("showlists");
+        break;
+    
+    default:
+        print_esc("show");
+    }
+    break;
+</code></pre>
+</div>
+<h1 id="section-1293"><a class="header" href="#section-1293">Section 1293</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">other_printing.c</div>
+<pre><code class="language-c">void show_whatever() {
+    switch (cur_chr) {
+    case SHOW_LISTS_CODE:
+        begin_diagnostic();
+        show_activities();
+        break;
+    
+    case SHOW_BOX_CODE:
+        // &lt;&lt; Show the current contents of a box, 1296 &gt;&gt;
+        break;
+    
+    case SHOW_CODE:
+        // &lt;&lt; Show the current meaning of a token, then |goto common_ending|, 1294 &gt;&gt;
+    
+    default:
+        // &lt;&lt; Show the current value of some parameter or register, then |goto common_ending|, 1297 &gt;&gt;
+    }
+    // &lt;&lt; Complete a potentially long \show command, 1298 &gt;&gt;
+common_ending:
+    if (interaction &lt; ERROR_STOP_MODE) {
+        help0;
+        decr(error_count);
+    }
+    else if (tracing_online &gt; 0) {
+        help3("This isn't an error message; I'm just \\showing something.")
+            ("Type `I\\show...' to show more (e.g., \\show\\cs,")
+            ("\\showthe\\count10, \\showbox255, \\showlists).");
+    }
+    else {
+        help5("This isn't an error message; I'm just \\showing something.")
+            ("Type `I\\show...' to show more (e.g., \\show\\cs,")
+            ("\\showthe\\count10, \\showbox255, \\showlists).")
+            ("And type `I\\tracingonline = 1\\show...' to show boxes and")
+            ("lists on your terminal as well as in the transcript file.");
+    }
+    error();
+}
+</code></pre>
+</div>
+<h1 id="section-1294"><a class="header" href="#section-1294">Section 1294</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show the current meaning of a token, then <em>goto common_ending</em> <a href="./part49.html#section-1294">1294</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">get_token();
+print_nl("&gt; ");
+if (cur_cs != 0) {
+    sprint_cs(cur_cs);
+    print_char('=');
+}
+print_meaning();
+goto common_ending;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1293">1293</a>.</p>
+</div></div>
+<h1 id="section-1295"><a class="header" href="#section-1295">Section 1295</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Cases of <em>print_cmd_chr</em> for symbolic printing of primitives <a href="./part17.html#section-227">227</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">case UNDEFINED_CS:
+    print("undefined");
+    break;
+
+case CALL:
+    print("macro");
+    break;
+
+case LONG_CALL:
+    print_esc("long macro");
+    break;
+
+case OUTER_CALL:
+    print_esc("outer macro");
+    break;
+
+case LONG_OUTER_CALL:
+    print_esc("long");
+    print_esc("outer macro");
+    break;
+
+case END_TEMPLATE:
+    print_esc("outer endtemplate");
+    break;
+</code></pre>
+</div>
+<h1 id="section-1296"><a class="header" href="#section-1296">Section 1296</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show the current contents of a box <a href="./part49.html#section-1296">1296</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">scan_eight_bit_int();
+begin_diagnostic();
+print_nl("&gt; \\box");
+print_int(cur_val);
+print_char('=');
+if (box(cur_val) == null) {
+    print("void");
+}
+else {
+    show_box(box(cur_val));
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1293">1293</a>.</p>
+</div></div>
+<h1 id="section-1297"><a class="header" href="#section-1297">Section 1297</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Originally, we have <code>p = the_toks();</code>, but <em>p</em> is unused.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Show the current value of some parameter or register, then <em>goto common_ending</em> <a href="./part49.html#section-1297">1297</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">the_toks();
+print_nl("&gt; ");
+token_show(TEMP_HEAD);
+flush_list(link(TEMP_HEAD));
+goto common_ending;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1293">1293</a>.</p>
+</div></div>
+<h1 id="section-1298"><a class="header" href="#section-1298">Section 1298</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Complete a potentially long \show command <a href="./part49.html#section-1298">1298</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">end_diagnostic(true);
+print_err("OK");
+if (selector == TERM_AND_LOG &amp;&amp; tracing_online &lt;= 0) {
+    selector = TERM_ONLY;
+    print(" (see the transcript file)");
+    selector = TERM_AND_LOG;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part49.html#section-1293">1293</a>.</p>
+</div></div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part48.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part50.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part48.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part50.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

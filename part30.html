@@ -1,0 +1,1548 @@
+<!DOCTYPE HTML>
+<html lang="en" class="ayu" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sections 539–582 - TeX in C</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "ayu" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 1: Introduction</li><li class="chapter-item expanded "><a href="part01.html">Sections 1–16</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 2: The character set</li><li class="chapter-item expanded "><a href="part02.html">Sections 17–24</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 3: Input and output</li><li class="chapter-item expanded "><a href="part03.html">Sections 25–37</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 4: String handling</li><li class="chapter-item expanded "><a href="part04.html">Sections 38–53</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 5: On-line and off-line printing</li><li class="chapter-item expanded "><a href="part05.html">Sections 54–71</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 6: Reporting errors</li><li class="chapter-item expanded "><a href="part06.html">Sections 72–98</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 7: Arithmetic</li><li class="chapter-item expanded "><a href="part07.html">Sections 99–109</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 8: Packed data</li><li class="chapter-item expanded "><a href="part08.html">Sections 110–114</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 9: Dynamic memory allocation</li><li class="chapter-item expanded "><a href="part09.html">Sections 115–132</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 10: Data structures for boxes and their friends</li><li class="chapter-item expanded "><a href="part10.html">Sections 133–161</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 11: Memory layout</li><li class="chapter-item expanded "><a href="part11.html">Sections 162–172</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 12: Displaying boxes</li><li class="chapter-item expanded "><a href="part12.html">Sections 173–198</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 13: Destroying boxes</li><li class="chapter-item expanded "><a href="part13.html">Sections 199–202</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 14: Copying boxes</li><li class="chapter-item expanded "><a href="part14.html">Sections 203–206</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 15: The command codes</li><li class="chapter-item expanded "><a href="part15.html">Sections 207–210</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 16: The semantic nest</li><li class="chapter-item expanded "><a href="part16.html">Sections 211–219</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 17: The table of equivalents</li><li class="chapter-item expanded "><a href="part17.html">Sections 220–255</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 18: The hash table</li><li class="chapter-item expanded "><a href="part18.html">Sections 256–267</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 19: Saving and restoring equivalents</li><li class="chapter-item expanded "><a href="part19.html">Sections 268–288</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 20: Token lists</li><li class="chapter-item expanded "><a href="part20.html">Sections 289–296</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 21: Introduction to the syntactic routines</li><li class="chapter-item expanded "><a href="part21.html">Sections 297–299</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 22: Input stacks and states</li><li class="chapter-item expanded "><a href="part22.html">Sections 300–320</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 23: Maintaining the input stacks</li><li class="chapter-item expanded "><a href="part23.html">Sections 321–331</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 24: Getting the next token</li><li class="chapter-item expanded "><a href="part24.html">Sections 332–365</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 25: Expanding the next token</li><li class="chapter-item expanded "><a href="part25.html">Sections 336–401</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 26: Basic scanning subroutines</li><li class="chapter-item expanded "><a href="part26.html">Sections 402–463</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 27: Building token lists</li><li class="chapter-item expanded "><a href="part27.html">Sections 464–486</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 28: Conditional processing</li><li class="chapter-item expanded "><a href="part28.html">Sections 487–510</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 29: File names</li><li class="chapter-item expanded "><a href="part29.html">Sections 511–538</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 30: Font metric data</li><li class="chapter-item expanded "><a href="part30.html" class="active">Sections 539–582</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 31: Device-independent file format</li><li class="chapter-item expanded "><a href="part31.html">Sections 583–591</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 32: Shipping pages out</li><li class="chapter-item expanded "><a href="part32.html">Sections 592–643</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 33: Packaging</li><li class="chapter-item expanded "><a href="part33.html">Sections 644–679</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 34: Data structures for math mode</li><li class="chapter-item expanded "><a href="part34.html">Sections 680–698</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 35: Subroutines for math mode</li><li class="chapter-item expanded "><a href="part35.html">Sections 699–718</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 36: Typesetting math formulas</li><li class="chapter-item expanded "><a href="part36.html">Sections 719–767</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 37: Alignment</li><li class="chapter-item expanded "><a href="part37.html">Sections 768–812</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 38: Breaking paragraphs into lines</li><li class="chapter-item expanded "><a href="part38.html">Sections 813–861</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 39: Breaking paragraphs into lines, continued</li><li class="chapter-item expanded "><a href="part39.html">Sections 862–890</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 40: Pre-hyphenation</li><li class="chapter-item expanded "><a href="part40.html">Sections 891–899</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 41: Post-hyphenation</li><li class="chapter-item expanded "><a href="part41.html">Sections 900–918</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 42: Hyphenation</li><li class="chapter-item expanded "><a href="part42.html">Sections 919–941</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 43: Initializing the hyphenation tables</li><li class="chapter-item expanded "><a href="part43.html">Sections 942–966</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 44: Breaking vertical lists into pages</li><li class="chapter-item expanded "><a href="part44.html">Sections 967–979</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 45: The page builder</li><li class="chapter-item expanded "><a href="part45.html">Sections 980–1028</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 46: The chief executive</li><li class="chapter-item expanded "><a href="part46.html">Sections 1029–1054</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 47: Building boxes and lists</li><li class="chapter-item expanded "><a href="part47.html">Sections 1055–1135</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 48: Building math lists</li><li class="chapter-item expanded "><a href="part48.html">Sections 1136–1207</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 49: Mode-independent processing</li><li class="chapter-item expanded "><a href="part49.html">Sections 1208–1298</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 50: Dumping and undumping the tables</li><li class="chapter-item expanded "><a href="part50.html">Sections 1299–1329</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 51: The main program</li><li class="chapter-item expanded "><a href="part51.html">Sections 1330–1337</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 52: Debugging</li><li class="chapter-item expanded "><a href="part52.html">Sections 1338–1339</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 53: Extensions</li><li class="chapter-item expanded "><a href="part53.html">Sections 1340–1378</a></li><li class="chapter-item expanded affix "><li class="part-title">Part 54: System-dependent changes</li><li class="chapter-item expanded "><a href="part54.html">Sections 1379–1383</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">TeX in C</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="section-539-font-metric-data"><a class="header" href="#section-539-font-metric-data">Section 539: Font metric data</a></h1>
+<p>TeX gets its knowledge about fonts from font metric files, also called <code>TFM</code> files; the ‘<code>T</code>’ in ‘<code>TFM</code>’ stands for <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>, but other programs know about them too.</p>
+<p>The information in a <code>TFM</code> file appears in a sequence of 8-bit bytes.
+Since the number of bytes is always a multiple of 4, we could also regard the file as a sequence of 32-bit words, but <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> uses the byte interpretation.
+The format of <code>TFM</code> files was designed by Lyle Ramshaw in 1980.
+The intent is to convey a lot of different kinds of information in a compact but useful form.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">byte_file tfm_file;
+</code></pre>
+</div>
+<h1 id="section-540"><a class="header" href="#section-540">Section 540</a></h1>
+<p>The first 24 bytes (6 words) of a <code>TFM</code> file contain twelve 16-bit integers that give the lengths of the various subsequent portions of the file.
+These twelve integers are, in order:</p>
+<div align="center">
+<div style="text-align: right; display: inline-block;">
+<p><em>lf</em><br>
+<em>lh</em><br>
+<em>bc</em><br>
+<em>ec</em><br>
+<em>nw</em><br>
+<em>nh</em><br>
+<em>nd</em><br>
+<em>ni</em><br>
+<em>nl</em><br>
+<em>nk</em><br>
+<em>ne</em><br>
+<em>np</em></p>
+</div>
+<div style="text-align: left; display: inline-block;">
+= length of the entire file, in words;<br>
+= length of the header data, in words;<br>
+= smallest character code in the font;<br>
+= largest character code in the font;<br>
+= number of words in the width table;<br>
+= number of words in the height table;<br>
+= number of words in the depth table;<br>
+= number of words in the italic correction table;<br>
+= number of words in the lig/kern table;<br>
+= number of words in the kern table;<br>
+= number of words in the extensible character table;<br>
+= number of font parameter words.
+</div>
+</div>
+<p>They are all nonnegative and less than <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">15</span></span></span></span></span></span></span></span></span></span></span></span>.
+We must have <em>bc − 1</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>ec</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>255</em>, and</p>
+<div align="center">
+<p><em>lf = 6 + lh + (ec − bc + 1) + nw + nh + nd + ni + nl + nk + ne + np</em>.</p>
+</div>
+<p>Note that a font may contain as many as 256 characters (if <em>bc = 0</em> and <em>ec = 255</em>), and as few as 0 characters (if <em>bc = ec + 1</em>).</p>
+<p>Incidentally, when two or more 8-bit bytes are combined to form an integer of 16 or more bits, the most significant bytes appear first in the file.
+This is called BigEndian order.</p>
+<h1 id="section-541"><a class="header" href="#section-541">Section 541</a></h1>
+<p>The rest of the <code>TFM</code> file may be regarded as a sequence of ten data
+arrays having the informal specification</p>
+<div align="center">
+<div style="text-align: right; display: inline-block;">
+<p><em>header</em>: <br>
+<em>char</em>:   <br>
+<em>width</em>:  <br>
+<em>height</em>: <br>
+<em>depth</em>:  <br>
+<em>italic</em>: <br>
+<em>lig</em>:    <br>
+<em>kern</em>:   <br>
+<em>exten</em>:  <br>
+<em>param</em>:</p>
+</div>
+<div style="text-align: left; display: inline-block;">
+<p><strong>array</strong> [0 .. <em>lh</em> − 1] <strong>of</strong> <em>stuff</em><br>
+<strong>array</strong> [<em>bc</em> .. <em>ec</em>]  <strong>of</strong> <em>char_info_word</em><br>
+<strong>array</strong> [0 .. <em>nw</em> − 1] <strong>of</strong> <em>fix_word</em><br>
+<strong>array</strong> [0 .. <em>nh</em> − 1] <strong>of</strong> <em>fix_word</em><br>
+<strong>array</strong> [0 .. <em>nd</em> − 1] <strong>of</strong> <em>fix_word</em><br>
+<strong>array</strong> [0 .. <em>ni</em> − 1] <strong>of</strong> <em>fix_word</em><br>
+<strong>array</strong> [0 .. <em>nl</em> − 1] <strong>of</strong> <em>lig_kern_command</em><br>
+<strong>array</strong> [0 .. <em>nk</em> − 1] <strong>of</strong> <em>fix_word</em><br>
+<strong>array</strong> [0 .. <em>ne</em> − 1] <strong>of</strong> <em>extensible_recipe</em><br>
+<strong>array</strong> [1 .. <em>np</em>]     <strong>of</strong> <em>fix_word</em></p>
+</div>
+</div>
+<p>The most important data type used here is a <em>fix_word</em>, which is a 32-bit representation of a binary fraction.
+A <em>fix_word</em> is a signed quantity, with the two’s complement of the entire word used to represent
+negation.
+Of the 32 bits in a <em>fix_word</em>, exactly 12 are to the left of the binary point;
+thus, the largest <em>fix_word</em> value is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">2048</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">20</span></span></span></span></span></span></span></span></span></span></span></span>, and the smallest is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">2048</span></span></span></span>.
+We will see below, however, that all but two of the <em>fix_word</em> values must lie between −16 and +16.</p>
+<h1 id="section-542"><a class="header" href="#section-542">Section 542</a></h1>
+<p>The first data array is a block of header information, which contains general facts about the font.
+The header must contain at least two words, <em>header[0]</em> and <em>header[1]</em>, whose meaning is explained below.
+Additional header information of use to other software routines might also be included, but <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span><span class="mord">82</span></span></span></span> does not need to know about such details.
+For example, 16 more words of header information are in use at the Xerox Palo Alto Research Center; the first ten specify the character coding scheme used (e.g., ‘<code>XEROX text</code>’ or ‘<code>TeX math symbols</code>’), the next five give the font identifier (e.g., ‘<code>HELVETICA</code>’ or ‘<code>CMSY</code>’), and the last gives the “face byte”.
+The program that converts <code>DVI</code> files to Xerox printing format gets this information by looking at the <code>TFM</code> file, which it needs to read anyway because of other information that is not explicitly repeated in <code>DVI</code> format.</p>
+<ul>
+<li>
+<p><em>header[0]</em> is a 32-bit check sum that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> will copy into the <code>DVI</code> output file.
+Later on when the <code>DVI</code> file is printed, possibly on another computer,
+the actual font that gets used is supposed to have a check sum that agrees
+with the one in the <code>TFM</code> file used by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>.
+In this way, users will be warned about potential incompatibilities.
+(However, if the check sum is zero in either the font file or the <code>TFM</code>
+file, no check is made.)  The actual relation between this check sum and
+the rest of the <code>TFM</code> file is not important; the check sum is simply an
+identification number with the property that incompatible fonts almost
+always have distinct check sums.</p>
+</li>
+<li>
+<p><em>header[1]</em> is a <em>fix_word</em> containing the design size of the font,
+in units of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> points. This number must be at least 1.0; it is fairly arbitrary,
+but usually the design size is 10.0 for a “10 point” font, i.e., a font that was
+designed to look best at a 10-point size, whatever that really means.
+When a <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> user asks for a font ‘<code>at</code> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> <code>pt</code>’, the effect is to override
+the design size and replace it by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>, and to multiply the <em>x</em> and <em>y</em> coordinates
+of the points in the font image by a factor of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> divided by the design size.
+<em>All other dimensions in the <code>TFM</code> file are</em> fix_word <em>numbers in design-size units</em>,
+with the exception of <em>param[1]</em> (which denotes the slant ratio).
+Thus, for example, the value of <em>param[6]</em>, which defines the <code>em</code> unit, is often
+the <em>fix_word</em> value <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">20</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1.0</span></span></span></span>, since many fonts have a design size equal to one em.
+The other dimensions must be less than 16 design-size units in absolute value;
+thus, <em>header[1]</em> and <em>param[1]</em> are the only <em>fix_word</em> entries in the whole
+<code>TFM</code> file whose first byte might be something besides 0 or 255.</p>
+</li>
+</ul>
+<h1 id="section-543"><a class="header" href="#section-543">Section 543</a></h1>
+<p>Next comes the <em>char_info</em> array, which contains one <em>char_info_word</em> per character.
+Each word in this part of the file contains six fields packed into four bytes as follows.</p>
+<ul>
+<li>first byte: <em>width_index</em> (8 bits)</li>
+<li>second byte: <em>height_index</em> (4 bits) times 16, plus <em>depth_index</em> (4 bits)</li>
+<li>third byte: <em>italic_index</em> (6 bits) times 4, plus <em>tag</em> (2 bits)</li>
+<li>fourth byte: <em>remainder</em> (8 bits)</li>
+</ul>
+<p>The actual width of a character is <em>width[width_index]</em>, in design-size units;
+this is a device for compressing information, since many characters have the same width.
+Since it is quite common for many characters to have the same height, depth, or italic correction, the <code>TFM</code> format imposes a limit of 16 different heights, 16 different depths, and 64 different italic corrections.</p>
+<p>The italic correction of a character has two different uses.
+(a) In ordinary text, the italic correction is added to the width only if the <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> user specifies ‘<code>\/</code>’ after the character.
+(b) In math formulas, the italic correction is always added to the width, except with respect to the positioning of subscripts.</p>
+<p>Incidentally, the relation <em>width[0] = height[0] = depth[0] = italic[0] = 0</em> should always hold, so that an index of zero implies a value of zero.
+The <em>width_index</em> should never be zero unless the character does not exist in the font, since a character is valid if and only if it lies between <em>bc</em> and <em>ec</em> and has a nonzero <em>width_index</em>.</p>
+<h1 id="section-544"><a class="header" href="#section-544">Section 544</a></h1>
+<p>The <em>tag</em> field in a <em>char_info_word</em> has four values that explain how to interpret the <em>remainder</em> field.</p>
+<ul>
+<li><em>tag = 0</em> (<em>NO_TAG</em>) means that <em>remainder</em> is unused.</li>
+<li><em>tag = 1</em> (<em>LIG_TAG</em>) means that this character has a ligature/kerning
+program starting at position <em>remainder</em> in the <em>lig_kern</em> array.</li>
+<li><em>tag = 2</em> (<em>LIST_TAG</em>) means that this character is part of a chain of
+characters of ascending sizes, and not the largest in the chain.
+The <em>remainder</em> field gives the character code of the next larger character.\par</li>
+<li><em>tag = 3</em> (<em>EXT_TAG</em>) means that this character code represents an
+extensible character, i.e., a character that is built up of smaller pieces
+so that it can be made arbitrarily large.
+The pieces are specified in <em>exten[remainder]</em>.</li>
+</ul>
+<p>Characters with <em>tag = 2</em> and <em>tag = 3</em> are treated as characters with <em>tag = 0</em> unless they are used in special circumstances in math formulas.
+For example, the <code>\sum</code> operation looks for a <em>LIST_TAG</em>, and the <code>\left</code> operation looks for both <em>LIST_TAG</em> and <em>EXT_TAG</em>.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define NO_TAG   0 // vanilla character
+#define LIG_TAG  1 // character has a ligature/kerning program
+#define LIST_TAG 2 // character has a successor in a charlist
+#define EXT_TAG  3 // character is extensible
+</code></pre>
+</div>
+<h1 id="section-545"><a class="header" href="#section-545">Section 545</a></h1>
+<p>The <em>lig_kern</em> array contains instructions in a simple programming language that explains what to do for special letter pairs.
+Each word in this array is a <em>lig_kern_command</em> of four bytes.</p>
+<ul>
+<li>
+<p>first byte: <em>skip_byte</em>, indicates that this is the final program
+step if the byte is 128 or more, otherwise the next step is obtained by
+skipping this number of intervening steps.</p>
+</li>
+<li>
+<p>second byte: <em>next_char</em>, “if <em>next_char</em> follows the current character,
+then perform the operation and stop, otherwise continue.</p>
+</li>
+<li>
+<p>third byte: <em>op_byte</em>, indicates a ligature step if less than 128,
+a kern step otherwise.</p>
+</li>
+<li>
+<p>fourth byte: <em>remainder</em>.</p>
+</li>
+</ul>
+<p>In a kern step, an additional space equal to <em>kern[256*(op_byte − 128) + remainder]</em> is inserted between the current character and <em>next_char</em>.
+This amount is often negative, so that the characters are brought closer together by kerning; but it might be positive.</p>
+<p>There are eight kinds of ligature steps, having <em>op_byte</em> codes <em>4a + 2b + c</em> where <em>0</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>a</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>b + c</em> and <em>0</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>b</em>,<em>c</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>1</em>.
+The character whose code is <em>remainder</em> is inserted between the current character and <em>next_char</em>;
+then the current character is deleted if <em>b = 0</em>, and <em>next_char</em> is deleted if <em>c = 0</em>; then we pass over <em>a</em> characters to reach the next current character (which may have a ligature/kerning program of its own).</p>
+<p>If the very first instruction of the <em>lig_kern</em> array has <em>skip_byte = 255</em>, the <em>next_char</em> byte is the so-called boundary character of this font;
+the value of <em>next_char</em> need not lie between <em>bc</em> and <em>ec</em>.
+If the very last instruction of the <em>lig_kern</em> array has <em>skip_byte = 255</em>, there is a special ligature/kerning program for a boundary character at the left, beginning at location <em>256*op_byte + remainder</em>.
+The interpretation is that <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> puts implicit boundary characters before and after each consecutive string of characters from the same font.
+These implicit characters do not appear in the output, but they can affect ligatures and kerning.</p>
+<p>If the very first instruction of a character’s <em>lig_kern</em> program has <em>skip_byte</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>128</em>, the program actually begins in location <em>256*op_byte + remainder</em>.
+This feature allows access to large <em>lig_kern</em> arrays, because the first instruction must otherwise appear in a location <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>255</em>.</p>
+<p>Any instruction with <em>skip_byte</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> <em>128</em> in the <em>lig_kern</em> array must satisfy the condition</p>
+<div align="center">
+<p>256 * <em>op_byte</em> + <em>remainder</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> <em>nl</em>.</p>
+</div>
+<p>If such an instruction is encountered during normal program execution, it denotes an  unconditional halt; no ligature or kerning command is performed.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define STOP_FLAG 128 // value indicating 'STOP' in a lig/kern program
+#define KERN_FLAG 128 // op code for a kern step
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">// &lt;&lt; Start file |font_metric.h|, 1381 &gt;&gt;
+
+#define skip_byte(X) qqqq_b0((X))
+#define next_char(X) qqqq_b1((X))
+#define op_byte(X)   qqqq_b2((X))
+#define rem_byte(X)  qqqq_b3((X))
+</code></pre>
+</div>
+<h1 id="section-546"><a class="header" href="#section-546">Section 546</a></h1>
+<p>Extensible characters are specified by an <em>extensible_recipe</em>, which consists of four bytes called <em>top</em>, <em>mid</em>, <em>bot</em>, and <em>rep</em> (in this order).
+These bytes are the character codes of individual pieces used to build up a large symbol.
+If <em>top</em>, <em>mid</em>, or <em>bot</em> are zero, they are not present in the built-up result.
+For example, an extensible vertical line is like an extensible bracket, except that the top and bottom pieces are missing.</p>
+<p>Let <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>, and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span> denote the respective pieces, or an empty box if the piece isn’t present.
+Then the extensible characters have the form <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8491em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span> from top to bottom, for some <em>k</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span></span></span></span> <em>0</em>, unless <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> is absent;
+in the latter case we can have <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8491em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span> for both even and odd values of <em>k</em>.
+The width of the extensible character is the width of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span>; and the height-plus-depth is the sum of the individual height-plus-depths of the components used, since the pieces are butted together in a vertical list.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">#define ext_top(X) qqqq_b0((X)) // |top| piece in a recipe
+#define ext_mid(X) qqqq_b1((X)) // |mid| piece in a recipe
+#define ext_bot(X) qqqq_b2((X)) // |bot| piece in a recipe
+#define ext_rep(X) qqqq_b3((X)) // |rep| piece in a recipe
+</code></pre>
+</div>
+<h1 id="section-547"><a class="header" href="#section-547">Section 547</a></h1>
+<p>The final portion of a <code>TFM</code> file is the <em>param</em> array, which is another sequence of <em>fix_word</em> values.</p>
+<ul>
+<li>
+<p><em>param[1] = slant</em> is the amount of italic slant, which is used to help position accents.
+For example, <em>slant = .25</em> means that when you go up one unit, you also go .25 units to the right.
+The <em>slant</em> is a pure number; it’s the only <em>fix_word</em> other than the design size itself that is not scaled by the design size.</p>
+</li>
+<li>
+<p><em>param[2] = space</em> is the normal spacing between words in text.
+Note that character ‘␣’ in the font need not have anything to do with
+blank spaces.</p>
+</li>
+<li>
+<p><em>param[3] = space_stretch</em> is the amount of glue stretching between words.</p>
+</li>
+<li>
+<p><em>param[4] = space_shrink</em> is the amount of glue shrinking between words.</p>
+</li>
+<li>
+<p><em>param[5] = x_height</em> is the size of one ex in the font; it is also
+the height of letters for which accents don’t have to be raised or lowered.</p>
+</li>
+<li>
+<p><em>param[6] = quad</em> is the size of one em in the font.</p>
+</li>
+<li>
+<p><em>param[7] = extra_space</em> is the amount added to <em>param[2]</em> at the
+ends of sentences.</p>
+</li>
+</ul>
+<p>If fewer than seven parameters are present, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> sets the missing parameters to zero.
+Fonts used for math symbols are required to have additional parameter information, which is explained later.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define SLANT_CODE         1
+#define SPACE_CODE         2
+#define SPACE_STRETCH_CODE 3
+#define SPACE_SHRINK_CODE  4
+#define X_HEIGHT_CODE      5
+#define QUAD_CODE          6
+#define EXTRA_SPACE_CODE   7
+</code></pre>
+</div>
+<h1 id="section-548"><a class="header" href="#section-548">Section 548</a></h1>
+<p>So that is what <code>TFM</code> files hold.
+Since <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> has to absorb such information about lots of fonts, it stores most of the data in a large array called <em>font_info</em>.
+Each item of <em>font_info</em> is a <em>memory_word</em>; the <em>fix_word</em> data gets converted into <em>scaled</em> entries, while everything else goes into words of type <em>four_quarters</em>.</p>
+<p>When the user defines <code>\font\f</code>, say, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> assigns an internal number to the user’s font <code>\f</code>.
+Adding this number to <em>FONT_ID_BASE</em> gives the <em>eqtb</em> location of a “frozen” control sequence that will always select the font.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Types in the outer block <a href="./part02.html#section-18">18</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">typedef int internal_font_number; // |font| in a |CHAR_NODE|
+typedef int font_index;           // index into |font_info|
+</code></pre>
+</div>
+<h1 id="section-549"><a class="header" href="#section-549">Section 549</a></h1>
+<p>Here now is the (rather formidable) array of font arrays.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define NON_CHAR    256 // a |halfword| code that can't match a real character
+#define NON_ADDRESS 0   // a spurious |bchar_label|
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">memory_word font_info[FONT_MEM_SIZE + 1]; // the big collection of font data
+font_index fmem_ptr;                      // first unused word of |font_info|
+internal_font_number font_ptr;            // largest internal font number in use
+memory_word font_check[FONT_MAX + 1];     // check sum
+scaled font_size[FONT_MAX + 1];           // "at" size
+scaled font_dsize[FONT_MAX + 1];          // "design" size
+font_index font_params[FONT_MAX + 1];     // how many font parameters are present
+str_number font_name[FONT_MAX + 1];       // name of the font
+str_number font_area[FONT_MAX + 1];       // area of the font
+eight_bits font_bc[FONT_MAX + 1];         // beginning (smallest) character code
+eight_bits font_ec[FONT_MAX + 1];         // ending (largest) character code
+pointer font_glue[FONT_MAX + 1];          // glue specification for interword space, |null| if not allocated
+bool font_used[FONT_MAX + 1];             // has a character from this font actually appeared in the output?
+int hyphen_char[FONT_MAX + 1];            // current \hyphenchar values
+int skew_char[FONT_MAX + 1];              // current \skewchar values
+font_index bchar_label[FONT_MAX + 1];     // start of |lig_kern| program for left boundary character, |NON_ADDRESS| if there is none
+int font_bchar[FONT_MAX + 1];        // boundary character, |NON_CHAR| if there is none
+int font_false_bchar[FONT_MAX + 1];  // |font_bchar| if it doesn't exist in the font, otherwise |NON_CHAR|
+</code></pre>
+</div>
+<h1 id="section-550"><a class="header" href="#section-550">Section 550</a></h1>
+<p>Besides the arrays just enumerated, we have directory arrays that make it
+easy to get at the individual entries in <em>font_info</em>.
+For example, the <em>char_info</em> data for character <em>c</em> in font <em>f</em> will be in <em>font_info[CHAR_BASE[f] + c].qqqq</em>; and if <em>w</em> is the <em>width_index</em> part of this word (the <em>b0</em> field), the width of the character is <em>font_info[width_base[f] + w].sc</em>.
+(These formulas assume that <em>MIN_QUARTERWORD</em> has already been added to <em>c</em> and to <em>w</em>, since <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> stores its quarterwords that way.)</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">int char_base[FONT_MAX+ 1];      // base addresses for |char_info|
+int width_base[FONT_MAX + 1];    // base addresses for widths
+int height_base[FONT_MAX + 1];   // base addresses for heights
+int depth_base[FONT_MAX + 1];    // base addresses for depths
+int italic_base[FONT_MAX + 1];   // base addresses for italic corrections
+int lig_kern_base[FONT_MAX + 1]; // base addresses for ligature/kerning programs
+int kern_base[FONT_MAX + 1];     // base addresses for kerns
+int exten_base[FONT_MAX + 1];    // base addresses for extensible recipes
+int param_base[FONT_MAX + 1];    // base addresses for font parameters
+</code></pre>
+</div>
+<h1 id="section-551"><a class="header" href="#section-551">Section 551</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">for(k = FONT_BASE; k &lt;= FONT_MAX; k++) {
+    font_used[k] = false;
+}
+</code></pre>
+</div>
+<h1 id="section-552"><a class="header" href="#section-552">Section 552</a></h1>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> always knows at least one font, namely the null font.
+It has no characters, and its seven parameters are all equal to zero.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String <code>"nullfont"</code> is added to the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string("nullfont"); // NULLFONT_STRING: 265
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define NULLFONT_STRING 265
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Initialize table entries (done by INITEX only) <a href="./part11.html#section-164">164</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">font_ptr = NULL_FONT;
+fmem_ptr = 7;
+font_name[NULL_FONT] = NULLFONT_STRING;
+font_area[NULL_FONT] = EMPTY_STRING;
+hyphen_char[NULL_FONT] = '-';
+skew_char[NULL_FONT] = -1;
+bchar_label[NULL_FONT] = NON_ADDRESS;
+font_bchar[NULL_FONT] = NON_CHAR;
+font_false_bchar[NULL_FONT] = NON_CHAR;
+font_bc[NULL_FONT] = 1;
+font_ec[NULL_FONT] = 0;
+font_size[NULL_FONT] = 0;
+font_dsize[NULL_FONT] = 0;
+char_base[NULL_FONT] = 0;
+width_base[NULL_FONT] = 0;
+height_base[NULL_FONT] = 0;
+depth_base[NULL_FONT] = 0;
+italic_base[NULL_FONT] = 0;
+lig_kern_base[NULL_FONT] = 0;
+kern_base[NULL_FONT] = 0;
+exten_base[NULL_FONT] = 0;
+font_glue[NULL_FONT] = null;
+font_params[NULL_FONT] = 7;
+param_base[NULL_FONT] = -1;
+for(k = 0; k &lt;= 6; k++) {
+    font_info[k].sc = 0;
+}
+</code></pre>
+</div>
+<h1 id="section-553"><a class="header" href="#section-553">Section 553</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String “<code>nullfont</code>” is added a second time to the pool.
+Too bad.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Put each of TeX’s primitives into the hash table <a href="./part17.html#section-226">226</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">primitive("nullfont", SET_FONT, NULL_FONT);
+text(FROZEN_NULL_FONT) = str_ptr - 1;
+eqtb[FROZEN_NULL_FONT] = eqtb[cur_val];
+</code></pre>
+</div>
+<h1 id="section-554"><a class="header" href="#section-554">Section 554</a></h1>
+<p>Of course we want to define macros that suppress the detail of how font information is actually packed, so that we don’t have to write things like</p>
+<div align="center">
+<p><em>font_info[width_base[f] + font_info[char_base[f] + c].qqqq.b0].sc</em></p>
+</div>
+<p>too often.
+The <code>WEB</code> definitions here make <em>char_info(f)(c)</em> the <em>four_quarters</em> word of font information corresponding to character <em>c</em> of font <em>f</em>.
+If <em>q</em> is such a word, <em>char_width(f)(q)</em> will be the character’s width; hence the long formula above is at least abbreviated to</p>
+<div align="center">
+<p><em>char_width(f)(char_info(f)(c))</em>.</p>
+</div>
+<p>Usually, of course, we will fetch <em>q</em> first and look at several of its fields at the same time.</p>
+<p>The italic correction of a character will be denoted by <em>char_italic(f)(q)</em>, so it is analogous to <em>char_width</em>.
+But we will get at the height and depth in a slightly different way, since we usually want to compute both height and depth if we want either one.
+The value of <em>height_depth(q)</em> will be the 8-bit quantity</p>
+<div align="center">
+<p><em>b = height_index</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">×</span></span></span></span> <em>16 + depth_index</em>,</p>
+</div>
+<p>and if <em>b</em> is such a byte we will write <em>char_height(f)(b)</em> and <em>char_depth(f)(b)</em> for the height and depth of the character <em>c</em> for which <em>q = char_info(f)(c)</em>.
+Got that?</p>
+<p>The tag field will be called <em>char_tag(q)</em>; the remainder byte will be called <em>rem_byte(q)</em>, using a macro that we have already defined above.</p>
+<p>Access to a character’s <em>width</em>, <em>height</em>, <em>depth</em>, and <em>tag</em> fields is part of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s inner loop, so we want these macros to produce code that is as fast as possible under the circumstances.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>char_height</em>, etc., are defined with a macro that takes several arguments, so <em>char_height(f)(b)</em> will be used as <em>char_height(f, b)</em>.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">#define char_info(X,Y)   font_info[char_base[(X)] + (Y)]
+#define char_width(X,Y)  font_info[width_base[(X)] + qqqq_b0((Y))].sc
+#define char_exists(X)   (qqqq_b0((X)) &gt; MIN_QUARTERWORD)
+#define char_italic(X,Y) font_info[italic_base[(X)] + qqqq_b2((Y))/4].sc
+#define height_depth(X)  qqqq_b1((X))
+#define char_height(X,Y) font_info[height_base[(X)] + (Y) / 16].sc
+#define char_depth(X,Y)  font_info[depth_base[(X)] + (Y) % 16].sc
+#define char_tag(X)      (qqqq_b2((X)) % 4)
+</code></pre>
+</div>
+<h1 id="section-555"><a class="header" href="#section-555">Section 555</a></h1>
+<p>The global variable <em>null_character</em> is set up to be a word of <em>char_info</em> for a character that doesn’t exist.
+Such a word provides a convenient way to deal with erroneous situations.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Global variables <a href="./part01.html#section-13">13</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">memory_word null_character; // nonexistent character information
+</code></pre>
+</div>
+<h1 id="section-556"><a class="header" href="#section-556">Section 556</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Set initial values of key variables <a href="./part02.html#section-21">21</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">qqqq_b0(null_character) = MIN_QUARTERWORD;
+qqqq_b1(null_character) = MIN_QUARTERWORD;
+qqqq_b2(null_character) = MIN_QUARTERWORD;
+qqqq_b3(null_character) = MIN_QUARTERWORD;
+</code></pre>
+</div>
+<h1 id="section-557"><a class="header" href="#section-557">Section 557</a></h1>
+<p>Here are some macros that help process ligatures and kerns.
+We write <em>char_kern(f)(j)</em> to find the amount of kerning specified by kerning command <em>j</em> in font <em>f</em>.
+If <em>j</em> is the <em>char_info</em> for a character with a ligature/kern program, the first instruction of that program is either <em>i = font_info[lig_kern_start(f)(j)]</em> or <em>font_info[lig_kern_restart(f)(i)]</em>, depending on whether or not <em>skip_byte(i)</em> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≤</span></span></span></span> <em>STOP_FLAG</em>.</p>
+<p>The constant <em>KERN_BASE_OFFSET</em> should be simplified, for Pascal compilers that do not do local optimization.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">constants.h</div>
+<pre><code class="language-c">#define KERN_BASE_OFFSET 256*(128 + MIN_QUARTERWORD)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">#define char_kern(X,Y)        (font_info[kern_base[X] + 256*op_byte((Y)) + rem_byte((Y))].sc)
+// beginning of lig/kern program:
+#define lig_kern_start(X,Y)   (lig_kern_base[(X)] + rem_byte((Y))) 
+#define lig_kern_restart(X,Y) (lig_kern_base[(X)] + 256*op_byte((Y)) + rem_byte((Y)) + 32768 - KERN_BASE_OFFSET)
+</code></pre>
+</div>
+<h1 id="section-558"><a class="header" href="#section-558">Section 558</a></h1>
+<p>Font parameters are referred to as <em>slant(f)</em>, <em>space(f)</em>, etc.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">#define param(X,Y)       (font_info[(X) + param_base[(Y)]].sc)
+#define slant(X)         param(SLANT_CODE,(X))         // slant to the right, per unit distance upward
+#define space(X)         param(SPACE_CODE,(X))         // normal space between words
+#define space_stretch(X) param(SPACE_STRETCH_CODE,(X)) // stretch between words
+#define space_shrink(X)  param(SPACE_SHRINK_CODE,(X))  // shrink between words
+#define x_height(X)      param(X_HEIGHT_CODE,(X))      // one ex
+#define quad(X)          param(QUAD_CODE,(X))          // one em
+#define extra_space(X)   param(EXTRA_SPACE_CODE,(X))   // additional space at end of sentence
+</code></pre>
+</div>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The destination variable has been added, so the code corresponds to a full line of the final code.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ The em width for <em>cur_font</em> <a href="./part30.html#section-558">558</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">v = quad(cur_font);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-455">455</a>.</p>
+</div></div>
+<h1 id="section-559"><a class="header" href="#section-559">Section 559</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>The destination variable has been added, so the code corresponds to a full line of the final code.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ The x-height for <em>cur_font</em> <a href="./part30.html#section-559">559</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">v = x_height(cur_font);
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-455">455</a>.</p>
+</div></div>
+<h1 id="section-560"><a class="header" href="#section-560">Section 560</a></h1>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> checks the information of a <code>TFM</code> file for validity as the file is being read in, so that no further checks will be needed when typesetting is going on.
+The somewhat tedious subroutine that does this is called <em>read_font_info</em>.
+It has four parameters: the user font identifier <em>u</em>, the file name and area strings <em>nom</em> and <em>aire</em>, and the “at” size <em>s</em>.
+If <em>s</em> is negative, it’s the negative of a scale factor to be applied to the design size; <em>s = −1000</em> is the normal case.
+Otherwise <em>s</em> will be substituted for the design size; in this case, <em>s</em> must be positive and less than 2048 pt (i.e., it must be less than <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">27</span></span></span></span></span></span></span></span></span></span></span></span> when considered as an integer).</p>
+<p>The subroutine opens and closes a global file variable called <em>tfm_file</em>.
+It returns the value of the internal font number that was just loaded.
+If an error is detected, an error message is issued and no font information is stored; <em>NULL_FONT</em> is returned in this case.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">#define abort goto bad_tfm // do this when the `TFM` data is wrong
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.c</div>
+<pre><code class="language-c">// &lt;&lt; Start file |font_metric.c|, 1382 &gt;&gt;
+
+// input a `TFM` file
+internal_font_number read_font_info(pointer u, str_number nom, str_number aire, scaled s) {
+    font_index k; // index into |font_info|
+    bool file_opened; // was |tfm_file| successfully opened?
+    halfword lf, lh, bc, ec, nw, nh, nd, ni, nl, nk, ne, np; // sizes of subfiles
+    internal_font_number f; // the new font's number
+    internal_font_number g; // the number to return
+    eight_bits a, b, c, d; // byte variables
+    memory_word qw;
+    scaled sw; // accumulators
+    int bch_label; // left boundary start location, or infinity
+    int bchar; // boundary character, or 256
+    scaled z; // the design size or the ``at'' size
+    int alpha, beta; // auxiliary quantities used in fixed-point multiplication
+    int temp; // temporary data for read_sixteen macro
+    g = NULL_FONT;
+    // &lt;&lt; Read and check the font data; |abort| if the TFM file is malformed; if there's no room for this font, say so and |goto done|; otherwise |incr(font_ptr)| and |goto done|, 562 &gt;&gt;
+bad_tfm:
+    // &lt;&lt; Report that the font won't be loaded, 561 &gt;&gt;
+done:
+    if (file_opened) {
+        b_close(tfm_file);
+    }
+    return g;
+}
+</code></pre>
+</div>
+<h1 id="section-561"><a class="header" href="#section-561">Section 561</a></h1>
+<p>There are programs called <code>TFtoPL</code> and <code>PLtoTF</code> that convert between the <code>TFM</code> format and a symbolic property-list format that can be easily edited.
+These programs contain extensive diagnostic information, so <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> does not have to bother giving
+precise details about why it rejects a particular <code>TFM</code> file.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">#define start_font_error_message                  \
+    do {                                          \
+        print_err("Font ");                       \
+        sprint_cs(u);                             \
+        print_char('=');                          \
+        print_file_name(nom, aire, EMPTY_STRING); \
+        if (s &gt;= 0) {                             \
+            print(" at ");                        \
+            print_scaled(s);                      \
+            print("pt");                          \
+        }                                         \
+        else if (s != -1000) {                    \
+            print(" scaled ");                    \
+            print_int(-s);                        \
+        }                                         \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Report that the font won’t be loaded <a href="./part30.html#section-561">561</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">start_font_error_message;
+if (file_opened) {
+    print(" not loadable: Bad metric (TFM) file");
+}
+else {
+    print(" not loadable: Metric (TFM) file not found");
+}
+help5("I wasn't able to read the size data for this font,")
+    ("so I will ignore the font specification.")
+    ("[Wizards can fix TFM files using TFtoPL/PLtoTF.]")
+    ("You might try inserting a different font spec;")
+    ("e.g., type `I\\font&lt;same font id&gt;=&lt;substitute font name&gt;'.");
+error();
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-560">560</a>.</p>
+</div></div>
+<h1 id="section-562"><a class="header" href="#section-562">Section 562</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read and check the font data; <em>abort</em> if the TFM file is malformed; if there’s no room for this font, say so and <em>goto done</em>; otherwise <em>incr(font_ptr)</em> and <em>goto done</em> <a href="./part30.html#section-562">562</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Open |tfm_file| for input, 563 &gt;&gt;
+// &lt;&lt; Read the TFM size fields, 565 &gt;&gt;
+// &lt;&lt; Use size fields to allocate font information, 566 &gt;&gt;
+// &lt;&lt; Read the TFM header, 568 &gt;&gt;
+// &lt;&lt; Read character data, 569 &gt;&gt;
+// &lt;&lt; Read box dimensions, 571 &gt;&gt;
+// &lt;&lt; Read ligature/kern program, 573 &gt;&gt;
+// &lt;&lt; Read extensible character recipes, 574 &gt;&gt;
+// &lt;&lt; Read font parameters, 575 &gt;&gt;
+// &lt;&lt; Make final adjustments and |goto done|, 576 &gt;&gt;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-560">560</a>.</p>
+</div></div>
+<h1 id="section-563"><a class="header" href="#section-563">Section 563</a></h1>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>String <code>".tfm"</code> is added to the pool.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the other strings <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">put_string(".tfm"); // TFM_EXT: 266
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Internal strings numbers in the pool <a href="./part04.html#section-51">51</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">#define TFM_EXT 266
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Open <em>tfm_file</em> for input <a href="./part30.html#section-563">563</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">file_opened = false;
+if (aire == EMPTY_STRING) {
+    pack_file_name(nom, TEX_FONT_AREA, TFM_EXT);
+}
+else {
+    pack_file_name(nom, aire, TFM_EXT);
+}
+if (!b_open_in(&amp;tfm_file)) {
+    abort;
+}
+file_opened = true;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-562">562</a>.</p>
+</div></div>
+<h1 id="section-564"><a class="header" href="#section-564">Section 564</a></h1>
+<p>Note: A malformed <code>TFM</code> file might be shorter than it claims to be;
+thus <em>eof(tfm_file)</em> might be true when <em>read_font_info</em> refers to <em>tfm_file↑</em> or when it says <em>get(tfm_file)</em>.
+If such circumstances cause system error messages, you will have to defeat them somehow, for example by defining <em>fget</em> to be ‘<strong>begin</strong> <em>get(tfm_file)</em>; <em>if (eof(tfm_file))</em> <strong>then</strong> <em>abort</em>; <strong>end</strong>’.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>fget</em> is implemented with the <em>fgetc</em> function.
+An error occurs if the end of file is reached.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">#define fget(X)                \
+    do {                       \
+        (X) = fgetc(tfm_file); \
+        if (feof(tfm_file)) {  \
+            abort;             \
+        }                      \
+    } while (0)
+
+#define read_sixteen(X) \
+    fget(temp);         \
+    if (temp &gt; 127) {   \
+        abort;          \
+    }                   \
+    fget((X));          \
+    (X) += temp*256
+
+#define store_four_quarters(X) \
+    fget(a);                   \
+    qqqq_b0(qw) = a;           \
+    fget(b);                   \
+    qqqq_b1(qw) = b;           \
+    fget(c);                   \
+    qqqq_b2(qw) = c;           \
+    fget(d);                   \
+    qqqq_b3(qw) = d;           \
+    (X) = qw
+</code></pre>
+</div>
+<h1 id="section-565"><a class="header" href="#section-565">Section 565</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the TFM size fields <a href="./part30.html#section-565">565</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">read_sixteen(lf);
+read_sixteen(lh);
+read_sixteen(bc);
+read_sixteen(ec);
+if (bc &gt; ec + 1 || ec &gt; 255) {
+    abort;
+}
+if (bc &gt; 255) {
+    // |bc == 256| and |ec == 255|
+    bc = 1;
+    ec = 0;
+}
+read_sixteen(nw);
+read_sixteen(nh);
+read_sixteen(nd);
+read_sixteen(ni);
+read_sixteen(nl);
+read_sixteen(nk);
+read_sixteen(ne);
+read_sixteen(np);
+if (lf != 6 + lh + (ec - bc + 1) + nw + nh + nd + ni + nl + nk + ne + np) {
+    abort;
+}
+if ( nw == 0 || nh == 0 || nd == 0 || ni == 0) {
+    abort;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-562">562</a>.</p>
+</div></div>
+<h1 id="section-566"><a class="header" href="#section-566">Section 566</a></h1>
+<p>The preliminary settings of the index-offset variables <em>char_base</em>, <em>width_base</em>, <em>lig_kern_base</em>, <em>kern_base</em>, and <em>exten_base</em> will be corrected later by subtracting <em>MIN_QUARTERWORD</em> from them; and we will subtract 1 from <em>param_base</em> too.
+It’s best to forget about such anomalies until later.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Use size fields to allocate font information <a href="./part30.html#section-566">566</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">lf = lf - 6 - lh; // |lf| words should be loaded into |font_info|
+if (np &lt; 7) {
+    lf += 7 - np; // at least seven parameters will appear
+}
+if (font_ptr == FONT_MAX || fmem_ptr + lf &gt; FONT_MEM_SIZE) {
+    // &lt;&lt; Apologize for not loading the font, |goto done|, 567 &gt;&gt;
+}
+f = font_ptr + 1;
+char_base[f] = fmem_ptr - bc;
+width_base[f] = char_base[f] + ec + 1;
+height_base[f] = width_base[f] + nw;
+depth_base[f] = height_base[f] + nh;
+italic_base[f] = depth_base[f] + nd;
+lig_kern_base[f] = italic_base[f] + ni;
+kern_base[f] = lig_kern_base[f] + nl - KERN_BASE_OFFSET;
+exten_base[f] = kern_base[f] + KERN_BASE_OFFSET + nk;
+param_base[f] = exten_base[f] + ne;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-562">562</a>.</p>
+</div></div>
+<h1 id="section-567"><a class="header" href="#section-567">Section 567</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Apologize for not loading the font, <em>goto done</em> <a href="./part30.html#section-567">567</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">start_font_error_message;
+print(" not loaded: Not enough room left");
+help4("I'm afraid I won't be able to make use of this font,")
+    ("because my memory for character-size data is too small.")
+    ("If you're really stuck, ask a wizard to enlarge me.")
+    ("Or maybe try `I\\font&lt;same font id&gt;=&lt;name of loaded font&gt;'.");
+error();
+goto done;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-566">566</a>.</p>
+</div></div>
+<h1 id="section-568"><a class="header" href="#section-568">Section 568</a></h1>
+<p>Only the first two words of the header are needed by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span><span class="mord">82</span></span></span></span>.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read the TFM header <a href="./part30.html#section-568">568</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (lh &lt; 2) {
+    abort;
+}
+store_four_quarters(font_check[f]);
+read_sixteen(z); // this rejects a negative design size
+fget(temp);
+z = z*256 + temp;
+fget(temp);
+z = z*16 + (temp / 16);
+if (z &lt; UNITY) {
+    abort;
+}
+while (lh &gt; 2) {
+    fget(temp);
+    fget(temp);
+    fget(temp);
+    fget(temp);
+    decr(lh); // ignore the rest of the header
+}
+font_dsize[f] = z;
+if (s != -1000) {
+  if (s &gt;= 0) {
+    z = s;
+  }
+  else {
+    z = xn_over_d(z, -s, 1000);
+  }
+}
+font_size[f] = z;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-562">562</a>.</p>
+</div></div>
+<h1 id="section-569"><a class="header" href="#section-569">Section 569</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read character data <a href="./part30.html#section-569">569</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">for(k = fmem_ptr; k &lt;= width_base[f] - 1; k++) {
+    store_four_quarters(font_info[k]);
+    if ( a &gt;= nw || b/16 &gt;= nh || b % 16 &gt;= nd || c/4 &gt;= ni) {
+        abort;
+    }
+    switch (c % 4) {
+    case LIG_TAG:
+        if (d &gt;= nl) {
+            abort;
+        }
+        break;
+    
+    case EXT_TAG:
+        if (d &gt;= ne) {
+            abort;
+        }
+        break;
+    
+    case LIST_TAG:
+        // &lt;&lt; Check for charlist cycle, 570 &gt;&gt;
+        break;
+    
+    default:
+        do_nothing; // (|NO_TAG|)
+    }
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-562">562</a>.</p>
+</div></div>
+<h1 id="section-570"><a class="header" href="#section-570">Section 570</a></h1>
+<p>We want to make sure that there is no cycle of characters linked together by <em>LIST_TAG</em> entries, since such a cycle would get <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> into an endless loop.
+If such a cycle exists, the routine here detects it when processing the largest character code in the cycle.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">#define check_byte_range(X)         \
+    do {                            \
+        if ((X) &lt; bc || (X) &gt; ec) { \
+            abort;                  \
+        }                           \
+    } while (0)
+
+#define current_character_being_worked_on (k + bc - fmem_ptr)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Check for charlist cycle <a href="./part30.html#section-570">570</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">check_byte_range(d);
+while (d &lt; current_character_being_worked_on) {
+    qw = char_info(f, d);
+    // N.B.: not |d|, since |char_base[f]| hasn't been adjusted yet
+    if (char_tag(qw) != LIST_TAG) {
+        goto not_found;
+    }
+    d = rem_byte(qw); // next character on the list
+}
+if (d == current_character_being_worked_on) {
+    abort; // yes, there's a cycle
+}
+not_found:
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-569">569</a>.</p>
+</div></div>
+<h1 id="section-571"><a class="header" href="#section-571">Section 571</a></h1>
+<p>A <em>fix_word</em> whose four bytes are <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">d</span><span class="mclose">)</span></span></span></span> from left to right represents the number</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">{</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">4</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">12</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">20</span></span></span></span></span></span></span></span></span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">16</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">4</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">12</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">20</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">if </span></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">0</span><span class="mpunct">;</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">if </span></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">255.</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>(No other choices of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span> are allowed, since the magnitude of a number in design-size units must be less than 16.)
+We want to multiply this quantity by the integer <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>, which is known to be less than <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">27</span></span></span></span></span></span></span></span></span></span></span></span>.
+If <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">23</span></span></span></span></span></span></span></span></span></span></span></span>, the individual multiplications <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4445em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span> cannot overflow;
+otherwise we will divide <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span> by 2, 4, 8, or 16, to obtain a multiplier less than <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">23</span></span></span></span></span></span></span></span></span></span></span></span>, and we can compensate for this later.
+If <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span> has thereby been replaced by <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mord">/</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">e</span></span></span></span></span></span></span></span></span></span></span>, let <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span><span class="mbin mtight">−</span><span class="mord mathnormal mtight">e</span></span></span></span></span></span></span></span></span></span></span></span>; we shall compute</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌊(</span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4445em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9474em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">8</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">16</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="mclose">⌋</span></span></span></span></span></p>
+<p>if <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>, or the same quantity minus <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight">e</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> if <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">255</span></span></span></span>.
+This calculation must be done exactly, in order to guarantee portability of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> between computers.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">#define store_scaled(X)                                      \
+    do {                                                     \
+        fget(a);                                             \
+        fget(b);                                             \
+        fget(c);                                             \
+        fget(d);                                             \
+        sw = (((((d*z) / 256) + (c*z)) / 256) + (b*z))/beta; \
+        if (a == 0) {                                        \
+            (X) = sw;                                        \
+        }                                                    \
+        else if (a == 255) {                                 \
+            (X) = sw - alpha;                                \
+        }                                                    \
+        else {                                               \
+            abort;                                           \
+        }                                                    \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read box dimensions <a href="./part30.html#section-571">571</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">// &lt;&lt; Replace |z| by |z'| and compute \alpha, \beta, 572 &gt;&gt;
+for(k = width_base[f]; k &lt;= lig_kern_base[f] - 1; k++) {
+    store_scaled(font_info[k].sc);
+}
+if (font_info[width_base[f]].sc != 0) {
+    abort; // width[0] must be zero
+}
+if (font_info[height_base[f]].sc != 0) {
+    abort; // height[0] must be zero
+}
+if (font_info[depth_base[f]].sc != 0) {
+    abort; // depth[0] must be zero
+}
+if (font_info[italic_base[f]].sc != 0) {
+    abort; // italic[0] must be zero
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-562">562</a>.</p>
+</div></div>
+<h1 id="section-572"><a class="header" href="#section-572">Section 572</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Replace <em>z</em> by <em>z’</em> and compute \alpha, \beta <a href="./part30.html#section-572">572</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">alpha = 16;
+while (z &gt;= 0x800000) {
+    z /= 2;
+    alpha += alpha;
+}
+beta = 256 / alpha;
+alpha *= z;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-571">571</a>.</p>
+</div></div>
+<h1 id="section-573"><a class="header" href="#section-573">Section 573</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.h</div>
+<pre><code class="language-c">#define check_existence(X)                              \
+    do {                                                \
+        check_byte_range((X));                          \
+        qw = char_info(f, (X)); /* N.B.: not |qi(X)| */ \
+        if (!char_exists(qw)) {                         \
+            abort;                                      \
+        }                                               \
+    } while (0)
+</code></pre>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read ligature/kern program <a href="./part30.html#section-573">573</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">bch_label = 0x7fff;
+bchar = 256;
+if (nl &gt; 0) {
+    for(k = lig_kern_base[f]; k &lt;= kern_base[f] + KERN_BASE_OFFSET - 1; k++) {
+        store_four_quarters(font_info[k]);
+        if (a &gt; 128) {
+            if (256*c + d &gt;= nl) {
+                abort;
+            }
+            if (a == 255 &amp;&amp; k == lig_kern_base[f]) {
+                bchar = b;
+            }
+        }
+        else {
+            if (b != bchar) {
+                check_existence(b);
+            }
+            if (c &lt; 128) {
+                check_existence(d); // check ligature
+            }
+            else if (256*(c - 128) + d &gt;= nk) {
+                abort; // check kern
+            }
+            if (a &lt; 128 &amp;&amp; k - lig_kern_base[f] + a + 1 &gt;= nl) {
+                abort;
+            }
+        }
+    }
+    if (a == 255) {
+        bch_label = 256*c + d;
+    }
+}
+for(k = kern_base[f] + KERN_BASE_OFFSET; k &lt;= exten_base[f] - 1; k++) {
+    store_scaled(font_info[k].sc);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-562">562</a>.</p>
+</div></div>
+<h1 id="section-574"><a class="header" href="#section-574">Section 574</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read extensible character recipes <a href="./part30.html#section-574">574</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">for(k = exten_base[f]; k &lt;= param_base[f] - 1; k++) {
+    store_four_quarters(font_info[k]);
+    if (a != 0) {
+        check_existence(a);
+    }
+    if (b != 0) {
+        check_existence(b);
+    }
+    if (c != 0) {
+        check_existence(c);
+    }
+    check_existence(d);
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-562">562</a>.</p>
+</div></div>
+<h1 id="section-575"><a class="header" href="#section-575">Section 575</a></h1>
+<p>We check to see that the <code>TFM</code> file doesn’t end prematurely;
+but no error message is given for files having more than <em>lf</em> words.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p>Check removed.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Read font parameters <a href="./part30.html#section-575">575</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">for(k = 1; k &lt;= np; k++) {
+    if (k == 1) {
+        // the |slant| parameter is a pure number
+        fget(sw);
+        if (sw &gt; 127) {
+            sw -= 256;
+        }
+        fget(temp);
+        sw = sw*256 + temp;
+        fget(temp);
+        sw = sw*256 + temp;
+        fget(temp);
+        font_info[param_base[f]].sc = sw*16 + temp/16;
+    }
+    else {
+        store_scaled(font_info[param_base[f] + k - 1].sc);
+    }
+}
+// if (eof(tmf_file)) then abort;
+for(k = np + 1; k &lt;= 7; k++) {
+    font_info[param_base[f] + k - 1].sc = 0;
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-562">562</a>.</p>
+</div></div>
+<h1 id="section-576"><a class="header" href="#section-576">Section 576</a></h1>
+<p>Now to wrap it up, we have checked all the necessary things about the <code>TFM</code> file, and all we need to do is put the finishing touches on the data for the new font.</p>
+<div class="blocknote">
+<div class="blocknote-header">NOTE</div>
+<blockquote>
+<p><em>adjust</em> has been removed since <em>MIN_QUARTERWORD</em> is zero.</p>
+</blockquote>
+</div>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Make final adjustments and <em>goto done</em> <a href="./part30.html#section-576">576</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (np &gt;= 7) {
+    font_params[f] = np;
+}
+else {
+    font_params[f] = 7;
+}
+hyphen_char[f] = default_hyphen_char;
+skew_char[f] = default_skew_char;
+if (bch_label &lt; nl) {
+    bchar_label[f] = bch_label + lig_kern_base[f];
+}
+else {
+    bchar_label[f] = NON_ADDRESS;
+}
+font_bchar[f] = bchar;
+font_false_bchar[f] = bchar;
+if (bchar &lt;= ec &amp;&amp; bchar &gt;= bc) {
+    qw = char_info(f, bchar); // N.B.: not |qi(bchar)|
+    if (char_exists(qw)) {
+        font_false_bchar[f] = NON_CHAR;
+    }
+}
+font_name[f] = nom;
+font_area[f] = aire;
+font_bc[f] = bc;
+font_ec[f] = ec;
+font_glue[f] = null;
+// adjust(char_base);
+// adjust(width_base);
+// adjust(lig_kern_base);
+// adjust(kern_base);
+// adjust(exten_base);
+decr(param_base[f]);
+fmem_ptr += lf;
+font_ptr = f;
+g = f;
+goto done;
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-562">562</a>.</p>
+</div></div>
+<h1 id="section-577"><a class="header" href="#section-577">Section 577</a></h1>
+<p>Before we forget about the format of these tables, let’s deal with two of <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span>’s basic scanning routines related to font information.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures that scan font-related stuff <a href="./part30.html#section-577">577</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">void scan_font_ident() {
+    internal_font_number f;
+    halfword m;
+    // &lt;&lt; Get the next non-blank non-call token, 406 &gt;&gt;
+    if (cur_cmd == DEF_FONT) {
+        f = cur_font;
+    }
+    else if (cur_cmd == SET_FONT) {
+        f = cur_chr;
+    }
+    else if (cur_cmd == DEF_FAMILY) {
+        m = cur_chr;
+        scan_four_bit_int();
+        f = equiv(m + cur_val);
+    }
+    else {
+        print_err("Missing font identifier");
+        help2("I was looking for a control sequence whose")
+            ("current meaning has been defined by \\font.");
+        back_error();
+        f = NULL_FONT;
+    }
+    cur_val = f;
+}
+</code></pre>
+<div class="blockcode-footer-seealso">
+<p>See also section <a href="./part30.html#section-578">578</a>.</p>
+</div><div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part26.html#section-409">409</a>.</p>
+</div></div>
+<h1 id="section-578"><a class="header" href="#section-578">Section 578</a></h1>
+<p>The following routine is used to implement ‘<code>\fontdimen</code> <em>n f’</em>.
+The boolean parameter <em>writing</em> is set <em>true</em> if the calling program intends to change the parameter value.</p>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Declare procedures that scan font-related stuff <a href="./part30.html#section-577">577</a> ⟩+≡</p>
+</div>
+<pre><code class="language-c">// sets |cur_val| to |font_info| location
+void find_font_dimen(bool writing) {
+    internal_font_number f;
+    int n; // the parameter number
+    scan_int();
+    n = cur_val;
+    scan_font_ident();
+    f = cur_val;
+    if (n &lt;= 0) {
+        cur_val = fmem_ptr;
+    }
+    else {
+        if (writing &amp;&amp; n &lt;= SPACE_SHRINK_CODE &amp;&amp; n &gt;= SPACE_CODE &amp;&amp; font_glue[f] != null) {
+            delete_glue_ref(font_glue[f]);
+            font_glue[f] = null;
+        }
+        if (n &gt; font_params[f]) {
+            if (f &lt; font_ptr) {
+                cur_val = fmem_ptr;
+            }
+            else {
+                // &lt;&lt; Increase the number of parameters in the last font, 580 &gt;&gt;
+            }
+        }
+        else {
+            cur_val = n + param_base[f];
+        }
+    }
+    // &lt;&lt; Issue an error message if |cur_val = fmem_ptr|, 579 &gt;&gt;
+}
+</code></pre>
+</div>
+<h1 id="section-579"><a class="header" href="#section-579">Section 579</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Issue an error message if <em>cur_val = fmem_ptr</em> <a href="./part30.html#section-579">579</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">if (cur_val == fmem_ptr) {
+    print_err("Font ");
+    print_esc_strnumber(font_id_text(f));
+    print(" has only ");
+    print_int(font_params[f]);
+    print(" fontdimen parameters");
+    help2("To increase the number of font parameters, you must")
+        ("use \\fontdimen immediately after the \\font is loaded.");
+    error();
+}
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-578">578</a>.</p>
+</div></div>
+<h1 id="section-580"><a class="header" href="#section-580">Section 580</a></h1>
+<div class="blockcode">
+<div class="blockcode-header-bname">
+<p>⟨ Increase the number of parameters in the last font <a href="./part30.html#section-580">580</a> ⟩≡</p>
+</div>
+<pre><code class="language-c">do {
+    if (fmem_ptr == FONT_MEM_SIZE) {
+        overflow("font memory", FONT_MEM_SIZE);
+    }
+    font_info[fmem_ptr].sc = 0;
+    incr(fmem_ptr);
+    incr(font_params[f]);
+} while (n != font_params[f]);
+cur_val = fmem_ptr - 1; // this equals |param_base[f] + font_params[f]|
+</code></pre>
+<div class="blockcode-footer-usedin">
+<p>This code is used in section <a href="./part30.html#section-578">578</a>.</p>
+</div></div>
+<h1 id="section-581"><a class="header" href="#section-581">Section 581</a></h1>
+<p>When <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> wants to typeset a character that doesn’t exist, the character node is not created; thus the output routine can assume that characters exist when it sees them.
+The following procedure prints a warning message unless the user has suppressed it.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.c</div>
+<pre><code class="language-c">void char_warning(internal_font_number f, eight_bits c) {
+    if (tracing_lost_chars &gt; 0) {
+        begin_diagnostic();
+        print_nl("Missing character: There is no ");
+        print_strnumber(c);
+        print(" in font ");
+        slow_print(font_name[f]);
+        print_char('!');
+        end_diagnostic(false);
+    }
+}
+</code></pre>
+</div>
+<h1 id="section-582"><a class="header" href="#section-582">Section 582</a></h1>
+<p>Here is a function that returns a pointer to a character node for a given character in a given font.
+If that character doesn’t exist, <em>null</em> is returned instead.</p>
+<div class="blockcode">
+<div class="blockcode-header-fname">font_metric.c</div>
+<pre><code class="language-c">pointer new_character(internal_font_number f, eight_bits c) {
+    pointer p; // newly allocated node
+    if (font_bc[f] &lt;= c &amp;&amp; font_ec[f] &gt;= c &amp;&amp; char_exists(char_info(f, c))) {
+        p = get_avail();
+        font(p) = f;
+        character(p) = c;
+        return p;
+    }
+    char_warning(f, c);
+    return null;
+}
+</code></pre>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="part29.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="part31.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="part29.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="part31.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
